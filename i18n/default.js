@@ -41,7 +41,7 @@ var htmllang = {
 	"WINDOW0_PAR0": "Made by Michal Procházka, 2021.",
 	"WINDOW0_PAR1":
 		"Based on my work of reverse-engineering the communication<br>" +
-		"protocel between the CMA €Lab interface and CMA Coach.",
+		"protocol between the CMA €Lab interface and CMA Coach.",
 	"WINDOW0_PAR2": "See more here:",
 
 	"WINDOW1_TITLE": "Internal error",
