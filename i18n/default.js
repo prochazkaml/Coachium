@@ -183,9 +183,33 @@ var jslang = {
 };
 
 const languages = [
-	{ "id": "en", "name": "🇬🇧 English" },
-	{ "id": "cs", "name": "🇨🇿 Čeština" },
+	{ "id": "en", "name": "🇬🇧 English", "title": "Choose a language" },
+	{ "id": "cs", "name": "🇨🇿 Čeština", "title": "Vyberte jazyk" },
+	{ "id": "fr", "name": "🇫🇷 Français", "title": "Choisissez votre langage" },
 ];
+
+var language_win_anim_cycle = 0;
+
+function language_win_anim() {
+	get_win_el_tag(WINDOWID_LANGUAGE_SELECTOR, "h1").style.opacity = 1;
+	get_win_el_tag(WINDOWID_LANGUAGE_SELECTOR, "h1").innerHTML = languages[language_win_anim_cycle].title;
+	
+	setTimeout(() => {
+		get_win_el_tag(WINDOWID_LANGUAGE_SELECTOR, "h1").style.opacity = 0;
+	}, 2900);
+
+	language_win_anim_cycle++;
+	if(language_win_anim_cycle >= languages.length) language_win_anim_cycle = 0;
+
+	setTimeout(language_win_anim, 4000);
+}
+
+function start_language_win() {
+	language_win_anim_cycle = 0;
+	language_win_anim();
+
+	popup_window(WINDOWID_LANGUAGE_SELECTOR);
+}
 
 for(var language of languages) {
 	var option = document.createElement("option");
