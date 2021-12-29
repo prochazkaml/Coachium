@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   aria-hidden="true"
+   focusable="false"
+   data-prefix="fas"
+   data-icon="play"
+   class="svg-inline--fa fa-play"
+   role="img"
+   viewBox="0 0 384 512"
+   version="1.1"
+   id="svg4"
+   sodipodi:docname="graphstart.svg"
+   width="384"
+   height="512"
+   inkscape:version="1.1.1 (1:1.1+202109281949+c3084ef5ed)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs8" />
+  <sodipodi:namedview
+     id="namedview6"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     showgrid="false"
+     fit-margin-right="0"
+     inkscape:zoom="0.9420484"
+     inkscape:cx="148.08156"
+     inkscape:cy="304.65526"
+     inkscape:window-width="1918"
+     inkscape:window-height="1059"
+     inkscape:window-x="0"
+     inkscape:window-y="19"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg4" />
+  <path
+     fill="currentColor"
+     d="M 48,480 C 20.6,480 0,457.6 0,432 V 80 C 0,54.62 20.4,32.02 48.01,32.02 c 8.686,0 17.35,2.352 25.02,7.031 l 288,176 C 375.3,223.8 384,239.3 384,256 c 0,16.7 -8.703,32.23 -22.97,40.95 l -288,176 C 65.4,477.6 56.7,480 48,480 Z"
+     id="path2" />
+</svg>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   aria-hidden="true"
+   focusable="false"
+   data-prefix="fas"
+   data-icon="pause"
+   class="svg-inline--fa fa-pause"
+   role="img"
+   viewBox="0 0 384 512"
+   version="1.1"
+   id="svg827"
+   sodipodi:docname="graphstop.svg"
+   width="384"
+   height="512"
+   inkscape:version="1.1.1 (1:1.1+202109281949+c3084ef5ed)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs831" />
+  <sodipodi:namedview
+     id="namedview829"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     showgrid="false"
+     inkscape:zoom="1.2335253"
+     inkscape:cx="107.41571"
+     inkscape:cy="313.73495"
+     inkscape:window-width="1918"
+     inkscape:window-height="1059"
+     inkscape:window-x="0"
+     inkscape:window-y="19"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg827" />
+  <path
+     fill="currentColor"
+     d="m 304,63.1 h -32 c -26.51,0 -48,21.49 -48,47.1 v 288 c 0,26.51 21.49,48 48,48 l 32,1.8 c 26.51,0 48,-21.49 48,-48 V 112 C 352,85.49 330.5,63.1 304,63.1 Z m -192,0 H 80 c -26.51,0 -48,21.49 -48,48 v 288 c 0,27.4 21.49,48.9 48,48.9 h 32 c 26.51,0 48,-21.49 48,-48 V 112 C 160,85.49 138.5,63.1 112,63.1 Z"
+     id="path825" />
+</svg>

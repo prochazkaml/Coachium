@@ -1,0 +1,1 @@
+var decimal_separator = ",";

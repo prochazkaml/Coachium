@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+	</head>
+	<body>
+		<script>
+			// V podstatě celé ukradené odsud: https://developers.google.com/drive/api/v3/quickstart/js
+
+			var signedin = false;
+
+			function msg(...rest) {
+				window.parent.postMessage({
+					source: 'gdrive_iframe',
+					message: rest,
+				}, '*');
+			};
+
+			/**
+			 *  Initializes the API client library and sets up sign-in state
+			 *  listeners.
+			 */
+			function initClient() {
+				gapi.client.init({
+					apiKey: 'AIzaSyDs-Sd-vYMoCDzZG4m4vzisNjBJzRimQ5s',
+//					clientId: '883835263732-tlmcuubn46btmrprh474vtqsfls1ccg9.apps.googleusercontent.com',
+					clientId: '883835263732-5sckpbbaigo4sod9021kp5rei7tmhik8.apps.googleusercontent.com',
+					discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"],
+					scope: 'https://www.googleapis.com/auth/drive.file'
+				}).then(function () {
+					// Listen for sign-in state changes.
+					// Tady jsem to trošičku okuchal...
+					gapi.auth2.getAuthInstance().isSignedIn.listen((s) => { signedin = s; });
+
+					// Handle the initial sign-in state.
+					signedin = gapi.auth2.getAuthInstance().isSignedIn.get();
+				}, function(error) {
+					msg(JSON.stringify(error, null, 2));
+				});
+			}
+
+			function get_user_name() {
+				if(!signedin) {
+					try {
+						gapi.auth2.getAuthInstance().signIn().then(() => {
+							msg("username:" + gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile().getName());
+						}, (error) => {
+							msg("username:" + JSON.stringify(error, null, 2))
+						});
+					} catch(err) {
+						msg("username:" + err);
+					}
+				} else {
+					msg("username:" + gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile().getName());
+				}
+			}
+
+			function save_file_to_Drive(name, data) {
+				if(!signedin) {
+					try {
+						gapi.auth2.getAuthInstance().signIn().then(() => {
+							save_file(name, data);
+						}, (error) => {
+							msg(JSON.stringify(error, null, 2))
+						});
+					} catch(err) {
+						msg(err);
+					}
+				} else {
+					save_file(name, data);
+				}
+			}
+
+			/**
+			 * Print files.
+			 */
+			function save_file(name, data) {
+				// Děkuji ti, cizinče: https://stackoverflow.com/a/35182924
+
+				const boundary = '-------314159265358979323846';
+				const delimiter = "\r\n--" + boundary + "\r\n";
+				const close_delim = "\r\n--" + boundary + "--";
+
+				var metadata = {
+					'name': name + ".coachium",
+					'mimeType': 'text/xml'
+				};
+
+				var multipartRequestBody =
+						delimiter +
+						'Content-Type: application/json\r\n\r\n' +
+						JSON.stringify(metadata) +
+						delimiter +
+						'Content-Type: text/xml\r\n\r\n' +
+						data +
+						close_delim;
+
+				var request = gapi.client.request({
+						'path': '/upload/drive/v3/files',
+						'method': 'POST',
+						'params': {'uploadType': 'multipart'},
+						'headers': {
+							'Content-Type': 'multipart/related; boundary="' + boundary + '"'
+						},
+						'body': multipartRequestBody});
+
+				var callback = function(file) {
+					msg(file.id);
+				};
+				
+				request.execute(callback);
+			}
+		</script>
+		<script async defer src="https://apis.google.com/js/api.js"
+			onload="this.onload=function(){};gapi.load('client:auth2', initClient);"
+			onreadystatechange="if (this.readyState === 'complete') this.onload()">
+		</script>
+	</body>
+</html>

@@ -1,0 +1,353 @@
+@font-face {
+	font-family: "Ubuntu";
+	font-style: normal;
+	font-weight: normal;
+	src:
+		local(""),
+		url("misc/ubuntu_normal.woff2") format("woff2");
+}
+
+@font-face {
+	font-family: "Ubuntu";
+	font-style: normal;
+	font-weight: bold;
+	src:
+		local(""),
+		url("misc/ubuntu_thicc.woff2") format("woff2");
+}
+
+html {
+	opacity: 0;
+	transition: opacity .3s;
+/*	background-color: #97b3d9;*/
+	background-color: #FFF;
+}
+
+html,body {
+	margin: 0;
+	width: 100%;
+	height: 100%;
+	overflow-y: hidden;
+}
+
+body {
+	font-family: "Ubuntu", sans-serif;
+	background: url("misc/wallpaper.webp");
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	display: flex;
+	flex-direction: column;
+}
+
+header {
+	padding: 2em;
+	background-color: #88F;
+	height: 12em;
+	box-shadow: 0 0 .3em rgba(0, 0, 0, .3);
+	color: white;
+	z-index: 2;
+
+	transition: height .3s, padding .3s, background-color .3s;
+}
+
+nav {
+	height: 0;
+
+	background-color: #CCF;
+	box-shadow: 0 0 .3em rgba(0, 0, 0, .3);
+	z-index: 1;
+
+	transition: height .3s, background-color .3s;	
+}
+
+#navcontents {
+	height: 100%;
+
+	opacity: 0;
+
+	display: none;
+	flex-direction: row;
+	flex-wrap: wrap;
+	align-items: center;
+    justify-content: center;
+
+	transition: opacity .3s;
+}
+
+.navbutton {
+	height: 1.5em;
+	margin: .5em .25em;
+
+	cursor: pointer;
+
+	transition: filter .3s;
+}
+
+.navbutton:hover {
+	filter: contrast(.3);
+}
+
+.navbutton img {
+	height: 1.5em;
+}
+
+.navspacer {
+	width: 1em;
+}
+
+#headercontents {
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	align-items: center;
+
+	opacity: 1;
+	transition: opacity .3s;
+}
+
+#introimg {
+	height: 5em;
+}
+
+#windowoverlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, .5);
+	opacity: 0;
+	z-index: 10;
+	pointer-events: none;
+
+	transition: opacity .3s;
+}
+
+#windowcontainer {
+	display: flex;
+	flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+	width: 100%;
+	height: 100%;
+
+	transform: scale(.9);
+	transition: transform .3s;
+}
+
+#windowcloselayer {
+	position: absolute;
+	
+	width: 100%;
+	height: 100%;
+
+	z-index: 11;
+}
+
+.popupwindow {
+	background-color: #FFF;
+	padding: 1em;
+	box-shadow: 0 0 .5em rgba(0, 0, 0, .3);
+	z-index: 12;
+	text-align: center;
+	border-radius: .5em;
+}
+
+.popupwindow h1 {
+	margin: 0;
+}
+
+.inlineshilllink {
+	padding: 0 .3em;
+	text-decoration: none;
+	display: inline;
+}
+
+.windowbutton {
+	flex: 1;
+	height: 1em;
+	background-color: rgba(0, 0, 0, .2);
+	padding: .5em;
+	margin: .5em;
+	border-radius: 9999em;
+/*	box-shadow: 0 0 .5em rgba(0, 0, 0, .6); Stín tady vypadá fakt divně... 😕 */
+
+	cursor: pointer;
+	user-select: none;
+	transition: background-color .2s;
+}
+
+.windowbutton:hover {
+	background-color: rgba(0, 0, 0, .3);
+}
+
+.windowbuttonlist {
+	width: calc(100% + 1em);
+	margin-top: 1em;
+	margin-left: -.5em;
+	margin-right: -.5em;
+	margin-bottom: -.5em;
+
+	display: flex;
+	flex-direction: row;
+}
+
+.connectbutton {
+	width: calc(907 / 200 * 5em - 1em);
+	height: 1em;
+	background-color: rgba(255, 255, 255, .8);
+	border-radius: 9999em;
+	padding: .5em;
+	margin: auto;
+	margin-top: 1.5em;
+	box-shadow: 0 0 .5em rgba(0, 0, 0, .3);
+	cursor: pointer;
+	user-select: none;
+	transition: background-color .2s;
+	color: black;
+	text-align: center;
+}
+
+.connectbutton:hover {
+	background-color: rgba(255, 255, 255, .5);
+}
+
+#statusmsg {
+	text-align: center;
+	font-weight: bold;
+	flex: 1;
+}
+
+#introerrmsg {
+	font-weight: bold;
+	opacity: 0;
+	transition: opacity .3s;
+}
+
+#initialheader {
+	flex: 1;
+	text-align: right;
+}
+
+footer {
+	height: 0;
+	background-color: #88F;
+	box-shadow: 0 0 .3em rgba(0, 0, 0, .3);
+	z-index: 1;
+
+	transition: height .3s, background-color .3s;
+}
+
+#footercontents {
+	opacity: 0;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	padding: .5em;
+	height: calc(100% - 2em);
+	transition: opacity .3s;
+}
+
+.port {
+	flex: 1;
+	margin: .5em;
+	box-shadow: 0 0 .5em rgba(0, 0, 0, .3);
+	min-width: 28em;
+	padding: .5em;
+	background-color: rgba(255, 255, 255, .8);
+	height: 3em;
+
+	transition: background-color .3s;
+
+	display: flex;
+	flex-direction: row;	
+	align-items: center;
+}
+
+.portlabel {
+	font-size: 2em;
+	margin: 0 .25em;
+}
+
+.portstatus {
+	margin: 0 .5em;
+	flex: 1;
+}
+
+.portvalue {
+	font-size: 2em;
+	margin: 0 .25em;
+}
+
+.portdivider {
+	flex: 1;
+	margin-left: .5em;
+
+	display: flex;
+	flex-direction: column;
+}
+
+main {
+	flex: 1;
+	z-index: 0;
+	background-color: #FFF;
+	opacity: 0;
+
+	transition: opacity .3s;
+}
+
+progress {
+	width: 100%;
+}
+
+a {
+	color: black;
+}
+
+#capturesetuptable table {
+	width: 100%;
+}
+
+#capturesetuptable td {
+	padding-top: .5em;
+}
+
+#capturesetuptable tr > td:first-child {
+	width: 50%;
+	text-align: right;
+	padding-right: .5em;
+}
+
+#capturesetuptable tr > td:last-child {
+	width: 50%;
+	text-align: left;
+	padding-left: .5em;
+}
+
+#table table {
+	margin-top: 1em;
+}
+
+.infomsg {
+	margin: .5em;
+}
+
+#table td, #table th {
+	padding: .25em;
+	text-align: left;
+}
+
+#table th {
+	background-color: #EEE;
+}
+
+#table table, #table td, #table th {
+	border: 2px solid black;
+	border-collapse: collapse;
+}
+
+* {
+	transition: flex .3s;
+}
