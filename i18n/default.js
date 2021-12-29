@@ -182,6 +182,25 @@ var jslang = {
 	"SETUP_SENSOR_ERR": "These sensors are not connected.",
 };
 
+const languages = [
+	{ "id": "en", "name": "🇬🇧 English" },
+	{ "id": "cs", "name": "🇨🇿 Čeština" },
+];
+
+for(var language of languages) {
+	var option = document.createElement("option");
+
+	option.innerHTML = language.name;
+
+	((id) => {
+		option.onclick = () => {
+			window.location.href = ".?lang=" + id;
+		};
+	})(language.id);
+
+	get_win_el_tag(WINDOWID_LANGUAGE_SELECTOR, "select").appendChild(option);
+}
+
 const params = new URLSearchParams(window.location.search);
 
 var lang = params.get("lang");
@@ -191,7 +210,7 @@ if(!lang) lang = "en";
 var script = document.createElement("script");
 
 script.src = "i18n/" + lang + ".js";
-script.addEventListener('load', () => {
+script.onload = () => {
 	for(var key of Object.keys(alt_htmllang))
 		htmllang[key] = alt_htmllang[key];
 
@@ -206,6 +225,6 @@ script.addEventListener('load', () => {
 				el.innerHTML = htmllang[key];
 		}
 	}
-});
+};
 
 document.body.appendChild(script);

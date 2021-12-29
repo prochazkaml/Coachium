@@ -19,7 +19,8 @@
 			<div style="margin: 1em">
 				<span id="emulatorbutton"><b class="L18N_HOMEPAGE_VERSION"></b></span> | 
 				<a href="./about/"><span class="L18N_HOMEPAGE_ABOUT_LINK"></span></a> | 
-				<a href="./privacy-policy/"><span class="L18N_HOMEPAGE_PRIVACY_POLICY_LINK"></span></a>
+				<a href="./privacy-policy/"><span class="L18N_HOMEPAGE_PRIVACY_POLICY_LINK"></span></a> |
+				<span class="navbutton"><img src="icons/language.svg" style="height: 1em; vertical-align: text-bottom;" onclick="popup_window(WINDOWID_LANGUAGE_SELECTOR);"></span>
 			</div>
 		</div>
 
@@ -313,6 +314,11 @@
 						<div class="windowbutton L18N_BUTTON_RENAME" onclick="close_window();rename_capture(true);"></div>
 						<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();"></div>
 					</div>
+				</div>
+
+				<div id="window14" class="popupwindow" style="display: none">
+					<select size="10" style="width: 20em;font-size: 1.2em;font-family:Ubuntu">
+					</select>
 				</div>
 			</div>
 		</div>
