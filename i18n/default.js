@@ -184,8 +184,8 @@ var jslang = {
 
 const languages = [
 	{ "id": "en", "name": "🇬🇧 English", "title": "Choose a language" },
-	{ "id": "cs", "name": "🇨🇿 Čeština", "title": "Vyberte jazyk" },
-	{ "id": "fr", "name": "🇫🇷 Français", "title": "Choisissez votre langage" },
+	{ "id": "cs", "name": "🇨🇿 Čeština (Czech)", "title": "Vyberte jazyk" },
+	{ "id": "fr", "name": "🇫🇷 Français (French)", "title": "Choisissez une langue" },
 ];
 
 var language_win_anim_cycle = 0;
