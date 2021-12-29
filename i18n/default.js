@@ -7,7 +7,7 @@ var htmllang = {
 
 	// Button descriptions
 
-	"BUTTON_CONNECT": "Connect via USB",
+	"BUTTON_CONNECT": "Connect to interface",
 	"BUTTON_START_GUEST": "Start in guest mode",
 	"BUTTON_CLOSE": "Close",
 	"BUTTON_START": "Start",
@@ -130,6 +130,56 @@ var htmllang = {
 	"WINDOW12_PAR2": "Are you sure that you want to proceed?",
 
 	"WINDOW13_TITLE": "How will this capture be called?"
+};
+
+var jslang = {
+	// mainwindow.js
+	
+	"MAINWIN_NO_CAPTURES_1": "No captures have been created yet.",
+	"MAINWIN_NO_CAPTURES_2": "You can either create a new capture, or load another workbook file.",
+
+	"CAPTURE_FMT": "Capture {0} from {1}: {2}",
+
+	"INTERVAL": "Interval (s)",
+	"SENSOR_1": "Sensor 1 ({0})",
+	"SENSOR_2": "Sensor 2 ({0})",
+
+	// gdrive_interface.js
+
+	"DEFAULT_FILENAME": "{0} – Laboratory work – {1}",
+
+	// file.js
+
+	"DEFAULT_USERNAME": "John Doe",
+	"STATUS_FILE_LOADED": "File loaded.",
+	"STATUS_FILE_SAVED": "File is ready to save.",
+	"STATUS_CAPTURE_REMOVED": "Capture {0} removed.",
+	"STATUS_ALL_REMOVED": "All captures removed.",
+
+	"UNTITLED_CAPTURE": "Untitled capture",
+
+	// elab.js
+
+	"SENSOR_LOADING": "Loading intelligent sensor data...",
+	"SENSOR_DISCONNECTED": "Sensor not connected",
+	"SENSOR_INTELLIGENT": "Intelligent sensor",
+
+	"STATUS_CAPTURE_RUNNING": "Capture in progress... ({0} samples, {1} seconds)",
+	"STATUS_CAPTURE_FINISHED": "Capture finished.",
+
+	"STATUS_NO_DEVICE_SELECTED": "No device was selected!",
+	"STATUS_DEVICE_DISCONNECTED": "{0} was forcefully disconnected!",
+
+	// ui.js
+
+	"CHECKSUM_NOT_RESPONDING": "not responding",
+	"BUTTON_DISCONNECT": "Disconnect from interface",
+	"STATUS_WELCOME": "Welcome to Coachium!",
+	"STATUS_DISCONNECTED": "Device disconnected.",
+
+	"SETUP_CLOSEST_USABLE_FREQ": "The closest usable frequency<br>is {0} Hz.",
+	"SETUP_REDUCED_RUNTIME": "The capture will run for only<br>{0} seconds.",
+	"SETUP_SENSOR_ERR": "These sensors are not connected.",
 };
 
 for(var key of Object.keys(htmllang)) {

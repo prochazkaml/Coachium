@@ -326,7 +326,7 @@ function canvas_reset() {
 
 		ctx.textBaseline = "top";
 		ctx.font = "bold 16px Ubuntu";
-		ctx.fillText("Měření " + (selectedcapture + 1) + " z " + captures.length + ": " + captures[selectedcapture].title, graph_margin_left, (graph_margin_top - 16) / 2);
+		ctx.fillText(format(jslang.CAPTURE_FMT, selectedcapture + 1, captures.length, captures[selectedcapture].title), graph_margin_left, (graph_margin_top - 16) / 2);
 
 		// Pokud právě běží záznam, ukážeme "crosshair"
 
@@ -343,8 +343,8 @@ function canvas_reset() {
 			ctx.stroke();
 		}
 	} else {
-		ctx.fillText("Zatím nebyl vytvořen žádný záznam.", canvas.width / 2, canvas.height / 2 - 16);
-		ctx.fillText("Buď můžete spustit nový záznam, nebo otevřít jiný sešit záznamu.", canvas.width / 2, canvas.height / 2 + 16);
+		ctx.fillText(jslang.MAINWIN_NO_CAPTURES_1, canvas.width / 2, canvas.height / 2 - 16);
+		ctx.fillText(jslang.MAINWIN_NO_CAPTURES_2, canvas.width / 2, canvas.height / 2 + 16);
 	}
 }
 
@@ -360,25 +360,21 @@ function table_reset() {
 
 	if(captures.length > 0) {
 		out = "<div style='margin-left:" + graph_margin_left + "px;margin-top:" + ((graph_margin_top - 16) / 2 - 2) + "px;margin-bottom:1em'><b>" + 
-			"Měření " + (selectedcapture + 1) + " z " + captures.length + ": " + tags_encode(captures[selectedcapture].title) + "</b>";
+		format(jslang.CAPTURE_FMT, selectedcapture + 1, captures.length, tags_encode(captures[selectedcapture].title)) + "</b>";
 		
 		switch(capture.sensorsetup) {
 			case 0:
-				out += "<table><tr><th>Interval (s)</th><th>Čidlo 1 (" + capture.port_a.unit + ")</th><th>Čidlo 2 (" + capture.port_b.unit + ")</th></tr>";
+				out += "<table><tr><th>" + jslang.INTERVAL + "</th><th>" + format(jslang.SENSOR_1, capture.port_a.unit) + "</th><th>" + format(jslang.SENSOR_2, capture.port_b.unit) + "</th></tr>";
 				break;
 
 			case 1:
-				out += "<table><tr><th>Interval (s)</th><th>Čidlo 1 (" + capture.port_a.unit + ")</th></tr>";
+				out += "<table><tr><th>" + jslang.INTERVAL + "</th><th>" + format(jslang.SENSOR_1, capture.port_a.unit) + "</th></tr>";
 				break;
 
 			case 2:
-				out += "<table><tr><th>Interval (s)</th><th>Čidlo 2 (" + capture.port_b.unit + ")</th></tr>";
+				out += "<table><tr><th>" + jslang.INTERVAL + "</th><th>" + format(jslang.SENSOR_2, capture.port_b.unit) + "</th></tr>";
 				break;
-
-			default:
-				table.innerHTML = "<h1>Něco se posralo, a já zaboha nevím, co.</h1>";
-				return;
-			}
+		}
 
 		var captureddata = (capturerunning && selectedcapture == (captures.length - 1)) ? receivedcapture : capture.captureddata;
 		var capturedsofar = (capturerunning && selectedcapture == (captures.length - 1)) ? receivedsofar : captureddata.length;
@@ -409,7 +405,7 @@ function table_reset() {
 
 		out += "</table></div>";
 	} else {
-		out = "<div class='infomsg'><h2>Zatím nebyl vytvořen žádný záznam.</h2><h3>Buď můžete spustit nový záznam, nebo otevřít jiný sešit záznamu.</h3></div>"
+		out = "<div class='infomsg'><h2>" + jslang.MAINWIN_NO_CAPTURES_1 + "</h2><h3>" + jslang.MAINWIN_NO_CAPTURES_2 + "</h3></div>";
 	}
 
 	table.innerHTML = out;

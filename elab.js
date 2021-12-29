@@ -5,7 +5,7 @@
  */
 
 function send_report() {
-	console.log("Posílám:", outreport);
+	console.log(outreport);
 
 	return device.sendReport(0, new Uint8Array(outreport));
 }
@@ -77,7 +77,7 @@ function input_report_callback(event) {
 					ports[outreport[1]].raw_eeprom[outreportaddress] = event.data.getUint8(1);
 
 					get_id("port" + ports[outreport[1]].id + "status").innerHTML =
-						"Načítání inteligentního čidla...<br><progress value=\"" + outreportaddress + "\" max=\"" + (eeprom_length - 1) + "\"></progress>";
+						jslang.SENSOR_LOADING + "<br><progress value=\"" + outreportaddress + "\" max=\"" + (eeprom_length - 1) + "\"></progress>";
 
 					get_id("port" + ports[outreport[1]].id + "value").innerHTML = "...";
 
@@ -92,7 +92,7 @@ function input_report_callback(event) {
 			} else {
 				// Chyba čtení, čidlo je odpojeno
 
-				get_id("port" + ports[outreport[1]].id + "status").innerHTML = "Čidlo nepřipojeno";
+				get_id("port" + ports[outreport[1]].id + "status").innerHTML = jslang.SENSOR_DISCONNECTED;
 				get_id("port" + ports[outreport[1]].id).style.backgroundColor = "";
 				
 				ports[outreport[1]].connected = false;
@@ -175,7 +175,7 @@ function input_report_callback(event) {
 				// Hotovo!
 
 				get_id("port" + ports[outreport[1]].id + "status").innerHTML =
-					"Inteligentní čidlo: " + ports[outreport[1]].name + " (" + ports[outreport[1]].min_value +
+					jslang.SENSOR_INTELLIGENT + ": " + ports[outreport[1]].name + " (" + ports[outreport[1]].min_value +
 					" – " + ports[outreport[1]].max_value + " " + ports[outreport[1]].unit + ")";
 
 				get_id("port" + ports[outreport[1]].id).style.backgroundColor = ports[outreport[1]].color;
@@ -218,14 +218,14 @@ function input_report_callback(event) {
  */
 
 function capture_redraw() {
-	get_id("statusmsg").innerHTML = "Měření právě běží... (" + receivedsofar + " vzorků, " + (receivedsofar * captures[captures.length - 1].interval / 10000).toFixed(2) + " s)";
+	get_id("statusmsg").innerHTML = format(jslang.STATUS_CAPTURE_RUNNING, receivedsofar, (receivedsofar * captures[captures.length - 1].interval / 10000).toFixed(2));
 
 	main_window_reset();
 
 	if(capturerunning)
 		setTimeout(capture_redraw, 16);
 	else
-		get_id("statusmsg").innerHTML = "Měření skončilo.";
+		get_id("statusmsg").innerHTML = jslang.STATUS_CAPTURE_FINISHED;
 }
 
 /*
@@ -266,7 +266,7 @@ async function initialize_capture() {
 	if(get_id("capturesetupname").value != "")
 		capture.title = get_id("capturesetupname").value;
 	else
-		capture.title = "Záznam bez názvu";
+		capture.title = jslang.UNTITLED_CAPTURE;
 
 	capture.seconds = get_id("capturesetupsecs").value;
 	capture.samples = samples;
@@ -459,10 +459,10 @@ async function webhid_connect() {
 	if(devices.length == 0) {
 		if(get_id("introerrmsg")) {
 			header.style.height = "13.5em";
-			get_id("introerrmsg").innerHTML = "Nebylo vybráno žádné zařízení!";
+			get_id("introerrmsg").innerHTML = jslang.STATUS_NO_DEVICE_SELECTED;
 			get_id("introerrmsg").style.opacity = 1;
 		} else {
-			get_id("statusmsg").innerHTML = "Nebylo vybráno žádné zařízení!";
+			get_id("statusmsg").innerHTML = jslang.STATUS_NO_DEVICE_SELECTED;
 		}
 			
 		return;
@@ -474,7 +474,7 @@ async function webhid_connect() {
 		if(connected) {
 			webhid_disconnect();
 
-			get_id("statusmsg").innerHTML = "Zařízení " + device.productName + " násilně odpojeno!";
+			get_id("statusmsg").innerHTML = format(jslang.STATUS_DEVICE_DISCONNECTED, device.productName);
 
 			nav.style.backgroundColor = "#FAA";
 			header.style.backgroundColor = "#F00";

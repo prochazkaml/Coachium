@@ -100,7 +100,7 @@ function ui_connect(actually_connect) {
 	if(actually_connect) {
 		setTimeout(() => {
 			if(!verified) {
-				get_id("receivedsum").innerHTML = "nereaguje";
+				get_id("receivedsum").innerHTML = jslang.CHECKSUM_NOT_RESPONDING;
 				popup_window(WINDOWID_INVALID_CHECKSUM);
 			}
 		}, 300);
@@ -128,14 +128,14 @@ function ui_connect(actually_connect) {
 			get_id("introimg").style.height = "3em";
 			get_id("connectbutton").style.margin = "0";
 			get_id("connectbutton").style.width = "calc(907 / 200 * 3em - 1em)";
-			if(actually_connect) get_id("connectbutton").innerHTML = "Odpojit se od zařízení";
+			if(actually_connect) get_id("connectbutton").innerHTML = jslang.BUTTON_DISCONNECT;
 
 			header.style.height = "auto";
 			nav.style.height = "auto";
 			main.style.opacity = 1;
 			footer.style.height = "auto";
 
-			get_id("statusmsg").innerHTML = "Vítejte v aplikaci Coachium!"
+			get_id("statusmsg").innerHTML = jslang.STATUS_WELCOME;
 
 			get_id("headercontents").style.flexDirection = "row";
 
@@ -150,8 +150,8 @@ function ui_connect(actually_connect) {
 			main_window_reset();
 		}, 350);
 	} else {
-		get_id("statusmsg").innerHTML = "Vítejte v aplikaci Coachium!"
-		get_id("connectbutton").innerHTML = "Odpojit se od zařízení";
+		get_id("statusmsg").innerHTML = jslang.STATUS_WELCOME;
+		get_id("connectbutton").innerHTML = jslang.BUTTON_DISCONNECT;
 		nav.style.backgroundColor =
 		header.style.backgroundColor =
 		footer.style.backgroundColor = "";
@@ -161,7 +161,7 @@ function ui_connect(actually_connect) {
 	get_id("port2").style.backgroundColor = "";
 
 	get_id("port1status").innerHTML = 
-	get_id("port2status").innerHTML = "Čidlo nepřipojeno";
+	get_id("port2status").innerHTML = jslang.SENSOR_DISCONNECTED;
 
 	get_id("port1value").innerHTML = 
 	get_id("port2value").innerHTML = "–";
@@ -182,8 +182,8 @@ function ui_connect(actually_connect) {
 function ui_disconnect() {
 	close_window();
 
-	get_id("statusmsg").innerHTML = "Zařízení odpojeno.";
-	get_id("connectbutton").innerHTML = "Připojit se k zařízení";
+	get_id("statusmsg").innerHTML = jslang.STATUS_DISCONNECTED;
+	get_id("connectbutton").innerHTML = htmllang.BUTTON_CONNECT;
 }
 
 /*
@@ -228,15 +228,15 @@ function capture_setup_check() {
 		newfreq = 10000 / units;
 	}
 
-	if(round(oldfreq, 2) != round(newfreq, 2)) string += "<p>Nejbližší použitelná frekvence je<br>" + round(newfreq, 2) + " Hz.</p>";
+	if(round(oldfreq, 2) != round(newfreq, 2)) string += "<p>" + format(jslang.SETUP_CLOSEST_USABLE_FREQ, round(newfreq, 2)) + "</p>";
 
 	var samples = round(newfreq * get_id("capturesetupsecs").value);
 
 	if(samples > (get_id("capturesetupsensors").selectedIndex ? 16383 : 8191)) {
 		if(get_id("capturesetupsensors").selectedIndex)
-			string += "<p>Záznam poběží pouze " + round(16383 / newfreq, 2) + " vteřin."
+			string += "<p>" + format(jslang.SETUP_REDUCED_RUNTIME, round(16383 / newfreq, 2)) + "</p>";
 		else
-			string += "<p>Záznam poběží pouze " + round(16383 / newfreq / 2, 2) + " vteřin."
+			string += "<p>" + format(jslang.SETUP_REDUCED_RUNTIME, round(8191 / newfreq, 2)) + "</p>";
 	}
 
 	get_id("capturesetuperr").innerHTML = string;
@@ -263,7 +263,7 @@ function capture_setup_check() {
 			break;
 	}
 
-	get_id("capturesetupsensorserr").innerHTML = sensors_err ? "<p>Vybraná čidla nejsou připojena.</p>" : "";
+	get_id("capturesetupsensorserr").innerHTML = sensors_err ? ("<p>" + jslang.SETUP_SENSOR_ERR + "</p>") : "";
 	
 	const startbutton = get_win_el_class(WINDOWID_CAPTURE_SETUP, "windowbutton");
 

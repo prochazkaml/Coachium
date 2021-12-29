@@ -144,11 +144,11 @@
 					<div id="capturesetuptable">
 						<table>
 							<tr>
-								<td><input id="capturesetuphz" style="width: calc(50% - .5em); text-align: right" type="number" value="50" min="0.1" step="0.1" oninput="graph_setup_check();"></td>
+								<td><input id="capturesetuphz" style="width: calc(50% - .5em); text-align: right" type="number" value="50" min="0.1" step="0.1" oninput="capture_setup_check();"></td>
 								<td class="L18N_WINDOW2_HZ">Hz</td>
 							</tr>
 							<tr>
-								<td><input id="capturesetupsecs" style="width: calc(50% - .5em); text-align: right" type="number" value="10" min="0.1" step="0.1" oninput="graph_setup_check();"></td>
+								<td><input id="capturesetupsecs" style="width: calc(50% - .5em); text-align: right" type="number" value="10" min="0.1" step="0.1" oninput="capture_setup_check();"></td>
 								<td class="L18N_WINDOW2_SECONDS">sekund</td>
 							</tr>
 						</table>
@@ -160,7 +160,7 @@
 
 					<p class="L18N_WINDOW2_PAR2">Z čeho zaznamenávat?</p>
 
-					<select id="capturesetupsensors" style="width: 75%;" onchange="graph_setup_check();">
+					<select id="capturesetupsensors" style="width: 75%;" onchange="capture_setup_check();">
 						<option class="L18N_WINDOW2_SETUP_BOTH">Z obou čidel najednou</option>
 						<option class="L18N_WINDOW2_SETUP_FIRST">Jen z čidla 1</option>
 						<option class="L18N_WINDOW2_SETUP_SECOND">Jen z čidla 2</option>

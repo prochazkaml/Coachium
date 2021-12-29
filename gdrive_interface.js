@@ -52,7 +52,7 @@ window.addEventListener('message', (response) => {
 				if(inputfield.value == "񂁩MISSING") {
 					var d = new Date();
 					var str = d.getDate() + ". " + (d.getMonth() + 1) + ". " + d.getFullYear();
-					inputfield.value = gdrive_response + " - Laboratorní práce " + str;
+					inputfield.value = format(jslang.DEFAULT_FILENAME, gdrive_response, str);
 				}
 				
 				setTimeout(() => {
