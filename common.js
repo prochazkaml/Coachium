@@ -26,7 +26,7 @@
 // TODO: PŘI ZÁZNAMU UKAZOVAT HODNOTY ČIDEL!
 
 const WINDOWID_ABOUT = 0;
-const WINDOWID_PORT_EDIT = 1;
+const WINDOWID_JS_ERR = 1;
 const WINDOWID_CAPTURE_SETUP = 2;
 const WINDOWID_GDRIVE_SAVE_OK = 3;
 const WINDOWID_GDRIVE_SAVE_ERR = 4;
@@ -37,9 +37,8 @@ const WINDOWID_INVALID_CHECKSUM = 8;
 const WINDOWID_FILE_IMPORT_ERR = 9;
 const WINDOWID_IMPORT_OVERWRITE_WARN = 10;
 const WINDOWID_REMOVE_CAPTURE_WARN = 11;
-const WINDOWID_JS_ERR = 12;
-const WINDOWID_NUKE_EVERYTHING_WARN = 13;
-const WINDOWID_RENAME_CAPTURE = 14;
+const WINDOWID_NUKE_EVERYTHING_WARN = 12;
+const WINDOWID_RENAME_CAPTURE = 13;
 
 var openwindow = -1;
 
@@ -240,7 +239,7 @@ function truncate(str, maxlen) {
 
 window.onerror = (msg, file, line) => {
 	get_win_el_tag(WINDOWID_JS_ERR, "textarea").value =
-		"Chyba v souboru \"" + file + "\" na řádku " + line + ":\n\n" + msg;
+		"\"" + file + "\" @ " + line + ":\n\n" + msg;
 
 	popup_window(WINDOWID_JS_ERR);
 	return false;

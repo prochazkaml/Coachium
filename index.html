@@ -7,6 +7,7 @@
 		<title>Coachium</title>
 		<link rel="stylesheet" href="styles.css" />
 		<link rel="icon" href="favicon.ico" />
+		<script src="i18n/default.js"></script>
 		<script src="common.js"></script>
 		<script src="ui.js"></script>
 		<script src="mainwindow.js"></script>
@@ -17,9 +18,9 @@
 	<body>
 		<div id="initialheader">
 			<div style="margin: 1em">
-				<span id="emulatorbutton"><b>Verze 0.1 pre-alpha</b></span> | 
-				<a href="./about/">Co je to Coachium? / What is Coachium?</a> | 
-				<a href="./privacy-policy/">Privacy policy</a>
+				<span id="emulatorbutton"><b class="L18N_HOMEPAGE_VERSION">Verze 0.1 pre-alpha</b></span> | 
+				<a href="./about/"><span class="L18N_HOMEPAGE_ABOUT_LINK">Co je to Coachium?</span></a> | 
+				<a href="./privacy-policy/"><span class="L18N_HOMEPAGE_PRIVACY_POLICY_LINK">Privacy policy</span></a>
 			</div>
 		</div>
 
@@ -27,36 +28,36 @@
 			<div id="headercontents">
 				<img src="misc/logo.svg" id="introimg">
 				<div id="statusmsg"></div>
-				<div class="connectbutton" id="connectbutton">Připojit se k zařízení</div>
-				<div class="connectbutton" id="connectbuttonguest">Spustit v režimu hosta</div>
+				<div class="connectbutton" id="connectbutton"><span class="L18N_BUTTON_CONNECT">Připojit se k zařízení</span></div>
+				<div class="connectbutton" id="connectbuttonguest"><span class="L18N_BUTTON_START_GUEST">Spustit v režimu hosta</span></div>
 				<p id="introerrmsg"></p>
 			</div>
 		</header>
 
 		<nav>
 			<div id="navcontents">
-				<div class="navbutton" id="removeeverythingbutton"><img src="icons/filenew.svg" title="Zahodit všechny záznamy a vytvořit nový sešit záznamů" onclick="remove_all_captures(false)"></div>
-				<div class="navbutton"><img src="icons/fileopen.svg" title="Otevřít sešit záznamů [Ctrl+O]" onclick="load_file_local(false)"></div>
-				<div class="navbutton" id="savebutton"><img src="icons/filesave.svg" title="Uložit sešit záznamů [Ctrl+S]" onclick="save_file_local()"></div>
-				<div class="navbutton" id="savegdrivebutton"><img src="icons/filesavegdrive.svg" title="Uložit sešit záznamů na Google Disk [Ctrl+Shift+S]" onclick="popup_gdrive_window();"></div>
+				<div class="navbutton" id="removeeverythingbutton"><img src="icons/filenew.svg" class="L18N_TITLE_NEW_FILE" title="Zahodit všechny záznamy a vytvořit nový sešit záznamů" onclick="remove_all_captures(false)"></div>
+				<div class="navbutton"><img src="icons/fileopen.svg" class="L18N_TITLE_OPEN_FILE" title="Otevřít sešit záznamů [Ctrl+O]" onclick="load_file_local(false)"></div>
+				<div class="navbutton" id="savebutton"><img src="icons/filesave.svg" class="L18N_TITLE_SAVE_FILE" title="Uložit sešit záznamů [Ctrl+S]" onclick="save_file_local()"></div>
+				<div class="navbutton" id="savegdrivebutton"><img src="icons/filesavegdrive.svg" class="L18N_TITLE_SAVE_GDRIVE" title="Uložit sešit záznamů na Google Disk [Ctrl+Shift+S]" onclick="popup_gdrive_window();"></div>
 				<div class="navspacer"></div>
-				<div class="navbutton" id="capturestartbutton"><img src="icons/graphstart.svg" title="Přidat nový záznam do sešitu [Space]" onclick="create_capture();"></div>
-				<div class="navbutton" id="capturestopbutton" style="display: none"><img src="icons/graphstop.svg" title="Zastavit záznam [Space]" onclick="requestcapture=1;"></div>
-				<div class="navbutton" id="renamecapturebutton"><img src="icons/graphrename.svg" title="Přejmenovat tento záznam [R]" onclick="rename_capture(false);"></div>
-				<div class="navbutton" id="removecapturebutton"><img src="icons/graphremove.svg" title="Odstranit tento záznam ze sešitu [Delete]" onclick="remove_capture(false);"></div>
+				<div class="navbutton" id="capturestartbutton"><img src="icons/graphstart.svg" class="L18N_TITLE_NEW_CAPTURE" title="Přidat nový záznam do sešitu [Space]" onclick="create_capture();"></div>
+				<div class="navbutton" id="capturestopbutton" style="display: none"><img src="icons/graphstop.svg" class="L18N_TITLE_STOP_CAPTURE" title="Zastavit záznam [Space]" onclick="requestcapture=1;"></div>
+				<div class="navbutton" id="renamecapturebutton"><img src="icons/graphrename.svg" class="L18N_TITLE_RENAME_CAPTURE" title="Přejmenovat tento záznam [R]" onclick="rename_capture(false);"></div>
+				<div class="navbutton" id="removecapturebutton"><img src="icons/graphremove.svg" class="L18N_TITLE_REMOVE_CAPTURE" title="Odstranit tento záznam ze sešitu [Delete]" onclick="remove_capture(false);"></div>
 				<div class="navspacer"></div>
-				<div class="navbutton" id="viewpreviousbutton"><img src="icons/graphprevious.svg" title="Zobrazit předchozí záznam v sešitě [← nebo PageUp]" onclick="change_selected_capture(-1);"></div>
-				<div class="navbutton" id="viewastablebutton"><img src="icons/graphtableview.svg" title="Zobrazit záznam jako tabulku [T]" onclick="change_capture_view();"></div>
-				<div class="navbutton" id="viewasgraphbutton" style="display: none"><img src="icons/graphchartview.svg" title="Zobrazit záznam jako graf [T]" onclick="change_capture_view();"></div>
-				<div class="navbutton" id="viewnextbutton"><img src="icons/graphnext.svg" title="Zobrazit následující záznam v sešitě [→ nebo PageDown]" onclick="change_selected_capture(1);"></div>
+				<div class="navbutton" id="viewpreviousbutton"><img src="icons/graphprevious.svg" class="L18N_TITLE_PREVIOUS_CAPTURE" title="Zobrazit předchozí záznam v sešitě [← nebo PageUp]" onclick="change_selected_capture(-1);"></div>
+				<div class="navbutton" id="viewastablebutton"><img src="icons/graphtableview.svg" class="L18N_TITLE_SHOW_AS_TABLE" title="Zobrazit záznam jako tabulku [T]" onclick="change_capture_view();"></div>
+				<div class="navbutton" id="viewasgraphbutton" style="display: none"><img src="icons/graphchartview.svg" class="L18N_TITLE_SHOW_AS_CHART" title="Zobrazit záznam jako graf [T]" onclick="change_capture_view();"></div>
+				<div class="navbutton" id="viewnextbutton"><img src="icons/graphnext.svg" class="L18N_TITLE_NEXT_CAPTURE" title="Zobrazit následující záznam v sešitě [→ nebo PageDown]" onclick="change_selected_capture(1);"></div>
 				<div class="navspacer"></div>
 <!--				<div class="navbutton" id="zoominbutton"><img src="icons/zoomin.svg" title="Přiblížit pohled na graf [+]"></div>
 				<div class="navbutton" id="zoomresetbutton"><img src="icons/zoomreset.svg" title="Obnovit příblížení pohledu na graf [=]"></div>
 				<div class="navbutton" id="zoomoutbutton"><img src="icons/zoomout.svg" title="Oddálit pohled na graf [-]"></div>-->
-				<div class="navbutton" id="zoominbutton"><img src="icons/zoomin.svg" title="Přiblížit pohled na graf [+]"></div>
-				<div class="navbutton" id="zoomoutbutton" style="display: none"><img src="icons/zoomout.svg" title="Obnovit pohled na graf [-]"></div>
+				<div class="navbutton" id="zoominbutton"><img src="icons/zoomin.svg" class="L18N_TITLE_CHART_ZOOM_IN" title="Přiblížit pohled na graf [+]"></div>
+				<div class="navbutton" id="zoomoutbutton" style="display: none"><img src="icons/zoomout.svg" class="L18N_TITLE_CHART_ZOOM_RESET" title="Obnovit pohled na graf [-]"></div>
 				<div class="navspacer"></div>
-				<div class="navbutton"><img src="icons/about.svg" title="O programu Coachium" onclick="popup_window(WINDOWID_ABOUT);"></div>
+				<div class="navbutton"><img src="icons/about.svg" class="L18N_TITLE_ABOUT" title="O programu Coachium" onclick="popup_window(WINDOWID_ABOUT);"></div>
 			</div>
 		</nav>
 
@@ -85,17 +86,17 @@
 			<div id="windowcontainer">
 				<div id="windowcloselayer" onclick="close_window();"></div>
 				<div id="window0" class="popupwindow" style="display: none">
-					<h1>Coachium v0.1 pre-alpha</h1>
-					<p>
+					<h1 class="L18N_WINDOW0_TITLE">Coachium v0.1 pre-alpha</h1>
+					<p class="L18N_WINDOW0_PAR0">
 						Vytvořil Michal Procházka, 2021.
 					</p>
 
-					<p>
+					<p class="L18N_WINDOW0_PAR1">
 						Založeno na mé práci reverzního inženýrství komunikace<br>
 						mezi rozhraním CMA €Lab a softwarem CMA Coach.
 					</p>
 
-					<p>Viz zde: <a target="_blank" href="https://eurolab.prochazka.ml/">https://eurolab.prochazka.ml/</a></p>
+					<p><span class="L18N_WINDOW0_PAR2">Viz zde:</span> <a target="_blank" href="https://eurolab.prochazka.ml/">https://eurolab.prochazka.ml/</a></p>
 
 					<a target="_blank" class="inlineshilllink" href="https://github.com/prochazkaml" target="_blank">
 						<img style="height: 2em;" src="icons/shill_github.svg" alt="GitHub">
@@ -108,34 +109,48 @@
 					</a>
 
 					<div class="windowbuttonlist">
-						<div class="windowbutton" onclick="close_window();">Zavřít</div>
+						<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();">Zavřít</div>
 					</div>
 				</div>
 
 				<div id="window1" class="popupwindow" style="display: none">
-					fdsfddsfsdsad
+					<h1 class="L18N_WINDOW1_TITLE">Interní chyba aplikace</h1>
+
+					<p class="L18N_WINDOW1_PAR0">
+						V aplikaci nastala neočekávaná chyba.
+					</p>
+
+					<textarea style="width: 100%; height: 6em" readonly></textarea>
+
+					<p class="L18N_WINDOW1_PAR1">
+						Omlouváme se za způsobené nepříjemnosti.
+					</p>
+
+					<div class="windowbuttonlist">
+						<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();">Zavřít</div>
+					</div>
 				</div>
 
 				<div id="window2" class="popupwindow" style="display: none">
-					<h1>Nastavení záznamu</h1>
+					<h1 class="L18N_WINDOW2_TITLE">Nastavení záznamu</h1>
 
-					<p>Název záznamu</p>
+					<p class="L18N_WINDOW2_PAR0">Název záznamu</p>
 
 					<p><input id="capturesetupname" style="width: 75%;"></p>
 
 					<hr>
 
-					<p>Parametry záznamu</p>
+					<p class="L18N_WINDOW2_PAR1">Parametry záznamu</p>
 
 					<div id="capturesetuptable">
 						<table>
 							<tr>
 								<td><input id="capturesetuphz" style="width: calc(50% - .5em); text-align: right" type="number" value="50" min="0.1" step="0.1" oninput="graph_setup_check();"></td>
-								<td>Hz</td>
+								<td class="L18N_WINDOW2_HZ">Hz</td>
 							</tr>
 							<tr>
 								<td><input id="capturesetupsecs" style="width: calc(50% - .5em); text-align: right" type="number" value="10" min="0.1" step="0.1" oninput="graph_setup_check();"></td>
-								<td>sekund</td>
+								<td class="L18N_WINDOW2_SECONDS">sekund</td>
 							</tr>
 						</table>
 					</div>
@@ -144,92 +159,92 @@
 
 					<hr>
 
-					<p>Z čeho zaznamenávat?</p>
+					<p class="L18N_WINDOW2_PAR2">Z čeho zaznamenávat?</p>
 
 					<select id="capturesetupsensors" style="width: 75%;" onchange="graph_setup_check();">
-						<option>Z obou čidel najednou</option>
-						<option>Jen z čidla 1</option>
-						<option>Jen z čidla 2</option>
+						<option class="L18N_WINDOW2_SETUP_BOTH">Z obou čidel najednou</option>
+						<option class="L18N_WINDOW2_SETUP_FIRST">Jen z čidla 1</option>
+						<option class="L18N_WINDOW2_SETUP_SECOND">Jen z čidla 2</option>
 					</select>
 
 					<div style="color: #F00" id="capturesetupsensorserr"></div>
 
 					<div class="windowbuttonlist">
-						<div class="windowbutton" onclick="">Spustit</div> <!-- onclick je nastaven automaticky v ui.js -->
-						<div class="windowbutton" onclick="close_window();">Zavřít</div>
+						<div class="windowbutton L18N_BUTTON_START" onclick="">Spustit</div> <!-- onclick je nastaven automaticky v ui.js -->
+						<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();">Zavřít</div>
 					</div>
 				</div>
 
 				<div id="window3" class="popupwindow" style="display: none">
-					<h1>Sešit uložen!</h1>
+					<h1 class="L18N_WINDOW3_TITLE">Sešit uložen!</h1>
 
 					<p>
-						<a target="_blank" href="">Zde je odkaz na uložený soubor sešitu záznamů na Vašem Google Disku.</a>
+						<a class="L18N_WINDOW3_LINK" target="_blank" href="">Zde je odkaz na uložený soubor sešitu záznamů na Vašem Google Disku.</a>
 					</p>
 
 					<div class="windowbuttonlist">
-						<div class="windowbutton" onclick="close_window();">Zavřít</div>
+						<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();">Zavřít</div>
 					</div>
 				</div>
 
 				<div id="window4" class="popupwindow" style="display: none">
-					<h1>Něco se pokazilo.</h1>
+					<h1 class="L18N_WINDOW4_TITLE">Něco se pokazilo.</h1>
 
-					<p>
+					<p class="L18N_WINDOW4_PAR0">
 						Chyba ukládání sešitu záznamu na Google Disk:
 					</p>
 
 					<textarea style="width: 100%; height: 6em" readonly></textarea>
 
 					<div class="windowbuttonlist">
-						<div class="windowbutton" onclick="close_window();setTimeout(()=>{gdrive_save();},400);">Zkusit znovu</div>
-						<div class="windowbutton" onclick="close_window();">Zavřít</div>
+						<div class="windowbutton L18N_BUTTON_TRYAGAIN" onclick="close_window();setTimeout(()=>{gdrive_save();},400);">Zkusit znovu</div>
+						<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();">Zavřít</div>
 					</div>
 				</div>
 
 				<div id="window5" class="popupwindow" style="display: none">
-					<h1>Něco se pokazilo.</h1>
+					<h1 class="L18N_WINDOW5_TITLE">Něco se pokazilo.</h1>
 
-					<p>
+					<p class="L18N_WINDOW5_PAR0">
 						Chyba připojování ke službám Google:
 					</p>
 
 					<textarea style="width: 100%; height: 6em" readonly></textarea>
 
-					<p>
+					<p class="L18N_WINDOW5_PAR1">
 						Funkce uložení sešitu záznamu na Google Disk proto<br>
 						s největší pravděpodobností fungovat nebude.
 					</p>
 
-					<p>
+					<p class="L18N_WINDOW5_PAR2">
 						Omlouváme se za způsobené nepříjemnosti.
 					</p>
 
 					<div class="windowbuttonlist">
-						<div class="windowbutton" onclick="close_window();">Zavřít</div>
+						<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();">Zavřít</div>
 					</div>
 				</div>
 
 				<div id="window6" class="popupwindow" style="display: none">
-					<h1>Jak se bude uložený sešit jmenovat?</h1>
+					<h1 class="L18N_WINDOW6_TITLE">Jak se bude uložený sešit jmenovat?</h1>
 
 					<br><input style="width: 100%" type="text" value="񂁩MISSING"><br>
 
 					<div class="windowbuttonlist">
-						<div class="windowbutton" onclick="close_window();setTimeout(()=>{gdrive_save();},400);">Uložit</div>
-						<div class="windowbutton" onclick="close_window();">Zrušit</div>
+						<div class="windowbutton L18N_BUTTON_SAVE" onclick="close_window();setTimeout(()=>{gdrive_save();},400);">Uložit</div>
+						<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();">Zavřít</div>
 					</div>
 				</div>
 
 				<div id="window7" class="popupwindow" style="display: none">
-					<h1>Chyba WebHID</h1>
+					<h1 class="L18N_WINDOW7_TITLE">Chyba WebHID</h1>
 
-					<p>
+					<p class="L18N_WINDOW7_PAR0">
 						Zdá se, že Váš prohlížeč nedpodporuje WebHID,<br>
 						tudíž není možné se k žádnému zařízení připojit.
 					</p>
 
-					<p>
+					<p class="L18N_WINDOW7_PAR1">
 						Pokud používáte prohlížeč na bázi Chromium<br>
 						(Google Chrome, Brave, Microsoft Edge, Opera...),<br>
 						pokuste se prohlížeč aktualizovat. WebHID je<br>
@@ -237,160 +252,142 @@
 						starší verzi podporován.
 					</p>
 
-					<p>
+					<p class="L18N_WINDOW7_PAR2">
 						Mozilla Firefox (a jeho deriváty) a Apple Safari<br>
 						WebHID <b>nepodporují</b>.
 					</p>
 
 					<div class="windowbuttonlist">
-						<div class="windowbutton" onclick="close_window();">Zavřít</div>
+						<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();">Zavřít</div>
 					</div>
 				</div>
 
 				<div id="window8" class="popupwindow" style="display: none">
-					<h1>Něco se pokazilo.</h1>
+					<h1 class="L18N_WINDOW8_TITLE">Něco se pokazilo.</h1>
 
-					<p>
+					<p class="L18N_WINDOW8_PAR0">
 						Chyba ověřování zařízení.
 					</p>
 
-					<p>
+					<p class="L18N_WINDOW8_PAR1">
 						Kontrolní suma ověřovací pakety (<span id="receivedsum"></span>)<br>
 						nesouhlasí očekávané hodnotě (3754).
 					</p>
 
-					<p><b>
+					<p class="L18N_WINDOW8_PAR2"><b>
 						Doporučujeme restartovat aplikaci<br>
 						a zkusit znovu.
 					</p></b>
 
-					<p>
+					<p class="L18N_WINDOW8_PAR3">
 						Dále doporučujeme vypojit veškerá čidla,<br>
 						vypojit a znovu připojit samotné zařízení<br>
 						a zkusit znovu.
 					</p>
 
-					<p>
+					<p class="L18N_WINDOW8_PAR4">
 						Případně vyměňte zařízení za jiné.
 					</p>
 
 					<div class="windowbuttonlist">
-						<div class="windowbutton" onclick="location.reload();">Restartovat</div>
-						<div class="windowbutton" onclick="close_window();">Zavřít</div>
+						<div class="windowbutton L18N_BUTTON_RESTART" onclick="location.reload();">Restartovat</div>
+						<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();">Zavřít</div>
 					</div>
 				</div>
 
 				<div id="window9" class="popupwindow" style="display: none">
-					<h1>Chyba otevírání souboru</h1>
+					<h1 class="L18N_WINDOW9_TITLE">Chyba otevírání souboru</h1>
 
-					<p>
+					<p class="L18N_WINDOW9_PAR0">
 						Zdá se, že nahraný soubor sešitu záznamu<br>
 						je poškozen a není platný.
 					</p>
 
 					<textarea style="width: 100%; height: 6em" readonly></textarea>
 
-					<p>
+					<p class="L18N_WINDOW9_PAR1">
 						Omlouváme se za způsobené nepříjemnosti.
 					</p>
 
 					<div class="windowbuttonlist">
-						<div class="windowbutton" onclick="close_window();">Zavřít</div>
+						<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();">Zavřít</div>
 					</div>
 				</div>
 				
 				<div id="window10" class="popupwindow" style="display: none">
-					<h1>Jste si jisti?</h1>
+					<h1 class="L18N_WINDOW10_TITLE">Jste si jisti?</h1>
 
-					<p>
+					<p class="L18N_WINDOW10_PAR0">
 						<b>Snažíte se otevřít jiný soubor sešitu záznamů.</b>
 					</p>
 
-					<p>
+					<p class="L18N_WINDOW10_PAR1">
 						Máte rozpracovaná měření, a otevřením jiného sešitu<br>
 						ztratíte všechny změny, pokud je již nemáte uloženy!
 					</p>
 
-					<p>
+					<p class="L18N_WINDOW10_PAR2">
 						Jste si skutečně jisti, že si přejete pokračovat?
 					</p>
 
 					<div class="windowbuttonlist">
-						<div class="windowbutton" onclick="close_window();load_file_local(true);">Pokračovat</div>
-						<div class="windowbutton" onclick="close_window();">Zrušit</div>
+						<div class="windowbutton L18N_BUTTON_GO_AHEAD" onclick="close_window();load_file_local(true);">Pokračovat</div>
+						<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();">Zrušit</div>
 					</div>
 				</div>
 				
 				<div id="window11" class="popupwindow" style="display: none">
-					<h1>Jste si jisti?</h1>
+					<h1 class="L18N_WINDOW11_TITLE">Jste si jisti?</h1>
 
-					<p>
+					<p class="L18N_WINDOW11_PAR0">
 						<b>Snažíte se odstranit tento záznam ze svého sešitu.</b>
 					</p>
 
-					<p>
+					<p class="L18N_WINDOW11_PAR1">
 						Ujistěte se, že skutečně odstraňujete ten pravý,<br>
 						tato operace je nevratná!
 					</p>
 
-					<p>
+					<p class="L18N_WINDOW11_PAR2">
 						Jste si opravdu jisti, že si přejete pokračovat?
 					</p>
 
 					<div class="windowbuttonlist">
-						<div class="windowbutton" onclick="close_window();remove_capture(true);">Pokračovat</div>
-						<div class="windowbutton" onclick="close_window();">Zrušit</div>
+						<div class="windowbutton L18N_BUTTON_GO_AHEAD" onclick="close_window();remove_capture(true);">Pokračovat</div>
+						<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();">Zrušit</div>
 					</div>
 				</div>
 
 				<div id="window12" class="popupwindow" style="display: none">
-					<h1>Interní chyba aplikace</h1>
+					<h1 class="L18N_WINDOW12_TITLE">Jste si jisti?</h1>
 
-					<p>
-						V aplikaci nastala neočekávaná chyba.
-					</p>
-
-					<textarea style="width: 100%; height: 6em" readonly></textarea>
-
-					<p>
-						Omlouváme se za způsobené nepříjemnosti.
-					</p>
-
-					<div class="windowbuttonlist">
-						<div class="windowbutton" onclick="close_window();">Zavřít</div>
-					</div>
-				</div>
-
-				<div id="window13" class="popupwindow" style="display: none">
-					<h1>Jste si jisti?</h1>
-
-					<p>
+					<p class="L18N_WINDOW12_PAR0">
 						<b>Snažíte se odstranit celý svůj sešit záznamů.</b>
 					</p>
 
-					<p>
+					<p class="L18N_WINDOW12_PAR1">
 						Ujistěte se, že máte všechnu důležitou práci uloženou,<br>
 						tato operace je nevratná!
 					</p>
 
-					<p>
+					<p class="L18N_WINDOW12_PAR2">
 						Jste si opravdu jisti, že si přejete pokračovat?
 					</p>
 
 					<div class="windowbuttonlist">
-						<div class="windowbutton" onclick="close_window();remove_all_captures(true);">Pokračovat</div>
-						<div class="windowbutton" onclick="close_window();">Zrušit</div>
+						<div class="windowbutton L18N_BUTTON_GO_AHEAD" onclick="close_window();remove_all_captures(true);">Pokračovat</div>
+						<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();">Zrušit</div>
 					</div>
 				</div>
 
-				<div id="window14" class="popupwindow" style="display: none">
-					<h1>Jak se bude tento záznam jmenovat?</h1>
+				<div id="window13" class="popupwindow" style="display: none">
+					<h1 class="L18N_WINDOW13_TITLE">Jak se bude tento záznam jmenovat?</h1>
 
 					<br><input style="width: 100%" type="text" value=""><br>
 
 					<div class="windowbuttonlist">
-						<div class="windowbutton" onclick="close_window();rename_capture(true);">Přejmenovat</div>
-						<div class="windowbutton" onclick="close_window();">Zrušit</div>
+						<div class="windowbutton L18N_BUTTON_RENAME" onclick="close_window();rename_capture(true);">Přejmenovat</div>
+						<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();">Zrušit</div>
 					</div>
 				</div>
 			</div>
