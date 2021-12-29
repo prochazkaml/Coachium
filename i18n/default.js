@@ -182,11 +182,36 @@ var jslang = {
 	"SETUP_SENSOR_ERR": "These sensors are not connected.",
 };
 
-for(var key of Object.keys(htmllang)) {
-    for(var el of document.getElementsByClassName("L18N_" + key)) {
-        if(key.startsWith("TITLE_"))
-			el.title = htmllang[key];
-		else
-			el.innerHTML = htmllang[key];
-    }
+function i18n_patch_html() {
+	for(var key of Object.keys(htmllang)) {
+		for(var el of document.getElementsByClassName("L18N_" + key)) {
+			if(key.startsWith("TITLE_"))
+				el.title = htmllang[key];
+			else
+				el.innerHTML = htmllang[key];
+		}
+	}
+}
+
+const params = new URLSearchParams(window.location.search);
+
+var lang = params.get("lang");
+
+if(lang && lang != "en") {
+	var script = document.createElement("script");
+
+	script.src = "i18n/" + lang + ".js";
+	script.addEventListener('load', () => {
+		for(var key of Object.keys(alt_htmllang))
+			htmllang[key] = alt_htmllang[key];
+
+		for(var key of Object.keys(alt_jslang))
+			jslang[key] = alt_jslang[key];
+
+		i18n_patch_html();
+	});
+
+	document.body.appendChild(script);
+} else {
+	i18n_patch_html();
 }
