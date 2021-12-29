@@ -158,6 +158,25 @@ function get_id(id) {
 }
 
 /*
+ * format(str, ...)
+ * 
+ * Zformátuje řetězec s argumenty.
+ * 
+ * Např. format("Ahoj, {0}!", "Michale") vrátí "Ahoj, Michale!"
+ * 
+ * Radši se nebudeme zabývat tím, jak byla tato funkce implementována.
+ * 
+ * Ukradeno odsud: https://stackoverflow.com/a/4673436
+ */
+
+const format = function(format) {
+	var args = Array.prototype.slice.call(arguments, 1);
+	return format.replace(/{(\d+)}/g, function(match, number) { 
+		return typeof args[number] != 'undefined' ? args[number] : match;
+	});
+};
+
+/*
  * round(num, digits)
  *
  * Zaokrouhlí dané číslo na daný počet desetinných číslic.
