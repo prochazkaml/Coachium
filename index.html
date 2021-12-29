@@ -41,8 +41,8 @@
 				<div class="navbutton" id="savebutton"><img src="icons/filesave.svg" class="L18N_TITLE_SAVE_FILE" title="Uložit sešit záznamů [Ctrl+S]" onclick="save_file_local()"></div>
 				<div class="navbutton" id="savegdrivebutton"><img src="icons/filesavegdrive.svg" class="L18N_TITLE_SAVE_GDRIVE" title="Uložit sešit záznamů na Google Disk [Ctrl+Shift+S]" onclick="popup_gdrive_window();"></div>
 				<div class="navspacer"></div>
-				<div class="navbutton" id="capturestartbutton"><img src="icons/graphstart.svg" class="L18N_TITLE_NEW_CAPTURE" title="Přidat nový záznam do sešitu [Space]" onclick="create_capture();"></div>
-				<div class="navbutton" id="capturestopbutton" style="display: none"><img src="icons/graphstop.svg" class="L18N_TITLE_STOP_CAPTURE" title="Zastavit záznam [Space]" onclick="requestcapture=1;"></div>
+				<div class="navbutton" id="capturestartbutton"><img src="icons/graphstart.svg" class="L18N_TITLE_NEW_CAPTURE" title="Přidat nový záznam do sešitu [Mezerník]" onclick="create_capture();"></div>
+				<div class="navbutton" id="capturestopbutton" style="display: none"><img src="icons/graphstop.svg" class="L18N_TITLE_STOP_CAPTURE" title="Zastavit záznam [Mezerník]" onclick="requestcapture=1;"></div>
 				<div class="navbutton" id="renamecapturebutton"><img src="icons/graphrename.svg" class="L18N_TITLE_RENAME_CAPTURE" title="Přejmenovat tento záznam [R]" onclick="rename_capture(false);"></div>
 				<div class="navbutton" id="removecapturebutton"><img src="icons/graphremove.svg" class="L18N_TITLE_REMOVE_CAPTURE" title="Odstranit tento záznam ze sešitu [Delete]" onclick="remove_capture(false);"></div>
 				<div class="navspacer"></div>
@@ -55,9 +55,9 @@
 				<div class="navbutton" id="zoomresetbutton"><img src="icons/zoomreset.svg" title="Obnovit příblížení pohledu na graf [=]"></div>
 				<div class="navbutton" id="zoomoutbutton"><img src="icons/zoomout.svg" title="Oddálit pohled na graf [-]"></div>-->
 				<div class="navbutton" id="zoominbutton"><img src="icons/zoomin.svg" class="L18N_TITLE_CHART_ZOOM_IN" title="Přiblížit pohled na graf [+]"></div>
-				<div class="navbutton" id="zoomoutbutton" style="display: none"><img src="icons/zoomout.svg" class="L18N_TITLE_CHART_ZOOM_RESET" title="Obnovit pohled na graf [-]"></div>
+				<div class="navbutton" id="zoomoutbutton" style="display: none"><img src="icons/zoomout.svg" class="L18N_TITLE_CHART_ZOOM_RESET" title="Obnovit pohled na graf [=]"></div>
 				<div class="navspacer"></div>
-				<div class="navbutton"><img src="icons/about.svg" class="L18N_TITLE_ABOUT" title="O programu Coachium" onclick="popup_window(WINDOWID_ABOUT);"></div>
+				<div class="navbutton"><img src="icons/about.svg" class="L18N_TITLE_ABOUT" title="O programu Coachium..." onclick="popup_window(WINDOWID_ABOUT);"></div>
 			</div>
 		</nav>
 
@@ -331,7 +331,7 @@
 					</p>
 
 					<div class="windowbuttonlist">
-						<div class="windowbutton L18N_BUTTON_GO_AHEAD" onclick="close_window();load_file_local(true);">Pokračovat</div>
+						<div class="windowbutton L18N_BUTTON_GOAHEAD" onclick="close_window();load_file_local(true);">Pokračovat</div>
 						<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();">Zrušit</div>
 					</div>
 				</div>
@@ -353,7 +353,7 @@
 					</p>
 
 					<div class="windowbuttonlist">
-						<div class="windowbutton L18N_BUTTON_GO_AHEAD" onclick="close_window();remove_capture(true);">Pokračovat</div>
+						<div class="windowbutton L18N_BUTTON_GOAHEAD" onclick="close_window();remove_capture(true);">Pokračovat</div>
 						<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();">Zrušit</div>
 					</div>
 				</div>
@@ -375,7 +375,7 @@
 					</p>
 
 					<div class="windowbuttonlist">
-						<div class="windowbutton L18N_BUTTON_GO_AHEAD" onclick="close_window();remove_all_captures(true);">Pokračovat</div>
+						<div class="windowbutton L18N_BUTTON_GOAHEAD" onclick="close_window();remove_all_captures(true);">Pokračovat</div>
 						<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();">Zrušit</div>
 					</div>
 				</div>
