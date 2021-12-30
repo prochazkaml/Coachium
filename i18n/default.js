@@ -189,26 +189,32 @@ const languages = [
 ];
 
 var language_win_anim_cycle = 0;
+var language_win_anim_timeout1 = null, language_win_anim_timeout2 = null;
 
 function language_win_anim() {
+	if(get_win(WINDOWID_LANGUAGE_SELECTOR).style.display == "none") return;
 	get_win_el_tag(WINDOWID_LANGUAGE_SELECTOR, "h1").style.opacity = 1;
 	get_win_el_tag(WINDOWID_LANGUAGE_SELECTOR, "h1").innerHTML = languages[language_win_anim_cycle].title;
 	
-	setTimeout(() => {
+	language_win_anim_timeout1 = setTimeout(() => {
+		if(get_win(WINDOWID_LANGUAGE_SELECTOR).style.display == "none") return;
 		get_win_el_tag(WINDOWID_LANGUAGE_SELECTOR, "h1").style.opacity = 0;
 	}, 2900);
 
 	language_win_anim_cycle++;
 	if(language_win_anim_cycle >= languages.length) language_win_anim_cycle = 0;
 
-	setTimeout(language_win_anim, 4000);
+	language_win_anim_timeout2 = setTimeout(language_win_anim, 4000);
 }
 
 function start_language_win() {
-	language_win_anim_cycle = 0;
-	language_win_anim();
+	if(language_win_anim_timeout1) clearTimeout(language_win_anim_timeout1);
+	if(language_win_anim_timeout2) clearTimeout(language_win_anim_timeout2);
 
 	popup_window(WINDOWID_LANGUAGE_SELECTOR);
+
+	language_win_anim_cycle = 0;
+	language_win_anim();
 }
 
 for(var language of languages) {
