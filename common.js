@@ -118,7 +118,7 @@ var ports = [
 	}
 ];
 
-var capturesetupsamples, capturesetupmode, capturesetupspeed, capturesetuppacketsize;
+var capturesetupsamples, capturesetupmode, capturesetupspeed, capturesetuppacketsize, capturesetupsamplesize;
 var requestcapture = false, capturerunning = false, receivedcapture, receivedsofar;
 
 var captures = [], selectedcapture = 0;

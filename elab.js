@@ -218,7 +218,7 @@ function input_report_callback(event) {
  */
 
 function capture_redraw() {
-	get_id("statusmsg").innerHTML = format(jslang.STATUS_CAPTURE_RUNNING, receivedsofar, (receivedsofar * captures[captures.length - 1].interval / 10000).toFixed(2));
+	get_id("statusmsg").innerHTML = format(jslang.STATUS_CAPTURE_RUNNING, receivedsofar, (receivedsofar / capturesetupsamplesize * captures[captures.length - 1].interval / 10000).toFixed(2));
 
 	main_window_reset();
 
@@ -251,9 +251,11 @@ async function initialize_capture() {
 		capturesetupspeed = speed;
 
 	// Zjistit celkový počet vzorků
+
+	capturesetupsamplesize = (capturesetupmode ? 1 : 2)
 	
 	var samples = Math.floor(get_id("capturesetupsecs").value * 10000 / speed) + 1;
-	samples *= (capturesetupmode ? 1 : 2);
+	samples *= capturesetupsamplesize;
 
 	if(samples > 0x3FFF) samples = 0x3FFF;
 
@@ -288,11 +290,7 @@ async function initialize_capture() {
 
 	var samples_per_packet = Math.ceil(get_id("capturesetuphz").value / 60);
 
-	if(!capturesetupmode) {
-		if(samples_per_packet > 16) samples_per_packet = 16;
-	} else {
-		if(samples_per_packet > 32) samples_per_packet = 32;
-	}
+	if((samples_per_packet * capturesetupsamplesize) > 32) samples_per_packet = Math.floor(32 / capturesetupsamplesize);
 
 	if(samples_per_packet < 1) samples_per_packet = 1;
 
@@ -329,7 +327,7 @@ async function initialize_capture() {
 
 	capturerunning = true;
 
-	capturesetuppacketsize = (capturesetupmode ? 1 : 2) * samples_per_packet;
+	capturesetuppacketsize = capturesetupsamplesize * samples_per_packet;
 
 	await send_report(outreport);
 
