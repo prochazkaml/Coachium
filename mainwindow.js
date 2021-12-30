@@ -207,7 +207,6 @@ function canvas_reset() {
 		// Nakreslit graf
 	
 		ctx.beginPath();
-		ctx.setLineDash([]);
 		ctx.strokeStyle = "red";
 		
 		var captureddata = (capturerunning && selectedcapture == (captures.length - 1)) ? receivedcapture : captures[selectedcapture].captureddata;
@@ -229,6 +228,7 @@ function canvas_reset() {
 					ctx.moveTo(x, y);
 				else
 					ctx.lineTo(x, y);
+					ctx.moveTo(x, y);
 			}
 		} else {
 			// Obě čidla
@@ -246,6 +246,7 @@ function canvas_reset() {
 					ctx.moveTo(x, y);
 				else
 					ctx.lineTo(x, y);
+					ctx.moveTo(x, y);
 			}			
 		}
 	
