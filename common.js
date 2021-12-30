@@ -260,15 +260,3 @@ function truncate(str, maxlen) {
 	else
 		return str;
 };
-
-/*
- * Error handler pro celou aplikaci
- */
-
-window.onerror = (msg, file, line) => {
-	get_win_el_tag(WINDOWID_JS_ERR, "textarea").value =
-		"\"" + file + "\" @ " + line + ":\n\n" + msg;
-
-	popup_window(WINDOWID_JS_ERR);
-	return false;
-}

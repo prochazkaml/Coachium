@@ -167,10 +167,10 @@ function ui_connect(actually_connect) {
 	get_id("port2value").innerHTML = "–";
 
 	// Ukázat takovej ten popup dialog, jestli opravdu chceš opustit stránku
-/*
-	window.onbeforeunload = function() {
+
+	if(location.hostname != "localhost") window.onbeforeunload = () => {
 		return true;
-	};*/
+	};
 }
 
 /*
@@ -503,3 +503,16 @@ document.addEventListener('keydown', (event) => {
 		}
 	}
 });
+
+/*
+ * Error handler pro celou aplikaci
+ */
+
+window.onerror = (msg, file, line) => {
+	get_win_el_tag(WINDOWID_JS_ERR, "textarea").value =
+		"\"" + file + "\" @ " + line + ":\n\n" + msg;
+
+	popup_window(WINDOWID_JS_ERR);
+	return false;
+}
+
