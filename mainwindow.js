@@ -278,13 +278,13 @@ function canvas_reset() {
 			}
 	
 			if(!(x_min < 0 && i == 0))
-				ctx.fillText(i, x_offset - 8, y_offset - i * y_unit_in_px);
+				ctx.fillText(localize_num(i), x_offset - 8, y_offset - i * y_unit_in_px);
 		}
 	
 		for(var i = -y_optimal_unit_steps; i >= y_min; i -= y_optimal_unit_steps) {
 			ctx.moveTo(x_offset - 4, y_offset - i * y_unit_in_px);
 			ctx.lineTo(x_offset + 4, y_offset - i * y_unit_in_px);
-			ctx.fillText(i, x_offset - 8, y_offset - i * y_unit_in_px);
+			ctx.fillText(localize_num(i), x_offset - 8, y_offset - i * y_unit_in_px);
 		}
 	
 		// Nakreslit + popsat čárky s hodnotami na ose X
@@ -299,13 +299,13 @@ function canvas_reset() {
 			}
 	
 			if(!(y_min < 0 && i == 0))
-				ctx.fillText(i, x_offset + i * x_unit_in_px, y_offset + 16);
+				ctx.fillText(localize_num(i), x_offset + i * x_unit_in_px, y_offset + 16);
 		}
 	
 		for(var i = -x_optimal_unit_steps; i >= x_min; i -= x_optimal_unit_steps) {
 			ctx.moveTo(x_offset + i * x_unit_in_px, y_offset - 4);
 			ctx.lineTo(x_offset + i * x_unit_in_px, y_offset + 4);
-			ctx.fillText(i, x_offset + i * x_unit_in_px, y_offset + 16);
+			ctx.fillText(localize_num(i), x_offset + i * x_unit_in_px, y_offset + 16);
 		}
 	
 		// Popsat jednotky obou os
@@ -385,7 +385,7 @@ function table_reset() {
 			const sensor = capture[(capture.sensorsetup == 1) ? "port_a" : "port_b"];
 
 			for(var i = 0; i < capturedsofar; i++) {
-				out += "<tr><td>" + (i * capture.interval / 10000).toString().replace(".", ",") + "</td><td>" +
+				out += "<tr><td>" + localize_num(i * capture.interval / 10000) + "</td><td>" +
 					convert_12bit_to_string(captureddata[i], sensor.coeff_a,
 						sensor.coeff_b, sensor.high_voltage, sensor.max_value) + "</td></tr>";
 			}				
@@ -395,7 +395,7 @@ function table_reset() {
 			const sensor_a = capture.port_a, sensor_b = capture.port_b;
 
 			for(var i = 0; i < capturedsofar; i += 2) {
-				out += "<tr><td>" + (i * capture.interval / 20000).toString().replace(".", ",") + "</td><td>" +
+				out += "<tr><td>" + localize_num(i * capture.interval / 20000) + "</td><td>" +
 					convert_12bit_to_string(captureddata[i], sensor_a.coeff_a,
 						sensor_a.coeff_b, sensor_a.high_voltage, sensor_a.max_value) + "</td><td>" + 
 					convert_12bit_to_string(captureddata[i + 1], sensor_b.coeff_a,

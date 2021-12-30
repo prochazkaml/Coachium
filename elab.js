@@ -219,7 +219,7 @@ function input_report_callback(event) {
 
 function capture_redraw() {
 	if(receivedsofar) {
-		get_id("statusmsg").innerHTML = format(jslang.STATUS_CAPTURE_RUNNING, receivedsofar, ((receivedsofar / capturesetupsamplesize - 1) * captures[captures.length - 1].interval / 10000).toFixed(2));
+		get_id("statusmsg").innerHTML = format(jslang.STATUS_CAPTURE_RUNNING, receivedsofar, localize_num(((receivedsofar / capturesetupsamplesize - 1) * captures[captures.length - 1].interval / 10000).toFixed(2)));
 
 		switch(capturesetupmode) {
 			case 0:

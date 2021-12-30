@@ -21,8 +21,6 @@
  * Ale ne, že tu něco poserete! 😁
  */
 
-// TODO: VYMĚNIT U ČÍSEL PŘEVEDENÝCH NA ŘETĚZCE TEČKY ZA ČÁRKY!
-
 const WINDOWID_ABOUT = 0;
 const WINDOWID_JS_ERR = 1;
 const WINDOWID_CAPTURE_SETUP = 2;
@@ -187,6 +185,18 @@ function round(num, digits = 0) {
 }
 
 /*
+ * localize_num(num)
+ * 
+ * Vezme řetězec (nebo čídlo, které pak převede na řetězec) a upraví ho podle vybraného jazyka.
+ */
+
+function localize_num(num) {
+	n = num + ""; // Převést na řetězec
+
+	return n.replace(".", decimal_separator);
+}
+
+/*
  * convert_12bit_to_real(val, a, b, hv)
  *
  * Převede 12-bitovou hodnotu na srozumitelné číslo dané veličiny.
@@ -219,8 +229,7 @@ function convert_12bit_to_string(val, a, b, hv, max) {
 	if(isNaN(val))
 		return "–";
 	else
-//		return round(convert_12bit_to_real(val, a, b, hv), 3 - Math.floor(Math.log10(max))).toString().replace(".", ",");
-		return convert_12bit_to_real(val, a, b, hv).toFixed(3 - Math.floor(Math.log10(max))).replace(".", ",");
+		return localize_num(convert_12bit_to_real(val, a, b, hv).toFixed(3 - Math.floor(Math.log10(max))));
 }
 
 /*
