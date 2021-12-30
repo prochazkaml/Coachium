@@ -331,11 +331,6 @@ async function initialize_capture() {
 
 	await send_report(outreport);
 
-	// TODO: PŘESUNOUT TOHLE DO update_button_validity!
-
-	get_id("capturestopbutton").style.display = "";
-	get_id("capturestartbutton").style.display = "none";
-
 	update_button_validity();
 	capture_redraw();
 }
@@ -352,11 +347,6 @@ async function deinitialize_capture() {
 	outreport[0] = 0xFF;
 
 	await device.sendReport(0, new Uint8Array(outreport));
-
-	// TODO: PŘESUNOUT TOHLE DO update_button_validity!
-
-	get_id("capturestartbutton").style.display = "";
-	get_id("capturestopbutton").style.display = "none";
 
 	captures[captures.length - 1].captureddata = receivedcapture;
 

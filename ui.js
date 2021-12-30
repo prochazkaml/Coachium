@@ -328,40 +328,60 @@ function change_capture_view() {
  */
 
 function update_button_validity() {
-	if(captures.length == 0) {
+	if(capturerunning) {
+		get_id("capturestopbutton").style.display = "";
+		get_id("capturestartbutton").style.display = "none";
+
 		get_id("removeeverythingbutton").style.filter = "contrast(0)";
-		get_id("renamecapturebutton").style.filter = "contrast(0)";
-		get_id("removecapturebutton").style.filter = "contrast(0)";
+		get_id("openbutton").style.filter = "contrast(0)";
 		get_id("savebutton").style.filter = "contrast(0)";
 		get_id("savegdrivebutton").style.filter = "contrast(0)";
+
+		get_id("renamecapturebutton").style.filter = "contrast(0)";
+		get_id("removecapturebutton").style.filter = "contrast(0)";
 		get_id("viewpreviousbutton").style.filter = "contrast(0)";
 		get_id("viewnextbutton").style.filter = "contrast(0)";
 		get_id("zoominbutton").style.filter = "contrast(0)";
 		get_id("zoomoutbutton").style.filter = "contrast(0)";
 	} else {
-		get_id("removeeverythingbutton").style.filter = "";
-		get_id("renamecapturebutton").style.filter = "";
-		get_id("removecapturebutton").style.filter = "";
-		get_id("savebutton").style.filter = "";
-		get_id("savegdrivebutton").style.filter = "";
+		get_id("capturestartbutton").style.display = "";
+		get_id("capturestopbutton").style.display = "none";	
 
-		if(canvas.style.display != "none") {
-			get_id("zoominbutton").style.filter = "";
-			get_id("zoomoutbutton").style.filter = "";
-		} else {
+		if(captures.length == 0) {
+			get_id("removeeverythingbutton").style.filter = "contrast(0)";
+			get_id("renamecapturebutton").style.filter = "contrast(0)";
+			get_id("removecapturebutton").style.filter = "contrast(0)";
+			get_id("savebutton").style.filter = "contrast(0)";
+			get_id("savegdrivebutton").style.filter = "contrast(0)";
+			get_id("viewpreviousbutton").style.filter = "contrast(0)";
+			get_id("viewnextbutton").style.filter = "contrast(0)";
 			get_id("zoominbutton").style.filter = "contrast(0)";
 			get_id("zoomoutbutton").style.filter = "contrast(0)";
+		} else {
+			get_id("removeeverythingbutton").style.filter = "";
+			get_id("renamecapturebutton").style.filter = "";
+			get_id("removecapturebutton").style.filter = "";
+			get_id("savebutton").style.filter = "";
+			get_id("savegdrivebutton").style.filter = "";
+
+			if(canvas.style.display != "none") {
+				get_id("zoominbutton").style.filter = "";
+				get_id("zoomoutbutton").style.filter = "";
+			} else {
+				get_id("zoominbutton").style.filter = "contrast(0)";
+				get_id("zoomoutbutton").style.filter = "contrast(0)";
+			}
+
+			if(selectedcapture == 0)
+				get_id("viewpreviousbutton").style.filter = "contrast(0)";
+			else
+				get_id("viewpreviousbutton").style.filter = "";
+
+			if(selectedcapture >= (captures.length - 1))
+				get_id("viewnextbutton").style.filter = "contrast(0)";
+			else
+				get_id("viewnextbutton").style.filter = "";
 		}
-
-		if(selectedcapture == 0)
-			get_id("viewpreviousbutton").style.filter = "contrast(0)";
-		else
-			get_id("viewpreviousbutton").style.filter = "";
-
-		if(selectedcapture >= (captures.length - 1))
-			get_id("viewnextbutton").style.filter = "contrast(0)";
-		else
-			get_id("viewnextbutton").style.filter = "";
 	}
 }
 
