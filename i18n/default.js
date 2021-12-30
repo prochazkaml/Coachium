@@ -7,7 +7,7 @@ var htmllang = {
 
 	// Button descriptions
 
-	"BUTTON_CONNECT": "Connect to interface",
+	"BUTTON_CONNECT": "Connect to device",
 	"BUTTON_START_GUEST": "Start in guest mode",
 	"BUTTON_CLOSE": "Close",
 	"BUTTON_START": "Start",
@@ -173,7 +173,7 @@ var jslang = {
 	// ui.js
 
 	"CHECKSUM_NOT_RESPONDING": "not responding",
-	"BUTTON_DISCONNECT": "Disconnect from interface",
+	"BUTTON_DISCONNECT": "Disconnect from device",
 	"STATUS_WELCOME": "Welcome to Coachium!",
 	"STATUS_DISCONNECTED": "Device disconnected.",
 
