@@ -5,7 +5,7 @@
  */
 
 function popup_gdrive_window() {
-	if(captures.length == 0) return;
+	if(get_id("savegdrivebutton").style.filter) return;
 
 	if(get_win_el_tag(WINDOWID_GDRIVE_NAME, "input").value == "񂁩MISSING")
 		get_id("gdrive_iframe").contentWindow.get_user_name();

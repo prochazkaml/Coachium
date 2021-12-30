@@ -165,6 +165,8 @@ function xml_import(input) {
  */
 
 function load_file_local(are_you_sure) {
+	if(get_id("openbutton").style.filter) return;
+
 	if(captures.length > 0 && !are_you_sure) {
 		// Pokud již máme načetlá nějaká měření, radši riskovat nebudeme
 
@@ -200,7 +202,7 @@ function load_file_local(are_you_sure) {
  */
 
 function save_file_local() {
-	if(captures.length == 0) return;
+	if(get_id("savebutton").style.filter) return;
 
 	var inputfield = get_win_el_tag(WINDOWID_GDRIVE_NAME, "input");
 
@@ -258,7 +260,7 @@ function create_capture() {
  */
 
 function rename_capture(name_decided) {
-	if(captures.length == 0) return;
+	if(get_id("renamecapturebutton").style.filter) return;
 
 	if(!name_decided) {
 		get_win_el_tag(WINDOWID_RENAME_CAPTURE, "input").value = captures[selectedcapture].title;
@@ -287,7 +289,7 @@ function rename_capture(name_decided) {
  */
 
 function remove_capture(are_you_sure) {
-	if(captures.length == 0) return;
+	if(get_id("removecapturebutton").style.filter) return;
 
 	if(!are_you_sure) {
 		// Radši se zeptáme, jestli záznam opravdu chceme odstranit
@@ -320,7 +322,7 @@ function remove_capture(are_you_sure) {
  */
 
 function remove_all_captures(are_you_sure) {
-	if(captures.length == 0) return;
+	if(get_id("removeeverythingbutton").style.filter) return;
 
 	if(!are_you_sure) {
 		// Radši se zeptáme, jestli opravdu chceme odstranit úplně všechny

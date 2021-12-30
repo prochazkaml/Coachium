@@ -280,6 +280,9 @@ function capture_setup_check() {
  */
 
 function change_selected_capture(interval) {
+	if(interval < 0 && get_id("viewpreviousbutton").style.filter) return; 
+	if(interval > 0 && get_id("viewnextbutton").style.filter) return; 
+
 	if(captures.length > 0) {
 		selectedcapture += interval;
 
