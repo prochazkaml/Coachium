@@ -224,7 +224,7 @@ function capture_redraw() {
 		switch(capturesetupmode) {
 			case 0:
 				get_id("port1value").innerHTML = prettyprint_value(0, receivedcapture[receivedsofar - 2]);
-				get_id("port2value").innerHTML = prettyprint_value(0, receivedcapture[receivedsofar - 1]);
+				get_id("port2value").innerHTML = prettyprint_value(1, receivedcapture[receivedsofar - 1]);
 				break;
 
 			case 1:
@@ -234,7 +234,7 @@ function capture_redraw() {
 
 			case 2:
 				get_id("port1value").innerHTML = "–";
-				get_id("port2value").innerHTML = prettyprint_value(0, receivedcapture[receivedsofar - 1]);
+				get_id("port2value").innerHTML = prettyprint_value(1, receivedcapture[receivedsofar - 1]);
 				break;
 		}
 	}
@@ -274,11 +274,10 @@ async function initialize_capture() {
 	capturesetupsamplesize = (capturesetupmode ? 1 : 2)
 	
 	var samples = Math.floor(get_id("capturesetupsecs").value * 10000 / speed) + 1;
-	samples *= capturesetupsamplesize;
 
-	if(samples > 0x3FFF) samples = 0x3FFF;
+	if(samples > (0x4000 / capturesetupsamplesize - 1)) samples = 0x4000 / capturesetupsamplesize - 1;
 
-	capturesetupsamples = samples;
+	capturesetupsamples = samples * capturesetupsamplesize;
 
 	// Inicializovat informace o záznamu
 
@@ -290,7 +289,7 @@ async function initialize_capture() {
 		capture.title = jslang.UNTITLED_CAPTURE;
 
 	capture.seconds = get_id("capturesetupsecs").value;
-	capture.samples = samples;
+	capture.samples = capturesetupsamples;
 	capture.interval = capturesetupspeed;
 	capture.sensorsetup = capturesetupmode;
 	capture.port_a = JSON.parse(JSON.stringify(ports[0]));
@@ -298,7 +297,7 @@ async function initialize_capture() {
 	capture.port_b = JSON.parse(JSON.stringify(ports[1]));
 	capture.port_b.raw_eeprom = undefined;
 
-	receivedcapture = new Array(samples);
+	receivedcapture = new Array(capturesetupsamples);
 	receivedsofar = 0;
 
 	captures[selectedcapture = captures.length] = capture;
