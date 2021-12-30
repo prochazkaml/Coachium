@@ -223,17 +223,6 @@ function start_language_win() {
 	language_win_anim();
 }
 
-function apply_language() {
-	for(var key of Object.keys(htmllang)) {
-		for(var el of document.getElementsByClassName("L18N_" + key)) {
-			if(key.startsWith("TITLE_"))
-				el.title = htmllang[key];
-			else
-				el.innerHTML = htmllang[key];
-		}
-	}
-}
-
 for(var language of languages) {
 	var option = document.createElement("option");
 
@@ -264,12 +253,25 @@ script.onload = () => {
 	for(var key of Object.keys(alt_jslang))
 		jslang[key] = alt_jslang[key];
 
-	apply_language();
+	for(var key of Object.keys(htmllang)) {
+		for(var el of document.getElementsByClassName("L18N_" + key)) {
+			if(key.startsWith("TITLE_"))
+				el.title = htmllang[key];
+			else
+				el.innerHTML = htmllang[key];
+		}
+	}
 };
 
 script.onerror = () => {
-	popup_window(WINDOWID_LANGUAGE_ERROR);
-	apply_language();
+	var script_fallback = document.createElement("script");
+	script_fallback.src = "i18n/en.js";
+	script_fallback.onload = () => {
+		script.onload();
+		popup_window(WINDOWID_LANGUAGE_ERROR);
+	}
+
+	document.body.appendChild(script_fallback);
 }
 
 document.body.appendChild(script);
