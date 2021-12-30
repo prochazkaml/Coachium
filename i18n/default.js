@@ -129,7 +129,13 @@ var htmllang = {
 		"this operation is irreversible!",
 	"WINDOW12_PAR2": "Are you sure that you want to proceed?",
 
-	"WINDOW13_TITLE": "How will this capture be called?"
+	"WINDOW13_TITLE": "How will this capture be called?",
+
+	"WINDOW15_TITLE": "Language error",
+	"WINDOW15_PAR0":
+		"Error loading the requested language.<br>" +
+		"English will be now used as a fallback.",
+	"WINDOW15_PAR1": "We apologize for the inconvenience.",
 };
 
 var jslang = {
@@ -217,6 +223,17 @@ function start_language_win() {
 	language_win_anim();
 }
 
+function apply_language() {
+	for(var key of Object.keys(htmllang)) {
+		for(var el of document.getElementsByClassName("L18N_" + key)) {
+			if(key.startsWith("TITLE_"))
+				el.title = htmllang[key];
+			else
+				el.innerHTML = htmllang[key];
+		}
+	}
+}
+
 for(var language of languages) {
 	var option = document.createElement("option");
 
@@ -247,14 +264,12 @@ script.onload = () => {
 	for(var key of Object.keys(alt_jslang))
 		jslang[key] = alt_jslang[key];
 
-	for(var key of Object.keys(htmllang)) {
-		for(var el of document.getElementsByClassName("L18N_" + key)) {
-			if(key.startsWith("TITLE_"))
-				el.title = htmllang[key];
-			else
-				el.innerHTML = htmllang[key];
-		}
-	}
+	apply_language();
 };
+
+script.onerror = () => {
+	popup_window(WINDOWID_LANGUAGE_ERROR);
+	apply_language();
+}
 
 document.body.appendChild(script);
