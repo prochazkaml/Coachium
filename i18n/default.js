@@ -138,7 +138,7 @@ var jslang = {
 	"MAINWIN_NO_CAPTURES_1": "No captures have been created yet.",
 	"MAINWIN_NO_CAPTURES_2": "You can either create a new capture, or load another workbook file.",
 
-	"CAPTURE_FMT": "Capture {0} from {1}: {2}",
+	"CAPTURE_FMT": "Capture {0} out of {1}: {2}",
 
 	"INTERVAL": "Interval (s)",
 	"SENSOR_1": "Sensor 1 ({0})",
