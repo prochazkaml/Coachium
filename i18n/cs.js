@@ -151,7 +151,7 @@ const alt_jslang = {
 	
 	// file.js
 
-	"DEFAULT_USERNAME": "Pepa Novák",
+	"DEFAULT_USERNAME": "Jan Novák",
 	"STATUS_FILE_LOADED": "Soubor načten.",
 	"STATUS_FILE_SAVED": "Soubor připraven k uložení.",
 	"STATUS_CAPTURE_REMOVED": "Měření {0} odstraněno.",
@@ -178,7 +178,7 @@ const alt_jslang = {
 	"STATUS_WELCOME": "Vítejte v aplikaci Coachium!",
 	"STATUS_DISCONNECTED": "Zařízení odpojeno.",
 
-	"SETUP_CLOSEST_USABLE_FREQ": "Nejbližší použitelná frekvence je<br>is {0} Hz.",
+	"SETUP_CLOSEST_USABLE_FREQ": "Nejbližší použitelná frekvence je<br>{0} Hz.",
 	"SETUP_REDUCED_RUNTIME": "Záznam poběží pouze {0} sekund.",
 	"SETUP_SENSOR_ERR": "Vybraná čidla nejsou připojena.",
 };
