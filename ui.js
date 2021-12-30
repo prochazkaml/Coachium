@@ -347,6 +347,8 @@ function update_button_validity() {
 		get_id("capturestartbutton").style.display = "";
 		get_id("capturestopbutton").style.display = "none";	
 
+		get_id("openbutton").style.filter = "";
+
 		if(captures.length == 0) {
 			get_id("removeeverythingbutton").style.filter = "contrast(0)";
 			get_id("renamecapturebutton").style.filter = "contrast(0)";
