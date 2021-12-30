@@ -218,8 +218,26 @@ function input_report_callback(event) {
  */
 
 function capture_redraw() {
-	if(receivedsofar)
+	if(receivedsofar) {
 		get_id("statusmsg").innerHTML = format(jslang.STATUS_CAPTURE_RUNNING, receivedsofar, ((receivedsofar / capturesetupsamplesize - 1) * captures[captures.length - 1].interval / 10000).toFixed(2));
+
+		switch(capturesetupmode) {
+			case 0:
+				get_id("port1value").innerHTML = prettyprint_value(0, receivedcapture[receivedsofar - 2]);
+				get_id("port2value").innerHTML = prettyprint_value(0, receivedcapture[receivedsofar - 1]);
+				break;
+
+			case 1:
+				get_id("port1value").innerHTML = prettyprint_value(0, receivedcapture[receivedsofar - 1]);
+				get_id("port2value").innerHTML = "–";
+				break;
+
+			case 2:
+				get_id("port1value").innerHTML = "–";
+				get_id("port2value").innerHTML = prettyprint_value(0, receivedcapture[receivedsofar - 1]);
+				break;
+		}
+	}
 
 	main_window_reset();
 
