@@ -244,7 +244,7 @@ const params = new URLSearchParams(window.location.search);
 
 var lang = params.get("lang");
 
-if(!lang) lang = "en";
+if(!lang) lang = "cs";
 
 var script = document.createElement("script");
 
