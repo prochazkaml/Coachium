@@ -23,8 +23,7 @@
 			function initClient() {
 				gapi.client.init({
 					apiKey: 'AIzaSyDs-Sd-vYMoCDzZG4m4vzisNjBJzRimQ5s',
-//					clientId: '883835263732-tlmcuubn46btmrprh474vtqsfls1ccg9.apps.googleusercontent.com',
-					clientId: '883835263732-5sckpbbaigo4sod9021kp5rei7tmhik8.apps.googleusercontent.com',
+					clientId: (location.hostname != "localhost") ? '883835263732-tlmcuubn46btmrprh474vtqsfls1ccg9.apps.googleusercontent.com' : '883835263732-5sckpbbaigo4sod9021kp5rei7tmhik8.apps.googleusercontent.com',
 					discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"],
 					scope: 'https://www.googleapis.com/auth/drive.file'
 				}).then(function () {
