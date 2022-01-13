@@ -2,7 +2,7 @@
  * Coachium - common.js
  * - taková hlavní kostra programu, obsahuje obecné konstanty, proměnné a funkce
  * 
- * Napsal Michal Procházka pro školu Randovka, 2021.
+ * Napsal Michal Procházka pro školu Randovka, 2021-2022.
  * (ano, jsem turbošprt, já vím...)
  */
 

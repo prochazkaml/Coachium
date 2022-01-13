@@ -39,7 +39,7 @@ const alt_htmllang = {
 	// Window contents
 
 	"WINDOW0_TITLE": "Coachium v0.1 pre-alpha",
-	"WINDOW0_PAR0": "Vytvořil Michal Procházka, 2021.",
+	"WINDOW0_PAR0": "Vytvořil Michal Procházka, 2021–2022.",
 	"WINDOW0_PAR1":
 		"Založeno na mé práci reverzního inženýrství komunikace<br>" +
 		"mezi rozhraním CMA €Lab a softwarem CMA Coach.",

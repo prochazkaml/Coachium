@@ -38,7 +38,7 @@ var htmllang = {
 	// Window contents
 
 	"WINDOW0_TITLE": "Coachium v0.1 pre-alpha",
-	"WINDOW0_PAR0": "Made by Michal Procházka, 2021.",
+	"WINDOW0_PAR0": "Made by Michal Procházka, 2021–2022.",
 	"WINDOW0_PAR1":
 		"Based on my work of reverse-engineering the communication<br>" +
 		"protocol between the CMA €Lab interface and CMA Coach.",
