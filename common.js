@@ -226,10 +226,12 @@ function convert_12bit_to_real(val, a, b, hv) {
  */
 
 function convert_12bit_to_string(val, a, b, hv, max) {
+	var digits = 3 - Math.floor(Math.log10(max));
+
 	if(isNaN(val))
 		return "–";
 	else
-		return localize_num(convert_12bit_to_real(val, a, b, hv).toFixed(3 - Math.floor(Math.log10(max))));
+		return localize_num(round(convert_12bit_to_real(val, a, b, hv), digits).toFixed(digits));
 }
 
 /*
