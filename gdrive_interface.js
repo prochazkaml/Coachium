@@ -43,7 +43,7 @@ window.addEventListener('message', (response) => {
 		if(gdrive_response.startsWith("username:")) {
 			gdrive_response = gdrive_response.substr(9);
 
-			if(gdrive_response.includes("error")) {
+			if(gdrive_response.toLowerCase().includes("error")) {
 				get_win_el_tag(WINDOWID_GDRIVE_GENERIC_ERR, "textarea").value = gdrive_response;
 				popup_window(WINDOWID_GDRIVE_GENERIC_ERR);
 			} else {
