@@ -53,6 +53,8 @@ var transfer_in_progress = false;
 
 var gdrive_response;
 
+var zoom_request_progress = 0, zoomed_in = false;
+
 const eeprom_addresses = [
 	// Na autodetekci změn v čidle (rychlé vypojení/zapojení, přepnutí přepínače rozsahu)
 	0x04,

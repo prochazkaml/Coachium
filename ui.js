@@ -345,7 +345,7 @@ function update_button_validity() {
 		get_id("viewpreviousbutton").style.filter = "contrast(0)";
 		get_id("viewnextbutton").style.filter = "contrast(0)";
 		get_id("zoominbutton").style.filter = "contrast(0)";
-		get_id("zoomoutbutton").style.filter = "contrast(0)";
+		get_id("zoomresetbutton").style.filter = "contrast(0)";
 	} else {
 		get_id("capturestartbutton").style.display = "";
 		get_id("capturestopbutton").style.display = "none";	
@@ -361,7 +361,7 @@ function update_button_validity() {
 			get_id("viewpreviousbutton").style.filter = "contrast(0)";
 			get_id("viewnextbutton").style.filter = "contrast(0)";
 			get_id("zoominbutton").style.filter = "contrast(0)";
-			get_id("zoomoutbutton").style.filter = "contrast(0)";
+			get_id("zoomresetbutton").style.filter = "contrast(0)";
 		} else {
 			get_id("removeeverythingbutton").style.filter = "";
 			get_id("renamecapturebutton").style.filter = "";
@@ -371,10 +371,15 @@ function update_button_validity() {
 
 			if(canvas.style.display != "none") {
 				get_id("zoominbutton").style.filter = "";
-				get_id("zoomoutbutton").style.filter = "";
+
+				if(zoomed_in)
+					get_id("zoomresetbutton").style.filter = "";
+				else
+					get_id("zoomresetbutton").style.filter = "contrast(0)";
+
 			} else {
 				get_id("zoominbutton").style.filter = "contrast(0)";
-				get_id("zoomoutbutton").style.filter = "contrast(0)";
+				get_id("zoomresetbutton").style.filter = "contrast(0)";
 			}
 
 			if(selectedcapture == 0)
