@@ -1,6 +1,8 @@
-function get_optimal_round_coeff(level) {
-	return Math.pow(10, Math.floor(level / 3));
-}
+/*
+ * round_to_level(num, level)
+ * 
+ * Podle vrácené hodnoty funkce get_optimal_unit_steps optimálně zaokrouhlí hodnotu.
+ */
 
 function round_to_level(num, level) {
 	return round(num, -Math.floor(level / 3));
@@ -9,11 +11,11 @@ function round_to_level(num, level) {
 /*
  * get_optimal_unit_steps(level)
  * 
- * 
+ * Převede hodnotu vrácenou funkcí get_optimal_unit_steps na skutečný počet jednotek na interval.
  */
 
 function get_optimal_unit_steps(level) {
-	return [ 1, 2, 5 ][((level % 3) + 3) % 3] * get_optimal_round_coeff(level);
+	return [ 1, 2, 5 ][((level % 3) + 3) % 3] * Math.pow(10, Math.floor(level / 3));
 }
 
 /*
@@ -21,7 +23,7 @@ function get_optimal_unit_steps(level) {
  * 
  * Zjistí podle maximální hodnoty na ose, jaký by měl být ideální interval mezi čárkami na dané ose.
  * 
- * Vrací hodnotu, kterou lze poté použít s funkcemi get_optimal_unit_steps a get_optimal_round_coeff.
+ * Vrací hodnotu, kterou lze poté použít s funkcemi get_optimal_unit_steps a round_to_level.
  */
 
 function get_optimal_round_level(maxunits, displaysize, limit) {
