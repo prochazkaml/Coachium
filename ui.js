@@ -462,7 +462,7 @@ document.addEventListener('keydown', (event) => {
 
 			case "s":
 				event.preventDefault();
-				save_file_local();
+				save_file_local(false);
 				break;
 
 			case "S":

@@ -196,32 +196,38 @@ function load_file_local(are_you_sure) {
 }
 
 /*
- * save_file_local()
+ * save_file_local(name_chosen)
  * 
  * Lokálně uloží soubor sešitu záznamu ve formátu XML.
  */
 
-function save_file_local() {
+function save_file_local(name_chosen) {
 	if(get_id("savebutton").style.filter) return;
 
-	var inputfield = get_win_el_tag(WINDOWID_GDRIVE_NAME, "input");
+	var inputfield = get_win_el_tag(WINDOWID_LOCAL_SAVE_NAME, "input");
 
-	var filename;
+	if(name_chosen) {
+		// Vygeneruje element s daty, které se pak stáhnou
 
-	if(inputfield.value == "񂁩MISSING") {
-		var d = new Date();
-		filename = format(jslang.DEFAULT_FILENAME, jslang.DEFAULT_USERNAME,
-			d.getDate() + ". " + (d.getMonth() + 1) + ". " + d.getFullYear());
-	} else filename = inputfield.value;
+		var element = document.createElement("a");
+		element.setAttribute("href", "data:text/plain;charset=utf-8," + encodeURIComponent(xml_export(filename)));
+		element.setAttribute("download", inputfield.value + ".coachium");
+		element.click();
 
-	// Vygeneruje element s daty, které se pak stáhnou
+		get_id("statusmsg").innerHTML = jslang.STATUS_FILE_SAVED;
+	} else {
+		if(inputfield.value == "񂁩MISSING") {
+			var d = new Date();
+			var str = d.getDate() + ". " + (d.getMonth() + 1) + ". " + d.getFullYear();
+			inputfield.value = format(jslang.DEFAULT_FILENAME, jslang.DEFAULT_USERNAME, str);
+		}
+		
+		setTimeout(() => {
+			inputfield.select();
+		}, 100);
 
-	var element = document.createElement("a");
-	element.setAttribute("href", "data:text/plain;charset=utf-8," + encodeURIComponent(xml_export(filename)));
-	element.setAttribute("download", filename + ".coachium");
-	element.click();
-
-	get_id("statusmsg").innerHTML = jslang.STATUS_FILE_SAVED;
+		popup_window(WINDOWID_LOCAL_SAVE_NAME);
+	}
 }
 
 /*

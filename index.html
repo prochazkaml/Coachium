@@ -38,7 +38,7 @@
 			<div id="navcontents">
 				<div class="navbutton" id="removeeverythingbutton"><img src="icons/filenew.svg" class="L18N_TITLE_NEW_FILE" onclick="remove_all_captures(false)"></div>
 				<div class="navbutton" id="openbutton"><img src="icons/fileopen.svg" class="L18N_TITLE_OPEN_FILE" onclick="load_file_local(false)"></div>
-				<div class="navbutton" id="savebutton"><img src="icons/filesave.svg" class="L18N_TITLE_SAVE_FILE" onclick="save_file_local()"></div>
+				<div class="navbutton" id="savebutton"><img src="icons/filesave.svg" class="L18N_TITLE_SAVE_FILE" onclick="save_file_local(false)"></div>
 				<div class="navbutton" id="savegdrivebutton"><img src="icons/filesavegdrive.svg" class="L18N_TITLE_SAVE_GDRIVE" onclick="popup_gdrive_window();"></div>
 				<div class="navspacer"></div>
 				<div class="navbutton" id="capturestartbutton"><img src="icons/graphstart.svg" class="L18N_TITLE_NEW_CAPTURE" onclick="create_capture();"></div>
@@ -330,6 +330,17 @@
 					<p class="L18N_WINDOW15_PAR1"></p>
 
 					<div class="windowbuttonlist">
+						<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();"></div>
+					</div>
+				</div>
+
+				<div id="window16" class="popupwindow" style="display: none">
+					<h1 class="L18N_WINDOW6_TITLE"></h1> <!-- naschvál to je 6, ne 16 -->
+
+					<br><input style="width: 100%" type="text" value="񂁩MISSING"><br>
+
+					<div class="windowbuttonlist">
+						<div class="windowbutton L18N_BUTTON_SAVE" onclick="close_window();save_file_local(true);"></div>
 						<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();"></div>
 					</div>
 				</div>
