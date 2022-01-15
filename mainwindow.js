@@ -377,7 +377,7 @@ function canvas_reset(redraw_chart) {
 		ctx.fillRect(0, 0, canvas.width, canvas.height);
 
 		ctx.beginPath();
-		ctx.strokeStyle = "rgba(0, 0, 255, 0.3)";
+		ctx.strokeStyle = "rgba(0, 0, 255, 0.5)";
 		
 		var x = mouseX, y = mouseY;
 
