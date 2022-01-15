@@ -210,7 +210,7 @@ function save_file_local(name_chosen) {
 		// Vygeneruje element s daty, které se pak stáhnou
 
 		var element = document.createElement("a");
-		element.setAttribute("href", "data:text/plain;charset=utf-8," + encodeURIComponent(xml_export(filename)));
+		element.setAttribute("href", "data:text/plain;charset=utf-8," + encodeURIComponent(xml_export(inputfield.value)));
 		element.setAttribute("download", inputfield.value + ".coachium");
 		element.click();
 
