@@ -181,6 +181,10 @@ const alt_jslang = {
 	"SETUP_CLOSEST_USABLE_FREQ": "Nejbližší použitelná frekvence je<br>{0} Hz.",
 	"SETUP_REDUCED_RUNTIME": "Záznam poběží pouze {0} sekund.",
 	"SETUP_SENSOR_ERR": "Vybraná čidla nejsou připojena.",
+
+	"STATUS_ZOOM_IN_REQUEST": "Vyberte oblast, kterou chcete přiblížit.",
+	"STATUS_ZOOM_IN_CANCEL": "Výběr oblasti pro přiblížení zrušen.",
+	"STATUS_ZOOM_RESET": "Pohled na graf obnoven.",
 };
 
 const decimal_separator = ",";

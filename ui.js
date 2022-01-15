@@ -145,7 +145,7 @@ function ui_connect(actually_connect) {
 
 			// Funkce, která automaticky zvětší/zmenší canvas podle potřeby
 
-			window.addEventListener('resize', canvas_reset, false);
+			window.addEventListener('resize', () => { canvas_reset(true) }, false);
 
 			main_window_reset();
 		}, 350);
@@ -194,7 +194,7 @@ function ui_disconnect() {
 
 function main_window_reset() {
 	if(canvas.style.display != "none")
-		canvas_reset();
+		canvas_reset(true);
 	else
 		table_reset();
 
@@ -325,6 +325,40 @@ function change_capture_view() {
 }
 
 /*
+ * request_zoom_in()
+ * 
+ * Vyžádá, aby se spustil handler pro přiblížení na graf.
+ */
+
+function request_zoom_in() {
+	if(get_id("zoominbutton").style.filter) return;
+
+	if(!zoom_request_progress) {
+		get_id("statusmsg").innerHTML = jslang.STATUS_ZOOM_IN_REQUEST;
+		zoom_request_progress = 1;
+	} else {
+		get_id("statusmsg").innerHTML = jslang.STATUS_ZOOM_IN_CANCEL;
+		zoom_request_progress = 0;
+	}
+
+	main_window_reset();
+}
+
+/*
+ * zoom_reset()
+ * 
+ * Resetuje přiblížení na graf.
+ */
+
+function zoom_reset() {
+	if(get_id("zoomresetbutton").style.filter) return;
+
+	get_id("statusmsg").innerHTML = jslang.STATUS_ZOOM_RESET;
+	zoom_request_progress = 0;
+	zoomed_in = false;
+}
+
+/*
  * update_button_validity()
  * 
  * Zkontroluje, zda jsou všechna (ovlivnitelná) tlačítka na horním panelu platná.
@@ -432,6 +466,7 @@ window.onload = () => {
 	};
 
 	get_id("connectbuttonguest").onclick = () => { ui_connect(false); }
+	canvas.addEventListener("mousemove", canvasmousemovehandler);
 }
 
 /*

@@ -186,6 +186,10 @@ var jslang = {
 	"SETUP_CLOSEST_USABLE_FREQ": "The closest usable frequency<br>is {0} Hz.",
 	"SETUP_REDUCED_RUNTIME": "The capture will run for only<br>{0} seconds.",
 	"SETUP_SENSOR_ERR": "These sensors are not connected.",
+
+	"STATUS_ZOOM_IN_REQUEST": "Select the zoom region.",
+	"STATUS_ZOOM_IN_CANCEL": "Zoom region select canceled.",
+	"STATUS_ZOOM_RESET": "The zoom on the chart has been reset.",
 };
 
 const languages = [
