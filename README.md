@@ -1,6 +1,6 @@
 # Coachium
 
-# _CURRENTLY IN THE PRE-ALPHA STAGE, NOT MEANT FOR REGULAR USE!_
+# _CURRENTLY IN THE PRE-ALPHA STAGE, NOT MEANT FOR REGULAR USE AT THIS TIME!_
 
 Web-based software for interfacing with CMA educational interfaces and sensors. 
 
@@ -30,3 +30,43 @@ We strongly hope that we have introduced to you what Coachium actually is, and w
 - Multiple language support (currently only English and Czech are implemented)
 - Capturing data in real time into charts
 - Save a near infinite number of captures to a single workbook file (as opposed to Coach, which can only save a single capture per file), which can be then saved locally or to Google Drive (for submitting directly to Google Classroom, for example)
+
+## How can I try it out?
+
+If you are interested in trying this software out, visit [https://coachium.prochazka.ml/](https://coachium.prochazka.ml/). Beware that the default language of this instance is Czech, however, you can change that by clicking on the button in the top right corner.
+
+If you do not own a compatible device for connecting, you can still experience some parts of Coachium by downloading and opening the [example file](https://coachium.prochazka.ml/test.coachium) (in XML format).
+
+**However, if you are an educational institution wishing to use Coachium in your classes, it is highly recommended to run your own instance of Coachium on your own server, where you can select your own default language. See below for instructions.**
+
+## How to set it up on a server
+
+Since it is a simple static webpage, it is incredibly simple to set up. If you have a Linux server, do the following:
+
+```bash
+cd /var/www/html # Or any other directory where your server root is!
+git clone https://github.com/prochazkaml/Coachium
+```
+
+Then, edit the first line of the file `i18n/default.js`, where you will see the following:
+
+```js
+const DEFAULT_LANGUAGE = "cs";
+```
+
+There, replace `cs` by your preferred language (i.e. `en` – see the `i18n` directory for all supported languages). Save the changes, and Coachium should be ready to use on your server!
+
+To update your existing instance of Coachium to the latest version, run the following:
+
+```bash
+cd /var/www/html/coachium # Or wherever you installed Coachium
+git pull
+```
+
+## My language is not supported!
+
+_TODO_
+
+## My hardware is not supported!
+
+_TODO_
