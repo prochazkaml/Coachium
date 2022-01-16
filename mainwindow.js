@@ -91,8 +91,8 @@ function canvas_reset(redraw_chart) {
 			 * a_total_units = počet jednotek dané jednotky na dané ose (např. rozsah -20–110 °C = 130 jednotek)
 			 * a_min = minimální hodnota osy (např. -20)
 			 * a_max = maximální hodnota osy (např. 110)
-			 * a_0_pos_units = na jaké hodnotě (počínaje a_min, končíc a_max) se osa protíná s druhou osou (např. 20)
 			 * a_unit_in_px = převod hodnoty jednotky dané osy na vzdálenost v pixelech
+			 * a_actual_offset = bod 0 na ose
 			 * a_offset = pozice na obrazovce *té druhé osy*
 			 *   např. x_offset = 20 → osa Y se vykreslí 20 pixelů zleva (určuje pozici X)
 			 *         y_offset = 50 → osa X se vykreslí 50 pixelů shora (určuje pozici Y)
@@ -100,8 +100,8 @@ function canvas_reset(redraw_chart) {
 			 * a_optimal_unit_steps = hodnota vykalkulovaná funkcí get_optimal_unit_steps()
 			 */
 		
-			var x_unit_name, x_total_units, x_min, x_max, x_0_pos_units, x_unit_in_px, x_offset, x_round_level, x_optimal_unit_steps,
-				y_unit_name, y_total_units, y_min, y_max, y_0_pos_units, y_unit_in_px, y_offset, y_round_level, y_optimal_unit_steps;
+			var x_unit_name, x_total_units, x_min, x_max, x_unit_in_px, x_offset, x_actual_offset, x_round_level, x_optimal_unit_steps,
+				y_unit_name, y_total_units, y_min, y_max, y_unit_in_px, y_offset, y_actual_offset, y_round_level, y_optimal_unit_steps;
 		
 			// Vykalkulovat výše popsané hodnoty podle toho, zda měření proběhlo s jedním čidlem nebo s oběma
 		
@@ -115,16 +115,18 @@ function canvas_reset(redraw_chart) {
 				x_unit_name = "s";
 				x_min = 0;
 				x_max = captures[selectedcapture].seconds;
-		
-				if(x_min >= 0) {
-					x_total_units = x_max;
-					x_0_pos_units = 0;
-					x_offset = graph_margin_left; // tohle je vlastně pro osu Y, kde se protne s osou X... no, nevadí
-				} else {
-					x_total_units = x_max - x_min;
-					x_0_pos_units = -x_min;
-					x_offset = graph_margin_left + (canvas.width - graph_margin_left - graph_margin_right) * x_0_pos_units / x_total_units;
+
+				x_total_units = Math.abs(x_max - x_min);
+
+				if(x_min < 0 && x_max < 0) {
+					x_offset = canvas.width - graph_margin_right;
+				} else if(x_min < 0 && x_max >= 0) {
+					x_offset = graph_margin_left - (canvas.width - graph_margin_left - graph_margin_right) * x_min / x_total_units;
+				} else if(x_min >= 0 && x_max >= 0) {
+					x_offset = graph_margin_left;
 				}
+
+				x_actual_offset = graph_margin_left - (canvas.width - graph_margin_left - graph_margin_right) * x_min / x_total_units;
 		
 				x_unit_in_px = (canvas.width - graph_margin_left - graph_margin_right) / x_total_units;
 				x_round_level = get_optimal_round_level(x_total_units, canvas.width - graph_margin_left - graph_margin_right, 40);
@@ -135,17 +137,19 @@ function canvas_reset(redraw_chart) {
 				y_unit_name = sensor.unit;
 				y_min = sensor.min_value;
 				y_max = sensor.max_value;
-		
-				if(y_min >= 0) {
-					y_total_units = y_max;
-					y_0_pos_units = 0;
-					y_offset = canvas.height - graph_margin_bottom; // zase, tohle je vlastně pro osu X, kde se protne s osou Y
-				} else {
-					y_total_units = y_max - y_min;
-					y_0_pos_units = -y_min;
-					y_offset = canvas.height - graph_margin_bottom - (canvas.height - graph_margin_bottom - graph_margin_top) * y_0_pos_units / y_total_units;
+
+				y_total_units = Math.abs(y_max - y_min);
+
+				if(y_min < 0 && y_max < 0) {
+					y_offset = graph_margin_top;
+				} else if(y_min < 0 && y_max >= 0) {
+					y_offset = canvas.height - graph_margin_bottom + (canvas.height - graph_margin_bottom - graph_margin_top) * y_min / y_total_units;
+				} else if(y_min >= 0 && y_max >= 0) {
+					y_offset = canvas.height - graph_margin_bottom;
 				}
-		
+
+				y_actual_offset = canvas.height - graph_margin_bottom + (canvas.height - graph_margin_bottom - graph_margin_top) * y_min / y_total_units;
+
 				y_unit_in_px = (canvas.height - graph_margin_bottom - graph_margin_top) / y_total_units;
 				y_round_level = get_optimal_round_level(y_total_units, canvas.height - graph_margin_bottom - graph_margin_top, 24);
 				y_optimal_unit_steps = get_optimal_unit_steps(y_round_level);
@@ -160,17 +164,19 @@ function canvas_reset(redraw_chart) {
 				x_unit_name = sensor_b.unit;
 				x_min = sensor_b.min_value;
 				x_max = sensor_b.max_value;
-		
-				if(x_min >= 0) {
-					x_total_units = x_max;
-					x_0_pos_units = 0;
-					x_offset = graph_margin_left; // tohle je vlastně pro osu Y, kde se protne s osou X... no, nevadí
-				} else {
-					x_total_units = x_max - x_min;
-					x_0_pos_units = -x_min;
-					x_offset = graph_margin_left + (canvas.width - graph_margin_left - graph_margin_right) * x_0_pos_units / x_total_units;
+
+				x_total_units = Math.abs(x_max - x_min);
+
+				if(x_min < 0 && x_max < 0) {
+					x_offset = canvas.width - graph_margin_right;
+				} else if(x_min < 0 && x_max >= 0) {
+					x_offset = graph_margin_left - (canvas.width - graph_margin_left - graph_margin_right) * x_min / x_total_units;
+				} else if(x_min >= 0 && x_max >= 0) {
+					x_offset = graph_margin_left;
 				}
-	
+
+				x_actual_offset = graph_margin_left - (canvas.width - graph_margin_left - graph_margin_right) * x_min / x_total_units;
+			
 				x_unit_in_px = (canvas.width - graph_margin_left - graph_margin_right) / x_total_units;
 				x_round_level = get_optimal_round_level(x_total_units, canvas.width - graph_margin_left - graph_margin_right, 40);
 				x_optimal_unit_steps = get_optimal_unit_steps(x_round_level);
@@ -181,16 +187,18 @@ function canvas_reset(redraw_chart) {
 				y_min = sensor_a.min_value;
 				y_max = sensor_a.max_value;
 		
-				if(y_min >= 0) {
-					y_total_units = y_max;
-					y_0_pos_units = 0;
-					y_offset = canvas.height - graph_margin_bottom; // zase, tohle je vlastně pro osu X, kde se protne s osou Y
-				} else {
-					y_total_units = y_max - y_min;
-					y_0_pos_units = -y_min;
-					y_offset = canvas.height - graph_margin_bottom - (canvas.height - graph_margin_bottom - graph_margin_top) * y_0_pos_units / y_total_units;
+				y_total_units = Math.abs(y_max - y_min);
+
+				if(y_min < 0 && y_max < 0) {
+					y_offset = graph_margin_top;
+				} else if(y_min < 0 && y_max >= 0) {
+					y_offset = canvas.height - graph_margin_bottom + (canvas.height - graph_margin_bottom - graph_margin_top) * y_min / y_total_units;
+				} else if(y_min >= 0 && y_max >= 0) {
+					y_offset = canvas.height - graph_margin_bottom;
 				}
-		
+
+				y_actual_offset = canvas.height - graph_margin_bottom + (canvas.height - graph_margin_bottom - graph_margin_top) * y_min / y_total_units;
+
 				y_unit_in_px = (canvas.height - graph_margin_bottom - graph_margin_top) / y_total_units;
 				y_round_level = get_optimal_round_level(y_total_units, canvas.height - graph_margin_bottom - graph_margin_top, 24);
 				y_optimal_unit_steps = get_optimal_unit_steps(y_round_level);
@@ -202,23 +210,31 @@ function canvas_reset(redraw_chart) {
 			ctx.strokeStyle = "rgba(0, 0, 0, 0.1)";
 		
 			for(var i = y_optimal_unit_steps; i <= y_max; i = round_to_level(i + y_optimal_unit_steps, y_round_level)) {
-				ctx.moveTo(graph_margin_left, y_offset - i * y_unit_in_px);
-				ctx.lineTo(canvas.width - graph_margin_right, y_offset - i * y_unit_in_px);
+				if(i >= y_min) {
+					ctx.moveTo(graph_margin_left, y_actual_offset - i * y_unit_in_px);
+					ctx.lineTo(canvas.width - graph_margin_right, y_actual_offset - i * y_unit_in_px);
+				}
 			}
 		
 			for(var i = -y_optimal_unit_steps; i >= y_min; i = round_to_level(i - y_optimal_unit_steps, y_round_level)) {
-				ctx.moveTo(graph_margin_left, y_offset - i * y_unit_in_px);
-				ctx.lineTo(canvas.width - graph_margin_right, y_offset - i * y_unit_in_px);
+				if(i <= y_max) {
+					ctx.moveTo(graph_margin_left, y_actual_offset - i * y_unit_in_px);
+					ctx.lineTo(canvas.width - graph_margin_right, y_actual_offset - i * y_unit_in_px);
+				}
 			}
 		
 			for(var i = x_optimal_unit_steps; i <= x_max; i = round_to_level(i + x_optimal_unit_steps, x_round_level)) {
-				ctx.moveTo(x_offset + i * x_unit_in_px, graph_margin_top);
-				ctx.lineTo(x_offset + i * x_unit_in_px, canvas.height - graph_margin_bottom);
+				if(i >= x_min) {
+					ctx.moveTo(x_actual_offset + i * x_unit_in_px, graph_margin_top);
+					ctx.lineTo(x_actual_offset + i * x_unit_in_px, canvas.height - graph_margin_bottom);
+				}
 			}
 		
 			for(var i = -x_optimal_unit_steps; i >= x_min; i = round_to_level(i - x_optimal_unit_steps, x_round_level)) {
-				ctx.moveTo(x_offset + i * x_unit_in_px, graph_margin_top);
-				ctx.lineTo(x_offset + i * x_unit_in_px, canvas.height - graph_margin_bottom);
+				if(i <= x_max) {
+					ctx.moveTo(x_actual_offset + i * x_unit_in_px, graph_margin_top);
+					ctx.lineTo(x_actual_offset + i * x_unit_in_px, canvas.height - graph_margin_bottom);
+				}
 			}
 		
 			ctx.stroke();
@@ -239,8 +255,8 @@ function canvas_reset(redraw_chart) {
 				const sensor = captures[selectedcapture][(captures[selectedcapture].sensorsetup == 1) ? "port_a" : "port_b"];
 		
 				for(var i = 0; i < capturedsofar; i++) {
-					x = x_offset + x_unit_in_px * i * captures[selectedcapture].interval / 10000;
-					y = y_offset - convert_12bit_to_real(captureddata[i], sensor.coeff_a,
+					x = x_actual_offset + x_unit_in_px * i * captures[selectedcapture].interval / 10000;
+					y = y_actual_offset - convert_12bit_to_real(captureddata[i], sensor.coeff_a,
 						sensor.coeff_b, sensor.high_voltage) * y_unit_in_px;
 		
 					if(i == 0)
@@ -256,9 +272,9 @@ function canvas_reset(redraw_chart) {
 				const sensor_b = captures[selectedcapture].port_b;
 	
 				for(var i = 0; i < capturedsofar; i += 2) {
-					x = x_offset + convert_12bit_to_real(captureddata[i + 1], sensor_b.coeff_a,
+					x = x_actual_offset + convert_12bit_to_real(captureddata[i + 1], sensor_b.coeff_a,
 						sensor_b.coeff_b, sensor_b.high_voltage) * x_unit_in_px;
-					y = y_offset - convert_12bit_to_real(captureddata[i], sensor_a.coeff_a,
+					y = y_actual_offset - convert_12bit_to_real(captureddata[i], sensor_a.coeff_a,
 						sensor_a.coeff_b, sensor_a.high_voltage) * y_unit_in_px;
 	
 					if(i == 0)
@@ -291,20 +307,20 @@ function canvas_reset(redraw_chart) {
 			ctx.textAlign = "right";
 			ctx.textBaseline = "middle";
 		
-			for(var i = 0; i <= y_max; i = round_to_level(i + y_optimal_unit_steps, y_round_level)) {
-				if(i != 0) {
-					ctx.moveTo(x_offset - 4, y_offset - i * y_unit_in_px);
-					ctx.lineTo(x_offset + 4, y_offset - i * y_unit_in_px);
+			for(var i = y_optimal_unit_steps; i <= y_max; i = round_to_level(i + y_optimal_unit_steps, y_round_level)) {
+				if(i >= y_min) {
+					ctx.moveTo(x_offset - 4, y_actual_offset - i * y_unit_in_px);
+					ctx.lineTo(x_offset + 4, y_actual_offset - i * y_unit_in_px);
+					ctx.fillText(localize_num(i), x_offset - 8, y_actual_offset - i * y_unit_in_px);
 				}
-		
-				if(!(x_min < 0 && i == 0))
-					ctx.fillText(localize_num(i), x_offset - 8, y_offset - i * y_unit_in_px);
 			}
 		
 			for(var i = -y_optimal_unit_steps; i >= y_min; i = round_to_level(i - y_optimal_unit_steps, y_round_level)) {
-				ctx.moveTo(x_offset - 4, y_offset - i * y_unit_in_px);
-				ctx.lineTo(x_offset + 4, y_offset - i * y_unit_in_px);
-				ctx.fillText(localize_num(i), x_offset - 8, y_offset - i * y_unit_in_px);
+				if(i <= y_max) {
+					ctx.moveTo(x_offset - 4, y_actual_offset - i * y_unit_in_px);
+					ctx.lineTo(x_offset + 4, y_actual_offset - i * y_unit_in_px);
+					ctx.fillText(localize_num(i), x_offset - 8, y_actual_offset - i * y_unit_in_px);
+				}
 			}
 		
 			// Nakreslit + popsat čárky s hodnotami na ose X
