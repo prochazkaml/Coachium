@@ -145,7 +145,7 @@ function ui_connect(actually_connect) {
 
 			// Funkce, která automaticky zvětší/zmenší canvas podle potřeby
 
-			window.addEventListener('resize', () => { canvas_reset(true) }, false);
+			window.addEventListener('resize', main_window_reset, false);
 
 			main_window_reset();
 		}, 350);
