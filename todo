@@ -2,7 +2,7 @@ watchdog!!!
 make Google verify this app
 fit function
 show value on the graph when hovering over a data point
-zooming on the graph
+double/triple/... zoom on the graph
 switching to ms/us when necessary
 option for displaying information about the capture (freq, ...)
 moving (changing the order of) captures in the workbook

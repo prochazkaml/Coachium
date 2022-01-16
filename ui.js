@@ -321,12 +321,12 @@ function request_zoom_in() {
 	if(!zoom_request_progress) {
 		get_id("statusmsg").innerHTML = jslang.STATUS_ZOOM_IN_REQUEST;
 		zoom_request_progress = 1;
+		canvas_reset(false);
 	} else {
 		get_id("statusmsg").innerHTML = jslang.STATUS_ZOOM_IN_CANCEL;
 		zoom_request_progress = 0;
+		canvas_reset(true);
 	}
-
-	canvas_reset(false);
 }
 
 /*
