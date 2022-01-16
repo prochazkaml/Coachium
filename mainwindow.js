@@ -351,8 +351,21 @@ function canvas_reset(redraw_chart) {
 				}			
 			}
 		
-			ctx.stroke();			
+			ctx.stroke();
+			
+			// Zakrýt části grafu, které nejsou ve středu
+
+			ctx.save();
+
+			ctx.fillStyle = "rgba(255, 255, 255, 0.75)";
+
+			ctx.fillRect(0, 0, canvas.width, graph_margin_top);
+			ctx.fillRect(0, graph_margin_top, graph_margin_left, canvas.height - graph_margin_top - graph_margin_bottom);
+			ctx.fillRect(canvas.width - graph_margin_right, graph_margin_top, graph_margin_right, canvas.height - graph_margin_top - graph_margin_bottom);
+			ctx.fillRect(0, canvas.height - graph_margin_bottom, canvas.width, graph_margin_bottom);
 	
+			ctx.restore();
+
 			// Nakreslit osy
 		
 			ctx.beginPath();
