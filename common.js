@@ -159,6 +159,16 @@ function get_id(id) {
 }
 
 /*
+ * get_class(classname, index = 0)
+ * 
+ * To samé jako get_id(), ale pro vyhledávání podle classu.
+ */
+
+function get_class(classname, index = 0) {
+	return document.getElementsByClassName(classname)[index];
+}
+
+/*
  * format(str, ...)
  * 
  * Zformátuje řetězec s argumenty.

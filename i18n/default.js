@@ -6,6 +6,7 @@ var htmllang = {
 	"HOMEPAGE_VERSION": "Version 0.1 pre-alpha",
 	"HOMEPAGE_ABOUT_LINK": "What is Coachium?",
 	"HOMEPAGE_PRIVACY_POLICY_LINK": "Privacy policy",
+	"HOMEPAGE_COMMIT_CHECKING": "Checking version...",
 
 	// Button descriptions
 
@@ -179,6 +180,10 @@ var jslang = {
 	"STATUS_DEVICE_DISCONNECTED": "{0} was forcefully disconnected!",
 
 	// ui.js
+
+	"HOMEPAGE_COMMIT_OK": "👍 Lastest version ({0})",
+	"HOMEPAGE_COMMIT_OLD": "👎 Outdated version, please update! ({0} installed, {1} available)",
+	"HOMEPAGE_COMMIT_ERR": "😕 Error checking latest version",
 
 	"CHECKSUM_NOT_RESPONDING": "not responding",
 	"BUTTON_DISCONNECT": "Disconnect from device",

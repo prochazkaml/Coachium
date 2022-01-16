@@ -454,9 +454,58 @@ window.onload = () => {
 	};
 
 	get_id("connectbuttonguest").onclick = () => { ui_connect(false); }
+
+	// Inicializovat callbacky na canvasu
+
 	canvas.addEventListener("mousemove", canvasmousemovehandler);
 	canvas.addEventListener("mousedown", canvasmousechangehandler);
 	canvas.addEventListener("mouseup", canvasmousechangehandler);
+
+	// Zkontrolovat nejnovější verzi na GitHubu
+
+	var github_request = new XMLHttpRequest();
+
+    github_request.onreadystatechange = function() { 
+        if (github_request.readyState == 4) {
+			if(github_request.status == 200) {
+				var json = JSON.parse(github_request.responseText);
+
+				var sha1 = json["sha"];
+	
+				if(sha1 == undefined) {
+					get_class("L18N_HOMEPAGE_COMMIT_CHECKING").innerHTML = jslang.HOMEPAGE_COMMIT_ERR;
+				} else {
+					var local_request = new XMLHttpRequest();
+		
+					local_request.onreadystatechange = function() { 
+						if (local_request.readyState == 4) {
+							if(local_request.status == 200) {
+								sha2 = local_request.responseText;
+
+								if(sha1.substring(0, 7) == sha2.substring(0, 7)) {
+									get_class("L18N_HOMEPAGE_COMMIT_CHECKING").innerHTML = 
+										format(jslang.HOMEPAGE_COMMIT_OK, sha1.substring(0, 7));
+								} else {
+									get_class("L18N_HOMEPAGE_COMMIT_CHECKING").innerHTML = 
+										format(jslang.HOMEPAGE_COMMIT_OLD, sha2.substring(0, 7), sha1.substring(0, 7));
+								}
+							} else {
+								get_class("L18N_HOMEPAGE_COMMIT_CHECKING").innerHTML = jslang.HOMEPAGE_COMMIT_ERR;
+							}
+						} 
+					}
+		
+					local_request.open("GET", "./.git/refs/heads/master", true); // true for asynchronous 
+					local_request.send(null);
+				}
+			} else {
+				get_class("L18N_HOMEPAGE_COMMIT_CHECKING").innerHTML = jslang.HOMEPAGE_COMMIT_ERR;
+			}
+		} 
+    }
+
+    github_request.open("GET", "https://api.github.com/repos/prochazkaml/Coachium/commits/master", true);
+    github_request.send(null);
 }
 
 /*

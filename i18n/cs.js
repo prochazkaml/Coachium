@@ -5,6 +5,7 @@ const alt_htmllang = {
 	"HOMEPAGE_VERSION": "Verze 0.1 pre-alpha",
 	"HOMEPAGE_ABOUT_LINK": "Co je to Coachium?",
 	"HOMEPAGE_PRIVACY_POLICY_LINK": "Privacy policy",
+	"HOMEPAGE_COMMIT_CHECKING": "Kontroluji verzi...",
 
 	// Button descriptions
 
@@ -172,6 +173,10 @@ const alt_jslang = {
 	"STATUS_DEVICE_DISCONNECTED": "Zařízení {0} násilně odpojeno!",
 
 	// ui.js
+
+	"HOMEPAGE_COMMIT_OK": "👍 Nejnovější verze ({0})",
+	"HOMEPAGE_COMMIT_OLD": "👎 Zastaralá verze, prosím aktualizujte! ({0} nainstalovaná, {1} dostupná)",
+	"HOMEPAGE_COMMIT_ERR": "😕 Chyba ověřování nejnovější verze",
 
 	"CHECKSUM_NOT_RESPONDING": "nereaguje",
 	"BUTTON_DISCONNECT": "Odpojit se od zařízení",
