@@ -45,7 +45,7 @@ Since it is a simple static webpage, it is incredibly simple to set up. If you h
 
 ```bash
 cd /var/www/html # Or any other directory where your server root is!
-git clone https://github.com/prochazkaml/Coachium
+git clone https://github.com/prochazkaml/Coachium coachium # Make the downloaded repo lower-case
 ```
 
 Then, edit the first line of the file `i18n/default.js`, where you will see the following:
@@ -59,7 +59,7 @@ There, replace `cs` by your preferred language (i.e. `en` – see the `i18n` dir
 To update your existing instance of Coachium to the latest version, run the following:
 
 ```bash
-cd /var/www/html/Coachium # Or wherever you installed Coachium
+cd /var/www/html/coachium # Or wherever you installed Coachium
 git pull
 ```
 
