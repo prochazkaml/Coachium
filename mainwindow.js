@@ -116,6 +116,18 @@ function canvas_reset(redraw_chart) {
 				x_min = 0;
 				x_max = captures[selectedcapture].seconds;
 
+				if(zoomed_in) {
+					var x1 = (((zoomx1 < zoomx2) ? zoomx1 : zoomx2) - graph_margin_left) / (canvas.width - graph_margin_left - graph_margin_right);
+					var x2 = (((zoomx1 < zoomx2) ? zoomx2 : zoomx1) - graph_margin_left) / (canvas.width - graph_margin_left - graph_margin_right);
+
+					x_total_units = Math.abs(x_max - x_min);
+
+					x_max = x_min + x2 * x_total_units;		
+					x_min += x1 * x_total_units;
+
+					console.log(x_min, x_max);
+				}
+
 				x_total_units = Math.abs(x_max - x_min);
 
 				if(x_min < 0 && x_max < 0) {
@@ -137,6 +149,18 @@ function canvas_reset(redraw_chart) {
 				y_unit_name = sensor.unit;
 				y_min = sensor.min_value;
 				y_max = sensor.max_value;
+
+				if(zoomed_in) {
+					var y1 = 1 - (((zoomy1 < zoomy2) ? zoomy2 : zoomy1) - graph_margin_top) / (canvas.height - graph_margin_top - graph_margin_bottom);
+					var y2 = 1 - (((zoomy1 < zoomy2) ? zoomy1 : zoomy2) - graph_margin_top) / (canvas.height - graph_margin_top - graph_margin_bottom);
+	
+					y_total_units = Math.abs(y_max - y_min);
+
+					y_max = y_min + y2 * y_total_units;
+					y_min += y1 * y_total_units;
+	
+					console.log(y_min, y_max);
+				}
 
 				y_total_units = Math.abs(y_max - y_min);
 
@@ -328,20 +352,20 @@ function canvas_reset(redraw_chart) {
 			ctx.textAlign = "center";
 			ctx.textBaseline = "top";
 		
-			for(var i = 0; i <= x_max; i = round_to_level(i + x_optimal_unit_steps, x_round_level)) {
-				if(i != 0) {
-					ctx.moveTo(x_offset + i * x_unit_in_px, y_offset - 4);
-					ctx.lineTo(x_offset + i * x_unit_in_px, y_offset + 4);
+			for(var i = x_optimal_unit_steps; i <= x_max; i = round_to_level(i + x_optimal_unit_steps, x_round_level)) {
+				if(i >= x_min) {
+					ctx.moveTo(x_actual_offset + i * x_unit_in_px, y_offset - 4);
+					ctx.lineTo(x_actual_offset + i * x_unit_in_px, y_offset + 4);
+					ctx.fillText(localize_num(i), x_actual_offset + i * x_unit_in_px, y_offset + 16);
 				}
-		
-				if(!(y_min < 0 && i == 0))
-					ctx.fillText(localize_num(i), x_offset + i * x_unit_in_px, y_offset + 16);
 			}
 		
 			for(var i = -x_optimal_unit_steps; i >= x_min; i = round_to_level(i - x_optimal_unit_steps, x_round_level)) {
-				ctx.moveTo(x_offset + i * x_unit_in_px, y_offset - 4);
-				ctx.lineTo(x_offset + i * x_unit_in_px, y_offset + 4);
-				ctx.fillText(localize_num(i), x_offset + i * x_unit_in_px, y_offset + 16);
+				if(i <= x_max) {
+					ctx.moveTo(x_actual_offset + i * x_unit_in_px, y_offset - 4);
+					ctx.lineTo(x_actual_offset + i * x_unit_in_px, y_offset + 4);
+					ctx.fillText(localize_num(i), x_actual_offset + i * x_unit_in_px, y_offset + 16);
+				}
 			}
 		
 			// Popsat jednotky obou os
