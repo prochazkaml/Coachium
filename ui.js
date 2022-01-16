@@ -468,10 +468,8 @@ window.onload = () => {
     github_request.onreadystatechange = function() { 
         if (github_request.readyState == 4) {
 			if(github_request.status == 200) {
-				var json = JSON.parse(github_request.responseText);
+				var sha1 = JSON.parse(github_request.responseText)["sha"];
 
-				var sha1 = json["sha"];
-	
 				if(sha1 == undefined) {
 					get_class("L18N_HOMEPAGE_COMMIT_CHECKING").innerHTML = jslang.HOMEPAGE_COMMIT_ERR;
 				} else {
@@ -480,7 +478,7 @@ window.onload = () => {
 					local_request.onreadystatechange = function() { 
 						if (local_request.readyState == 4) {
 							if(local_request.status == 200) {
-								sha2 = local_request.responseText;
+								var sha2 = local_request.responseText;
 
 								if(sha1.substring(0, 7) == sha2.substring(0, 7)) {
 									get_class("L18N_HOMEPAGE_COMMIT_CHECKING").innerHTML = 
