@@ -29,4 +29,4 @@ We strongly hope that we have introduced to you what Coachium actually is, and w
 - Modern easy-to-use user interface
 - Multiple language support (currently only English and Czech are implemented)
 - Capturing data in real time into charts
-- Saving results to a local file or Google Drive
+- Save a near infinite number of captures to a single workbook file (as opposed to Coach, which can only save a single capture per file), which can be then saved locally or to Google Drive (for submitting directly to Google Classroom, for example)
