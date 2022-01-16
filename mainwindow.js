@@ -571,6 +571,12 @@ var mouseX = 0, mouseY = 0, oldmouseX = -1, oldmouseY = -1, lock = false;
 
 var mousepositions = [[-1, -1], [-1, -1], [-1, -1]];
 
+/*
+ * canvasmousemovehandler(e)
+ * 
+ * Callback, když se myš pohne nad canvasem.
+ */
+
 function canvasmousemovehandler(e) {
 	if(lock) return;
 	lock = true;
@@ -598,6 +604,12 @@ function canvasmousemovehandler(e) {
 
 	lock = false;
 }
+
+/*
+ * canvasmousechangehandler()
+ * 
+ * Callback, když se zmáčkne/pustí tlačítko na myši nad canvasem.
+ */
 
 function canvasmousechangehandler() {
 	if(lock) return;
