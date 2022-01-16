@@ -63,6 +63,8 @@ cd /var/www/html/coachium # Or wherever you installed Coachium
 git pull
 ```
 
+**NOTE: Any Google Drive-related functionality will _not_ work due to the fact that the API key is tied to my domain! You will have to set up your own Google API key yourself.** _todo_
+
 ## My language is not supported!
 
 _TODO_
