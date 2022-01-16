@@ -59,7 +59,7 @@ There, replace `cs` by your preferred language (i.e. `en` – see the `i18n` dir
 To update your existing instance of Coachium to the latest version, run the following:
 
 ```bash
-cd /var/www/html/coachium # Or wherever you installed Coachium
+cd /var/www/html/Coachium # Or wherever you installed Coachium
 git pull
 ```
 
