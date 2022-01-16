@@ -187,21 +187,6 @@ function ui_disconnect() {
 }
 
 /*
- * main_window_reset()
- * 
- * Obnoví všechny hodnoty v hlavním okně (tam, kde je buď graf nebo tabulka).
- */
-
-function main_window_reset() {
-	if(canvas.style.display != "none")
-		canvas_reset(true);
-	else
-		table_reset();
-
-	update_button_validity();
-}
-
-/*
  * capture_setup_check()
  *
  * Zkontrolovat validitu vstupních parametrů k inicializaci záznamu.
@@ -341,7 +326,7 @@ function request_zoom_in() {
 		zoom_request_progress = 0;
 	}
 
-	main_window_reset();
+	canvas_reset(false);
 }
 
 /*

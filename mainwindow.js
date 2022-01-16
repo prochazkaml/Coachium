@@ -1,4 +1,22 @@
 /*
+ * main_window_reset()
+ * 
+ * Obnoví všechny hodnoty v hlavním okně (tam, kde je buď graf nebo tabulka).
+ */
+
+function main_window_reset() {
+	if(canvas.style.display != "none") {
+		zoomed_in = false;
+		zoom_request_progress = 0;
+		canvas_reset(true);
+	} else {
+		table_reset();
+	}
+
+	update_button_validity();
+}
+
+/*
  * round_to_level(num, level)
  * 
  * Podle vrácené hodnoty funkce get_optimal_unit_steps optimálně zaokrouhlí hodnotu.
