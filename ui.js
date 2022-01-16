@@ -545,6 +545,19 @@ document.addEventListener('keydown', (event) => {
 				event.preventDefault();
 				remove_capture(false);
 				break;
+
+			case "Escape":
+				event.preventDefault();
+				if(zoom_request_progress) request_zoom_in();
+				break;
+
+			case "+":
+				request_zoom_in();
+				break;
+
+			case "=":
+				zoom_reset();
+				break;
 		}
 	}
 });
