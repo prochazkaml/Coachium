@@ -12,3 +12,7 @@ moving (changing the order of) captures in the workbook
 40 kHz capture on €Lab
 cyclic buffer on €Lab
 oscilloscope mode
+translate all comments to English
+add a version check against the Github repo
+readme: API key shenanigans
+drawing XY as double X

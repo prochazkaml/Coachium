@@ -481,23 +481,23 @@ function canvas_reset(redraw_chart) {
 			case 2:
 				ctx.fillStyle = "rgba(0, 0, 0, 0.29289)"; // (1 - x) * (1 - x) = 0,5
 
-				if(zoomy1 < y) {
-					ctx.fillRect(0, 0, canvas.width, zoomy1);
+				if(mousepositions[1][1] < y) {
+					ctx.fillRect(0, 0, canvas.width, mousepositions[1][1]);
 					ctx.fillRect(0, y, canvas.width, canvas.height);
 				} else {
 					ctx.fillRect(0, 0, canvas.width, y);
-					ctx.fillRect(0, zoomy1, canvas.width, canvas.height);
+					ctx.fillRect(0, mousepositions[1][1], canvas.width, canvas.height);
 				}
 	
-				if(zoomx1 < x) {
-					ctx.fillRect(0, 0, zoomx1, canvas.height);
+				if(mousepositions[1][0] < x) {
+					ctx.fillRect(0, 0, mousepositions[1][0], canvas.height);
 					ctx.fillRect(x, 0, canvas.width, canvas.height);
 				} else {
 					ctx.fillRect(0, 0, x, canvas.height);
-					ctx.fillRect(zoomx1, 0, canvas.width, canvas.height);
+					ctx.fillRect(mousepositions[1][0], 0, canvas.width, canvas.height);
 				}
 	
-				draw_crosshair(zoomx1, zoomy1);
+				draw_crosshair(mousepositions[1][0], mousepositions[1][1]);
 				draw_crosshair(x, y);
 				break;
 		}
@@ -630,23 +630,25 @@ function canvasmousechangehandler() {
 
 	switch(zoom_request_progress) {
 		case 1:
-			zoomx1 = mousepositions[zoom_request_progress][0];
-			zoomy1 = mousepositions[zoom_request_progress][1];
+			mousepositions[2][0] = mousepositions[1][0];
+			mousepositions[2][1] = mousepositions[1][1];
 
 			zoom_request_progress = 2;
-
-			mousepositions[zoom_request_progress][0] = zoomx1;
-			mousepositions[zoom_request_progress][1] = zoomy1;
 
 			canvas_reset(false);
 			break;
 
 		case 2:
-			if(mousepositions[zoom_request_progress][0] != mousepositions[zoom_request_progress - 1][0] &&
-			   mousepositions[zoom_request_progress][1] != mousepositions[zoom_request_progress - 1][1]) {
+			if(mousepositions[2][0] != mousepositions[1][0] &&
+			   mousepositions[2][1] != mousepositions[1][1]) {
 
-				zoomx2 = mousepositions[zoom_request_progress][0];
-				zoomy2 = mousepositions[zoom_request_progress][1];
+				zoomx1 = mousepositions[1][0];
+				zoomy1 = mousepositions[1][1];
+				zoomx2 = mousepositions[2][0];
+				zoomy2 = mousepositions[2][1];
+
+				mousepositions[0][0] = mousepositions[1][0] = mousepositions[2][0];
+				mousepositions[0][1] = mousepositions[1][1] = mousepositions[2][1];
 
 				zoom_request_progress = 0;
 				zoomed_in = true;
