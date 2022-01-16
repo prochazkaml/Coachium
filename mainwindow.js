@@ -373,28 +373,53 @@ function canvas_reset(redraw_chart) {
 	if(zoom_request_progress) {
 		ctx.putImageData(drawcache, 0, 0);
 
-		ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
-		ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-		ctx.beginPath();
-		ctx.strokeStyle = "rgba(0, 0, 255, 0.5)";
-		
 		var x = mouseX, y = mouseY;
 
-		if(x < graph_margin_left) x = graph_margin_left;
-		if(x > (canvas.width - graph_margin_right)) x = canvas.width - graph_margin_right;
-
-		if(y < graph_margin_top) y = graph_margin_top;
-		if(y > (canvas.height - graph_margin_bottom)) y = canvas.height - graph_margin_bottom;
-
-		ctx.moveTo(x, graph_margin_top);
-		ctx.lineTo(x, canvas.height - graph_margin_bottom);
+		switch(zoom_request_progress) {
+			case 1:
+				ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
+				ctx.fillRect(0, 0, canvas.width, canvas.height);
 	
-		ctx.moveTo(graph_margin_left, y);
-		ctx.lineTo(canvas.width - graph_margin_right, y);
+				draw_crosshair(x, y);
+				break;
+
+			case 2:
+				ctx.fillStyle = "rgba(0, 0, 0, 0.29289)"; // (1 - x) * (1 - x) = 0,5
+
+				if(zoomy1 < y) {
+					ctx.fillRect(0, 0, canvas.width, zoomy1);
+					ctx.fillRect(0, y, canvas.width, canvas.height);
+				} else {
+					ctx.fillRect(0, 0, canvas.width, y);
+					ctx.fillRect(0, zoomy1, canvas.width, canvas.height);
+				}
 	
-		ctx.stroke();
+				if(zoomx1 < x) {
+					ctx.fillRect(0, 0, zoomx1, canvas.height);
+					ctx.fillRect(x, 0, canvas.width, canvas.height);
+				} else {
+					ctx.fillRect(0, 0, x, canvas.height);
+					ctx.fillRect(zoomx1, 0, canvas.width, canvas.height);
+				}
+	
+				draw_crosshair(zoomx1, zoomy1);
+				draw_crosshair(x, y);
+				break;
+		}
 	}
+}
+
+function draw_crosshair(x, y) {
+	ctx.beginPath();
+	ctx.strokeStyle = "rgba(0, 0, 255, 0.5)";
+
+	ctx.moveTo(x, graph_margin_top);
+	ctx.lineTo(x, canvas.height - graph_margin_bottom);
+
+	ctx.moveTo(graph_margin_left, y);
+	ctx.lineTo(canvas.width - graph_margin_right, y);
+
+	ctx.stroke();
 }
 
 /*
@@ -462,19 +487,70 @@ function table_reset() {
 
 var mouseX = 0, mouseY = 0, oldmouseX = -1, oldmouseY = -1, lock = false;
 
+var mousepositions = [[-1, -1], [-1, -1], [-1, -1]];
+
 function canvasmousemovehandler(e) {
 	if(lock) return;
 	lock = true;
 
-	mouseX = e.offsetX;
-	mouseY = e.offsetY;
+	var x = e.offsetX, y = e.offsetY;
+
+	if(x < graph_margin_left) x = graph_margin_left;
+	if(x > (canvas.width - graph_margin_right)) x = canvas.width - graph_margin_right;
+
+	if(y < graph_margin_top) y = graph_margin_top;
+	if(y > (canvas.height - graph_margin_bottom)) y = canvas.height - graph_margin_bottom;
+
+	mouseX = x;
+	mouseY = y;
 
 	if(mouseX != oldmouseX || mouseY != oldmouseY) {
 		canvas_reset(false);
+
+		mousepositions[zoom_request_progress][0] = mouseX;
+		mousepositions[zoom_request_progress][1] = mouseY;
 
 		oldmouseX = mouseX;
 		oldmouseY = mouseY;
 	}
 
+	lock = false;
+}
+
+function canvasmousechangehandler() {
+	if(lock) return;
+	lock = true;
+
+	switch(zoom_request_progress) {
+		case 1:
+			zoomx1 = mousepositions[zoom_request_progress][0];
+			zoomy1 = mousepositions[zoom_request_progress][1];
+
+			zoom_request_progress = 2;
+
+			mousepositions[zoom_request_progress][0] = zoomx1;
+			mousepositions[zoom_request_progress][1] = zoomy1;
+
+			canvas_reset(false);
+			break;
+
+		case 2:
+			if(mousepositions[zoom_request_progress][0] != mousepositions[zoom_request_progress - 1][0] &&
+			   mousepositions[zoom_request_progress][1] != mousepositions[zoom_request_progress - 1][1]) {
+
+				zoomx2 = mousepositions[zoom_request_progress][0];
+				zoomy2 = mousepositions[zoom_request_progress][1];
+
+				zoom_request_progress = 0;
+				zoomed_in = true;
+
+				update_button_validity();
+				get_id("statusmsg").innerHTML = jslang.STATUS_ZOOM_IN_CONFIRM;
+			}
+
+			canvas_reset(true);
+			break;
+	}
+	
 	lock = false;
 }

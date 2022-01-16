@@ -356,6 +356,9 @@ function zoom_reset() {
 	get_id("statusmsg").innerHTML = jslang.STATUS_ZOOM_RESET;
 	zoom_request_progress = 0;
 	zoomed_in = false;
+
+	update_button_validity();
+	main_window_reset();
 }
 
 /*
@@ -467,6 +470,8 @@ window.onload = () => {
 
 	get_id("connectbuttonguest").onclick = () => { ui_connect(false); }
 	canvas.addEventListener("mousemove", canvasmousemovehandler);
+	canvas.addEventListener("mousedown", canvasmousechangehandler);
+	canvas.addEventListener("mouseup", canvasmousechangehandler);
 }
 
 /*
