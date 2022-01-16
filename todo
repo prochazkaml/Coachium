@@ -3,6 +3,9 @@ make Google verify this app
 fit function
 show value on the graph when hovering over a data point
 double/triple/... zoom on the graph
+round values on the chart to the same degree (e.g. 0.9, *1.0*, 1.1...)
+when the axes are on a specific side, put the units & values to a more intelligent place
+moving the graph when zoomed in
 switching to ms/us when necessary
 option for displaying information about the capture (freq, ...)
 moving (changing the order of) captures in the workbook
