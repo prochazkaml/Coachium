@@ -33,7 +33,7 @@ We strongly hope that we have introduced to you what Coachium actually is, and w
 
 ## How can I try it out?
 
-If you are interested in trying this software out, visit [https://coachium.prochazka.ml/](https://coachium.prochazka.ml/). Beware that the default language of this instance is Czech, however, you can change that by clicking on the button in the top right corner.
+If you are interested in trying this software out, visit our [central instance](https://coachium.prochazka.ml/). Beware that the default language of this instance is Czech, however, you can change that by clicking on the button in the top right corner.
 
 If you do not own a compatible device for connecting, you can still experience some parts of Coachium by downloading and opening the [example file](https://github.com/prochazkaml/Coachium/blob/master/test.coachium) (in XML format).
 
@@ -63,7 +63,15 @@ cd /var/www/html/coachium # Or wherever you installed Coachium
 git pull
 ```
 
-**NOTE: Any Google Drive-related functionality will _not_ work due to the fact that the API key is tied to my domain! You will have to set up your own Google API key yourself.** _todo_
+## How does Google Drive functionality work?
+
+By default, on your own instance, all Google Drive-related functionality will not be accessible, because your origin is not on the list of the [allowed domains](https://github.com/prochazkaml/Coachium/blob/master/gdrive.html#L8).
+
+Simply modifying your gdrive.html file will not work, since the app does not fetch this particular file from your instance, but from the [central instance](https://coachium.prochazka.ml/), because the Google client ID used in gdrive.html is tied to that particular domain.
+
+Restricting access from unknown origins was done to prevent API abuse by applications other than Coachium and to pass the Google verification process.
+
+Instructions for applying for a request to enable your domain name in the central instance will be published at a later date.
 
 ## My language is not supported!
 
