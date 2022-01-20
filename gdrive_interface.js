@@ -8,7 +8,7 @@ function popup_gdrive_window() {
 	if(get_id("savegdrivebutton").style.filter) return;
 
 	if(get_win_el_tag(WINDOWID_GDRIVE_NAME, "input").value == "񂁩MISSING")
-		get_id("gdrive_iframe").contentWindow.get_user_name();
+		get_id("gdrive_iframe").contentWindow.postMessage("_gdriveinterface{\"cmd\":\"get_user_name\"}", "*");
 	else
 		popup_window(WINDOWID_GDRIVE_NAME);
 }
@@ -26,8 +26,11 @@ function gdrive_save() {
 
 	var filename = get_win_el_tag(WINDOWID_GDRIVE_NAME, "input").value;
 
-	get_id("gdrive_iframe").contentWindow.save_file_to_Drive(
-		filename, xml_export(filename));
+	get_id("gdrive_iframe").contentWindow.postMessage("_gdriveinterface" + JSON.stringify({
+		"cmd": "save_file_to_Drive",
+		"name": filename,
+		"data": xml_export(filename),
+	}), "*");
 }
 
 /*

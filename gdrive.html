@@ -5,6 +5,11 @@
 	</head>
 	<body>
 		<script>
+			const allowed_domains = [
+				"http://localhost",
+				"https://coachium.prochazka.ml",
+			];
+
 			// V podstatě celé ukradené odsud: https://developers.google.com/drive/api/v3/quickstart/js
 
 			var signedin = false;
@@ -15,6 +20,30 @@
 					message: rest,
 				}, '*');
 			};
+
+			window.addEventListener('message', (response) => {
+				if(allowed_domains.includes(response.origin) && response.data.startsWith("_gdriveinterface")) {
+					var json = JSON.parse(response.data.substring(16));
+
+					if(json["cmd"]) {
+						switch(json["cmd"]) {
+							case "get_user_name":
+								get_user_name();
+								break;
+
+							case "save_file_to_Drive":
+								if(json["name"] && json["data"]) {
+									save_file_to_Drive(json["name"], json["data"]);
+								}
+								break;
+						}
+					}
+				} else if(!response.origin.includes("google")) {
+					console.log("Attempt to communicate from origin " + response.origin);
+					msg("error: attempt to communicate from unregistered origin " + response.origin);
+				}
+			}); 
+
 
 			/**
 			 *  Initializes the API client library and sets up sign-in state
