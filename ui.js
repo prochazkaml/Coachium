@@ -563,7 +563,7 @@ document.addEventListener('keydown', (event) => {
 				event.preventDefault();
 				
 				if(!capturerunning)
-					popup_window(WINDOWID_CAPTURE_SETUP);
+					create_capture();
 				else
 					requestcapture = 1;
 
