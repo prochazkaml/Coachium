@@ -347,6 +347,18 @@ function zoom_reset() {
 }
 
 /*
+ * show_capture_info()
+ * 
+ * Pokud je to možné, zobrazí informace o tomto záznamu.
+ */
+
+function show_capture_info() {
+	if(get_id("captureinfobutton").style.filter) return;
+
+	popup_window(WINDOWID_CAPTURE_INFO);
+}
+
+/*
  * update_button_validity()
  * 
  * Zkontroluje, zda jsou všechna (ovlivnitelná) tlačítka na horním panelu platná.
@@ -368,6 +380,8 @@ function update_button_validity() {
 		get_id("viewnextbutton").style.filter = "contrast(0)";
 		get_id("zoominbutton").style.filter = "contrast(0)";
 		get_id("zoomresetbutton").style.filter = "contrast(0)";
+
+		get_id("captureinfobutton").style.filter = "contrast(0)";
 	} else {
 		get_id("capturestartbutton").style.display = "";
 		get_id("capturestopbutton").style.display = "none";	
@@ -384,12 +398,14 @@ function update_button_validity() {
 			get_id("viewnextbutton").style.filter = "contrast(0)";
 			get_id("zoominbutton").style.filter = "contrast(0)";
 			get_id("zoomresetbutton").style.filter = "contrast(0)";
+			get_id("captureinfobutton").style.filter = "contrast(0)";
 		} else {
 			get_id("removeeverythingbutton").style.filter = "";
 			get_id("renamecapturebutton").style.filter = "";
 			get_id("removecapturebutton").style.filter = "";
 			get_id("savebutton").style.filter = "";
 			get_id("savegdrivebutton").style.filter = "";
+			get_id("captureinfobutton").style.filter = "";
 
 			if(canvas.style.display != "none") {
 				get_id("zoominbutton").style.filter = "";
@@ -559,6 +575,10 @@ document.addEventListener('keydown', (event) => {
 
 			case "t":
 				change_capture_view();
+				break;
+
+			case "i":
+				show_capture_info();
 				break;
 
 			case "ArrowLeft":

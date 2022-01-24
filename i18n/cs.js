@@ -6,6 +6,7 @@ const alt_htmllang = {
 	"HOMEPAGE_ABOUT_LINK": "Co je to Coachium?",
 	"HOMEPAGE_PRIVACY_POLICY_LINK": "Privacy policy",
 	"HOMEPAGE_COMMIT_CHECKING": "Kontroluji verzi...",
+	"TITLE_HOMEPAGE_ABOUT": "O programu Coachium...",
 
 	// Button descriptions
 
@@ -35,7 +36,7 @@ const alt_htmllang = {
 	"TITLE_NEXT_CAPTURE": "Zobrazit následující záznam v sešitě [→ nebo PageDown]",
 	"TITLE_CHART_ZOOM_IN": "Přiblížit pohled na graf [+]",
 	"TITLE_CHART_ZOOM_RESET": "Obnovit pohled na graf [=]",
-	"TITLE_ABOUT": "O programu Coachium...",
+	"TITLE_CAPTURE_INFO": "Zobrazit podrobnosti tohoto záznamu [I]",
 
 	// Window contents
 
@@ -131,7 +132,9 @@ const alt_htmllang = {
 		"tato operace je nevratná!",
 	"WINDOW12_PAR2": "Jste si skutečně jisti, že si přejete pokračovat?",
 
-	"WINDOW13_TITLE": "Jak se bude tento záznam jmenovat?"
+	"WINDOW13_TITLE": "Jak se bude tento záznam jmenovat?",
+
+	"WINDOW17_TITLE": "Podrobnosti záznamu",
 };
 
 const alt_jslang = {

@@ -7,6 +7,7 @@ var htmllang = {
 	"HOMEPAGE_ABOUT_LINK": "What is Coachium?",
 	"HOMEPAGE_PRIVACY_POLICY_LINK": "Privacy policy",
 	"HOMEPAGE_COMMIT_CHECKING": "Checking version...",
+	"TITLE_HOMEPAGE_ABOUT": "About Coachium...",
 
 	// Button descriptions
 
@@ -36,7 +37,7 @@ var htmllang = {
 	"TITLE_NEXT_CAPTURE": "Show the next capture [→ or PageDown]",
 	"TITLE_CHART_ZOOM_IN": "Zoom into the chart [+]",
 	"TITLE_CHART_ZOOM_RESET": "Reset the zoom on the chart [=]",
-	"TITLE_ABOUT": "About Coachium...",
+	"TITLE_CAPTURE_INFO": "Display this capture's details [I]",
 
 	// Window contents
 
@@ -139,6 +140,8 @@ var htmllang = {
 		"Error loading the requested language.<br>" +
 		"English will be now used as a fallback.",
 	"WINDOW15_PAR1": "We apologize for the inconvenience.",
+
+	"WINDOW17_TITLE": "Capture properties",
 };
 
 var jslang = {
