@@ -170,6 +170,16 @@ function get_class(classname, index = 0) {
 }
 
 /*
+ * get_tag(tagname, index = 0)
+ * 
+ * To samé jako get_id(), ale pro vyhledávání podle názvu tagu.
+ */
+
+function get_tag(tagname, index = 0) {
+	return document.getElementsByTagName(tagname)[index];
+}
+
+/*
  * format(str, ...)
  * 
  * Zformátuje řetězec s argumenty.
