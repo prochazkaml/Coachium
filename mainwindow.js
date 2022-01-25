@@ -26,6 +26,10 @@ function round_to_level(num, level) {
 	return round(num, -Math.floor(level / 3));
 }
 
+function fixed_to_level(num, level) {
+	return num.toFixed(-Math.floor(level / 3));
+}
+
 /*
  * get_optimal_unit_steps(level)
  * 
@@ -378,7 +382,7 @@ function canvas_reset(redraw_chart) {
 				if(i >= y_min) {
 					ctx.moveTo(x_offset - 4, y_actual_offset - i * y_unit_in_px);
 					ctx.lineTo(x_offset + 4, y_actual_offset - i * y_unit_in_px);
-					ctx.fillText(localize_num(i), x_offset - 8, y_actual_offset - i * y_unit_in_px);
+					ctx.fillText(localize_num(fixed_to_level(i, y_round_level)), x_offset - 8, y_actual_offset - i * y_unit_in_px);
 				}
 			}
 		
@@ -386,7 +390,7 @@ function canvas_reset(redraw_chart) {
 				if(i <= y_max) {
 					ctx.moveTo(x_offset - 4, y_actual_offset - i * y_unit_in_px);
 					ctx.lineTo(x_offset + 4, y_actual_offset - i * y_unit_in_px);
-					ctx.fillText(localize_num(i), x_offset - 8, y_actual_offset - i * y_unit_in_px);
+					ctx.fillText(localize_num(fixed_to_level(i, y_round_level)), x_offset - 8, y_actual_offset - i * y_unit_in_px);
 				}
 			}
 		
@@ -399,7 +403,7 @@ function canvas_reset(redraw_chart) {
 				if(i >= x_min) {
 					ctx.moveTo(x_actual_offset + i * x_unit_in_px, y_offset - 4);
 					ctx.lineTo(x_actual_offset + i * x_unit_in_px, y_offset + 4);
-					ctx.fillText(localize_num(i), x_actual_offset + i * x_unit_in_px, y_offset + 16);
+					ctx.fillText(localize_num(fixed_to_level(i, x_round_level)), x_actual_offset + i * x_unit_in_px, y_offset + 16);
 				}
 			}
 		
@@ -407,7 +411,7 @@ function canvas_reset(redraw_chart) {
 				if(i <= x_max) {
 					ctx.moveTo(x_actual_offset + i * x_unit_in_px, y_offset - 4);
 					ctx.lineTo(x_actual_offset + i * x_unit_in_px, y_offset + 4);
-					ctx.fillText(localize_num(i), x_actual_offset + i * x_unit_in_px, y_offset + 16);
+					ctx.fillText(localize_num(fixed_to_level(i, x_round_level)), x_actual_offset + i * x_unit_in_px, y_offset + 16);
 				}
 			}
 		
