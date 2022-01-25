@@ -237,6 +237,8 @@ function save_file_local(name_chosen) {
  */
 
 function create_capture() {
+	zoom_reset();
+	
 	if(ports[0].connected && ports[1].connected) {
 		// Budeme chtít zaznamenávat z obou čidel
 
