@@ -152,6 +152,14 @@ const alt_jslang = {
 	// gdrive_interface.js
 
 	"DEFAULT_FILENAME": "{0} – Laboratorní práce – {1}",
+	"GOOGLE_ERROR":
+		"Služby Google vrátily neočekávanou hodnotu.\n\n" +
+		"To se může stát, když neudělíte této aplikaci " +
+		"oprávnění k zápisu souborů na Váš Google Disk.\n\n" +
+		"Pokud jste tak učinili, prosím navštivte následující " +
+		"adresu, tam v seznamu najděte Coachium, klikněte " +
+		"na \"ODEBRAT PŘÍSTUP\" a zkuste se přihlásit znovu.\n\n" +
+		"https://myaccount.google.com/permissions",
 	
 	// file.js
 

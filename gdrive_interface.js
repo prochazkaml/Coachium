@@ -43,7 +43,10 @@ window.addEventListener('message', (response) => {
 
 		console.log(gdrive_response);
 
-		if(gdrive_response.startsWith("username:")) {
+		if(!gdrive_response) {
+			get_win_el_tag(WINDOWID_GDRIVE_GENERIC_ERR, "textarea").value = jslang.GOOGLE_ERROR;
+			popup_window(WINDOWID_GDRIVE_GENERIC_ERR);
+		} else if(gdrive_response.startsWith("username:")) {
 			gdrive_response = gdrive_response.substr(9);
 
 			if(gdrive_response.toLowerCase().includes("error")) {

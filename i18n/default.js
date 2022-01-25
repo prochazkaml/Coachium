@@ -159,6 +159,14 @@ var jslang = {
 	// gdrive_interface.js
 
 	"DEFAULT_FILENAME": "{0} – Laboratory work – {1}",
+	"GOOGLE_ERROR":
+		"Google Services have returned an unexpected value.\n\n" +
+		"That can happen if you do not grant this application " +
+		"permission to write files to your Google Drive.\n\n" +
+		"If you hane not done so, please visit the following " +
+		"address, search for Coachium in the list, click " +
+		"on \"REMOVE ACCESS\" and try logging in again.\n\n" +
+		"https://myaccount.google.com/permissions",
 
 	// file.js
 
