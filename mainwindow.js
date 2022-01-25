@@ -135,13 +135,10 @@ function canvas_reset(redraw_chart) {
 				x_max = captures[selectedcapture].seconds;
 
 				if(zoomed_in) {
-					var x1 = (((zoomx1 < zoomx2) ? zoomx1 : zoomx2) - graph_margin_left) / (canvas.width - graph_margin_left - graph_margin_right);
-					var x2 = (((zoomx1 < zoomx2) ? zoomx2 : zoomx1) - graph_margin_left) / (canvas.width - graph_margin_left - graph_margin_right);
-
 					x_total_units = Math.abs(x_max - x_min);
 
-					x_max = x_min + x2 * x_total_units;		
-					x_min += x1 * x_total_units;
+					x_max = x_min + zoomx2 * x_total_units;		
+					x_min += zoomx1 * x_total_units;
 
 					console.log(x_min, x_max);
 				}
@@ -169,13 +166,10 @@ function canvas_reset(redraw_chart) {
 				y_max = sensor.max_value;
 
 				if(zoomed_in) {
-					var y1 = 1 - (((zoomy1 < zoomy2) ? zoomy2 : zoomy1) - graph_margin_top) / (canvas.height - graph_margin_top - graph_margin_bottom);
-					var y2 = 1 - (((zoomy1 < zoomy2) ? zoomy1 : zoomy2) - graph_margin_top) / (canvas.height - graph_margin_top - graph_margin_bottom);
-	
 					y_total_units = Math.abs(y_max - y_min);
 
-					y_max = y_min + y2 * y_total_units;
-					y_min += y1 * y_total_units;
+					y_max = y_min + zoomy2 * y_total_units;
+					y_min += zoomy1 * y_total_units;
 	
 					console.log(y_min, y_max);
 				}
@@ -208,13 +202,10 @@ function canvas_reset(redraw_chart) {
 				x_max = sensor_b.max_value;
 
 				if(zoomed_in) {
-					var x1 = (((zoomx1 < zoomx2) ? zoomx1 : zoomx2) - graph_margin_left) / (canvas.width - graph_margin_left - graph_margin_right);
-					var x2 = (((zoomx1 < zoomx2) ? zoomx2 : zoomx1) - graph_margin_left) / (canvas.width - graph_margin_left - graph_margin_right);
-
 					x_total_units = Math.abs(x_max - x_min);
 
-					x_max = x_min + x2 * x_total_units;		
-					x_min += x1 * x_total_units;
+					x_max = x_min + zoomx2 * x_total_units;		
+					x_min += zoomx1 * x_total_units;
 
 					console.log(x_min, x_max);
 				}
@@ -242,13 +233,10 @@ function canvas_reset(redraw_chart) {
 				y_max = sensor_a.max_value;
 		
 				if(zoomed_in) {
-					var y1 = 1 - (((zoomy1 < zoomy2) ? zoomy2 : zoomy1) - graph_margin_top) / (canvas.height - graph_margin_top - graph_margin_bottom);
-					var y2 = 1 - (((zoomy1 < zoomy2) ? zoomy1 : zoomy2) - graph_margin_top) / (canvas.height - graph_margin_top - graph_margin_bottom);
-	
 					y_total_units = Math.abs(y_max - y_min);
 
-					y_max = y_min + y2 * y_total_units;
-					y_min += y1 * y_total_units;
+					y_max = y_min + zoomy2 * y_total_units;
+					y_min += zoomy1 * y_total_units;
 	
 					console.log(y_min, y_max);
 				}
@@ -642,10 +630,33 @@ function canvasmousechangehandler() {
 			if(mousepositions[2][0] != mousepositions[1][0] &&
 			   mousepositions[2][1] != mousepositions[1][1]) {
 
-				zoomx1 = mousepositions[1][0];
-				zoomy1 = mousepositions[1][1];
-				zoomx2 = mousepositions[2][0];
-				zoomy2 = mousepositions[2][1];
+				var x1 = mousepositions[1][0];
+				var y1 = mousepositions[1][1];
+				var x2 = mousepositions[2][0];
+				var y2 = mousepositions[2][1];
+
+				var _x1 = (((x1 < x2) ? x1 : x2) - graph_margin_left) / (canvas.width - graph_margin_left - graph_margin_right);
+				var _y1 = 1 - (((y1 < y2) ? y2 : y1) - graph_margin_top) / (canvas.height - graph_margin_top - graph_margin_bottom);
+				var _x2 = (((x1 < x2) ? x2 : x1) - graph_margin_left) / (canvas.width - graph_margin_left - graph_margin_right);
+				var _y2 = 1 - (((y1 < y2) ? y1 : y2) - graph_margin_top) / (canvas.height - graph_margin_top - graph_margin_bottom);
+
+				console.log(_x1, _y1, _x2, _y2);
+
+				if(!zoomed_in) {
+					zoomx1 = 0;
+					zoomy1 = 0;
+					zoomx2 = 1;
+					zoomy2 = 1;
+				}
+
+				var x = zoomx2 - zoomx1, y = zoomy2 - zoomy1;
+
+				zoomx2 = zoomx1 + _x2 * x;
+				zoomx1 += _x1 * x;
+				zoomy2 = zoomy1 + _y2 * y;
+				zoomy1 += _y1 * y;
+
+				console.log(zoomx1, zoomy1, zoomx2, zoomy2);
 
 				mousepositions[1][0] = mousepositions[2][0];
 				mousepositions[1][1] = mousepositions[2][1];
