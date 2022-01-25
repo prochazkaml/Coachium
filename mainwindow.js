@@ -133,8 +133,8 @@ function canvas_reset(redraw_chart) {
 			 * a_optimal_unit_steps = hodnota vykalkulovaná funkcí get_optimal_unit_steps()
 			 */
 		
-			var x_unit_name, x_total_units, x_min, x_max, x_unit_in_px, x_offset, x_actual_offset, x_round_level, x_optimal_unit_steps,
-				y_unit_name, y_total_units, y_min, y_max, y_unit_in_px, y_offset, y_actual_offset, y_round_level, y_optimal_unit_steps;
+			var x_unit_name, x_total_units, x_min, x_max, x_unit_in_px, x_offset, x_actual_offset, x_round_level, x_optimal_unit_steps, x_legend_reverse = false,
+				y_unit_name, y_total_units, y_min, y_max, y_unit_in_px, y_offset, y_actual_offset, y_round_level, y_optimal_unit_steps, y_legend_reverse = false;
 		
 			// Vykalkulovat výše popsané hodnoty podle toho, zda měření proběhlo s jedním čidlem nebo s oběma
 		
@@ -162,6 +162,7 @@ function canvas_reset(redraw_chart) {
 
 				if(x_min < 0 && x_max < 0) {
 					x_offset = canvas.width - graph_margin_right;
+					x_legend_reverse = true;
 				} else if(x_min < 0 && x_max >= 0) {
 					x_offset = graph_margin_left - (canvas.width - graph_margin_left - graph_margin_right) * x_min / x_total_units;
 				} else if(x_min >= 0 && x_max >= 0) {
@@ -193,6 +194,7 @@ function canvas_reset(redraw_chart) {
 
 				if(y_min < 0 && y_max < 0) {
 					y_offset = graph_margin_top;
+					y_legend_reverse = true;
 				} else if(y_min < 0 && y_max >= 0) {
 					y_offset = canvas.height - graph_margin_bottom + (canvas.height - graph_margin_bottom - graph_margin_top) * y_min / y_total_units;
 				} else if(y_min >= 0 && y_max >= 0) {
@@ -229,6 +231,7 @@ function canvas_reset(redraw_chart) {
 
 				if(x_min < 0 && x_max < 0) {
 					x_offset = canvas.width - graph_margin_right;
+					x_legend_reverse = true;
 				} else if(x_min < 0 && x_max >= 0) {
 					x_offset = graph_margin_left - (canvas.width - graph_margin_left - graph_margin_right) * x_min / x_total_units;
 				} else if(x_min >= 0 && x_max >= 0) {
@@ -260,6 +263,7 @@ function canvas_reset(redraw_chart) {
 
 				if(y_min < 0 && y_max < 0) {
 					y_offset = graph_margin_top;
+					y_legend_reverse = true;
 				} else if(y_min < 0 && y_max >= 0) {
 					y_offset = canvas.height - graph_margin_bottom + (canvas.height - graph_margin_bottom - graph_margin_top) * y_min / y_total_units;
 				} else if(y_min >= 0 && y_max >= 0) {
@@ -386,14 +390,14 @@ function canvas_reset(redraw_chart) {
 		
 			// Nakreslit + popsat čárky s hodnotami na ose Y
 		
-			ctx.textAlign = "right";
+			ctx.textAlign = x_legend_reverse ? "left" : "right";
 			ctx.textBaseline = "middle";
 		
 			for(var i = y_optimal_unit_steps; i <= y_max; i = round_to_level(i + y_optimal_unit_steps, y_round_level)) {
 				if(i >= y_min) {
 					ctx.moveTo(x_offset - 4, y_actual_offset - i * y_unit_in_px);
 					ctx.lineTo(x_offset + 4, y_actual_offset - i * y_unit_in_px);
-					ctx.fillText(localize_num(fixed_to_level(i, y_round_level)), x_offset - 8, y_actual_offset - i * y_unit_in_px);
+					ctx.fillText(localize_num(fixed_to_level(i, y_round_level)), x_offset + (x_legend_reverse ? 8 : (-8)), y_actual_offset - i * y_unit_in_px);
 				}
 			}
 		
@@ -401,20 +405,20 @@ function canvas_reset(redraw_chart) {
 				if(i <= y_max) {
 					ctx.moveTo(x_offset - 4, y_actual_offset - i * y_unit_in_px);
 					ctx.lineTo(x_offset + 4, y_actual_offset - i * y_unit_in_px);
-					ctx.fillText(localize_num(fixed_to_level(i, y_round_level)), x_offset - 8, y_actual_offset - i * y_unit_in_px);
+					ctx.fillText(localize_num(fixed_to_level(i, y_round_level)), x_offset + (x_legend_reverse ? 8 : (-8)), y_actual_offset - i * y_unit_in_px);
 				}
 			}
 		
 			// Nakreslit + popsat čárky s hodnotami na ose X
 		
 			ctx.textAlign = "center";
-			ctx.textBaseline = "top";
+			ctx.textBaseline = y_legend_reverse ? "bottom" : "top";
 		
 			for(var i = x_optimal_unit_steps; i <= x_max; i = round_to_level(i + x_optimal_unit_steps, x_round_level)) {
 				if(i >= x_min) {
 					ctx.moveTo(x_actual_offset + i * x_unit_in_px, y_offset - 4);
 					ctx.lineTo(x_actual_offset + i * x_unit_in_px, y_offset + 4);
-					ctx.fillText(localize_num(fixed_to_level(i, x_round_level)), x_actual_offset + i * x_unit_in_px, y_offset + 16);
+					ctx.fillText(localize_num(fixed_to_level(i, x_round_level)), x_actual_offset + i * x_unit_in_px, y_offset + (y_legend_reverse ? (-12) : 12));
 				}
 			}
 		
@@ -422,19 +426,19 @@ function canvas_reset(redraw_chart) {
 				if(i <= x_max) {
 					ctx.moveTo(x_actual_offset + i * x_unit_in_px, y_offset - 4);
 					ctx.lineTo(x_actual_offset + i * x_unit_in_px, y_offset + 4);
-					ctx.fillText(localize_num(fixed_to_level(i, x_round_level)), x_actual_offset + i * x_unit_in_px, y_offset + 16);
+					ctx.fillText(localize_num(fixed_to_level(i, x_round_level)), x_actual_offset + i * x_unit_in_px, y_offset + (y_legend_reverse ? (-12) : 12));
 				}
 			}
 		
 			// Popsat jednotky obou os
 		
-			ctx.textBaseline = "bottom";
+			ctx.textBaseline = y_legend_reverse ? "top" : "bottom";
 			ctx.textAlign = "center";
-			ctx.fillText(y_unit_name, x_offset, graph_margin_top - 8);
+			ctx.fillText(y_unit_name, x_offset, y_legend_reverse ? (canvas.height - graph_margin_bottom + 8) : (graph_margin_top - 8));
 		
 			ctx.textBaseline = "middle";
-			ctx.textAlign = "left";
-			ctx.fillText(x_unit_name, canvas.width - graph_margin_right + 8, y_offset);
+			ctx.textAlign = x_legend_reverse ? "right" : "left";
+			ctx.fillText(x_unit_name, x_legend_reverse ? (graph_margin_left - 8) : (canvas.width - graph_margin_right + 8), y_offset);
 		
 			// Dokončit vykreslování! Hurá!
 		
@@ -443,6 +447,7 @@ function canvas_reset(redraw_chart) {
 			// Napsat název grafu
 	
 			ctx.textBaseline = "top";
+			ctx.textAlign = "left";
 			ctx.font = "bold 16px Ubuntu";
 			ctx.fillText(format(jslang.CAPTURE_FMT, selectedcapture + 1, captures.length, captures[selectedcapture].title), graph_margin_left, (graph_margin_top - 16) / 2);
 	

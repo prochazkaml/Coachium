@@ -3,7 +3,6 @@ fit function
 show value on the graph when hovering over a data point
 trigger (conditional capture) mode
 counter mode
-when the axes are on a specific side, put the units & values to a more intelligent place
 moving the graph when zoomed in
 moving (changing the order of) captures in the workbook
 40 kHz capture on €Lab
