@@ -1,12 +1,15 @@
-watchdog!!!
-fit function
-show value on the graph when hovering over a data point
-trigger (conditional capture) mode
-counter mode
-moving the graph when zoomed in
-moving (changing the order of) captures in the workbook
-40 kHz capture on €Lab
-cyclic buffer on €Lab
-oscilloscope mode
-translate all comments to English
-drawing XY as double X
+Does not require hardware:
+- fit function
+- show value on the graph when hovering over a data point
+- moving the graph when zoomed in
+- moving (changing the order of) captures in the workbook
+- translate all comments to English
+- drawing XY as double X
+
+Requires hardware:
+- watchdog!!!
+- trigger (conditional capture) mode
+- counter mode
+- 40 kHz capture on €Lab
+- cyclic buffer on €Lab
+- oscilloscope mode
