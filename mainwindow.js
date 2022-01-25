@@ -608,8 +608,8 @@ function canvasmousemovehandler(e) {
 	if(mouseX != oldmouseX || mouseY != oldmouseY) {
 		canvas_reset(false);
 
-		mousepositions[zoom_request_progress][0] = mouseX;
-		mousepositions[zoom_request_progress][1] = mouseY;
+		mousepositions[zoom_request_progress ? zoom_request_progress : 1][0] = mouseX;
+		mousepositions[zoom_request_progress ? zoom_request_progress : 1][1] = mouseY;
 
 		oldmouseX = mouseX;
 		oldmouseY = mouseY;
@@ -647,8 +647,8 @@ function canvasmousechangehandler() {
 				zoomx2 = mousepositions[2][0];
 				zoomy2 = mousepositions[2][1];
 
-				mousepositions[0][0] = mousepositions[1][0] = mousepositions[2][0];
-				mousepositions[0][1] = mousepositions[1][1] = mousepositions[2][1];
+				mousepositions[1][0] = mousepositions[2][0];
+				mousepositions[1][1] = mousepositions[2][1];
 
 				zoom_request_progress = 0;
 				zoomed_in = true;
