@@ -26,8 +26,19 @@ function round_to_level(num, level) {
 	return round(num, -Math.floor(level / 3));
 }
 
+/*
+ * fixed_to_level(num, level)
+ * 
+ * Optimálně zaokrouhlí hodnotu (a převede na řetězec) na pevný počet
+ * desetinných číslic podle vrácené hodnoty funkce get_optimal_unit_steps.
+ */
+
 function fixed_to_level(num, level) {
-	return num.toFixed(-Math.floor(level / 3));
+	var i = -Math.floor(level / 3);
+
+	if(i < 0) i = 0;
+
+	return num.toFixed(i);
 }
 
 /*
