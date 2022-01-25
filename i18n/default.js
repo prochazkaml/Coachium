@@ -201,6 +201,16 @@ var jslang = {
 	"STATUS_ZOOM_IN_CONFIRM": "Region successfully zoomed in.",
 	"STATUS_ZOOM_IN_CANCEL": "Zoom region select canceled.",
 	"STATUS_ZOOM_RESET": "The zoom on the chart has been reset.",
+
+	"INFO_WINDOW_CONTENTS":
+		"<p><b>{0}</b> total samples captured<br>" +
+		"({1} captured by each sensor)</p>" +
+		"<p>Capture frequency: <b>{2} Hz</b></p>" +
+		"<p>Capture length: <b>{3} second(s)</b></p>",
+
+	"INFO_WINDOW_SENSOR":
+		"<p><b>Sensor {0} – {1}</b></p>" +
+		"<p>Range: <b>{2} – {3} {4}</b></p>",
 };
 
 const languages = [

@@ -347,6 +347,28 @@ function zoom_reset() {
 }
 
 /*
+ * info_generate_sensor(sensor)
+ * 
+ * Vygeneruje popisek čidla pro zobrazení podrobností.
+ */
+
+function info_generate_sensor(sensor) {
+	var out = "<div style=\"padding:.5em;margin:1em 0;background-color:" + sensor.color + "\">";
+
+	out += format(jslang.INFO_WINDOW_SENSOR,
+		sensor.id,
+		sensor.name,
+		localize_num(round(sensor.min_value, 2)),
+		localize_num(round(sensor.max_value, 2)),
+		sensor.unit
+	);
+	
+	out += "</div>";
+
+	return out;
+}
+
+/*
  * show_capture_info()
  * 
  * Pokud je to možné, zobrazí informace o tomto záznamu.
@@ -354,6 +376,31 @@ function zoom_reset() {
 
 function show_capture_info() {
 	if(get_id("captureinfobutton").style.filter) return;
+
+	const capture = captures[selectedcapture];
+
+	var str = format(jslang.INFO_WINDOW_CONTENTS,
+		capture.samples,
+		capture.samples / (capture.sensorsetup ? 1 : 2),
+		localize_num(round(10000 / capture.interval, 2)),
+		capture.seconds
+	);
+
+	switch(capture.sensorsetup) {
+		case 0:
+			str += info_generate_sensor(capture.port_a);
+			// break tu opět chybí schválně
+		
+		case 2:
+			str += info_generate_sensor(capture.port_b);
+			break;
+
+		case 1:
+			str += info_generate_sensor(capture.port_a);
+			break;
+	}
+
+	get_win_el_tag(WINDOWID_CAPTURE_INFO, "div").innerHTML = str;
 
 	popup_window(WINDOWID_CAPTURE_INFO);
 }

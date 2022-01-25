@@ -194,6 +194,16 @@ const alt_jslang = {
 	"STATUS_ZOOM_IN_CONFIRM": "Vybraná oblast úspěšně přiblížena.",
 	"STATUS_ZOOM_IN_CANCEL": "Výběr oblasti pro přiblížení zrušen.",
 	"STATUS_ZOOM_RESET": "Pohled na graf obnoven.",
+
+	"INFO_WINDOW_CONTENTS":
+		"<p>Celkem naměřeno <b>{0}</b> vzorků<br>" +
+		"({1} každým čidlem)</p>" +
+		"<p>Rychlost záznamu: <b>{2} Hz</b></p>" +
+		"<p>Délka záznamu: <b>{3} s</b></p>",
+
+	"INFO_WINDOW_SENSOR":
+		"<p><b>Čidlo {0} – {1}</b></p>" +
+		"<p>Rozsah: <b>{2} – {3} {4}</b></p>",
 };
 
 const decimal_separator = ",";
