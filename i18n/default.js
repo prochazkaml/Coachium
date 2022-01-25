@@ -142,6 +142,15 @@ var htmllang = {
 	"WINDOW15_PAR1": "We apologize for the inconvenience.",
 
 	"WINDOW17_TITLE": "Capture properties",
+
+	"WINDOW18_TITLE": "Google Services error",
+	"WINDOW18_PAR0":
+		"That can occur if you do not grant this application<br>" +
+		"permission to write files to your Google Drive.",
+	"WINDOW18_PAR1":
+		"If you hane not done so, please visit the following<br>" +
+		"web page, search for Coachium in the list, click on<br>" +
+		"<b>REMOVE ACCESS</b> and try logging in again.",
 };
 
 var jslang = {
@@ -159,14 +168,6 @@ var jslang = {
 	// gdrive_interface.js
 
 	"DEFAULT_FILENAME": "{0} – Laboratory work – {1}",
-	"GOOGLE_ERROR":
-		"Google Services have returned an unexpected value.\n\n" +
-		"That can happen if you do not grant this application " +
-		"permission to write files to your Google Drive.\n\n" +
-		"If you hane not done so, please visit the following " +
-		"address, search for Coachium in the list, click " +
-		"on \"REMOVE ACCESS\" and try logging in again.\n\n" +
-		"https://myaccount.google.com/permissions",
 
 	// file.js
 

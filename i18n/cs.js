@@ -135,6 +135,15 @@ const alt_htmllang = {
 	"WINDOW13_TITLE": "Jak se bude tento záznam jmenovat?",
 
 	"WINDOW17_TITLE": "Podrobnosti záznamu",
+
+	"WINDOW18_TITLE": "Chyba Google Služeb",
+	"WINDOW18_PAR0":
+		"Taková situace může nastat, když neudělíte této aplikaci<br>" +
+		"dostatečná oprávnění k zápisu souborů na Váš Google Disk.",
+	"WINDOW18_PAR1":
+		"Pokud jste tak již učinili, prosím navštivte následující<br>" +
+		"odkaz, tam v seznamu najděte Coachium, klikněte na<br>" +
+		"<b>ODEBRAT PŘÍSTUP</b> a zkuste se přihlásit znovu.",
 };
 
 const alt_jslang = {
@@ -152,15 +161,7 @@ const alt_jslang = {
 	// gdrive_interface.js
 
 	"DEFAULT_FILENAME": "{0} – Laboratorní práce – {1}",
-	"GOOGLE_ERROR":
-		"Služby Google vrátily neočekávanou hodnotu.\n\n" +
-		"To se může stát, když neudělíte této aplikaci " +
-		"oprávnění k zápisu souborů na Váš Google Disk.\n\n" +
-		"Pokud jste tak učinili, prosím navštivte následující " +
-		"adresu, tam v seznamu najděte Coachium, klikněte " +
-		"na \"ODEBRAT PŘÍSTUP\" a zkuste se přihlásit znovu.\n\n" +
-		"https://myaccount.google.com/permissions",
-	
+
 	// file.js
 
 	"DEFAULT_USERNAME": "Jan Novák",
