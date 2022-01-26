@@ -474,6 +474,8 @@ function canvas_reset(redraw_chart) {
 	}
 
 	if(zoom_request_progress) {
+		canvas.style.cursor = "crosshair";
+
 		ctx.putImageData(drawcache, 0, 0);
 
 		var x = mouseX, y = mouseY;
@@ -509,6 +511,8 @@ function canvas_reset(redraw_chart) {
 				draw_crosshair(x, y);
 				break;
 		}
+	} else {
+		canvas.style.cursor = "auto";
 	}
 }
 
