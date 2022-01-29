@@ -5,6 +5,7 @@ Does not require hardware:
 - moving (changing the order of) captures in the workbook
 - translate all comments to English
 - drawing XY as double X
+- "window manager" is buggy when 2 windows are opened simultaneously
 
 Requires hardware:
 - watchdog!!!
