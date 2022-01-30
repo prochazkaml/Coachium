@@ -45,7 +45,6 @@
 				<div class="navspacer"></div>
 				<div class="navbutton" id="capturestartbutton"><img src="icons/graphstart.svg" class="L18N_TITLE_NEW_CAPTURE" onclick="create_capture();"></div>
 				<div class="navbutton" id="capturestopbutton" style="display: none"><img src="icons/graphstop.svg" class="L18N_TITLE_STOP_CAPTURE" onclick="requestcapture=1;"></div>
-				<div class="navbutton" id="renamecapturebutton"><img src="icons/graphrename.svg" class="L18N_TITLE_RENAME_CAPTURE" onclick="rename_capture(false);"></div>
 				<div class="navbutton" id="removecapturebutton"><img src="icons/graphremove.svg" class="L18N_TITLE_REMOVE_CAPTURE" onclick="remove_capture(false);"></div>
 				<div class="navbutton" id="capturemgmtbutton"><img src="icons/capturemgmt.svg" class="L18N_TITLE_CAPTURE_MGMT" onclick="capture_management();"></div>
 				<div class="navspacer"></div>
@@ -309,12 +308,18 @@
 				</div>
 
 				<div id="window13" class="popupwindow" style="display: none">
-					<h1 class="L18N_WINDOW13_TITLE"></h1>
+					<h1 class="L18N_WINDOW13_TITLE"></h1><br>
 
-					<br><input style="width: 100%" type="text" value=""><br>
+					<select size="10" style="width: 20em;font-size: 1.2em;font-family:Ubuntu"></select><br><br>
+
+					<div style="display: flex; flex-direction: row;">
+						<input type="text" style="flex: 1;">
+						<span class="windowbutton" style="flex: 0; margin: 0 .5em 0 1em"><img src="icons/confirm.svg" style="height: 1em; vertical-align: top" onclick="start_language_win();"></span>
+						<span class="windowbutton" style="flex: 0; margin: 0 .5em"><img src="icons/move_up.svg" style="height: 1em; vertical-align: top" onclick="start_language_win();"></span>
+						<span class="windowbutton" style="flex: 0; margin: 0 0 0 .5em"><img src="icons/move_down.svg" style="height: 1em; vertical-align: top" onclick="start_language_win();"></span>
+					</div>
 
 					<div class="windowbuttonlist">
-						<div class="windowbutton L18N_BUTTON_RENAME" onclick="close_window();rename_capture(true);"></div>
 						<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();"></div>
 					</div>
 				</div>
@@ -366,23 +371,6 @@
 					<p class="L18N_WINDOW18_PAR1"></p>
 
 					<p><a target="_blank" href="https://myaccount.google.com/permissions">https://myaccount.google.com/permissions</a></p>
-
-					<div class="windowbuttonlist">
-						<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();"></div>
-					</div>
-				</div>
-
-				<div id="window19" class="popupwindow" style="display: none">
-					<h1 class="L18N_WINDOW19_TITLE"></h1><br>
-
-					<select size="10" style="width: 20em;font-size: 1.2em;font-family:Ubuntu"></select><br><br>
-
-					<div style="display: flex; flex-direction: row;">
-						<input type="text" style="flex: 1;">
-						<span class="windowbutton" style="flex: 0; margin: 0 .5em 0 1em"><img src="icons/confirm.svg" style="height: 1em; vertical-align: top" onclick="start_language_win();"></span>
-						<span class="windowbutton" style="flex: 0; margin: 0 .5em"><img src="icons/move_up.svg" style="height: 1em; vertical-align: top" onclick="start_language_win();"></span>
-						<span class="windowbutton" style="flex: 0; margin: 0 0 0 .5em"><img src="icons/move_down.svg" style="height: 1em; vertical-align: top" onclick="start_language_win();"></span>
-					</div>
 
 					<div class="windowbuttonlist">
 						<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();"></div>

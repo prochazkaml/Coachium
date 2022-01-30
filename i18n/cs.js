@@ -133,7 +133,7 @@ const alt_htmllang = {
 		"tato operace je nevratná!",
 	"WINDOW12_PAR2": "Jste si skutečně jisti, že si přejete pokračovat?",
 
-	"WINDOW13_TITLE": "Jak se bude tento záznam jmenovat?",
+	"WINDOW13_TITLE": "Správce záznamů",
 
 	"WINDOW17_TITLE": "Podrobnosti záznamu",
 
@@ -145,8 +145,6 @@ const alt_htmllang = {
 		"Pokud jste tak již učinili, prosím navštivte následující<br>" +
 		"odkaz, tam v seznamu najděte Coachium, klikněte na<br>" +
 		"<b>ODEBRAT PŘÍSTUP</b> a zkuste se přihlásit znovu.",
-
-	"WINDOW19_TITLE": "Správce záznamů",
 };
 
 const alt_jslang = {

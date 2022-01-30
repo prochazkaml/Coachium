@@ -490,7 +490,6 @@ function update_button_validity() {
 		get_id("savebutton").style.filter = "contrast(0)";
 		get_id("savegdrivebutton").style.filter = "contrast(0)";
 
-		get_id("renamecapturebutton").style.filter = "contrast(0)";
 		get_id("removecapturebutton").style.filter = "contrast(0)";
 		get_id("capturemgmtbutton").style.filter = "contrast(0)";
 
@@ -508,7 +507,6 @@ function update_button_validity() {
 
 		if(captures.length == 0) {
 			get_id("removeeverythingbutton").style.filter = "contrast(0)";
-			get_id("renamecapturebutton").style.filter = "contrast(0)";
 			get_id("removecapturebutton").style.filter = "contrast(0)";
 			get_id("capturemgmtbutton").style.filter = "contrast(0)";
 			get_id("savebutton").style.filter = "contrast(0)";
@@ -520,7 +518,6 @@ function update_button_validity() {
 			get_id("captureinfobutton").style.filter = "contrast(0)";
 		} else {
 			get_id("removeeverythingbutton").style.filter = "";
-			get_id("renamecapturebutton").style.filter = "";
 			get_id("removecapturebutton").style.filter = "";
 			get_id("capturemgmtbutton").style.filter = "";
 			get_id("savebutton").style.filter = "";
@@ -687,10 +684,6 @@ document.addEventListener('keydown', (event) => {
 				else
 					requestcapture = 1;
 
-				break;
-
-			case "r":
-				rename_capture(false);
 				break;
 
 			case "t":

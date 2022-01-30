@@ -134,7 +134,7 @@ var htmllang = {
 		"this operation is irreversible!",
 	"WINDOW12_PAR2": "Are you sure that you want to proceed?",
 
-	"WINDOW13_TITLE": "How will this capture be called?",
+	"WINDOW13_TITLE": "Capture management",
 
 	"WINDOW15_TITLE": "Language error",
 	"WINDOW15_PAR0":
@@ -152,8 +152,6 @@ var htmllang = {
 		"If you hane not done so, please visit the following<br>" +
 		"web page, search for Coachium in the list, click on<br>" +
 		"<b>REMOVE ACCESS</b> and try logging in again.",
-
-	"WINDOW19_TITLE": "Capture management",
 };
 
 var jslang = {

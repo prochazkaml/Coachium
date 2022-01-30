@@ -262,35 +262,6 @@ function create_capture() {
 }
 
 /*
- * rename_capture()
- * 
- * Zobrazí dialog pro přejmenování záznamu, pokud je to možné. Pak daný záznam přejmenuje.
- */
-
-function rename_capture(name_decided) {
-	if(get_id("renamecapturebutton").style.filter) return;
-
-	if(!name_decided) {
-		get_win_el_tag(WINDOWID_RENAME_CAPTURE, "input").value = captures[selectedcapture].title;
-
-		popup_window(WINDOWID_RENAME_CAPTURE);
-
-		setTimeout(() => {
-			get_win_el_tag(WINDOWID_RENAME_CAPTURE, "input").select();
-		}, 100);
-	} else {
-		const newtitle = get_win_el_tag(WINDOWID_RENAME_CAPTURE, "input").value
-
-		if(newtitle != "")
-			captures[selectedcapture].title = newtitle;
-		else
-			captures[selectedcapture].title = jslang.UNTITLED_CAPTURE;
-
-		main_window_reset();
-	}
-}
-
-/*
  * remove_capture(are_you_sure)
  * 
  * Odstraní právě vybraný záznam ze sešitu.
