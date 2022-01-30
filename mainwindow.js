@@ -81,8 +81,8 @@ function get_optimal_round_level(maxunits, displaysize, limit) {
 
 const graph_margin_top    = 72;
 const graph_margin_bottom = 40;
-const graph_margin_left   = 48;
-const graph_margin_right  = 48;
+const graph_margin_left   = 64;
+const graph_margin_right  = 64;
 
 var drawcache = null;
 
