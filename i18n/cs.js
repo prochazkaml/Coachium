@@ -36,6 +36,7 @@ const alt_htmllang = {
 	"TITLE_NEXT_CAPTURE": "Zobrazit následující záznam v sešitě [→ nebo PageDown]",
 	"TITLE_CHART_ZOOM_IN": "Přiblížit pohled na graf [+]",
 	"TITLE_CHART_ZOOM_RESET": "Obnovit pohled na graf [=]",
+	"TITLE_CAPTURE_MGMT": "Spravovat záznamy [M]",
 	"TITLE_CAPTURE_INFO": "Zobrazit podrobnosti tohoto záznamu [I]",
 
 	// Window contents
@@ -144,6 +145,8 @@ const alt_htmllang = {
 		"Pokud jste tak již učinili, prosím navštivte následující<br>" +
 		"odkaz, tam v seznamu najděte Coachium, klikněte na<br>" +
 		"<b>ODEBRAT PŘÍSTUP</b> a zkuste se přihlásit znovu.",
+
+	"WINDOW19_TITLE": "Správce záznamů",
 };
 
 const alt_jslang = {

@@ -37,6 +37,7 @@ var htmllang = {
 	"TITLE_NEXT_CAPTURE": "Show the next capture [→ or PageDown]",
 	"TITLE_CHART_ZOOM_IN": "Zoom into the chart [+]",
 	"TITLE_CHART_ZOOM_RESET": "Reset the zoom on the chart [=]",
+	"TITLE_CAPTURE_MGMT": "Manage captures [M]",
 	"TITLE_CAPTURE_INFO": "Display this capture's details [I]",
 
 	// Window contents
@@ -151,6 +152,8 @@ var htmllang = {
 		"If you hane not done so, please visit the following<br>" +
 		"web page, search for Coachium in the list, click on<br>" +
 		"<b>REMOVE ACCESS</b> and try logging in again.",
+
+	"WINDOW19_TITLE": "Capture management",
 };
 
 var jslang = {

@@ -406,6 +406,75 @@ function show_capture_info() {
 }
 
 /*
+ * capture_management()
+ * 
+ * Inicializuje data pro okno se správcem záznamů a otevře ho.
+ */
+
+function capture_management() {
+	if(get_id("capturemgmtbutton").style.filter) return;
+
+	const w = WINDOWID_CAPTURE_MANAGEMENT;
+	const select = get_win_el_tag(w, "select");
+	const input = get_win_el_tag(w, "input");
+
+	select.innerHTML = "";
+
+	for(var i = 0; i < captures.length; i++) {
+		var option = document.createElement("option");
+		option.innerHTML = (i + 1) + ") " + captures[i].title;
+	
+		select.appendChild(option);
+	}
+
+	select.onchange = () => {
+		input.value = captures[select.selectedIndex].title;
+		get_win_el_class(w, "windowbutton").style.backgroundColor = "rgba(0, 0, 0, .1)";
+		selectedcapture = select.selectedIndex;
+		main_window_reset();
+	}
+	
+	input.oninput = () => {
+		get_win_el_class(w, "windowbutton").style.backgroundColor =
+			(input.value == captures[selectedcapture].title) ? "rgba(0, 0, 0, .1)" : "";
+	}
+
+	get_win_el_class(w, "windowbutton", 0).onclick = () => {
+		captures[selectedcapture].title = input.value;
+		capture_management();
+	}
+
+	get_win_el_class(w, "windowbutton", 1).onclick = () => {
+		if(selectedcapture > 0) {
+			const capture = captures[selectedcapture];
+			captures[selectedcapture] = captures[selectedcapture - 1];
+
+			selectedcapture--;
+			captures[selectedcapture] = capture;
+
+			capture_management();
+		}
+	}
+
+	get_win_el_class(w, "windowbutton", 2).onclick = () => {
+		if((selectedcapture + 1) < captures.length) {
+			const capture = captures[selectedcapture];
+			captures[selectedcapture] = captures[selectedcapture + 1];
+
+			selectedcapture++;
+			captures[selectedcapture] = capture;
+
+			capture_management();
+		}
+	}
+
+	get_win_el_tag(w, "option", selectedcapture).selected = true;
+	select.onchange();
+
+	popup_window(w);
+}
+
+/*
  * update_button_validity()
  * 
  * Zkontroluje, zda jsou všechna (ovlivnitelná) tlačítka na horním panelu platná.
@@ -423,6 +492,8 @@ function update_button_validity() {
 
 		get_id("renamecapturebutton").style.filter = "contrast(0)";
 		get_id("removecapturebutton").style.filter = "contrast(0)";
+		get_id("capturemgmtbutton").style.filter = "contrast(0)";
+
 		get_id("viewpreviousbutton").style.filter = "contrast(0)";
 		get_id("viewnextbutton").style.filter = "contrast(0)";
 		get_id("zoominbutton").style.filter = "contrast(0)";
@@ -439,6 +510,7 @@ function update_button_validity() {
 			get_id("removeeverythingbutton").style.filter = "contrast(0)";
 			get_id("renamecapturebutton").style.filter = "contrast(0)";
 			get_id("removecapturebutton").style.filter = "contrast(0)";
+			get_id("capturemgmtbutton").style.filter = "contrast(0)";
 			get_id("savebutton").style.filter = "contrast(0)";
 			get_id("savegdrivebutton").style.filter = "contrast(0)";
 			get_id("viewpreviousbutton").style.filter = "contrast(0)";
@@ -450,6 +522,7 @@ function update_button_validity() {
 			get_id("removeeverythingbutton").style.filter = "";
 			get_id("renamecapturebutton").style.filter = "";
 			get_id("removecapturebutton").style.filter = "";
+			get_id("capturemgmtbutton").style.filter = "";
 			get_id("savebutton").style.filter = "";
 			get_id("savegdrivebutton").style.filter = "";
 			get_id("captureinfobutton").style.filter = "";
@@ -626,6 +699,10 @@ document.addEventListener('keydown', (event) => {
 
 			case "i":
 				show_capture_info();
+				break;
+
+			case "m":
+				capture_management();
 				break;
 
 			case "ArrowLeft":

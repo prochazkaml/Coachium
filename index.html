@@ -47,6 +47,7 @@
 				<div class="navbutton" id="capturestopbutton" style="display: none"><img src="icons/graphstop.svg" class="L18N_TITLE_STOP_CAPTURE" onclick="requestcapture=1;"></div>
 				<div class="navbutton" id="renamecapturebutton"><img src="icons/graphrename.svg" class="L18N_TITLE_RENAME_CAPTURE" onclick="rename_capture(false);"></div>
 				<div class="navbutton" id="removecapturebutton"><img src="icons/graphremove.svg" class="L18N_TITLE_REMOVE_CAPTURE" onclick="remove_capture(false);"></div>
+				<div class="navbutton" id="capturemgmtbutton"><img src="icons/capturemgmt.svg" class="L18N_TITLE_CAPTURE_MGMT" onclick="capture_management();"></div>
 				<div class="navspacer"></div>
 				<div class="navbutton" id="viewpreviousbutton"><img src="icons/graphprevious.svg" class="L18N_TITLE_PREVIOUS_CAPTURE" onclick="change_selected_capture(-1);"></div>
 				<div class="navbutton" id="viewastablebutton"><img src="icons/graphtableview.svg" class="L18N_TITLE_SHOW_AS_TABLE" onclick="change_capture_view();"></div>
@@ -365,6 +366,23 @@
 					<p class="L18N_WINDOW18_PAR1"></p>
 
 					<p><a target="_blank" href="https://myaccount.google.com/permissions">https://myaccount.google.com/permissions</a></p>
+
+					<div class="windowbuttonlist">
+						<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();"></div>
+					</div>
+				</div>
+
+				<div id="window19" class="popupwindow" style="display: none">
+					<h1 class="L18N_WINDOW19_TITLE"></h1><br>
+
+					<select size="10" style="width: 20em;font-size: 1.2em;font-family:Ubuntu"></select><br><br>
+
+					<div style="display: flex; flex-direction: row;">
+						<input type="text" style="flex: 1;">
+						<span class="windowbutton" style="flex: 0; margin: 0 .5em 0 1em"><img src="icons/confirm.svg" style="height: 1em; vertical-align: top" onclick="start_language_win();"></span>
+						<span class="windowbutton" style="flex: 0; margin: 0 .5em"><img src="icons/move_up.svg" style="height: 1em; vertical-align: top" onclick="start_language_win();"></span>
+						<span class="windowbutton" style="flex: 0; margin: 0 0 0 .5em"><img src="icons/move_down.svg" style="height: 1em; vertical-align: top" onclick="start_language_win();"></span>
+					</div>
 
 					<div class="windowbuttonlist">
 						<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();"></div>
