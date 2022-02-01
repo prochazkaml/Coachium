@@ -13,10 +13,10 @@ function popup_window(id) {
 			close_window_timeout = null;
 		}
 
-		get_win(id).style.display = "";
-		get_id("windowoverlay").style.pointerEvents = "auto";
-		get_id("windowoverlay").style.opacity = 1;
-		get_id("windowcontainer").style.transform = "scale(1)";
+		get_win_overlay(id).style.zIndex = zindex++;
+		get_win_overlay(id).style.pointerEvents = "auto";
+		get_win_overlay(id).style.opacity = 1;
+		get_win(id).style.transform = "scale(1)";
 	}
 }
 
@@ -33,14 +33,9 @@ function close_window() {
 		var win = openwindow;
 		openwindow = -1;
 
-		get_id("windowoverlay").style.pointerEvents = "none";
-		get_id("windowoverlay").style.opacity = 0;
-		get_id("windowcontainer").style.transform = "";
-
-		close_window_timeout = setTimeout(() => {
-			get_win(win).style.display = "none";
-			close_window_timeout = null;
-		}, 300);
+		get_win_overlay(win).style.pointerEvents = "";
+		get_win_overlay(win).style.opacity = "";
+		get_win(win).style.transform = "";
 	}
 }
 
@@ -70,8 +65,12 @@ function confirm_window() {
  * Pokud funkce přijímá parametr index a není explicitně udán, jeho výchozí hodnota je 0.
  */
 
+function get_win_overlay(win_id) {
+	return get_id("window" + win_id + "overlay");
+}
+
 function get_win(win_id) {
-	return get_id("window" + win_id);
+	return get_win_overlay(win_id).getElementsByClassName("popupwindow")[0];
 }
 
 function get_win_el_id(win_id, el_id) {

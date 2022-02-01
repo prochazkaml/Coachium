@@ -41,7 +41,7 @@ const WINDOWID_LOCAL_SAVE_NAME = 16;
 const WINDOWID_CAPTURE_INFO = 17;
 const WINDOWID_GOOGLE_SERVICES_ERR = 18;
 
-var openwindow = -1;
+var openwindow = -1, zindex = 10;
 
 var header, nav, main, footer, canvas, ctx, table;
 

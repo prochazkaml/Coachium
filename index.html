@@ -81,300 +81,352 @@
 			</div>
 		</footer>
 
-		<div id="windowoverlay">
-			<div id="windowcontainer">
-				<div id="windowcloselayer" onclick="close_window();"></div>
-				<div id="window0" class="popupwindow" style="display: none">
-					<h1 class="L18N_WINDOW0_TITLE"></h1>
-					<p class="L18N_WINDOW0_PAR0"></p>
+		<div id="window0overlay" class="windowoverlay">
+			<div class="windowcloselayer" onclick="close_window();"></div>
+			<div class="popupwindow">
+				<h1 class="L18N_WINDOW0_TITLE"></h1>
+				<p class="L18N_WINDOW0_PAR0"></p>
 
-					<p class="L18N_WINDOW0_PAR1"></p>
+				<p class="L18N_WINDOW0_PAR1"></p>
 
-					<p><span class="L18N_WINDOW0_PAR2"></span> <a target="_blank" href="https://eurolab.prochazka.ml/">https://eurolab.prochazka.ml/</a></p>
+				<p><span class="L18N_WINDOW0_PAR2"></span> <a target="_blank" href="https://eurolab.prochazka.ml/">https://eurolab.prochazka.ml/</a></p>
 
-					<a target="_blank" class="inlineshilllink" href="https://github.com/prochazkaml" target="_blank">
-						<img style="height: 2em;" src="icons/shill_github.svg" alt="GitHub">
-					</a>
-					<a target="_blank" class="inlineshilllink" href="https://prochazka.ml/" target="_blank">
-						<img style="height: 2em;" src="icons/shill_web.svg" alt="Web">
-					</a>
-					<a target="_blank" class="inlineshilllink" href="mailto:prochazka2003@gmail.com">
-						<img style="height: 2em;" src="icons/shill_mail.svg" alt="Mail">
-					</a>
+				<a target="_blank" class="inlineshilllink" href="https://github.com/prochazkaml" target="_blank">
+					<img style="height: 2em;" src="icons/shill_github.svg" alt="GitHub">
+				</a>
+				<a target="_blank" class="inlineshilllink" href="https://prochazka.ml/" target="_blank">
+					<img style="height: 2em;" src="icons/shill_web.svg" alt="Web">
+				</a>
+				<a target="_blank" class="inlineshilllink" href="mailto:prochazka2003@gmail.com">
+					<img style="height: 2em;" src="icons/shill_mail.svg" alt="Mail">
+				</a>
 
-					<div class="windowbuttonlist">
-						<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();"></div>
-					</div>
+				<div class="windowbuttonlist">
+					<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();"></div>
+				</div>
+			</div>
+		</div>
+
+		<div id="window1overlay" class="windowoverlay">
+			<div class="windowcloselayer" onclick="close_window();"></div>
+			<div class="popupwindow">
+				<h1 class="L18N_WINDOW1_TITLE"></h1>
+
+				<p class="L18N_WINDOW1_PAR0"></p>
+
+				<textarea style="width: 100%; height: 6em" readonly></textarea>
+
+				<p class="L18N_WINDOW1_PAR1"></p>
+
+				<div class="windowbuttonlist">
+					<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();"></div>
+				</div>
+			</div>
+		</div>
+
+		<div id="window2overlay" class="windowoverlay">
+			<div class="windowcloselayer" onclick="close_window();"></div>
+			<div class="popupwindow">
+				<h1 class="L18N_WINDOW2_TITLE"></h1>
+
+				<p class="L18N_WINDOW2_PAR0"></p>
+
+				<p><input id="capturesetupname" style="width: 75%;"></p>
+
+				<hr>
+
+				<p class="L18N_WINDOW2_PAR1"></p>
+
+				<div id="capturesetuptable">
+					<table>
+						<tr>
+							<td><input id="capturesetuphz" style="width: calc(50% - .5em); text-align: right" type="number" value="50" min="0.1" step="0.1" oninput="capture_setup_check();"></td>
+							<td class="L18N_WINDOW2_HZ"></td>
+						</tr>
+						<tr>
+							<td><input id="capturesetupsecs" style="width: calc(50% - .5em); text-align: right" type="number" value="10" min="0.1" step="0.1" oninput="capture_setup_check();"></td>
+							<td class="L18N_WINDOW2_SECONDS"></td>
+						</tr>
+					</table>
 				</div>
 
-				<div id="window1" class="popupwindow" style="display: none">
-					<h1 class="L18N_WINDOW1_TITLE"></h1>
+				<div style="color: #F00" id="capturesetuperr"></div>
 
-					<p class="L18N_WINDOW1_PAR0"></p>
+				<hr>
 
-					<textarea style="width: 100%; height: 6em" readonly></textarea>
+				<p class="L18N_WINDOW2_PAR2"></p>
 
-					<p class="L18N_WINDOW1_PAR1"></p>
+				<select id="capturesetupsensors" style="width: 75%;" onchange="capture_setup_check();">
+					<option class="L18N_WINDOW2_SETUP_BOTH"></option>
+					<option class="L18N_WINDOW2_SETUP_FIRST"></option>
+					<option class="L18N_WINDOW2_SETUP_SECOND"></option>
+				</select>
 
-					<div class="windowbuttonlist">
-						<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();"></div>
-					</div>
+				<div style="color: #F00" id="capturesetupsensorserr"></div>
+
+				<div class="windowbuttonlist">
+					<div class="windowbutton L18N_BUTTON_START" onclick=""></div> <!-- onclick je nastaven automaticky v ui.js -->
+					<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();"></div>
+				</div>
+			</div>
+		</div>
+
+		<div id="window3overlay" class="windowoverlay">
+			<div class="windowcloselayer" onclick="close_window();"></div>
+			<div class="popupwindow">
+				<h1 class="L18N_WINDOW3_TITLE"></h1>
+
+				<p><a class="L18N_WINDOW3_LINK" target="_blank" href=""></a></p>
+
+				<div class="windowbuttonlist">
+					<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();"></div>
+				</div>
+			</div>
+		</div>
+
+		<div id="window4overlay" class="windowoverlay">
+			<div class="windowcloselayer" onclick="close_window();"></div>
+			<div class="popupwindow">
+				<h1 class="L18N_WINDOW4_TITLE"></h1>
+
+				<p class="L18N_WINDOW4_PAR0"></p>
+
+				<textarea style="width: 100%; height: 6em" readonly></textarea>
+
+				<div class="windowbuttonlist">
+					<div class="windowbutton L18N_BUTTON_TRYAGAIN" onclick="close_window();setTimeout(()=>{gdrive_save();},400);"></div>
+					<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();"></div>
+				</div>
+			</div>
+		</div>
+
+		<div id="window5overlay" class="windowoverlay">
+			<div class="windowcloselayer" onclick="close_window();"></div>
+			<div class="popupwindow">
+				<h1 class="L18N_WINDOW5_TITLE"></h1>
+
+				<p class="L18N_WINDOW5_PAR0"></p>
+
+				<textarea style="width: 100%; height: 6em" readonly></textarea>
+
+				<p class="L18N_WINDOW5_PAR1"></p>
+
+				<p class="L18N_WINDOW5_PAR2"></p>
+
+				<div class="windowbuttonlist">
+					<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();"></div>
+				</div>
+			</div>
+		</div>
+
+		<div id="window6overlay" class="windowoverlay">
+			<div class="windowcloselayer" onclick="close_window();"></div>
+			<div class="popupwindow">
+				<h1 class="L18N_WINDOW6_TITLE"></h1>
+
+				<br><input style="width: 100%" type="text" value="񂁩MISSING"><br>
+
+				<div class="windowbuttonlist">
+					<div class="windowbutton L18N_BUTTON_SAVE" onclick="close_window();setTimeout(()=>{gdrive_save();},400);"></div>
+					<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();"></div>
+				</div>
+			</div>
+		</div>
+
+		<div id="window7overlay" class="windowoverlay">
+			<div class="windowcloselayer" onclick="close_window();"></div>
+			<div class="popupwindow">
+				<h1 class="L18N_WINDOW7_TITLE"></h1>
+
+				<p class="L18N_WINDOW7_PAR0"></p>
+
+				<p class="L18N_WINDOW7_PAR1"></p>
+
+				<p class="L18N_WINDOW7_PAR2"></p>
+
+				<div class="windowbuttonlist">
+					<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();"></div>
+				</div>
+			</div>
+		</div>
+
+		<div id="window8overlay" class="windowoverlay">
+			<div class="windowcloselayer" onclick="close_window();"></div>
+			<div class="popupwindow">
+				<h1 class="L18N_WINDOW8_TITLE"></h1>
+
+				<p class="L18N_WINDOW8_PAR0"></p>
+
+				<p class="L18N_WINDOW8_PAR1"></p>
+
+				<p class="L18N_WINDOW8_PAR2"><b></b></p>
+
+				<p class="L18N_WINDOW8_PAR3"></p>
+
+				<p class="L18N_WINDOW8_PAR4"></p>
+
+				<div class="windowbuttonlist">
+					<div class="windowbutton L18N_BUTTON_RESTART" onclick="location.reload();"></div>
+					<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();"></div>
+				</div>
+			</div>
+		</div>
+
+		<div id="window9overlay" class="windowoverlay">
+			<div class="windowcloselayer" onclick="close_window();"></div>
+			<div class="popupwindow">
+				<h1 class="L18N_WINDOW9_TITLE"></h1>
+
+				<p class="L18N_WINDOW9_PAR0"></p>
+
+				<textarea style="width: 100%; height: 6em" readonly></textarea>
+
+				<p class="L18N_WINDOW9_PAR1"></p>
+
+				<div class="windowbuttonlist">
+					<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();"></div>
+				</div>
+			</div>
+		</div>
+
+		<div id="window10overlay" class="windowoverlay">
+			<div class="windowcloselayer" onclick="close_window();"></div>
+			<div class="popupwindow">
+				<h1 class="L18N_WINDOW10_TITLE"></h1>
+
+				<p class="L18N_WINDOW10_PAR0"></p>
+
+				<p class="L18N_WINDOW10_PAR1"></p>
+
+				<p class="L18N_WINDOW10_PAR2"></p>
+
+				<div class="windowbuttonlist">
+					<div class="windowbutton L18N_BUTTON_GOAHEAD" onclick="close_window();load_file_local(true);"></div>
+					<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();"></div>
+				</div>
+			</div>
+		</div>
+
+		<div id="window11overlay" class="windowoverlay">
+			<div class="windowcloselayer" onclick="close_window();"></div>
+			<div class="popupwindow">
+				<h1 class="L18N_WINDOW11_TITLE"></h1>
+
+				<p class="L18N_WINDOW11_PAR0"></p>
+
+				<p class="L18N_WINDOW11_PAR1"></p>
+
+				<p class="L18N_WINDOW11_PAR2"></p>
+
+				<div class="windowbuttonlist">
+					<div class="windowbutton L18N_BUTTON_GOAHEAD" onclick="close_window();remove_capture(true);"></div>
+					<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();"></div>
+				</div>
+			</div>
+		</div>
+
+		<div id="window12overlay" class="windowoverlay">
+			<div class="windowcloselayer" onclick="close_window();"></div>
+			<div class="popupwindow">
+				<h1 class="L18N_WINDOW12_TITLE"></h1>
+
+				<p class="L18N_WINDOW12_PAR0"></p>
+
+				<p class="L18N_WINDOW12_PAR1"></p>
+
+				<p class="L18N_WINDOW12_PAR2"></p>
+
+				<div class="windowbuttonlist">
+					<div class="windowbutton L18N_BUTTON_GOAHEAD" onclick="close_window();remove_all_captures(true);"></div>
+					<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();"></div>
+				</div>
+			</div>
+		</div>
+
+		<div id="window13overlay" class="windowoverlay">
+			<div class="windowcloselayer" onclick="close_window();"></div>
+			<div class="popupwindow">
+				<h1 class="L18N_WINDOW13_TITLE"></h1><br>
+
+				<select size="10" style="width: 20em;font-size: 1.2em;font-family:Ubuntu"></select><br><br>
+
+				<div style="display: flex; flex-direction: row;">
+					<input type="text" style="flex: 1;">
+					<span class="windowbutton" style="flex: 0; margin: 0 .5em 0 1em"><img src="icons/confirm.svg" style="height: 1em; vertical-align: top" onclick="start_language_win();"></span>
+					<span class="windowbutton" style="flex: 0; margin: 0 .5em"><img src="icons/move_up.svg" style="height: 1em; vertical-align: top" onclick="start_language_win();"></span>
+					<span class="windowbutton" style="flex: 0; margin: 0 0 0 .5em"><img src="icons/move_down.svg" style="height: 1em; vertical-align: top" onclick="start_language_win();"></span>
 				</div>
 
-				<div id="window2" class="popupwindow" style="display: none">
-					<h1 class="L18N_WINDOW2_TITLE"></h1>
-
-					<p class="L18N_WINDOW2_PAR0"></p>
-
-					<p><input id="capturesetupname" style="width: 75%;"></p>
-
-					<hr>
-
-					<p class="L18N_WINDOW2_PAR1"></p>
-
-					<div id="capturesetuptable">
-						<table>
-							<tr>
-								<td><input id="capturesetuphz" style="width: calc(50% - .5em); text-align: right" type="number" value="50" min="0.1" step="0.1" oninput="capture_setup_check();"></td>
-								<td class="L18N_WINDOW2_HZ"></td>
-							</tr>
-							<tr>
-								<td><input id="capturesetupsecs" style="width: calc(50% - .5em); text-align: right" type="number" value="10" min="0.1" step="0.1" oninput="capture_setup_check();"></td>
-								<td class="L18N_WINDOW2_SECONDS"></td>
-							</tr>
-						</table>
-					</div>
-
-					<div style="color: #F00" id="capturesetuperr"></div>
-
-					<hr>
-
-					<p class="L18N_WINDOW2_PAR2"></p>
-
-					<select id="capturesetupsensors" style="width: 75%;" onchange="capture_setup_check();">
-						<option class="L18N_WINDOW2_SETUP_BOTH"></option>
-						<option class="L18N_WINDOW2_SETUP_FIRST"></option>
-						<option class="L18N_WINDOW2_SETUP_SECOND"></option>
-					</select>
-
-					<div style="color: #F00" id="capturesetupsensorserr"></div>
-
-					<div class="windowbuttonlist">
-						<div class="windowbutton L18N_BUTTON_START" onclick=""></div> <!-- onclick je nastaven automaticky v ui.js -->
-						<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();"></div>
-					</div>
+				<div class="windowbuttonlist">
+					<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();"></div>
 				</div>
+			</div>
+		</div>
 
-				<div id="window3" class="popupwindow" style="display: none">
-					<h1 class="L18N_WINDOW3_TITLE"></h1>
+		<div id="window14overlay" class="windowoverlay">
+			<div class="windowcloselayer" onclick="close_window();"></div>
+			<div class="popupwindow">
+				<h1 style="transition: opacity 1s;"></h1><br>
 
-					<p><a class="L18N_WINDOW3_LINK" target="_blank" href=""></a></p>
+				<select size="10" style="width: 25em;font-size: 1.2em;font-family:Ubuntu"></select>
+			</div>
+		</div>
 
-					<div class="windowbuttonlist">
-						<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();"></div>
-					</div>
+		<div id="window15overlay" class="windowoverlay">
+			<div class="windowcloselayer" onclick="close_window();"></div>
+			<div class="popupwindow">
+				<h1 class="L18N_WINDOW15_TITLE"></h1>
+
+				<p class="L18N_WINDOW15_PAR0"></p>
+
+				<p class="L18N_WINDOW15_PAR1"></p>
+
+				<div class="windowbuttonlist">
+					<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();"></div>
 				</div>
+			</div>
+		</div>
 
-				<div id="window4" class="popupwindow" style="display: none">
-					<h1 class="L18N_WINDOW4_TITLE"></h1>
+		<div id="window16overlay" class="windowoverlay">
+			<div class="windowcloselayer" onclick="close_window();"></div>
+			<div class="popupwindow">
+				<h1 class="L18N_WINDOW6_TITLE"></h1> <!-- naschvál to je 6, ne 16 -->
 
-					<p class="L18N_WINDOW4_PAR0"></p>
+				<br><input style="width: 100%" type="text" value="񂁩MISSING"><br>
 
-					<textarea style="width: 100%; height: 6em" readonly></textarea>
-
-					<div class="windowbuttonlist">
-						<div class="windowbutton L18N_BUTTON_TRYAGAIN" onclick="close_window();setTimeout(()=>{gdrive_save();},400);"></div>
-						<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();"></div>
-					</div>
+				<div class="windowbuttonlist">
+					<div class="windowbutton L18N_BUTTON_SAVE" onclick="close_window();save_file_local(true);"></div>
+					<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();"></div>
 				</div>
+			</div>
+		</div>
 
-				<div id="window5" class="popupwindow" style="display: none">
-					<h1 class="L18N_WINDOW5_TITLE"></h1>
+		<div id="window17overlay" class="windowoverlay">
+			<div class="windowcloselayer" onclick="close_window();"></div>
+			<div class="popupwindow">
+				<h1 class="L18N_WINDOW17_TITLE"></h1>
 
-					<p class="L18N_WINDOW5_PAR0"></p>
+				<div></div>
 
-					<textarea style="width: 100%; height: 6em" readonly></textarea>
-
-					<p class="L18N_WINDOW5_PAR1"></p>
-
-					<p class="L18N_WINDOW5_PAR2"></p>
-
-					<div class="windowbuttonlist">
-						<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();"></div>
-					</div>
+				<div class="windowbuttonlist">
+					<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();"></div>
 				</div>
+			</div>
+		</div>
 
-				<div id="window6" class="popupwindow" style="display: none">
-					<h1 class="L18N_WINDOW6_TITLE"></h1>
+		<div id="window18overlay" class="windowoverlay">
+			<div class="windowcloselayer" onclick="close_window();"></div>
+			<div class="popupwindow">
+				<h1 class="L18N_WINDOW18_TITLE"></h1>
 
-					<br><input style="width: 100%" type="text" value="񂁩MISSING"><br>
+				<p class="L18N_WINDOW18_PAR0"></p>
 
-					<div class="windowbuttonlist">
-						<div class="windowbutton L18N_BUTTON_SAVE" onclick="close_window();setTimeout(()=>{gdrive_save();},400);"></div>
-						<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();"></div>
-					</div>
-				</div>
+				<p class="L18N_WINDOW18_PAR1"></p>
 
-				<div id="window7" class="popupwindow" style="display: none">
-					<h1 class="L18N_WINDOW7_TITLE"></h1>
+				<p><a target="_blank" href="https://myaccount.google.com/permissions">https://myaccount.google.com/permissions</a></p>
 
-					<p class="L18N_WINDOW7_PAR0"></p>
-
-					<p class="L18N_WINDOW7_PAR1"></p>
-
-					<p class="L18N_WINDOW7_PAR2"></p>
-
-					<div class="windowbuttonlist">
-						<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();"></div>
-					</div>
-				</div>
-
-				<div id="window8" class="popupwindow" style="display: none">
-					<h1 class="L18N_WINDOW8_TITLE"></h1>
-
-					<p class="L18N_WINDOW8_PAR0"></p>
-
-					<p class="L18N_WINDOW8_PAR1"></p>
-
-					<p class="L18N_WINDOW8_PAR2"><b></b></p>
-
-					<p class="L18N_WINDOW8_PAR3"></p>
-
-					<p class="L18N_WINDOW8_PAR4"></p>
-
-					<div class="windowbuttonlist">
-						<div class="windowbutton L18N_BUTTON_RESTART" onclick="location.reload();"></div>
-						<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();"></div>
-					</div>
-				</div>
-
-				<div id="window9" class="popupwindow" style="display: none">
-					<h1 class="L18N_WINDOW9_TITLE"></h1>
-
-					<p class="L18N_WINDOW9_PAR0"></p>
-
-					<textarea style="width: 100%; height: 6em" readonly></textarea>
-
-					<p class="L18N_WINDOW9_PAR1"></p>
-
-					<div class="windowbuttonlist">
-						<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();"></div>
-					</div>
-				</div>
-				
-				<div id="window10" class="popupwindow" style="display: none">
-					<h1 class="L18N_WINDOW10_TITLE"></h1>
-
-					<p class="L18N_WINDOW10_PAR0"></p>
-
-					<p class="L18N_WINDOW10_PAR1"></p>
-
-					<p class="L18N_WINDOW10_PAR2"></p>
-
-					<div class="windowbuttonlist">
-						<div class="windowbutton L18N_BUTTON_GOAHEAD" onclick="close_window();load_file_local(true);"></div>
-						<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();"></div>
-					</div>
-				</div>
-				
-				<div id="window11" class="popupwindow" style="display: none">
-					<h1 class="L18N_WINDOW11_TITLE"></h1>
-
-					<p class="L18N_WINDOW11_PAR0"></p>
-
-					<p class="L18N_WINDOW11_PAR1"></p>
-
-					<p class="L18N_WINDOW11_PAR2"></p>
-
-					<div class="windowbuttonlist">
-						<div class="windowbutton L18N_BUTTON_GOAHEAD" onclick="close_window();remove_capture(true);"></div>
-						<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();"></div>
-					</div>
-				</div>
-
-				<div id="window12" class="popupwindow" style="display: none">
-					<h1 class="L18N_WINDOW12_TITLE"></h1>
-
-					<p class="L18N_WINDOW12_PAR0"></p>
-
-					<p class="L18N_WINDOW12_PAR1"></p>
-
-					<p class="L18N_WINDOW12_PAR2"></p>
-
-					<div class="windowbuttonlist">
-						<div class="windowbutton L18N_BUTTON_GOAHEAD" onclick="close_window();remove_all_captures(true);"></div>
-						<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();"></div>
-					</div>
-				</div>
-
-				<div id="window13" class="popupwindow" style="display: none">
-					<h1 class="L18N_WINDOW13_TITLE"></h1><br>
-
-					<select size="10" style="width: 20em;font-size: 1.2em;font-family:Ubuntu"></select><br><br>
-
-					<div style="display: flex; flex-direction: row;">
-						<input type="text" style="flex: 1;">
-						<span class="windowbutton" style="flex: 0; margin: 0 .5em 0 1em"><img src="icons/confirm.svg" style="height: 1em; vertical-align: top" onclick="start_language_win();"></span>
-						<span class="windowbutton" style="flex: 0; margin: 0 .5em"><img src="icons/move_up.svg" style="height: 1em; vertical-align: top" onclick="start_language_win();"></span>
-						<span class="windowbutton" style="flex: 0; margin: 0 0 0 .5em"><img src="icons/move_down.svg" style="height: 1em; vertical-align: top" onclick="start_language_win();"></span>
-					</div>
-
-					<div class="windowbuttonlist">
-						<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();"></div>
-					</div>
-				</div>
-
-				<div id="window14" class="popupwindow" style="display: none">
-					<h1 style="transition: opacity 1s;"></h1><br>
-
-					<select size="10" style="width: 25em;font-size: 1.2em;font-family:Ubuntu"></select>
-				</div>
-
-				<div id="window15" class="popupwindow" style="display: none">
-					<h1 class="L18N_WINDOW15_TITLE"></h1>
-
-					<p class="L18N_WINDOW15_PAR0"></p>
-
-					<p class="L18N_WINDOW15_PAR1"></p>
-
-					<div class="windowbuttonlist">
-						<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();"></div>
-					</div>
-				</div>
-
-				<div id="window16" class="popupwindow" style="display: none">
-					<h1 class="L18N_WINDOW6_TITLE"></h1> <!-- naschvál to je 6, ne 16 -->
-
-					<br><input style="width: 100%" type="text" value="񂁩MISSING"><br>
-
-					<div class="windowbuttonlist">
-						<div class="windowbutton L18N_BUTTON_SAVE" onclick="close_window();save_file_local(true);"></div>
-						<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();"></div>
-					</div>
-				</div>
-
-				<div id="window17" class="popupwindow" style="display: none">
-					<h1 class="L18N_WINDOW17_TITLE"></h1>
-
-					<div></div>
-
-					<div class="windowbuttonlist">
-						<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();"></div>
-					</div>
-				</div>
-
-				<div id="window18" class="popupwindow" style="display: none">
-					<h1 class="L18N_WINDOW18_TITLE"></h1>
-
-					<p class="L18N_WINDOW18_PAR0"></p>
-
-					<p class="L18N_WINDOW18_PAR1"></p>
-
-					<p><a target="_blank" href="https://myaccount.google.com/permissions">https://myaccount.google.com/permissions</a></p>
-
-					<div class="windowbuttonlist">
-						<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();"></div>
-					</div>
+				<div class="windowbuttonlist">
+					<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();"></div>
 				</div>
 			</div>
 		</div>

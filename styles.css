@@ -110,49 +110,42 @@ nav {
 	height: 5em;
 }
 
-#windowoverlay {
+.windowoverlay {
 	position: absolute;
 	top: 0;
 	left: 0;
 	width: 100%;
 	height: 100%;
-	background-color: rgba(0, 0, 0, .5);
 	opacity: 0;
 	z-index: 10;
 	pointer-events: none;
 
-	transition: opacity .3s;
-}
-
-#windowcontainer {
 	display: flex;
 	flex-direction: column;
     justify-content: center;
     align-items: center;
 
-	width: 100%;
-	height: 100%;
+	transition: opacity .3s;
 
-	transform: scale(.9);
-	transition: transform .3s;
+	background-color: rgba(0, 0, 0, .5);
 }
 
-#windowcloselayer {
+.windowcloselayer {
 	position: absolute;
-	
+
 	width: 100%;
 	height: 100%;
-
-	z-index: 11;
 }
 
 .popupwindow {
 	background-color: #FFF;
 	padding: 1em;
 	box-shadow: 0 0 .5em rgba(0, 0, 0, .3);
-	z-index: 12;
 	text-align: center;
 	border-radius: .5em;
+
+	transform: scale(.9);
+	transition: transform .3s;
 }
 
 .popupwindow h1 {
