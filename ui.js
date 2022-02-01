@@ -5,13 +5,11 @@
  */
 
 function popup_window(id) {
-	if(openwindow < 0) {
-		openwindow = id;
+	if(!(openwindow >= 0 && windowstack[openwindow] == id)) {
+		console.log("Requested " + id);
+		openwindow++;
 
-		if(close_window_timeout) {
-			clearTimeout(close_window_timeout);
-			close_window_timeout = null;
-		}
+		windowstack[openwindow] = id;
 
 		get_win_overlay(id).style.zIndex = zindex++;
 		get_win_overlay(id).style.pointerEvents = "auto";
@@ -26,12 +24,10 @@ function popup_window(id) {
  * Zavře právě otevřené okno.
  */
 
-var close_window_timeout = null;
-
 function close_window() {
 	if(openwindow >= 0) {
-		var win = openwindow;
-		openwindow = -1;
+		var win = windowstack[openwindow];
+		openwindow--;
 
 		get_win_overlay(win).style.pointerEvents = "";
 		get_win_overlay(win).style.opacity = "";
@@ -49,7 +45,7 @@ function close_window() {
 
 function confirm_window() {
 	if(openwindow >= 0) {
-		get_win_el_class(openwindow, "windowbutton").click();
+		get_win_el_class(windowstack[openwindow], "windowbutton").click();
 	}
 }
 
