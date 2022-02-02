@@ -10,6 +10,7 @@ Requires hardware:
 - watchdog!!!
 - trigger (conditional capture) mode
 - counter mode
+- ability to zero out a sensor
 - 40 kHz capture on €Lab
 - cyclic buffer on €Lab
 - oscilloscope mode
