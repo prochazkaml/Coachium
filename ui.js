@@ -316,10 +316,14 @@ function request_zoom_in() {
 	if(!zoom_request_progress) {
 		get_id("statusmsg").innerHTML = jslang.STATUS_ZOOM_IN_REQUEST;
 		zoom_request_progress = 1;
+		zoom_move_request = false;
+		canvas.style.cursor = "crosshair";
 		canvas_reset(false);
 	} else {
 		get_id("statusmsg").innerHTML = jslang.STATUS_ZOOM_IN_CANCEL;
 		zoom_request_progress = 0;
+		zoom_move_request = false;
+		canvas.style.cursor = "auto";
 		canvas_reset(true);
 	}
 }
@@ -586,8 +590,8 @@ window.onload = () => {
 	// Inicializovat callbacky na canvasu
 
 	canvas.addEventListener("mousemove", canvasmousemovehandler);
-	canvas.addEventListener("mousedown", canvasmousechangehandler);
-	canvas.addEventListener("mouseup", canvasmousechangehandler);
+	canvas.addEventListener("mousedown", () => { canvasmousechangehandler(1); });
+	canvas.addEventListener("mouseup", () => { canvasmousechangehandler(0); });
 
 	// Zkontrolovat nejnovější verzi na GitHubu
 

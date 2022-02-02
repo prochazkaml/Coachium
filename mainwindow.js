@@ -474,8 +474,6 @@ function canvas_reset(redraw_chart) {
 	}
 
 	if(zoom_request_progress) {
-		canvas.style.cursor = "crosshair";
-
 		ctx.putImageData(drawcache, 0, 0);
 
 		var x = mouseX, y = mouseY;
@@ -511,8 +509,6 @@ function canvas_reset(redraw_chart) {
 				draw_crosshair(x, y);
 				break;
 		}
-	} else {
-		canvas.style.cursor = "auto";
 	}
 }
 
@@ -594,7 +590,7 @@ function table_reset() {
 
 var mouseX = 0, mouseY = 0, oldmouseX = -1, oldmouseY = -1, lock = false;
 
-var mousepositions = [[-1, -1], [-1, -1], [-1, -1]];
+var mousepositions = [[-1, -1], [-1, -1]];
 
 /*
  * canvasmousemovehandler(e)
@@ -618,13 +614,45 @@ function canvasmousemovehandler(e) {
 	mouseY = y;
 
 	if(mouseX != oldmouseX || mouseY != oldmouseY) {
-		canvas_reset(false);
-
-		mousepositions[zoom_request_progress ? zoom_request_progress : 1][0] = mouseX;
-		mousepositions[zoom_request_progress ? zoom_request_progress : 1][1] = mouseY;
+		mousepositions[0][0] = mouseX;
+		mousepositions[0][1] = mouseY;
 
 		oldmouseX = mouseX;
 		oldmouseY = mouseY;
+
+		if(zoom_move_request) {
+			var pw = canvas.width - graph_margin_left - graph_margin_right,
+				ph = canvas.height - graph_margin_top - graph_margin_bottom,
+				vw = zoomx2 - zoomx1,
+				vh = zoomy2 - zoomy1;
+
+			var dx =  (mouseX - mousepositions[1][0]) / pw * vw,
+				dy = -(mouseY - mousepositions[1][1]) / ph * vh;
+
+			if(zoomx1 - dx < 0)
+				dx = zoomx1;
+
+			if(zoomy1 - dy < 0)
+				dy = zoomy1;
+
+			if(zoomx2 - dx > 1)
+				dx = zoomx2 - 1;
+
+			if(zoomy2 - dy > 1)
+				dy = zoomy2 - 1;
+
+			zoomx1 -= dx;
+			zoomy1 -= dy;
+			zoomx2 -= dx;
+			zoomy2 -= dy;
+
+			mousepositions[1][0] = mouseX;
+			mousepositions[1][1] = mouseY;
+
+			canvas_reset(true);
+		} else {
+			canvas_reset(false);
+		}
 	}
 
 	lock = false;
@@ -636,14 +664,28 @@ function canvasmousemovehandler(e) {
  * Callback, když se zmáčkne/pustí tlačítko na myši nad canvasem.
  */
 
-function canvasmousechangehandler() {
+function canvasmousechangehandler(status) {
 	if(lock) return;
 	lock = true;
 
 	switch(zoom_request_progress) {
+		case 0:
+			if(zoomed_in && status) {
+				mousepositions[1][0] = mousepositions[0][0];
+				mousepositions[1][1] = mousepositions[0][1];
+
+				zoom_move_request = true;
+				canvas.style.cursor = "move";
+			} else {
+				zoom_move_request = false;
+				canvas.style.cursor = "auto";
+			}
+
+			break;
+		
 		case 1:
-			mousepositions[2][0] = mousepositions[1][0];
-			mousepositions[2][1] = mousepositions[1][1];
+			mousepositions[1][0] = mousepositions[0][0];
+			mousepositions[1][1] = mousepositions[0][1];
 
 			zoom_request_progress = 2;
 
@@ -651,13 +693,13 @@ function canvasmousechangehandler() {
 			break;
 
 		case 2:
-			if(mousepositions[2][0] != mousepositions[1][0] &&
-			   mousepositions[2][1] != mousepositions[1][1]) {
+			if(mousepositions[1][0] != mousepositions[0][0] &&
+			   mousepositions[1][1] != mousepositions[0][1]) {
 
 				var x1 = mousepositions[1][0];
 				var y1 = mousepositions[1][1];
-				var x2 = mousepositions[2][0];
-				var y2 = mousepositions[2][1];
+				var x2 = mousepositions[0][0];
+				var y2 = mousepositions[0][1];
 
 				var _x1 = (((x1 < x2) ? x1 : x2) - graph_margin_left) / (canvas.width - graph_margin_left - graph_margin_right);
 				var _y1 = 1 - (((y1 < y2) ? y2 : y1) - graph_margin_top) / (canvas.height - graph_margin_top - graph_margin_bottom);
@@ -682,11 +724,13 @@ function canvasmousechangehandler() {
 
 				console.log(zoomx1, zoomy1, zoomx2, zoomy2);
 
-				mousepositions[1][0] = mousepositions[2][0];
-				mousepositions[1][1] = mousepositions[2][1];
+				mousepositions[0][0] = mousepositions[1][0];
+				mousepositions[0][1] = mousepositions[1][1];
 
 				zoom_request_progress = 0;
 				zoomed_in = true;
+
+				canvas.style.cursor = "auto";
 
 				update_button_validity();
 				get_id("statusmsg").innerHTML = jslang.STATUS_ZOOM_IN_CONFIRM;

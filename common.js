@@ -56,7 +56,7 @@ var transfer_in_progress = false;
 
 var gdrive_response;
 
-var zoom_request_progress = 0, zoomed_in = false, zoomx1, zoomy1, zoomx2, zoomy2
+var zoom_request_progress = 0, zoom_move_request = false, zoomed_in = false, zoomx1, zoomy1, zoomx2, zoomy2
 
 const eeprom_addresses = [
 	// Na autodetekci změn v čidle (rychlé vypojení/zapojení, přepnutí přepínače rozsahu)
