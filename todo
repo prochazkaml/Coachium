@@ -1,7 +1,6 @@
 Does not require hardware:
 - fit function
 - show value on the graph when hovering over a data point
-- moving the graph when zoomed in
 - translate all comments to English
 - drawing XY as double X
 - ability to manually attach sensors
