@@ -724,9 +724,6 @@ function canvasmousechangehandler(status) {
 
 				console.log(zoomx1, zoomy1, zoomx2, zoomy2);
 
-				mousepositions[0][0] = mousepositions[1][0];
-				mousepositions[0][1] = mousepositions[1][1];
-
 				zoom_request_progress = 0;
 				zoomed_in = true;
 
