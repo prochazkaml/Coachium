@@ -603,7 +603,8 @@ window.onload = () => {
 				var sha1 = JSON.parse(github_request.responseText)["sha"];
 
 				if(sha1 == undefined) {
-					get_class("L18N_HOMEPAGE_COMMIT_CHECKING").innerHTML = jslang.HOMEPAGE_COMMIT_ERR;
+					if(get_class("L18N_HOMEPAGE_COMMIT_CHECKING"))
+						get_class("L18N_HOMEPAGE_COMMIT_CHECKING").innerHTML = jslang.HOMEPAGE_COMMIT_ERR;
 				} else {
 					var local_request = new XMLHttpRequest();
 		
@@ -613,14 +614,17 @@ window.onload = () => {
 								var sha2 = local_request.responseText;
 
 								if(sha1.substring(0, 7) == sha2.substring(0, 7)) {
-									get_class("L18N_HOMEPAGE_COMMIT_CHECKING").innerHTML = 
-										format(jslang.HOMEPAGE_COMMIT_OK, sha1.substring(0, 7));
+									if(get_class("L18N_HOMEPAGE_COMMIT_CHECKING"))
+										get_class("L18N_HOMEPAGE_COMMIT_CHECKING").innerHTML = 
+											format(jslang.HOMEPAGE_COMMIT_OK, sha1.substring(0, 7));
 								} else {
-									get_class("L18N_HOMEPAGE_COMMIT_CHECKING").innerHTML = 
-										format(jslang.HOMEPAGE_COMMIT_OLD, sha2.substring(0, 7), sha1.substring(0, 7));
+									if(get_class("L18N_HOMEPAGE_COMMIT_CHECKING"))
+										get_class("L18N_HOMEPAGE_COMMIT_CHECKING").innerHTML = 
+											format(jslang.HOMEPAGE_COMMIT_OLD, sha2.substring(0, 7), sha1.substring(0, 7));
 								}
 							} else {
-								get_class("L18N_HOMEPAGE_COMMIT_CHECKING").innerHTML = jslang.HOMEPAGE_COMMIT_ERR;
+								if(get_class("L18N_HOMEPAGE_COMMIT_CHECKING"))
+									get_class("L18N_HOMEPAGE_COMMIT_CHECKING").innerHTML = jslang.HOMEPAGE_COMMIT_ERR;
 							}
 						} 
 					}
@@ -629,7 +633,8 @@ window.onload = () => {
 					local_request.send(null);
 				}
 			} else {
-				get_class("L18N_HOMEPAGE_COMMIT_CHECKING").innerHTML = jslang.HOMEPAGE_COMMIT_ERR;
+				if(get_class("L18N_HOMEPAGE_COMMIT_CHECKING"))
+					get_class("L18N_HOMEPAGE_COMMIT_CHECKING").innerHTML = jslang.HOMEPAGE_COMMIT_ERR;
 			}
 		} 
     }
