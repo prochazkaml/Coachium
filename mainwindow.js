@@ -1,3 +1,7 @@
+const CANVAS_EVENT_REDRAW_ENTIRE = 0;
+const CANVAS_EVENT_ZOOM_CROSSHAIR_MOVE = 1;
+const CANVAS_EVENT_GRAPH_MOVE = 2;
+
 /*
  * main_window_reset()
  * 
@@ -8,7 +12,7 @@ function main_window_reset() {
 	if(canvas.style.display != "none") {
 		zoomed_in = false;
 		zoom_request_progress = 0;
-		canvas_reset(true);
+		canvas_reset(CANVAS_EVENT_REDRAW_ENTIRE);
 	} else {
 		table_reset();
 	}
@@ -70,13 +74,13 @@ function get_optimal_round_level(maxunits, displaysize, limit) {
 }
 
 /*
- * canvas_reset(redraw_chart)
+ * canvas_reset(event)
  * 
  * Znovu nastaví rozměry canvasu tak, aby seděly vůči zbytku UI.
  * Pak vykreslí canvas podle současného stavu záznamu.
  * 
- * Pokud je parametr redraw_chart = true, pak se vykreslí obraz
- * odznova, jinak bude použita mezipaměť pro zvýšení výkonu.
+ * Paramter event určí, jakým způsobem bude vykreslení provedeno.
+ * Pro všechny možné hodnoty viz první řádky tohoto souboru.
  */
 
 const graph_margin_top    = 72;
@@ -86,10 +90,10 @@ const graph_margin_right  = 64;
 
 var drawcache = null;
 
-function canvas_reset(redraw_chart) {
+function canvas_reset(event) {
 	// Znovu vykreslit, pokud je potřeba
 
-	if(redraw_chart || drawcache == null) {
+	if(event == CANVAS_EVENT_REDRAW_ENTIRE || event == CANVAS_EVENT_GRAPH_MOVE || drawcache == null) {
 		if(canvas.style.display == "none") return;
 		
 		// Resetovat parametry canvasu
@@ -473,7 +477,7 @@ function canvas_reset(redraw_chart) {
 		drawcache = ctx.getImageData(0, 0, canvas.width, canvas.height);
 	}
 
-	if(zoom_request_progress) {
+	if(event == CANVAS_EVENT_ZOOM_CROSSHAIR_MOVE) {
 		ctx.putImageData(drawcache, 0, 0);
 
 		var x = mouseX, y = mouseY;
@@ -649,9 +653,9 @@ function canvasmousemovehandler(e) {
 			mousepositions[1][0] = mouseX;
 			mousepositions[1][1] = mouseY;
 
-			canvas_reset(true);
-		} else {
-			canvas_reset(false);
+			canvas_reset(CANVAS_EVENT_GRAPH_MOVE);
+		} else if(zoom_request_progress) {
+			canvas_reset(CANVAS_EVENT_ZOOM_CROSSHAIR_MOVE);
 		}
 	}
 
@@ -689,7 +693,7 @@ function canvasmousechangehandler(status) {
 
 			zoom_request_progress = 2;
 
-			canvas_reset(false);
+			canvas_reset(CANVAS_EVENT_ZOOM_CROSSHAIR_MOVE);
 			break;
 
 		case 2:
@@ -733,7 +737,7 @@ function canvasmousechangehandler(status) {
 				get_id("statusmsg").innerHTML = jslang.STATUS_ZOOM_IN_CONFIRM;
 			}
 
-			canvas_reset(true);
+			canvas_reset(CANVAS_EVENT_REDRAW_ENTIRE);
 			break;
 	}
 	

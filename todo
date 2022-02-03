@@ -5,6 +5,7 @@ Does not require hardware:
 - drawing XY as double X
 - performance is terrible when moving the graph around - when zooming in/out, pre-render the entire graph & pre-calculate as much as possible and use that as a fast(er) cache
 - ability to manually attach sensors
+- zooming in with the scroll wheel
 - make the about and privacy policy pages use a símílar translation system as the main page
 
 Requires hardware:

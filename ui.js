@@ -318,13 +318,13 @@ function request_zoom_in() {
 		zoom_request_progress = 1;
 		zoom_move_request = false;
 		canvas.style.cursor = "crosshair";
-		canvas_reset(false);
+		canvas_reset(CANVAS_EVENT_ZOOM_CROSSHAIR_MOVE);
 	} else {
 		get_id("statusmsg").innerHTML = jslang.STATUS_ZOOM_IN_CANCEL;
 		zoom_request_progress = 0;
 		zoom_move_request = false;
 		canvas.style.cursor = "auto";
-		canvas_reset(true);
+		canvas_reset(CANVAS_EVENT_REDRAW_ENTIRE);
 	}
 }
 
