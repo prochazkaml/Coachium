@@ -284,19 +284,16 @@ function canvas_reset(event) {
 					y = y_actual_offset - convert_12bit_to_real(captureddata[i], sensor.coeff_a,
 						sensor.coeff_b, sensor.high_voltage) * y_unit_in_px;
 		
-					if(i == 0) {
-						ctx.moveTo(x, y);
-					} else {
-						if(
-							(last_x >= 0 || x >= 0) &&
-							(last_x < canvas.width || x < canvas.width) &&
-							(last_y >= 0 || y >= 0) &&
-							(last_y < canvas.height || y < canvas.height)
-						) ctx.lineTo(x, y);
-
-						ctx.moveTo(x, y);
+					if(i && 
+						(last_x >= 0 || x >= 0) &&
+						(last_x < canvas.width || x < canvas.width) &&
+						(last_y >= 0 || y >= 0) &&
+						(last_y < canvas.height || y < canvas.height)) {
+					
+						ctx.moveTo(last_x, last_y);
+						ctx.lineTo(x, y);
 					}
-
+	
 					last_x = x;
 					last_y = y;
 				}
@@ -312,17 +309,14 @@ function canvas_reset(event) {
 					y = y_actual_offset - convert_12bit_to_real(captureddata[i], sensor_a.coeff_a,
 						sensor_a.coeff_b, sensor_a.high_voltage) * y_unit_in_px;
 	
-					if(i == 0) {
-						ctx.moveTo(x, y);
-					} else {
-						if(
-							(last_x >= 0 || x >= 0) &&
-							(last_x < canvas.width || x < canvas.width) &&
-							(last_y >= 0 || y >= 0) &&
-							(last_y < canvas.height || y < canvas.height)
-						) ctx.lineTo(x, y);
-
-						ctx.moveTo(x, y);
+					if(i && 
+						(last_x >= 0 || x >= 0) &&
+						(last_x < canvas.width || x < canvas.width) &&
+						(last_y >= 0 || y >= 0) &&
+						(last_y < canvas.height || y < canvas.height)) {
+					
+						ctx.moveTo(last_x, last_y);
+						ctx.lineTo(x, y);
 					}
 	
 					last_x = x;
