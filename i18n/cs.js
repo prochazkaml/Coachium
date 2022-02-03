@@ -201,7 +201,7 @@ const alt_jslang = {
 	"SETUP_SENSOR_ERR": "Vybraná čidla nejsou připojena.",
 
 	"STATUS_ZOOM_IN_REQUEST": "Vyberte oblast, kterou chcete přiblížit.",
-	"STATUS_ZOOM_IN_CONFIRM": "Vybraná oblast úspěšně přiblížena.",
+	"STATUS_ZOOM_IN_CONFIRM": "Vybraná oblast přiblížena.",
 	"STATUS_ZOOM_IN_CANCEL": "Výběr oblasti pro přiblížení zrušen.",
 	"STATUS_ZOOM_RESET": "Pohled na graf obnoven.",
 

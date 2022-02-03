@@ -208,7 +208,7 @@ var jslang = {
 	"SETUP_SENSOR_ERR": "These sensors are not connected.",
 
 	"STATUS_ZOOM_IN_REQUEST": "Select the zoom region.",
-	"STATUS_ZOOM_IN_CONFIRM": "Region successfully zoomed in.",
+	"STATUS_ZOOM_IN_CONFIRM": "The selected region was zoomed in.",
 	"STATUS_ZOOM_IN_CANCEL": "Zoom region select canceled.",
 	"STATUS_ZOOM_RESET": "The zoom on the chart has been reset.",
 
