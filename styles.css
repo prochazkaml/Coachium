@@ -165,7 +165,7 @@ nav {
 	padding: .5em;
 	margin: .5em;
 	border-radius: 9999em;
-/*	box-shadow: 0 0 .5em rgba(0, 0, 0, .6); Stín tady vypadá fakt divně... 😕 */
+/*	box-shadow: 0 0 .5em rgba(0, 0, 0, .6); The shadow looks really weird here... 😕 */
 
 	cursor: pointer;
 	user-select: none;

@@ -11,7 +11,7 @@
 				"https://coachium.randovka.cz",
 			];
 
-			// V podstatě celé ukradené odsud: https://developers.google.com/drive/api/v3/quickstart/js
+			// Almost entirely stolen from here: https://developers.google.com/drive/api/v3/quickstart/js
 
 			var signedin = false;
 
@@ -58,7 +58,7 @@
 					scope: 'https://www.googleapis.com/auth/drive.file'
 				}).then(function () {
 					// Listen for sign-in state changes.
-					// Tady jsem to trošičku okuchal...
+					// I gutted this part a bit...
 					gapi.auth2.getAuthInstance().isSignedIn.listen((s) => { signedin = s; });
 
 					// Handle the initial sign-in state.
@@ -100,11 +100,8 @@
 				}
 			}
 
-			/**
-			 * Print files.
-			 */
 			function save_file(name, data) {
-				// Děkuji ti, cizinče: https://stackoverflow.com/a/35182924
+				// Thank you, kind stranger: https://stackoverflow.com/a/35182924
 
 				const boundary = '-------314159265358979323846';
 				const delimiter = "\r\n--" + boundary + "\r\n";
