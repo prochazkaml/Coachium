@@ -1,24 +1,8 @@
 /*
  * Coachium - common.js
- * - taková hlavní kostra programu, obsahuje obecné konstanty, proměnné a funkce
+ * - the main skeleton of the program, contains global constants, variables & common functions
  * 
- * Napsal Michal Procházka pro školu Randovka, 2021-2022.
- * (ano, jsem turbošprt, já vím...)
- */
-
-/*
- * Nazdar.
- *
- * Neměli byste se náhodou učit, než abyste se mi tu hrabali?
- * No dobře, dělám, jako bych to taky nikdy nedělal. Líbíte se mi. 🙂
- * 
- * Proto vám tu píšu komentáře v češtině (což většinou nedělám),
- * aby tento kód mohl sloužit i k výukovým účelům (kromě fyziky, samozřejmě).
- * Mám ale zlozvyk, že se někdy tak zažeru do psaní kódu, že na komentáře zapomenu.
- * 
- * No nic, tak si užijte zbytek hodiny fyziky/laborek/semináře.
- * 
- * Ale ne, že tu něco poserete! 😁
+ * Made by Michal Procházka, 2021-2022.
  */
 
 const WINDOWID_ABOUT = 0;
@@ -59,32 +43,32 @@ var gdrive_response;
 var zoom_request_progress = 0, zoom_move_request = false, zoomed_in = false, zoomx1, zoomy1, zoomx2, zoomy2
 
 const eeprom_addresses = [
-	// Na autodetekci změn v čidle (rychlé vypojení/zapojení, přepnutí přepínače rozsahu)
+	// For automatic detection of changes (quick replug of another sensor, range switch change)
 	0x04,
 
-	// Jméno čidla
+	// Sensor name
 	0x08, 0x09, 0x0A, 0x0B, 
 	0x0C, 0x0D, 0x0E, 0x0F, 
 	0x10, 0x11, 0x12, 0x13, 
 	0x14, 0x15, 0x16, 0x17, 
 	0x18, 0x19, 0x1A, 0x1B,
 
-	// Minimální hodnota
+	// Minimal value
 	0x3B, 0x3C, 0x3D, 0x3E, 
 
-	// Maximální hodnota
+	// Maximal value
 	0x3F, 0x40, 0x41, 0x42, 
 
-	// Koeficient a
+	// Coefficient a
 	0x4A, 0x4B, 0x4C, 0x4D,
 	
-	// Koeficient b
+	// Coefficient b
 	0x46, 0x47, 0x48, 0x49,
 
-	// Text jednotky
+	// Unit name
 	0x53, 0x54, 0x55, 0x56, 0x57,
 
-	// Detekce vysokého/nízkého napětí
+	// High/low voltage detection
 	0x01
 ];
 
@@ -153,7 +137,8 @@ const fresh_capture = {
 /*
  * get_id(id)
  * 
- * Alias pro funkci document.getElementById, protože se mi fakt nechce to pokaždé takhle rozepisovat.
+ * Alias for document.getElementById, because I really don't
+ * want to type that function out all the time.
  */
 
 function get_id(id) {
@@ -163,7 +148,7 @@ function get_id(id) {
 /*
  * get_class(classname, index = 0)
  * 
- * To samé jako get_id(), ale pro vyhledávání podle classu.
+ * Same as get_id(), but for searching by class name.
  */
 
 function get_class(classname, index = 0) {
@@ -173,7 +158,7 @@ function get_class(classname, index = 0) {
 /*
  * get_tag(tagname, index = 0)
  * 
- * To samé jako get_id(), ale pro vyhledávání podle názvu tagu.
+ * Same as get_id(), but for searching by tag name.
  */
 
 function get_tag(tagname, index = 0) {
@@ -183,13 +168,13 @@ function get_tag(tagname, index = 0) {
 /*
  * format(str, ...)
  * 
- * Zformátuje řetězec s argumenty.
+ * Formats the input string with parameters.
  * 
- * Např. format("Ahoj, {0}!", "Michale") vrátí "Ahoj, Michale!"
+ * Example: format("Hello, {0}!", "Michal") returns "Hello, Michal!"
  * 
- * Radši se nebudeme zabývat tím, jak byla tato funkce implementována.
+ * Let's not talk about how this function is implemented.
  * 
- * Ukradeno odsud: https://stackoverflow.com/a/4673436
+ * Taken from here: https://stackoverflow.com/a/4673436
  */
 
 const format = function(format) {
@@ -202,7 +187,9 @@ const format = function(format) {
 /*
  * round(num, digits)
  *
- * Zaokrouhlí dané číslo na daný počet desetinných číslic.
+ * Rounds the input number to a set number of decimal digits.
+ * 
+ * Also accepts negative values to round to 10 (-1), 100 (-2) etc.
  */
 
 function round(num, digits = 0) {
@@ -212,24 +199,26 @@ function round(num, digits = 0) {
 /*
  * localize_num(num)
  * 
- * Vezme řetězec (nebo čídlo, které pak převede na řetězec) a upraví ho podle vybraného jazyka.
+ * Localizes a string containing a number (or an actual number,
+ * which will be converted to string) by the selected language.
  */
 
 function localize_num(num) {
-	n = num + ""; // Převést na řetězec
+	n = num + ""; // Convert to string if it is not already
 
 	return n.replace(".", decimal_separator);
 }
 
 /*
  * convert_12bit_to_real(val, a, b, hv)
- *
- * Převede 12-bitovou hodnotu na srozumitelné číslo dané veličiny.
- * Proboha, to bylo sraní, získat ty konstanty níže (1.013 a 1.0114), strávil jsem nad tím slušnou půlku dne.
  * 
- * Jsou nastavené tak, aby výsledná hodnota +/- seděla s Coachem
- * (odchylka často v řádech setin, takže jsem spokojen, navíc
- * Coach sám o sobě je docela nepřesný. 🤷)
+ * Converts a raw 12-bit value to an human-readable number of said unit.
+ * You wouldn't believe how much pain it was to get the constants below
+ * (1.013 and 1.0114), it took me like half a day to find them.
+ * 
+ * They are set so that the result value more or less corresponds to what
+ * Coach would output (the deviation is about 1/100, which I'm fine with,
+ * you also have to keep in mind that Coach is not perfect either. 🤷)
  */
 
 function convert_12bit_to_real(val, a, b, hv) {
@@ -246,8 +235,8 @@ function convert_12bit_to_real(val, a, b, hv) {
 /*
  * convert_12bit_to_string(val, a, b, hv, max)
  * 
- * Převede 12-bitovou hodnotu na řetězec se srozumitelným číslem dané veličiny.
- * Hodnota je zaokrouhlena na 4 platné číslice podle max. hodnoty, stejně, jako Coach.
+ * Converts a raw 12-bit value to a string containing a human-readable number
+ * of a given unit. The value is rounded to 4 valid digits, same as Coach.
  */
 
 function convert_12bit_to_string(val, a, b, hv, max) {
@@ -262,7 +251,7 @@ function convert_12bit_to_string(val, a, b, hv, max) {
 /*
  * prettyprint_value(id, val)
  *
- * Převede 12-bitovou hodnotu na čitelný řetězec.
+ * Converts a raw 12-bit value from a sensor to a human-readable string.
  */
 
 function prettyprint_value(id, val) {
@@ -274,16 +263,3 @@ function prettyprint_value(id, val) {
 		return "–";
 	}
 }
-
-/*
- * truncate(str, maxlen)
- * 
- * Zkrátí řetězec na danou délku a přidá tři tečky, když je třeba.
- */
-
-function truncate(str, maxlen) {
-	if(str.length > maxlen)
-		return str.substring(0, maxlen) + "&hellip;";
-	else
-		return str;
-};

@@ -1,7 +1,14 @@
 /*
+ * Coachium - elab.js
+ * - handles all communications with the €Lab interface
+ * 
+ * Made by Michal Procházka, 2021-2022.
+ */
+
+/*
  * send_report()
- *
- * Odešle HID report podle pole outreport[8].
+ * 
+ * Send a HID report based on the outreport[] array.
  */
 
 function send_report() {
@@ -13,7 +20,7 @@ function send_report() {
 /*
  * input_report_callback(event)
  * 
- * Funkce, která je zavolána vždy, když přijde paketa od zařízení v klidovém režimu.
+ * Callback, when a packet is received from the device.
  */
 
 function input_report_callback(event) {
@@ -21,7 +28,7 @@ function input_report_callback(event) {
 
 	if(!capturerunning) switch(outreport[0]) {
 		case 0x3:
-			// Přijata hodnota ze vstupního portu
+			// Value read from an input port
 
 			var val = event.data.getUint8(0) * 64 + event.data.getUint8(1);
 
@@ -41,6 +48,8 @@ function input_report_callback(event) {
 			break;
 
 		case 0x4:
+			// Device check
+
 			var checksum = 0;
 
 			for(var i = 0; i < 0x31; i++) {
@@ -58,21 +67,21 @@ function input_report_callback(event) {
 			break;
 
 		case 0x14:
-			if(!ports[outreport[1]].intelligent) return; // Ignorujeme neinteligentní čidla
+			if(!ports[outreport[1]].intelligent) return; // Ignore non-intelligent sensors
 
-			// Čtení paměti EEPROM
+			// EEPROM data read
 
 			if(event.data.getUint8(0) == 0) {
-				// Paměť úspešně přečtena!
+				// Read successful!
 
 				if(!ports[outreport[1]].connected || (outreportaddress == 0 && ports[outreport[1]].raw_eeprom[0] != event.data.getUint8(1))) {
-					// Buď ještě není přečtené celé čidlo, nebo je již připojeno, ale data se záhadně změnila...
+					// Either the whole sensor is not read yet, or it is connected, but the value has mysteriously changed...
 
 					ports[outreport[1]].connected = false;
 					get_id("port" + ports[outreport[1]].id).style.backgroundColor = "";
 					capture_setup_check();
 
-					// Uložit hodnotu ze současné adresy do mezipaměti
+					// Save the currently read value into the port's read cache
 
 					ports[outreport[1]].raw_eeprom[outreportaddress] = event.data.getUint8(1);
 
@@ -81,7 +90,7 @@ function input_report_callback(event) {
 
 					get_id("port" + ports[outreport[1]].id + "value").innerHTML = "...";
 
-					// Požádat o další hodnotu, pokud již nejsme hotovi
+					// Ask for the next value, if we are not done yet
 
 					if(++outreportaddress < eeprom_length) {
 						outreport[2] = eeprom_addresses[outreportaddress];
@@ -90,7 +99,7 @@ function input_report_callback(event) {
 					}
 				}
 			} else {
-				// Chyba čtení, čidlo je odpojeno
+				// Read error
 
 				get_id("port" + ports[outreport[1]].id + "status").innerHTML = jslang.SENSOR_DISCONNECTED;
 				get_id("port" + ports[outreport[1]].id).style.backgroundColor = "";
@@ -101,9 +110,9 @@ function input_report_callback(event) {
 			}
 
 			if(outreportaddress == eeprom_length) {
-				// Čidlo už jsme celé přečetli, teď je čas ta data zpracovat!
+				// We've read the entire sensor's EEPROM, now we should process tha data!
 
-				// Název čidla
+				// Sensor name
 
 				ports[outreport[1]].name = "";
 
@@ -116,63 +125,63 @@ function input_report_callback(event) {
 						break;
 				}
 
-				// Jednotka
+				// Unit name
 
 				ports[outreport[1]].unit = "";
 
 				for(var i = 37; i < 42; i++) {
 					var val = ports[outreport[1]].raw_eeprom[i];
 
-					if(val && val != 41) // Pravá závorka = konec
+					if(val && val != 41) // Right bracket = terminator
 						ports[outreport[1]].unit += String.fromCharCode(val);
 					else
 						break;
 				}
 
-				// OVERRIDE SPECIÁLNĚ KVŮLI TERMOČLÁNKU: CMA JSOU KOKOTI A ZAPOMNĚLI TAM DÁT ZNAK STUPNĚ!
+				// OVERRIDE FOR THE THERMOCOUPLE: CMA IS FULL OF DUMBASSES AND THEY FORGOT TO PUT THE DEGREE SYMBOL IN THE UNIT!
 
 				if(ports[outreport[1]].name.startsWith("Thermocouple") && ports[outreport[1]].unit == "C")
 					ports[outreport[1]].unit = "°" + ports[outreport[1]].unit;
 
-				// Převést hodnoty z bajtové formy do floatů
+				// Convert the byte values to floats
 
 				var buffer = new ArrayBuffer(4);
 				var bytes = new Uint8Array(buffer);
 				var float = new Float32Array(buffer);
 
-				// Minimální hodnota
+				// Minimal value
 
 				for(var i = 0; i < 4; i++)
 					bytes[i] = ports[outreport[1]].raw_eeprom[21 + i];
 
 				ports[outreport[1]].min_value = float[0];
 
-				// Maximální hodnota
+				// Maximal value
 
 				for(var i = 0; i < 4; i++)
 					bytes[i] = ports[outreport[1]].raw_eeprom[25 + i];
 
 				ports[outreport[1]].max_value = float[0];
 
-				// Koeficient a
+				// Coefficient a
 
 				for(var i = 0; i < 4; i++)
 					bytes[i] = ports[outreport[1]].raw_eeprom[29 + i];
 
 				ports[outreport[1]].coeff_a = float[0];
 
-				// Koeficient b
+				// Coefficient b
 
 				for(var i = 0; i < 4; i++)
 					bytes[i] = ports[outreport[1]].raw_eeprom[33 + i];
 
 				ports[outreport[1]].coeff_b = float[0];
 
-				// Určení vysokého/nízkého napětí
+				// High/low voltage detection
 
 				ports[outreport[1]].high_voltage = (ports[outreport[1]].raw_eeprom[42] == 0x21);
 
-				// Hotovo!
+				// Done!
 
 				get_id("port" + ports[outreport[1]].id + "status").innerHTML =
 					jslang.SENSOR_INTELLIGENT + ": " + ports[outreport[1]].name + " (" + ports[outreport[1]].min_value +
@@ -184,21 +193,15 @@ function input_report_callback(event) {
 				capture_setup_check();
 			}
 
-			// Pokud bylo čidlo odpojeno, nebo už skončil přenos a proces na pozadí neběží, resetovat adresu
+			// If the sensor was disconnected, or the the read process was finished, reset the read address
 
 			if(event.data.getUint8(0) != 0 || outreportaddress >= eeprom_length)
 				outreportaddress = 0;
 
 			break;
 	} else {
-//		console.log("Received response " + receivedcapture.length);
-
 		for(var i = 0; i < capturesetuppacketsize; i++) {
-//			console.log(event.data.getUint8(0 + i * 2), event.data.getUint8(1 + i * 2));
-
 			receivedcapture[receivedsofar++] = (((event.data.getUint8(0 + i * 2) & 0x3F) << 6) | event.data.getUint8(1 + i * 2));
-//			receivedcapture.push(event.data.getUint8(0 + i * 2));
-//			receivedcapture.push(event.data.getUint8(1 + i * 2));
 
 			if(receivedsofar >= capturesetupsamples) break;
 		}
@@ -206,7 +209,7 @@ function input_report_callback(event) {
 		if(receivedsofar >= capturesetupsamples) deinitialize_capture();
 	}
 
-	// Umožnit background_tasku zase pokračovat v práci
+	// Allow the background_task to work again
 
 	transfer_in_progress = false;
 }
@@ -214,7 +217,9 @@ function input_report_callback(event) {
 /*
  * capture_redraw()
  * 
- * Funkce, která vyžádá znovuvykreslení hlavního okna a zavolá sebe sama znovu za 16 ms.
+ * Function for redrawing the main window while the capture is running.
+ * 
+ * It will call itself again after 16 ms, which should roughly match the 60 Hz refresh rate.
  */
 
 function capture_redraw() {
@@ -250,7 +255,7 @@ function capture_redraw() {
 /*
  * async initialize_capture()
  * 
- * Inicializuje rozhraní na vysokorychlostní režim podle parametrů od uživatele.
+ * Sets up the interface's fast mode according to the input parameters.
  */
 
 async function initialize_capture() {
@@ -258,7 +263,7 @@ async function initialize_capture() {
 
 	capturesetupmode = get_id("capturesetupsensors").selectedIndex;
 	
-	// Zjistit interval vzorkovací frekvence záznamu
+	// Get the interval of the input frequency
 
 	var speed = round(10000 / get_id("capturesetuphz").value);
 
@@ -269,7 +274,7 @@ async function initialize_capture() {
 	else
 		capturesetupspeed = speed;
 
-	// Zjistit celkový počet vzorků
+	// Get the total number of samples
 
 	capturesetupsamplesize = (capturesetupmode ? 1 : 2)
 	
@@ -279,7 +284,7 @@ async function initialize_capture() {
 
 	capturesetupsamples = samples * capturesetupsamplesize;
 
-	// Inicializovat informace o záznamu
+	// Create an empty capture
 
 	var capture = Object.assign({}, fresh_capture);
 
@@ -302,7 +307,7 @@ async function initialize_capture() {
 
 	captures[selectedcapture = captures.length] = capture;
 
-	// Teď nastavit samotný €Lab
+	// Set up the interface
 
 	for(var i = 0; i < 8; i++) outreport[i] = 0;
 
@@ -312,8 +317,8 @@ async function initialize_capture() {
 
 	if(samples_per_packet < 1) samples_per_packet = 1;
 
-	outreport[0] = 0x05;	// Příkaz na inicializaci záznamu
-	outreport[1] = samples_per_packet;	// Počet vzorků na paketu
+	outreport[0] = 0x05;	// Command for initializing fast mode
+	outreport[1] = samples_per_packet;	// Number of samples per packet
 	
 	await send_report(outreport);
 
@@ -332,7 +337,7 @@ async function initialize_capture() {
 	switch(capturesetupmode) {
 		case 0:
 			outreport[1] = ports[1].high_voltage ? 5 : 4;
-			// break tu chybí naschvál
+			// break is missing here intentionally
 
 		case 1:
 			outreport[0] = ports[0].high_voltage ? 2 : 1;
@@ -356,7 +361,7 @@ async function initialize_capture() {
 /*
  * async deinitialize_capture()
  * 
- * Zastaví vysokorychlostní režim rozhraní.
+ * Stops the interface's fast mode.
  */
 
 async function deinitialize_capture() {
@@ -377,8 +382,8 @@ async function deinitialize_capture() {
 /*
  * background_task()
  * 
- * Funkce, která je periodicky (8x za vteřinu) volána na pozadí.
- * Čte hodnoty z každého portu a kontroluje inteligentní čidla.
+ * A background task (executed 8 times per second), which continuously
+ * reads the ports' values and checks for their presence.
  */
 
 function background_task() {
@@ -399,14 +404,14 @@ function background_task() {
 			background_task_cycle %= 4;
 
 			if(!(background_task_cycle & 1)) {
-				// Detekce připojených/odpojených čidel každý lichý cyklus
+				// Detection for (dis)connected sensors every odd cycle
 
-				outreport[0] = 0x14; // Příkaz na čtení paměti EEPROM
-				outreport[2] = eeprom_addresses[outreportaddress = 0]; // Adresa, ze které budeme číst
+				outreport[0] = 0x14; // Command for reading the sensor's EEPROM
+				outreport[2] = eeprom_addresses[outreportaddress = 0]; // EEPROM read address
 
 				if(!(background_task_cycle & 2)) {
 					// Port 1
-					if(!ports[0].intelligent) return;	// Pokud není čidlo inteligentní, zakázat autodetekci
+					if(!ports[0].intelligent) return; // If the sensor is not intelligent, do not perform autodetection
 					outreport[1] = 0x00;
 				} else {
 					// Port 2
@@ -414,9 +419,9 @@ function background_task() {
 					outreport[1] = 0x01;
 				}
 			} else {
-				// Čtení hodnot každý sudý cyklus
+				// Reading value every even cycle
 
-				outreport[0] = 0x03; // Příkaz na čtení hodnot ze vstupního portu
+				outreport[0] = 0x03; // Command for reading the sensor's current value
 				outreport[2] = 0;
 
 				if(!(background_task_cycle & 2)) {
@@ -449,7 +454,7 @@ function background_task() {
 /*
  * async webhid_connect()
  * 
- * Vyskočí okénko s výběrem zařízení a připojí se k němu pomocí WebHID.
+ * Pops up a window to select a device and connects to it with WebHID.
  */
 
 async function webhid_connect() {
@@ -459,7 +464,7 @@ async function webhid_connect() {
 	}
 
 	var devices = await navigator.hid.requestDevice({
-		filters: [{ vendorId: 0x1126 }] // CMA Amsterdam – snad za to nepůjdu sedět 😁
+		filters: [{ vendorId: 0x1126 }] // CMA Amsterdam – hopefully, that won't land me in jail 😁
 	});
 
 	if(devices.length == 0) {
@@ -492,7 +497,7 @@ async function webhid_connect() {
 
 	await device.open();
 	await send_report();
-	await send_report(); // €Lab potřebuje počáteční příkaz 2x 🤷
+	await send_report(); // €Lab needs to receive the initial command twice 🤷
 
 	connected = true;
 
@@ -506,7 +511,7 @@ async function webhid_connect() {
 /*
  * async webhid_disconnect()
  * 
- * Zastaví veškeré operace s rozhraním.
+ * Disconnects the interface.
  */
 
 async function webhid_disconnect() {

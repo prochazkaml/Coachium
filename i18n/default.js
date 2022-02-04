@@ -1,3 +1,10 @@
+/*
+ * Coachium - i18n/default.js
+ * - applies the translation on startup & contains the default English strings
+ * 
+ * Made by Michal Procházka, 2021-2022.
+ */
+
 const DEFAULT_LANGUAGE = "cs";
 
 var htmllang = {

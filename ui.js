@@ -1,7 +1,16 @@
 /*
+ * Coachium - ui.js
+ * - handles most UI stuff
+ * 
+ * Made by Michal Procházka, 2021-2022.
+ */
+
+/*
  * popup_window(id)
  *
- * Otevře popup okno podle ID. Seznam možných ID je úplně nahoře v tomto souboru, všechny začínají na WINDOWID.
+ * Pops up a window according to the given ID.
+ * 
+ * For all possible window IDs, see the top of common.js.
  */
 
 function popup_window(id) {
@@ -21,7 +30,7 @@ function popup_window(id) {
 /*
  * close_window()
  *
- * Zavře právě otevřené okno.
+ * Closes the currently open window.
  */
 
 function close_window() {
@@ -38,9 +47,8 @@ function close_window() {
 /*
  * confirm_window()
  *
- * Uloží všechny hodnoty z okna a zavře ho.
- * 
- * To udělá tak, že virtuálně zmáčkne první tlačítko v daném okně.
+ * Presses the first button in the window, which always means
+ * to confirm something.
  */
 
 function confirm_window() {
@@ -55,10 +63,11 @@ function confirm_window() {
  * get_win_el_class(win_id, el_class, index)
  * get_win_el_tag(win_id, el_tag, index)
  *
- * Vrátí HTML blok okna či samotný jeho element (podle id, class či názvu tagu).
- * Obecně užitečné zkratky pro manipulaci s okny.
+ * Returns the entire window's DOM object or an element contained within
+ * (by id, class name or tag name). Useful for manipulating with the windows.
  * 
- * Pokud funkce přijímá parametr index a není explicitně udán, jeho výchozí hodnota je 0.
+ * If the function accepts the parameter "index" and it is not explicitly
+ * stated, the function will assume 0 as the default.
  */
 
 function get_win_overlay(win_id) {
@@ -84,7 +93,7 @@ function get_win_el_tag(win_id, el_tag, index = 0) {
 /*
  * ui_connect()
  *
- * Dělá takové ty pěkné animace při připojení zařízení.
+ * Does the fancy initial animation when the interface is selected.
  */
 
 var launched = 0;
@@ -138,7 +147,7 @@ function ui_connect(actually_connect) {
 			get_id("headercontents").style.opacity =
 			get_id("footercontents").style.opacity = 1;
 
-			// Funkce, která automaticky zvětší/zmenší canvas podle potřeby
+			// Automatically resizes the canvas when the window is resized
 
 			window.addEventListener('resize', main_window_reset, false);
 
@@ -161,7 +170,7 @@ function ui_connect(actually_connect) {
 	get_id("port1value").innerHTML = 
 	get_id("port2value").innerHTML = "–";
 
-	// Ukázat takovej ten popup dialog, jestli opravdu chceš opustit stránku
+	// Show that popup dialog when the user tries to leave the size
 
 	if(location.hostname != "localhost") window.onbeforeunload = () => {
 		return true;
@@ -171,12 +180,10 @@ function ui_connect(actually_connect) {
 /*
  * ui_disconnect()
  *
- * Zavře otevřené okno a změní nápis v headeru a na čudlíku.
+ * Makes the connect button appear again. Yay.
  */
 
 function ui_disconnect() {
-	close_window();
-
 	get_id("statusmsg").innerHTML = jslang.STATUS_DISCONNECTED;
 	get_id("connectbutton").innerHTML = htmllang.BUTTON_CONNECT;
 }
@@ -184,9 +191,7 @@ function ui_disconnect() {
 /*
  * capture_setup_check()
  *
- * Zkontrolovat validitu vstupních parametrů k inicializaci záznamu.
- * 
- * Vrací platnost vybrané konfigurace čidel.
+ * Check the validity of all input parameters for initializing the capture
  */
 
 function capture_setup_check() {
@@ -228,7 +233,7 @@ function capture_setup_check() {
 			if(!ports[1].connected)
 				sensors_err = true;
 				
-			// break tu chybí naschvál
+			// break is missing here on purpose
 
 		case 1:
 			if(!ports[0].connected)
@@ -256,7 +261,7 @@ function capture_setup_check() {
 /*
  * change_selected_capture(interval)
  * 
- * Vymění monentálně zobrazené měření na obrazovce za jiné.
+ * Changes the currently selected capture for another one.
  */
 
 function change_selected_capture(interval) {
@@ -278,7 +283,7 @@ function change_selected_capture(interval) {
 /*
  * change_capture_view()
  * 
- * Změní pohled na dané měření buď na graf nebo na tabulku, záleží, co je právě aktivní.
+ * Changes the view on the current capture. Switches between a table or a graph.
  */
 
 function change_capture_view() {
@@ -307,7 +312,7 @@ function change_capture_view() {
 /*
  * request_zoom_in()
  * 
- * Vyžádá, aby se spustil handler pro přiblížení na graf.
+ * Prompts the user to select a region, or aborts the current zoom request.
  */
 
 function request_zoom_in() {
@@ -331,7 +336,7 @@ function request_zoom_in() {
 /*
  * zoom_reset()
  * 
- * Resetuje přiblížení na graf.
+ * Resets the zoom on the graph.
  */
 
 function zoom_reset() {
@@ -348,7 +353,7 @@ function zoom_reset() {
 /*
  * info_generate_sensor(sensor)
  * 
- * Vygeneruje popisek čidla pro zobrazení podrobností.
+ * Generates a HTML description for a sensor object.
  */
 
 function info_generate_sensor(sensor) {
@@ -370,7 +375,7 @@ function info_generate_sensor(sensor) {
 /*
  * show_capture_info()
  * 
- * Pokud je to možné, zobrazí informace o tomto záznamu.
+ * If possible, show the information about the currently selected capture.
  */
 
 function show_capture_info() {
@@ -388,7 +393,7 @@ function show_capture_info() {
 	switch(capture.sensorsetup) {
 		case 0:
 			str += info_generate_sensor(capture.port_a);
-			// break tu opět chybí schválně
+			// break is, again, missing here on purpose
 		
 		case 2:
 			str += info_generate_sensor(capture.port_b);
@@ -407,7 +412,7 @@ function show_capture_info() {
 /*
  * capture_management()
  * 
- * Inicializuje data pro okno se správcem záznamů a otevře ho.
+ * Initializes the data for the capture manager and opens it.
  */
 
 function capture_management() {
@@ -476,7 +481,7 @@ function capture_management() {
 /*
  * update_button_validity()
  * 
- * Zkontroluje, zda jsou všechna (ovlivnitelná) tlačítka na horním panelu platná.
+ * Checks each (influenceble) button on the top bar if it is currently valid or not.
  */
 
 function update_button_validity() {
@@ -550,22 +555,13 @@ function update_button_validity() {
 }
 
 /*
- * Už se načetla stránka, hurá!
+ * The page has loaded, hooray!
  */
 
 window.onload = () => {
-	// Ještě ale nemůžeme zobrazit stránku uživateli, pravděpodobně se ještě nenačetl obrázek na pozadí...
-	// Proto ho můžeme načíst znovu jen pro nás, abychom viděli, jak dlouho to potrvá...
+	document.getElementsByTagName("html")[0].style.opacity = 1;
 
-	var img = new Image();
-	img.onload = () => {
-		document.getElementsByTagName("html")[0].style.opacity = 1;
-	}
-
-	img.src = "misc/wallpaper.webp";
-	if (img.complete) img.onload();
-
-	// Inicializovat konstanty pro zrychlení běhu + zjednodušení kódu
+	// Initialize constants for making the code simpler
 
 	header = document.getElementsByTagName("header")[0];
 	nav = document.getElementsByTagName("nav")[0];
@@ -575,7 +571,7 @@ window.onload = () => {
 	ctx = canvas.getContext("2d");
 	table = get_id("table");
 	
-	// Inicializovat čudlíky
+	// Initialize the connect button
 
 	get_id("connectbutton").onclick = () => {
 		if(!connected) {
@@ -587,13 +583,13 @@ window.onload = () => {
 
 	get_id("connectbuttonguest").onclick = () => { ui_connect(false); }
 
-	// Inicializovat callbacky na canvasu
+	// Initialize all the callbacks on the canvas
 
 	canvas.addEventListener("mousemove", canvasmousemovehandler);
 	canvas.addEventListener("mousedown", () => { canvasmousechangehandler(1); });
 	canvas.addEventListener("mouseup", () => { canvasmousechangehandler(0); });
 
-	// Zkontrolovat nejnovější verzi na GitHubu
+	// Check the current git commit version against GitHub
 
 	var github_request = new XMLHttpRequest();
 
@@ -644,7 +640,7 @@ window.onload = () => {
 }
 
 /*
- * Callback, když uživatel stiskne klávesu. Řídí klávesové zkratky.
+ * Keyboard callback for handling keyboard shortcuts.
  */
 
 document.addEventListener('keydown', (event) => {
@@ -736,7 +732,7 @@ document.addEventListener('keydown', (event) => {
 });
 
 /*
- * Error handler pro celou aplikaci
+ * Error handler for the entire application
  */
 
 window.onerror = (msg, file, line) => {

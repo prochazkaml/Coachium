@@ -1,7 +1,14 @@
 /*
+ * Coachium - gdrive_interface.js
+ * - handles communication with gdrive.html
+ * 
+ * Made by Michal Procházka, 2021-2022.
+ */
+
+/*
  * popup_gdrive_window()
  *
- * Pokud ještě nebyl vygenerován název nového souboru, učiň tak.
+ * If the new file name has not been generated yet, perform just that.
  */
 
 function popup_gdrive_window() {
@@ -16,7 +23,7 @@ function popup_gdrive_window() {
 /*
  * gdrive_save()
  *
- * Inicializuje přístup k Google Disku, pokud je to potřeba, a uloží soubor záznamu.
+ * Initializes access to Google Drive, if necessary, and saves the file.
  */
 
 var gdrive_requested = false;
@@ -34,7 +41,7 @@ function gdrive_save() {
 }
 
 /*
- * Callback na přijímání zpráv od google.html
+ * Callback for accepting messages from gdrive.html
  */
 
 window.addEventListener('message', (response) => {

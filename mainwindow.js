@@ -1,3 +1,10 @@
+/*
+ * Coachium - mainwindow.js
+ * - draws the middle bit of the screen where the graph or table is
+ * 
+ * Made by Michal Procházka, 2021-2022.
+ */
+
 const CANVAS_EVENT_REDRAW_ENTIRE = 0;
 const CANVAS_EVENT_ZOOM_CROSSHAIR_MOVE = 1;
 const CANVAS_EVENT_GRAPH_MOVE = 2;
@@ -5,7 +12,7 @@ const CANVAS_EVENT_GRAPH_MOVE = 2;
 /*
  * main_window_reset()
  * 
- * Obnoví všechny hodnoty v hlavním okně (tam, kde je buď graf nebo tabulka).
+ * Resets all values in the main window.
  */
 
 function main_window_reset() {
@@ -23,7 +30,7 @@ function main_window_reset() {
 /*
  * round_to_level(num, level)
  * 
- * Podle vrácené hodnoty funkce get_optimal_unit_steps optimálně zaokrouhlí hodnotu.
+ * Optimally rounds the value based on the round level.
  */
 
 function round_to_level(num, level) {
@@ -33,8 +40,8 @@ function round_to_level(num, level) {
 /*
  * fixed_to_level(num, level)
  * 
- * Optimálně zaokrouhlí hodnotu (a převede na řetězec) na pevný počet
- * desetinných číslic podle vrácené hodnoty funkce get_optimal_unit_steps.
+ * Optimally rounds the value (and converts it to string with a fixed
+ * number of decimal digits) based on the round level.
  */
 
 function fixed_to_level(num, level) {
@@ -48,7 +55,16 @@ function fixed_to_level(num, level) {
 /*
  * get_optimal_unit_steps(level)
  * 
- * Převede hodnotu vrácenou funkcí get_optimal_unit_steps na skutečný počet jednotek na interval.
+ * Converts the round level to an actual interval.
+ * 
+ * -3 → 0.1
+ * -2 → 0.2
+ * -1 → 0.5
+ *  0 → 1
+ *  1 → 2
+ *  2 → 5
+ *  3 → 10
+ *      etc.
  */
 
 function get_optimal_unit_steps(level) {
@@ -56,11 +72,12 @@ function get_optimal_unit_steps(level) {
 }
 
 /*
- * get_optimal_unit_steps(maxunits, displaysize, limit)
+ * get_optimal_round_level(maxunits, displaysize, limit)
  * 
- * Zjistí podle maximální hodnoty na ose, jaký by měl být ideální interval mezi čárkami na dané ose.
+ * Figures out the ideal spacing of values on a given axis.
  * 
- * Vrací hodnotu, kterou lze poté použít s funkcemi get_optimal_unit_steps a round_to_level.
+ * The returned value can then be used with get_optimal_unit_steps,
+ * round_to_level or fixed_to_level.
  */
 
 function get_optimal_round_level(maxunits, displaysize, limit) {
@@ -76,11 +93,11 @@ function get_optimal_round_level(maxunits, displaysize, limit) {
 /*
  * canvas_reset(event)
  * 
- * Znovu nastaví rozměry canvasu tak, aby seděly vůči zbytku UI.
- * Pak vykreslí canvas podle současného stavu záznamu.
+ * Sets the dimensions of the canvas so that it would fit the rest of the UI.
+ * Then, it draws the canvas according to the current status.
  * 
- * Paramter event určí, jakým způsobem bude vykreslení provedeno.
- * Pro všechny možné hodnoty viz první řádky tohoto souboru.
+ * The event parameter indicates which way should the canvas be redrawn.
+ * For all possible event, see the top of this file.
  */
 
 const graph_margin_top    = 72;
@@ -91,29 +108,29 @@ const graph_margin_right  = 64;
 var drawcache = null;
 
 function canvas_reset(event) {
-	// Znovu vykreslit, pokud je potřeba
+	// Redraw again, if necessary
 
 	if(event == CANVAS_EVENT_REDRAW_ENTIRE || event == CANVAS_EVENT_GRAPH_MOVE || drawcache == null) {
 		if(canvas.style.display == "none") return;
 		
-		// Resetovat parametry canvasu
+		// Reset canvas parameters
 
 		canvas.width = 0;
 		canvas.height = 0;
 		canvas.style.width = "100%";
 		canvas.style.height = "100%";
 
-		// Změnit velikost
+		// Change the drawing size
 
 		canvas.width = canvas.offsetWidth;
 		canvas.height = canvas.offsetHeight;
 
-		// Resetovat CSS
+		// Reset the CSS
 
 		canvas.style.width = "";
 		canvas.style.height = "";
 
-		// Nastavit výchozí parametry kontextu
+		// Set the default ctx values
 
 		ctx.textBaseline = "middle";
 		ctx.textAlign = "center";
@@ -124,60 +141,60 @@ function canvas_reset(event) {
 			ctx.strokeStyle = "black";
 		
 			/*
-			 * a_unit_name = název jednotky dané osy (řetězec – např. "s" = sekundy, "°C" = stupně Celsia atd.)
-			 * a_total_units = počet jednotek dané jednotky na dané ose (např. rozsah -20–110 °C = 130 jednotek)
-			 * a_min = minimální hodnota osy (např. -20)
-			 * a_max = maximální hodnota osy (např. 110)
-			 * a_unit_in_px = převod hodnoty jednotky dané osy na vzdálenost v pixelech
-			 * a_actual_offset = bod 0 na ose
-			 * a_offset = pozice na obrazovce *té druhé osy*
-			 *   např. x_offset = 20 → osa Y se vykreslí 20 pixelů zleva (určuje pozici X)
-			 *         y_offset = 50 → osa X se vykreslí 50 pixelů shora (určuje pozici Y)
-			 * a_round_level = hodnota vykalkulovaná funkcí get_optimal_round_level()
-			 * a_optimal_unit_steps = hodnota vykalkulovaná funkcí get_optimal_unit_steps()
+			 * a_unit_name = axis' unit name (string – e. g. "s" = seconds, "°C" = degrees Celsius etc.)
+			 * a_total_units = total number of units on an axis (e. g. range -20–110 °C = 130 units)
+			 * a_min = minimal value of an axis (e. g. -20)
+			 * a_max = maximal value of an axis (e. g. 110)
+			 * a_unit_in_px = 1 unit converted to screen pixels
+			 * a_actual_offset = the point where the axis meets with the other axis
+			 * a_offset = same as a_actual_offset, but restricted to the screen dimensions
+			 *   e. g. x_offset = 20 → Y axis will be drawn 20 px from the left
+			 *         y_offset = 50 → Y axis will be drawn 20 px from the top
+			 * a_round_level = value calculated by get_optimal_round_level()
+			 * a_optimal_unit_steps = value calculated by get_optimal_unit_steps()
 			 */
 		
 			var x_unit_name, x_total_units, x_min, x_max, x_unit_in_px, x_offset, x_actual_offset, x_round_level, x_optimal_unit_steps, x_legend_reverse = false,
 				y_unit_name, y_total_units, y_min, y_max, y_unit_in_px, y_offset, y_actual_offset, y_round_level, y_optimal_unit_steps, y_legend_reverse = false;
 		
-			// Vykalkulovat výše popsané hodnoty podle toho, zda měření proběhlo s jedním čidlem nebo s oběma
+			// Calculate the above described values depending on whether the capture ran with a single sensor or both
 		
 			if(captures[selectedcapture].sensorsetup) {
-				// Bylo použito jen jedno čidlo
+				// Only one sensor was used
 		
 				const sensor = captures[selectedcapture][(captures[selectedcapture].sensorsetup == 1) ? "port_a" : "port_b"];
 		
-				// Parametry osy X
+				// X axis parameters
 		
 				x_unit_name = "s";
 				x_min = 0;
 				x_max = captures[selectedcapture].seconds;
 
-				// Parametry osy Y
+				// Y axis parameters
 
 				y_unit_name = sensor.unit;
 				y_min = sensor.min_value;
 				y_max = sensor.max_value;
 			} else {
-				// Byla použita dvě čidla
+				// Both sensors were used
 	
 				const sensor_a = captures[selectedcapture].port_a;
 				const sensor_b = captures[selectedcapture].port_b;
 	
-				// Parametry osy X
+				// X axis parameters
 		
 				x_unit_name = sensor_b.unit;
 				x_min = sensor_b.min_value;
 				x_max = sensor_b.max_value;
 
-				// Parametry osy Y
+				// Y axis parameters
 		
 				y_unit_name = sensor_a.unit;
 				y_min = sensor_a.min_value;
 				y_max = sensor_a.max_value;
 			}
 
-			// Parametry osy X
+			// Calculate the rest of the X axis parameters
 
 			if(zoomed_in) {
 				x_total_units = Math.abs(x_max - x_min);
@@ -203,7 +220,7 @@ function canvas_reset(event) {
 			x_round_level = get_optimal_round_level(x_total_units, canvas.width - graph_margin_left - graph_margin_right, 40);
 			x_optimal_unit_steps = get_optimal_unit_steps(x_round_level);
 
-			// Parametry osy Y
+			// Calculate the rest of the Y axis parameters
 	
 			if(zoomed_in) {
 				y_total_units = Math.abs(y_max - y_min);
@@ -229,7 +246,7 @@ function canvas_reset(event) {
 			y_round_level = get_optimal_round_level(y_total_units, canvas.height - graph_margin_bottom - graph_margin_top, 24);
 			y_optimal_unit_steps = get_optimal_unit_steps(y_round_level);
 
-			// Nakreslit mřížku
+			// Draw the grid
 		
 			ctx.beginPath();
 			ctx.strokeStyle = "rgba(0, 0, 0, 0.1)";
@@ -264,7 +281,7 @@ function canvas_reset(event) {
 		
 			ctx.stroke();
 	
-			// Nakreslit graf
+			// Draw the graph data
 		
 			ctx.beginPath();
 			ctx.strokeStyle = "red";
@@ -275,7 +292,7 @@ function canvas_reset(event) {
 			var x, last_x = null, y, last_y = null;
 	
 			if(captures[selectedcapture].sensorsetup) {
-				// Jedno čidlo
+				// Single sensor
 	
 				const sensor = captures[selectedcapture][(captures[selectedcapture].sensorsetup == 1) ? "port_a" : "port_b"];
 		
@@ -298,7 +315,7 @@ function canvas_reset(event) {
 					last_y = y;
 				}
 			} else {
-				// Obě čidla
+				// Both sensors
 	
 				const sensor_a = captures[selectedcapture].port_a;
 				const sensor_b = captures[selectedcapture].port_b;
@@ -326,7 +343,7 @@ function canvas_reset(event) {
 		
 			ctx.stroke();
 			
-			// Zakrýt části grafu, které nejsou ve středu
+			// Slightly hide the parts of the graph which are not in the middle
 
 			ctx.save();
 
@@ -339,22 +356,22 @@ function canvas_reset(event) {
 	
 			ctx.restore();
 
-			// Nakreslit osy
+			// Draw the axes
 		
 			ctx.beginPath();
 			ctx.strokeStyle = "rgba(0, 0, 0, 0.3)";
 			
-			// Nakreslit osu Y (offset na ose X)
+			// Draw the Y axis (based on the X axis offset)
 		
 			ctx.moveTo(x_offset, graph_margin_top);
 			ctx.lineTo(x_offset, canvas.height - graph_margin_bottom);
 		
-			// Nakreslit osu X (offset na ose Y)
+			// Draw the X axis (based on the Y axis offset)
 		
 			ctx.moveTo(graph_margin_left, y_offset);
 			ctx.lineTo(canvas.width - graph_margin_right, y_offset);
 		
-			// Nakreslit + popsat čárky s hodnotami na ose Y
+			// Draw the dashes on the Y axis & add values to them
 		
 			ctx.textAlign = x_legend_reverse ? "left" : "right";
 			ctx.textBaseline = "middle";
@@ -375,7 +392,7 @@ function canvas_reset(event) {
 				}
 			}
 		
-			// Nakreslit + popsat čárky s hodnotami na ose X
+			// Draw the dashes on the X axis & add values to them
 		
 			ctx.textAlign = "center";
 			ctx.textBaseline = y_legend_reverse ? "bottom" : "top";
@@ -396,7 +413,7 @@ function canvas_reset(event) {
 				}
 			}
 		
-			// Popsat jednotky obou os
+			// Add the axes' units
 		
 			ctx.textBaseline = y_legend_reverse ? "top" : "bottom";
 			ctx.textAlign = "center";
@@ -406,18 +423,18 @@ function canvas_reset(event) {
 			ctx.textAlign = x_legend_reverse ? "right" : "left";
 			ctx.fillText(x_unit_name, x_legend_reverse ? (graph_margin_left - 8) : (canvas.width - graph_margin_right + 8), y_offset);
 		
-			// Dokončit vykreslování! Hurá!
+			// Done drawing! Hooray!
 		
 			ctx.stroke();
 	
-			// Napsat název grafu
+			// Capture name
 	
 			ctx.textBaseline = "top";
 			ctx.textAlign = "left";
 			ctx.font = "bold 16px Ubuntu";
 			ctx.fillText(format(jslang.CAPTURE_FMT, selectedcapture + 1, captures.length, captures[selectedcapture].title), graph_margin_left, (graph_margin_top - 16) / 2);
 	
-			// Pokud právě běží záznam, ukážeme "crosshair"
+			// If the capture is currently running, display a "crosshair"
 	
 			if(capturerunning && selectedcapture == (captures.length - 1) && x != null && y != null) {
 				ctx.beginPath();
@@ -494,7 +511,7 @@ function draw_crosshair(x, y) {
 /*
  * table_reset()
  * 
- * Obnoví hodnoty zobrazené v tabulce.
+ * Updates the table and its values.
  */
 
 function table_reset() {
@@ -523,7 +540,7 @@ function table_reset() {
 		var capturedsofar = (capturerunning && selectedcapture == (captures.length - 1)) ? receivedsofar : captureddata.length;
 
 		if(capture.sensorsetup) {
-			// Jen jedno čidlo
+			// Single sensor
 
 			const sensor = capture[(capture.sensorsetup == 1) ? "port_a" : "port_b"];
 
@@ -533,7 +550,7 @@ function table_reset() {
 						sensor.coeff_b, sensor.high_voltage, sensor.max_value) + "</td></tr>";
 			}				
 		} else {
-			// Obě čidla
+			// Both sensors
 
 			const sensor_a = capture.port_a, sensor_b = capture.port_b;
 
@@ -561,7 +578,7 @@ var mousepositions = [[-1, -1], [-1, -1]];
 /*
  * canvasmousemovehandler(e)
  * 
- * Callback, když se myš pohne nad canvasem.
+ * Callback, when the mouse moves over the canvas.
  */
 
 function canvasmousemovehandler(e) {
@@ -625,9 +642,11 @@ function canvasmousemovehandler(e) {
 }
 
 /*
- * canvasmousechangehandler()
+ * canvasmousechangehandler(status)
  * 
- * Callback, když se zmáčkne/pustí tlačítko na myši nad canvasem.
+ * Callback, when the mouse button is clicked/released above the canvas.
+ * 
+ * status: true = clicked, false = released
  */
 
 function canvasmousechangehandler(status) {

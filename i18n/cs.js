@@ -1,3 +1,9 @@
+/*
+ * Coachium - i18n/cs.js
+ * - Czech internationalization data
+ * 
+ * Made by Michal Procházka, 2021-2022.
+ */
 
 const alt_htmllang = {
 	// Homepage text
