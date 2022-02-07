@@ -150,6 +150,7 @@ function ui_connect(actually_connect) {
 			// Automatically resizes the canvas when the window is resized
 
 			window.addEventListener('resize', main_window_reset, false);
+			window.addEventListener('deviceorientation', main_window_reset, false);
 
 			main_window_reset();
 		}, 350);
