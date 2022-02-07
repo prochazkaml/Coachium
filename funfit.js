@@ -52,10 +52,10 @@ function fit_function() {
 			if(isNaN(capture.captureddata[i * 2 + 1])) break;
 
 			data[i] = [
-				convert_12bit_to_real(capture.captureddata[i * 2], sensor_a.coeff_a,
-					sensor_a.coeff_b, sensor_a.high_voltage),
 				convert_12bit_to_real(capture.captureddata[i * 2 + 1], sensor_b.coeff_a,
-					sensor_b.coeff_b, sensor_b.high_voltage)
+					sensor_b.coeff_b, sensor_b.high_voltage),
+				convert_12bit_to_real(capture.captureddata[i * 2], sensor_a.coeff_a,
+					sensor_a.coeff_b, sensor_a.high_voltage)
 			];
 		}
 	}
