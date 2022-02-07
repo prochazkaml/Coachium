@@ -83,8 +83,6 @@ var capturesetupsamples, capturesetupmode, capturesetupspeed, capturesetuppacket
  */
 
 function send_report() {
-	console.log(outreport);
-
 	return device.sendReport(0, new Uint8Array(outreport));
 }
 

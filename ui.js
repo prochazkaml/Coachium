@@ -15,7 +15,6 @@
 
 function popup_window(id) {
 	if(!(openwindow >= 0 && windowstack[openwindow] == id)) {
-		console.log("Requested " + id);
 		openwindow++;
 
 		windowstack[openwindow] = id;
@@ -657,8 +656,6 @@ window.onload = () => {
 document.addEventListener('keydown', (event) => {
 	if(!launched) return;
 
-	console.log(event.key);
-	
 	if(openwindow >= 0) {
 		switch(event.key) {
 			case "Escape":

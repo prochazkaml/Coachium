@@ -65,8 +65,6 @@ function fit_function() {
 	select.onchange = () => {
 		const algo_output = fitting_algos[select.selectedIndex](data);
 
-		console.log(algo_output);
-
 		// Update the info dialog
 
 		var string = "";
