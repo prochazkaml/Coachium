@@ -44,6 +44,36 @@ const eeprom_addresses = [
 
 const eeprom_length = eeprom_addresses.length;
 
+var ports = [
+	{
+		"id": "1",
+		"color": "#8F8",
+		"connected": false,
+		"intelligent": true,
+		"name": "",
+		"unit": "",
+		"min_value": 0,
+		"max_value": 0,
+		"coeff_a": 0,
+		"coeff_b": 0,
+		"high_voltage": false,
+		"raw_eeprom": new Uint8Array(eeprom_length)
+	}, {
+		"id": "2",
+		"color": "#FF6",
+		"connected": false,
+		"intelligent": true,
+		"name": "",
+		"unit": "",
+		"min_value": 0,
+		"max_value": 0,
+		"coeff_a": 0,
+		"coeff_b": 0,
+		"high_voltage": false,
+		"raw_eeprom": new Uint8Array(eeprom_length)
+	}
+];
+
 var capturesetupsamples, capturesetupmode, capturesetupspeed, capturesetuppacketsize, capturesetupsamplesize;
 
 /*
