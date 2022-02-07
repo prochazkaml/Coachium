@@ -384,11 +384,18 @@ function show_capture_info() {
 
 	const capture = captures[selectedcapture];
 
+	var actuallength;
+	
+	for(actuallength = 0; actuallength < capture.samples; actuallength++) {
+		if(isNaN(capture.captureddata[actuallength])) break;
+	}
+
 	var str = format(jslang.INFO_WINDOW_CONTENTS,
 		capture.samples,
 		capture.samples / (capture.sensorsetup ? 1 : 2),
 		localize_num(round(10000 / capture.interval, 2)),
-		capture.seconds
+		capture.seconds,
+		(actuallength / (capture.sensorsetup ? 1 : 2) - 1) * capture.interval / 10000
 	);
 
 	switch(capture.sensorsetup) {
