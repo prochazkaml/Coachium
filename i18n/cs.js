@@ -34,7 +34,7 @@ const alt_htmllang = {
 	"TITLE_SAVE_GDRIVE": "Uložit sešit záznamů na Google Disk [Ctrl+Shift+S]",
 	"TITLE_NEW_CAPTURE": "Přidat nový záznam do sešitu [Mezerník]",
 	"TITLE_STOP_CAPTURE": "Zastavit záznam [Mezerník]",
-	"TITLE_RENAME_CAPTURE": "Přejmenovat tento záznam [R]",
+	"TITLE_FIT_FUNCTION": "Fitovat funkci na naměřená data [F]",
 	"TITLE_REMOVE_CAPTURE": "Odstranit tento záznam ze sešitu [Delete]",
 	"TITLE_PREVIOUS_CAPTURE": "Zobrazit předchozí záznam v sešitě [← nebo PageUp]",
 	"TITLE_SHOW_AS_TABLE": "Zobrazit záznam jako tabulku [T]",
@@ -151,6 +151,11 @@ const alt_htmllang = {
 		"Pokud jste tak již učinili, prosím navštivte následující<br>" +
 		"odkaz, tam v seznamu najděte Coachium, klikněte na<br>" +
 		"<b>ODEBRAT PŘÍSTUP</b> a zkuste se přihlásit znovu.",
+
+	"WINDOW19_TITLE": "Fitovat funkci",
+	"WINDOW19_FUN_LINEAR": "Lineární (y = ax + b)",
+	"WINDOW19_FUN_QUADRATIC": "Kvadratická (y = ax² + bx + c)",
+	"WINDOW19_CHECKBOX": "Zobrazit tuto funkci na grafu",
 };
 
 const alt_jslang = {

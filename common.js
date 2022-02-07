@@ -24,6 +24,7 @@ const WINDOWID_LANGUAGE_ERROR = 15;
 const WINDOWID_LOCAL_SAVE_NAME = 16;
 const WINDOWID_CAPTURE_INFO = 17;
 const WINDOWID_GOOGLE_SERVICES_ERR = 18;
+const WINDOWID_FIT_FUNCTION = 19;
 
 var openwindow = -1, windowstack = [], zindex = 10;
 

@@ -497,6 +497,7 @@ function update_button_validity() {
 
 		get_id("removecapturebutton").style.filter = "contrast(0)";
 		get_id("capturemgmtbutton").style.filter = "contrast(0)";
+		get_id("fitfunctionbutton").style.filter = "contrast(0)";
 
 		get_id("viewpreviousbutton").style.filter = "contrast(0)";
 		get_id("viewnextbutton").style.filter = "contrast(0)";
@@ -514,6 +515,7 @@ function update_button_validity() {
 			get_id("removeeverythingbutton").style.filter = "contrast(0)";
 			get_id("removecapturebutton").style.filter = "contrast(0)";
 			get_id("capturemgmtbutton").style.filter = "contrast(0)";
+			get_id("fitfunctionbutton").style.filter = "contrast(0)";
 			get_id("savebutton").style.filter = "contrast(0)";
 			get_id("savegdrivebutton").style.filter = "contrast(0)";
 			get_id("viewpreviousbutton").style.filter = "contrast(0)";
@@ -525,6 +527,7 @@ function update_button_validity() {
 			get_id("removeeverythingbutton").style.filter = "";
 			get_id("removecapturebutton").style.filter = "";
 			get_id("capturemgmtbutton").style.filter = "";
+			get_id("fitfunctionbutton").style.filter = "";
 			get_id("savebutton").style.filter = "";
 			get_id("savegdrivebutton").style.filter = "";
 			get_id("captureinfobutton").style.filter = "";
@@ -693,6 +696,10 @@ document.addEventListener('keydown', (event) => {
 
 			case "i":
 				show_capture_info();
+				break;
+
+			case "f":
+				fit_function();
 				break;
 
 			case "m":

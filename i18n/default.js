@@ -36,7 +36,7 @@ var htmllang = {
 	"TITLE_SAVE_GDRIVE": "Save this workbook to your Google Drive [Ctrl+Shift+S]",
 	"TITLE_NEW_CAPTURE": "Add a new capture to your workbook [Space]",
 	"TITLE_STOP_CAPTURE": "Stop the current capture [Space]",
-	"TITLE_RENAME_CAPTURE": "Rename this capture [R]",
+	"TITLE_FIT_FUNCTION": "Fit function to captured data [F]",
 	"TITLE_REMOVE_CAPTURE": "Delete this capture [Delete]",
 	"TITLE_PREVIOUS_CAPTURE": "Show the previous capture [← or PageUp]",
 	"TITLE_SHOW_AS_TABLE": "Display capture data as a table [T]",
@@ -159,6 +159,11 @@ var htmllang = {
 		"If you hane not done so, please visit the following<br>" +
 		"web page, search for Coachium in the list, click on<br>" +
 		"<b>REMOVE ACCESS</b> and try logging in again.",
+
+	"WINDOW19_TITLE": "Fit function",
+	"WINDOW19_FUN_LINEAR": "Linear (y = ax + b)",
+	"WINDOW19_FUN_QUADRATIC": "Quadratic (y = ax² + bx + c)",
+	"WINDOW19_CHECKBOX": "Show this function on the graph",
 };
 
 var jslang = {

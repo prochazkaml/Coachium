@@ -1,5 +1,5 @@
 Does not require hardware:
-- fit function
+- display fitted function(s) on the graph
 - show value on the graph when hovering over a data point
 - drawing XY as double X
 - ability to manually attach sensors
