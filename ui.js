@@ -656,18 +656,20 @@ window.onload = () => {
 document.addEventListener('keydown', (event) => {
 	if(!launched) return;
 
+	const key = event.key.toLowerCase();
+
 	if(openwindow >= 0) {
-		switch(event.key) {
-			case "Escape":
+		switch(key) {
+			case "escape":
 				close_window();
 				break;
 	
-			case "Enter":
+			case "enter":
 				confirm_window();
 				break;
 		}
 	} else {
-		if(event.ctrlKey) switch(event.key) {
+		if(event.ctrlKey) switch(key) {
 			case "o":
 				event.preventDefault();
 				load_file_local(false);
@@ -675,15 +677,15 @@ document.addEventListener('keydown', (event) => {
 
 			case "s":
 				event.preventDefault();
-				save_file_local(false);
+
+				if(event.shiftKey)
+					popup_gdrive_window();
+				else
+					save_file_local(false);
+
 				break;
 
-			case "S":
-				event.preventDefault();
-				popup_gdrive_window();
-				break;
-
-		} else switch(event.key) {
+		} else switch(key) {
 			case " ":
 				event.preventDefault();
 				
@@ -710,24 +712,24 @@ document.addEventListener('keydown', (event) => {
 				capture_management();
 				break;
 
-			case "ArrowLeft":
-			case "PageUp":
+			case "arrowleft":
+			case "pageup":
 				event.preventDefault();
 				change_selected_capture(-1);
 				break;
 
-			case "ArrowRight":
-			case "PageDown":
+			case "arrowright":
+			case "pagedown":
 				event.preventDefault();
 				change_selected_capture(1);
 				break;
 
-			case "Delete":
+			case "delete":
 				event.preventDefault();
 				remove_capture(false);
 				break;
 
-			case "Escape":
+			case "escape":
 				event.preventDefault();
 				if(zoom_request_progress) request_zoom_in();
 				break;
