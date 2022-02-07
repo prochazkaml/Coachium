@@ -4,7 +4,6 @@ Does not require hardware:
 - ability to manually attach sensors
 - zooming in with the scroll wheel
 - make the about and privacy policy pages use a similar translation system as the main page
-- accept single-key shortcuts also when uppercase
 
 Requires hardware:
 - watchdog!!!
