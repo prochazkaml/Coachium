@@ -98,6 +98,8 @@ function fit_function() {
 					delete captures[selectedcapture].functions[algo_output.type];
 				}
 			}
+
+			main_window_reset();
 		}
 	}
 

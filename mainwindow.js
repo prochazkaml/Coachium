@@ -137,6 +137,8 @@ function canvas_reset(event) {
 		ctx.font = "16px Ubuntu";
 
 		if(captures.length > 0) {
+			const capture = captures[selectedcapture];	
+
 			ctx.lineWidth = 2;
 			ctx.strokeStyle = "black";
 		
@@ -145,6 +147,7 @@ function canvas_reset(event) {
 			 * a_total_units = total number of units on an axis (e. g. range -20–110 °C = 130 units)
 			 * a_min = minimal value of an axis (e. g. -20)
 			 * a_max = maximal value of an axis (e. g. 110)
+			 * a_int_min, a_int_max = same as a_min/a_max, but don't have zoom applied to them
 			 * a_unit_in_px = 1 unit converted to screen pixels
 			 * a_actual_offset = the point where the axis meets with the other axis
 			 * a_offset = same as a_actual_offset, but restricted to the screen dimensions
@@ -154,44 +157,44 @@ function canvas_reset(event) {
 			 * a_optimal_unit_steps = value calculated by get_optimal_unit_steps()
 			 */
 		
-			var x_unit_name, x_total_units, x_min, x_max, x_unit_in_px, x_offset, x_actual_offset, x_round_level, x_optimal_unit_steps, x_legend_reverse = false,
-				y_unit_name, y_total_units, y_min, y_max, y_unit_in_px, y_offset, y_actual_offset, y_round_level, y_optimal_unit_steps, y_legend_reverse = false;
+			var x_unit_name, x_total_units, x_min, x_max, x_int_min, x_int_max, x_unit_in_px, x_offset, x_actual_offset, x_round_level, x_optimal_unit_steps, x_legend_reverse = false,
+				y_unit_name, y_total_units, y_min, y_max, y_int_min, y_int_max, y_unit_in_px, y_offset, y_actual_offset, y_round_level, y_optimal_unit_steps, y_legend_reverse = false;
 		
 			// Calculate the above described values depending on whether the capture ran with a single sensor or both
 		
-			if(captures[selectedcapture].sensorsetup) {
+			if(capture.sensorsetup) {
 				// Only one sensor was used
 		
-				const sensor = captures[selectedcapture][(captures[selectedcapture].sensorsetup == 1) ? "port_a" : "port_b"];
+				const sensor = capture[(capture.sensorsetup == 1) ? "port_a" : "port_b"];
 		
 				// X axis parameters
 		
 				x_unit_name = "s";
-				x_min = 0;
-				x_max = captures[selectedcapture].seconds;
+				x_int_min = x_min = 0;
+				x_int_max = x_max = capture.seconds;
 
 				// Y axis parameters
 
 				y_unit_name = sensor.unit;
-				y_min = sensor.min_value;
-				y_max = sensor.max_value;
+				y_int_min = y_min = sensor.min_value;
+				y_int_max = y_max = sensor.max_value;
 			} else {
 				// Both sensors were used
 	
-				const sensor_a = captures[selectedcapture].port_a;
-				const sensor_b = captures[selectedcapture].port_b;
+				const sensor_a = capture.port_a;
+				const sensor_b = capture.port_b;
 	
 				// X axis parameters
 		
 				x_unit_name = sensor_b.unit;
-				x_min = sensor_b.min_value;
-				x_max = sensor_b.max_value;
+				x_int_min = x_min = sensor_b.min_value;
+				x_int_max = x_max = sensor_b.max_value;
 
 				// Y axis parameters
 		
 				y_unit_name = sensor_a.unit;
-				y_min = sensor_a.min_value;
-				y_max = sensor_a.max_value;
+				y_int_min = y_min = sensor_a.min_value;
+				y_int_max = y_max = sensor_a.max_value;
 			}
 
 			// Calculate the rest of the X axis parameters
@@ -286,18 +289,18 @@ function canvas_reset(event) {
 			ctx.beginPath();
 			ctx.strokeStyle = "red";
 			
-			var captureddata = (capturerunning && selectedcapture == (captures.length - 1)) ? receivedcapture : captures[selectedcapture].captureddata;
+			var captureddata = (capturerunning && selectedcapture == (captures.length - 1)) ? receivedcapture : capture.captureddata;
 			var capturedsofar = (capturerunning && selectedcapture == (captures.length - 1)) ? receivedsofar : captureddata.length;
 	
 			var x, last_x = null, y, last_y = null;
 	
-			if(captures[selectedcapture].sensorsetup) {
+			if(capture.sensorsetup) {
 				// Single sensor
 	
-				const sensor = captures[selectedcapture][(captures[selectedcapture].sensorsetup == 1) ? "port_a" : "port_b"];
+				const sensor = capture[(capture.sensorsetup == 1) ? "port_a" : "port_b"];
 		
 				for(var i = 0; i < capturedsofar; i++) {
-					x = x_actual_offset + x_unit_in_px * i * captures[selectedcapture].interval / 10000;
+					x = x_actual_offset + x_unit_in_px * i * capture.interval / 10000;
 					y = y_actual_offset - convert_12bit_to_real(captureddata[i], sensor.coeff_a,
 						sensor.coeff_b, sensor.high_voltage) * y_unit_in_px;
 		
@@ -317,8 +320,8 @@ function canvas_reset(event) {
 			} else {
 				// Both sensors
 	
-				const sensor_a = captures[selectedcapture].port_a;
-				const sensor_b = captures[selectedcapture].port_b;
+				const sensor_a = capture.port_a;
+				const sensor_b = capture.port_b;
 	
 				for(var i = 0; i < capturedsofar; i += 2) {
 					x = x_actual_offset + convert_12bit_to_real(captureddata[i + 1], sensor_b.coeff_a,
@@ -343,6 +346,34 @@ function canvas_reset(event) {
 		
 			ctx.stroke();
 			
+			// Draw any fitted functions that were assigned to the capture
+
+			if(capture.functions) {
+				ctx.save();
+				ctx.strokeStyle = "rgba(0, 0, 255, 1)";
+
+				ctx.beginPath();
+
+				for (const [type, output] of Object.entries(capture.functions)) {
+					switch(type) {
+						case "linear":
+							ctx.moveTo(
+								x_actual_offset + x_int_min * x_unit_in_px,
+								y_actual_offset - (output.a * x_int_min + output.b) * y_unit_in_px
+							);
+
+							ctx.lineTo(
+								x_actual_offset + x_int_max * x_unit_in_px,
+								y_actual_offset - (output.a * x_int_max + output.b) * y_unit_in_px
+							);
+							break;
+					}
+				}
+
+				ctx.stroke();
+				ctx.restore();
+			}
+
 			// Slightly hide the parts of the graph which are not in the middle
 
 			ctx.save();
@@ -432,7 +463,7 @@ function canvas_reset(event) {
 			ctx.textBaseline = "top";
 			ctx.textAlign = "left";
 			ctx.font = "bold 16px Ubuntu";
-			ctx.fillText(format(jslang.CAPTURE_FMT, selectedcapture + 1, captures.length, captures[selectedcapture].title), graph_margin_left, (graph_margin_top - 16) / 2);
+			ctx.fillText(format(jslang.CAPTURE_FMT, selectedcapture + 1, captures.length, capture.title), graph_margin_left, (graph_margin_top - 16) / 2);
 	
 			// If the capture is currently running, display a "crosshair"
 	
@@ -520,7 +551,7 @@ function table_reset() {
 
 	if(captures.length > 0) {
 		out = "<div style='margin-left:" + graph_margin_left + "px;margin-top:" + ((graph_margin_top - 16) / 2 - 2) + "px;margin-bottom:1em'><b>" + 
-		format(jslang.CAPTURE_FMT, selectedcapture + 1, captures.length, tags_encode(captures[selectedcapture].title)) + "</b>";
+		format(jslang.CAPTURE_FMT, selectedcapture + 1, captures.length, tags_encode(capture.title)) + "</b>";
 		
 		switch(capture.sensorsetup) {
 			case 0:
