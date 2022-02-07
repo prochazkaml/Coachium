@@ -5,6 +5,8 @@
  * Made by Michal Procházka, 2021-2022.
  */
 
+var gdrive_response;
+
 /*
  * popup_gdrive_window()
  *

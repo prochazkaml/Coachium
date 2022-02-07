@@ -9,6 +9,8 @@ const CANVAS_EVENT_REDRAW_ENTIRE = 0;
 const CANVAS_EVENT_ZOOM_CROSSHAIR_MOVE = 1;
 const CANVAS_EVENT_GRAPH_MOVE = 2;
 
+var zoomx1, zoomy1, zoomx2, zoomy2;
+
 /*
  * main_window_reset()
  * 
