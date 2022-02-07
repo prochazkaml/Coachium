@@ -6,7 +6,6 @@ Does not require hardware:
 - zooming in with the scroll wheel
 - make the about and privacy policy pages use a similar translation system as the main page
 - remove most console.log() calls before launch
-- move as much stuff from common.js as possible (to elab.js, etc.)
 - info dialog - show if the capture was aborted
 - accept single-key shortcuts also when uppercase
 
