@@ -36,7 +36,7 @@ function gdrive_save() {
 	get_id("gdrive_iframe").contentWindow.postMessage("_gdriveinterface" + JSON.stringify({
 		"cmd": "save_file_to_Drive",
 		"name": filename,
-		"data": xml_export(filename),
+		"data": JSON.stringify(captures),
 	}), "*");
 }
 

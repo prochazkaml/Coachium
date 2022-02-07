@@ -194,3 +194,15 @@ function prettyprint_value(id, val) {
 		return "–";
 	}
 }
+
+/*
+ * tags_encode(s)
+ * 
+ * Generates tag escape characters for a given string.
+ */
+
+function tags_encode(s) {
+	var el = document.createElement("div");
+	el.innerText = el.textContent = s;
+	return el.innerHTML;
+}

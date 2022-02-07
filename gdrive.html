@@ -109,7 +109,7 @@
 
 				var metadata = {
 					'name': name + ".coachium",
-					'mimeType': 'text/xml'
+					'mimeType': 'text/json'
 				};
 
 				var multipartRequestBody =
@@ -117,7 +117,7 @@
 						'Content-Type: application/json\r\n\r\n' +
 						JSON.stringify(metadata) +
 						delimiter +
-						'Content-Type: text/xml\r\n\r\n' +
+						'Content-Type: text/json\r\n\r\n' +
 						data +
 						close_delim;
 
