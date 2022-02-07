@@ -152,7 +152,7 @@ const alt_htmllang = {
 		"odkaz, tam v seznamu najděte Coachium, klikněte na<br>" +
 		"<b>ODEBRAT PŘÍSTUP</b> a zkuste se přihlásit znovu.",
 
-	"WINDOW19_TITLE": "Fitovat funkci",
+	"WINDOW19_TITLE": "Fit funkce",
 	"WINDOW19_FUN_LINEAR": "Lineární (y = ax + b)",
 	"WINDOW19_FUN_QUADRATIC": "Kvadratická (y = ax² + bx + c)",
 	"WINDOW19_CHECKBOX": "Zobrazit tuto funkci na grafu",
