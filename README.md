@@ -35,7 +35,7 @@ We strongly hope that we have introduced to you what Coachium actually is, and w
 
 If you are interested in trying this software out, visit our [central instance](https://coachium.prochazka.ml/). Beware that the default language of this instance is Czech, however, you can change that by clicking on the button in the top right corner.
 
-If you do not own a compatible device for connecting, you can still experience some parts of Coachium by downloading and opening the [example file](https://github.com/prochazkaml/Coachium/blob/master/test.coachium) (in XML format).
+If you do not own a compatible device for connecting, you can still experience some parts of Coachium by downloading and opening the [example file](https://github.com/prochazkaml/Coachium/blob/master/test.coachium) (in JSON format).
 
 **However, if you are an educational institution wishing to use Coachium in your classes, it is highly recommended to run your own instance of Coachium on your own server, where you can select your own default language. See below for instructions.**
 
