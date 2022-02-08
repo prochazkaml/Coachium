@@ -9,6 +9,8 @@ const CANVAS_EVENT_REDRAW_ENTIRE = 0;
 const CANVAS_EVENT_ZOOM_CROSSHAIR_MOVE = 1;
 const CANVAS_EVENT_GRAPH_MOVE = 2;
 
+// These variables control the zoomed in region. All of them range from 0 to 1.
+
 var zoomx1, zoomy1, zoomx2, zoomy2;
 
 /*
@@ -752,4 +754,82 @@ function canvasmousechangehandler(status) {
 	}
 	
 	lock = false;
+}
+
+/*
+ * canvasmousemovehandler(e)
+ * 
+ * Callback, when the scroll wheel position changes over the canvas.
+ */
+
+function canvasmousewheelhandler(event) {
+	const scale = event.deltaY * -0.001,
+		mousex = (mousepositions[0][0] - graph_margin_left) / (canvas.width - graph_margin_left - graph_margin_right),
+		mousey = (mousepositions[0][1] - graph_margin_top) / (canvas.height - graph_margin_top - graph_margin_bottom);
+
+//	console.log(scale);
+
+	if(!zoomed_in) {
+		zoomed_in = true;
+		zoomx1 = zoomy1 = 0;
+		zoomx2 = zoomy2 = 1;
+
+		update_button_validity();
+	}
+
+	// Figure out the selected point in the zoomed in region
+
+	const xl = (zoomx2 - zoomx1) * mousex, yt = (zoomy2 - zoomy1) * mousey;
+	const xr = (zoomx2 - zoomx1) * (1 - mousex), yb = (zoomy2 - zoomy1) * (1 - mousey);
+
+	if(scale > 0) {
+		// Zoom in
+
+		if(scale > 1) scale = 1;
+
+		zoomx1 += xl * scale;
+		zoomy1 += yb * scale;
+
+		zoomx2 -= xr * scale;
+		zoomy2 -= yt * scale;
+	} else {
+		// Zoom out
+
+		if(scale < -1) scale = -1;
+
+		zoomx1 += xl * scale;
+		zoomy1 += yb * scale;
+
+		zoomx2 -= xr * scale;
+		zoomy2 -= yt * scale;		
+
+		// Handling for when the zoomed out region is temporarily off-screen
+
+		if(zoomx1 < 0) {
+			zoomx2 -= zoomx1; zoomx1 = 0;
+			if(zoomx2 > 1) zoomx2 = 1;
+		}
+
+		if(zoomx2 > 1) {
+			zoomx1 -= (zoomx2 - 1); zoomx2 = 1;
+			if(zoomx1 < 0) zoomx1 = 0;
+		}
+
+		if(zoomy1 < 0) {
+			zoomy2 -= zoomy1; zoomy1 = 0;
+			if(zoomy2 > 1) zoomy2 = 1;
+		}
+
+		if(zoomy2 > 1) {
+			zoomy1 -= (zoomy2 - 1); zoomy2 = 1;
+			if(zoomy1 < 0) zoomy1 = 0;
+		}
+	}
+
+	if(zoomx1 == 0 && zoomy1 == 0 && zoomx2 == 1 && zoomy2 == 1) {
+		zoomed_in = false;
+		update_button_validity();
+	}
+
+	canvas_reset(CANVAS_EVENT_REDRAW_ENTIRE);
 }

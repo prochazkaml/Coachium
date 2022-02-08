@@ -598,6 +598,7 @@ window.onload = () => {
 	canvas.addEventListener("mousemove", canvasmousemovehandler);
 	canvas.addEventListener("mousedown", () => { canvasmousechangehandler(1); });
 	canvas.addEventListener("mouseup", () => { canvasmousechangehandler(0); });
+	canvas.addEventListener("wheel", canvasmousewheelhandler);
 
 	// Check the current git commit version against GitHub
 
