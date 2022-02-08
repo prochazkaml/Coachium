@@ -14,15 +14,17 @@ const CANVAS_EVENT_GRAPH_MOVE = 2;
 var zoomx1, zoomy1, zoomx2, zoomy2;
 
 /*
- * main_window_reset()
+ * main_window_reset(reset_zoom)
  * 
  * Resets all values in the main window.
  */
 
-function main_window_reset() {
+function main_window_reset(reset_zoom) {
 	if(canvas.style.display != "none") {
-		zoomed_in = false;
 		zoom_request_progress = 0;
+
+		if(reset_zoom) zoomed_in = false;
+		
 		canvas_reset(CANVAS_EVENT_REDRAW_ENTIRE);
 	} else {
 		table_reset();
@@ -114,7 +116,7 @@ var drawcache = null;
 function canvas_reset(event) {
 	// Redraw again, if necessary
 
-	if(event == CANVAS_EVENT_REDRAW_ENTIRE || event == CANVAS_EVENT_GRAPH_MOVE || drawcache == null) {
+	if(event != CANVAS_EVENT_ZOOM_CROSSHAIR_MOVE || drawcache == null) {
 		if(canvas.style.display == "none") return;
 		
 		// Reset canvas parameters

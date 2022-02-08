@@ -97,7 +97,7 @@ function fit_function() {
 				}
 			}
 
-			main_window_reset();
+			main_window_reset(false);
 		}
 	}
 
