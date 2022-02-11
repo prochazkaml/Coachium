@@ -10,7 +10,6 @@ const DEFAULT_LANGUAGE = "cs";
 var htmllang = {
 	// Homepage text
 
-	"HOMEPAGE_VERSION": "Version 0.1 pre-alpha",
 	"HOMEPAGE_ABOUT_LINK": "What is Coachium?",
 	"HOMEPAGE_PRIVACY_POLICY_LINK": "Privacy policy",
 	"HOMEPAGE_COMMIT_CHECKING": "Checking version...",
@@ -49,7 +48,7 @@ var htmllang = {
 
 	// Window contents
 
-	"WINDOW0_TITLE": "Coachium v0.1 pre-alpha",
+	"WINDOW0_TITLE": "Coachium pre-alpha",
 	"WINDOW0_PAR0": "Made by Michal Procházka, 2021–2022.",
 	"WINDOW0_PAR1":
 		"Based on my work of reverse-engineering the communication<br>" +

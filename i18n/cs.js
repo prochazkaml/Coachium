@@ -8,7 +8,6 @@
 const alt_htmllang = {
 	// Homepage text
 
-	"HOMEPAGE_VERSION": "Verze 0.1 pre-alpha",
 	"HOMEPAGE_ABOUT_LINK": "Co je to Coachium?",
 	"HOMEPAGE_PRIVACY_POLICY_LINK": "Privacy policy",
 	"HOMEPAGE_COMMIT_CHECKING": "Kontroluji verzi...",
@@ -47,7 +46,7 @@ const alt_htmllang = {
 
 	// Window contents
 
-	"WINDOW0_TITLE": "Coachium v0.1 pre-alpha",
+	"WINDOW0_TITLE": "Coachium pre-alpha",
 	"WINDOW0_PAR0": "Vytvořil Michal Procházka, 2021–2022.",
 	"WINDOW0_PAR1":
 		"Založeno na mé práci reverzního inženýrství komunikace<br>" +
