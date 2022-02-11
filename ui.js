@@ -5,6 +5,8 @@
  * Made by Michal Procházka, 2021-2022.
  */
 
+var closetimeoutids = [];
+
 /*
  * popup_window(id)
  *
@@ -15,6 +17,8 @@
 
 function popup_window(id) {
 	if(!(openwindow >= 0 && windowstack[openwindow] == id)) {
+		if(closetimeoutids[id]) clearInterval(closetimeoutids[id]);
+
 		openwindow++;
 
 		windowstack[openwindow] = id;
@@ -40,6 +44,10 @@ function close_window() {
 		get_win_overlay(win).style.pointerEvents = "";
 		get_win_overlay(win).style.opacity = "";
 		get_win(win).style.transform = "";
+
+		closetimeoutids[win] = setTimeout(() => {
+			get_win_overlay(win).style.zIndex = "";
+		}, 500);
 	}
 }
 
