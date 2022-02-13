@@ -24,46 +24,10 @@ function fit_function() {
 	const checkbox = get_win_el_tag(WINDOWID_FIT_FUNCTION, "input");
 	const capture = captures[selectedcapture];
 
-	// First of all, generate the required data
-	
-	var data = [];
-
-	if(capture.sensorsetup) { 
-		// Only one sensor was used
-
-		const sensor = (capture.sensorsetup == 1) ? capture.port_a : capture.port_b;
-
-		for(var i = 0; i < capture.samples; i++) {
-			if(isNaN(capture.captureddata[i])) break;
-
-			data[i] = [
-				capture.interval / 10000 * i,
-				convert_12bit_to_real(capture.captureddata[i], sensor.coeff_a,
-					sensor.coeff_b, sensor.high_voltage)
-			];
-		}
-	} else {
-		// Both sensors were used
-
-		const sensor_a = capture.port_a, sensor_b = capture.port_b;
-
-		for(var i = 0; i < capture.samples / 2; i++) {
-			if(isNaN(capture.captureddata[i * 2])) break;
-			if(isNaN(capture.captureddata[i * 2 + 1])) break;
-
-			data[i] = [
-				convert_12bit_to_real(capture.captureddata[i * 2 + 1], sensor_b.coeff_a,
-					sensor_b.coeff_b, sensor_b.high_voltage),
-				convert_12bit_to_real(capture.captureddata[i * 2], sensor_a.coeff_a,
-					sensor_a.coeff_b, sensor_a.high_voltage)
-			];
-		}
-	}
-
 	// Automatically update the values when the selected function is changed
 	
 	select.onchange = () => {
-		const algo_output = fitting_algos[select.selectedIndex](data);
+		const algo_output = fitting_algos[select.selectedIndex](capturecache.values);
 
 		// Update the info dialog
 
@@ -103,7 +67,7 @@ function fit_function() {
 
 	select.onchange();
 
-	// Now, ask all of the algorithms with our generated data for their output
+	// Now, ask all of the algorithms for their output
 
 	popup_window(WINDOWID_FIT_FUNCTION);
 }

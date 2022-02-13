@@ -166,42 +166,15 @@ function canvas_reset(event) {
 			var x_unit_name, x_total_units, x_min, x_max, x_int_min, x_int_max, x_unit_in_px, x_offset, x_actual_offset, x_round_level, x_optimal_unit_steps, x_legend_reverse = false,
 				y_unit_name, y_total_units, y_min, y_max, y_int_min, y_int_max, y_unit_in_px, y_offset, y_actual_offset, y_round_level, y_optimal_unit_steps, y_legend_reverse = false;
 		
-			// Calculate the above described values depending on whether the capture ran with a single sensor or both
+			// Calculate the above described values
 		
-			if(capture.sensorsetup) {
-				// Only one sensor was used
-		
-				const sensor = capture[(capture.sensorsetup == 1) ? "port_a" : "port_b"];
-		
-				// X axis parameters
-		
-				x_unit_name = "s";
-				x_int_min = x_min = 0;
-				x_int_max = x_max = capture.seconds;
+			x_unit_name = capturecache.x.unitname;
+			x_int_min = x_min = capturecache.x.min;
+			x_int_max = x_max = capturecache.x.max;
 
-				// Y axis parameters
-
-				y_unit_name = sensor.unit;
-				y_int_min = y_min = sensor.min_value;
-				y_int_max = y_max = sensor.max_value;
-			} else {
-				// Both sensors were used
-	
-				const sensor_a = capture.port_a;
-				const sensor_b = capture.port_b;
-	
-				// X axis parameters
-		
-				x_unit_name = sensor_b.unit;
-				x_int_min = x_min = sensor_b.min_value;
-				x_int_max = x_max = sensor_b.max_value;
-
-				// Y axis parameters
-		
-				y_unit_name = sensor_a.unit;
-				y_int_min = y_min = sensor_a.min_value;
-				y_int_max = y_max = sensor_a.max_value;
-			}
+			y_unit_name = capturecache.y.unitname;
+			y_int_min = y_min = capturecache.y.min;
+			y_int_max = y_max = capturecache.y.max;
 
 			// Calculate the rest of the X axis parameters
 
@@ -294,62 +267,27 @@ function canvas_reset(event) {
 		
 			ctx.beginPath();
 			ctx.strokeStyle = "red";
-			
-			var captureddata = (capturerunning && selectedcapture == (captures.length - 1)) ? receivedcapture : capture.captureddata;
-			var capturedsofar = (capturerunning && selectedcapture == (captures.length - 1)) ? receivedsofar : captureddata.length;
-	
+				
 			var x, last_x = null, y, last_y = null;
-	
-			if(capture.sensorsetup) {
-				// Single sensor
-	
-				const sensor = capture[(capture.sensorsetup == 1) ? "port_a" : "port_b"];
-		
-				for(var i = 0; i < capturedsofar; i++) {
-					x = x_actual_offset + x_unit_in_px * i * capture.interval / 10000;
-					y = y_actual_offset - convert_12bit_to_real(captureddata[i], sensor.coeff_a,
-						sensor.coeff_b, sensor.high_voltage) * y_unit_in_px;
-		
-					if(i && 
-						(last_x >= 0 || x >= 0) &&
-						(last_x < canvas.width || x < canvas.width) &&
-						(last_y >= 0 || y >= 0) &&
-						(last_y < canvas.height || y < canvas.height)) {
-					
-						ctx.moveTo(last_x, last_y);
-						ctx.lineTo(x, y);
-					}
-	
-					last_x = x;
-					last_y = y;
+
+			for(var i = 0; i < capturecache.values.length; i++) {
+				x = x_actual_offset + capturecache.values[i][0] * x_unit_in_px;
+				y = y_actual_offset - capturecache.values[i][1] * y_unit_in_px;
+
+				if(i && 
+					(last_x >= 0 || x >= 0) &&
+					(last_x < canvas.width || x < canvas.width) &&
+					(last_y >= 0 || y >= 0) &&
+					(last_y < canvas.height || y < canvas.height)) {
+				
+					ctx.moveTo(last_x, last_y);
+					ctx.lineTo(x, y);
 				}
-			} else {
-				// Both sensors
-	
-				const sensor_a = capture.port_a;
-				const sensor_b = capture.port_b;
-	
-				for(var i = 0; i < capturedsofar; i += 2) {
-					x = x_actual_offset + convert_12bit_to_real(captureddata[i + 1], sensor_b.coeff_a,
-						sensor_b.coeff_b, sensor_b.high_voltage) * x_unit_in_px;
-					y = y_actual_offset - convert_12bit_to_real(captureddata[i], sensor_a.coeff_a,
-						sensor_a.coeff_b, sensor_a.high_voltage) * y_unit_in_px;
-	
-					if(i && 
-						(last_x >= 0 || x >= 0) &&
-						(last_x < canvas.width || x < canvas.width) &&
-						(last_y >= 0 || y >= 0) &&
-						(last_y < canvas.height || y < canvas.height)) {
-					
-						ctx.moveTo(last_x, last_y);
-						ctx.lineTo(x, y);
-					}
-	
-					last_x = x;
-					last_y = y;
-				}
-			}
-		
+
+				last_x = x;
+				last_y = y;
+			}			
+
 			ctx.stroke();
 			
 			// Draw any fitted functions that were assigned to the capture
@@ -573,30 +511,20 @@ function table_reset() {
 				break;
 		}
 
-		var captureddata = (capturerunning && selectedcapture == (captures.length - 1)) ? receivedcapture : capture.captureddata;
-		var capturedsofar = (capturerunning && selectedcapture == (captures.length - 1)) ? receivedsofar : captureddata.length;
-
 		if(capture.sensorsetup) {
 			// Single sensor
 
-			const sensor = capture[(capture.sensorsetup == 1) ? "port_a" : "port_b"];
-
-			for(var i = 0; i < capturedsofar; i++) {
+			for(var i = 0; i < capturecache.values.length; i++) {
 				out += "<tr><td>" + localize_num(i * capture.interval / 10000) + "</td><td>" +
-					convert_12bit_to_string(captureddata[i], sensor.coeff_a,
-						sensor.coeff_b, sensor.high_voltage, sensor.max_value) + "</td></tr>";
+					capturecache.values[i][1] + "</td></tr>";
 			}				
 		} else {
 			// Both sensors
 
-			const sensor_a = capture.port_a, sensor_b = capture.port_b;
-
-			for(var i = 0; i < capturedsofar; i += 2) {
-				out += "<tr><td>" + localize_num(i * capture.interval / 20000) + "</td><td>" +
-					convert_12bit_to_string(captureddata[i], sensor_a.coeff_a,
-						sensor_a.coeff_b, sensor_a.high_voltage, sensor_a.max_value) + "</td><td>" + 
-					convert_12bit_to_string(captureddata[i + 1], sensor_b.coeff_a,
-						sensor_b.coeff_b, sensor_b.high_voltage, sensor_b.max_value) + "</td></tr>";
+			for(var i = 0; i < capturecache.values.length; i++) {
+				out += "<tr><td>" + localize_num(i * capture.interval / 10000) + "</td><td>" +
+					capturecache.values[i][0] + "</td><td>" + 
+					capturecache.values[i][1] + "</td></tr>";
 			}				
 		}
 
@@ -634,6 +562,7 @@ function canvasmousemovehandler(e) {
 	mouseY = y;
 
 	if(mouseX != oldmouseX || mouseY != oldmouseY) {
+		console.log(mouseX, mouseY);
 		mousepositions[0][0] = mouseX;
 		mousepositions[0][1] = mouseY;
 

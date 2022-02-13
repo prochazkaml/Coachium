@@ -6,6 +6,7 @@ Does not require hardware:
 
 Requires hardware:
 - watchdog!!!
+- fix the realtime capture
 - trigger (conditional capture) mode
 - counter mode
 - ability to zero out a sensor

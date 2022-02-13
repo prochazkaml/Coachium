@@ -38,7 +38,19 @@ var requestcapture = false, capturerunning = false, receivedcapture, receivedsof
 
 var captures = [], selectedcapture = 0;
 
-var capturevaluecache = [];
+var capturecache = {
+	"x": {
+		"min": null,
+		"max": null,
+		"unitname": null,
+	},
+	"y": {
+		"min": null,
+		"max": null,
+		"unitname": null,
+	},
+	"values": []
+};
 
 const fresh_port_spec = {
 	"id": null,

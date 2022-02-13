@@ -292,7 +292,69 @@ function change_selected_capture(interval, absolute = undefined) {
 		selectedcapture = 0;
 	}
 
-	// TODO: pre-calculate the value cache and stop using isNaN everywhere to get the actual number of captures!
+	const capture = captures[selectedcapture];
+	
+	capturecache.values = [];
+
+	if(capture.sensorsetup) {
+		// Only one sensor was used
+		
+		const sensor = (capture.sensorsetup == 1) ? capture.port_a : capture.port_b;
+
+		// X axis parameters
+
+		capturecache.x.unitname = "s";
+		capturecache.x.min  = 0;
+		capturecache.x.max = capture.seconds;
+
+		// Y axis parameters
+
+		capturecache.y.unitname = sensor.unit;
+		capturecache.y.min = sensor.min_value;
+		capturecache.y.max = sensor.max_value;
+
+		// Values
+
+		for(var i = 0; i < capture.samples; i++) {
+			if(isNaN(capture.captureddata[i])) break;
+
+			capturecache.values[i] = [
+				capture.interval / 10000 * i,
+				convert_12bit_to_real(capture.captureddata[i], sensor.coeff_a,
+					sensor.coeff_b, sensor.high_voltage)
+			];
+		}
+	} else {
+		// Both sensors were used
+
+		const sensor_a = capture.port_a, sensor_b = capture.port_b;
+
+		// X axis parameters
+
+		capturecache.x.unitname = sensor_b.unit;
+		capturecache.x.min = sensor_b.min_value;
+		capturecache.x.max = sensor_b.max_value;
+
+		// Y axis parameters
+
+		capturecache.y.unitname = sensor_a.unit;
+		capturecache.y.min = sensor_a.min_value;
+		capturecache.y.max = sensor_a.max_value;
+
+		// Values
+
+		for(var i = 0; i < capture.samples / 2; i++) {
+			if(isNaN(capture.captureddata[i * 2])) break;
+			if(isNaN(capture.captureddata[i * 2 + 1])) break;
+
+			capturecache.values[i] = [
+				convert_12bit_to_real(capture.captureddata[i * 2 + 1], sensor_b.coeff_a,
+					sensor_b.coeff_b, sensor_b.high_voltage),
+				convert_12bit_to_real(capture.captureddata[i * 2], sensor_a.coeff_a,
+					sensor_a.coeff_b, sensor_a.high_voltage)
+			];
+		}
+	}
 
 	main_window_reset(true);
 }
@@ -399,18 +461,12 @@ function show_capture_info() {
 
 	const capture = captures[selectedcapture];
 
-	var actuallength;
-	
-	for(actuallength = 0; actuallength < capture.samples; actuallength++) {
-		if(isNaN(capture.captureddata[actuallength])) break;
-	}
-
 	var str = format(jslang.INFO_WINDOW_CONTENTS,
 		capture.samples,
 		capture.samples / (capture.sensorsetup ? 1 : 2),
 		localize_num(round(10000 / capture.interval, 2)),
 		capture.seconds,
-		(actuallength / (capture.sensorsetup ? 1 : 2) - 1) * capture.interval / 10000
+		(capturecache.values.length - 1) * capture.interval / 10000
 	);
 
 	switch(capture.sensorsetup) {
