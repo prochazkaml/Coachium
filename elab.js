@@ -374,7 +374,9 @@ async function initialize_capture() {
 	receivedcapture = new Array(capturesetupsamples);
 	receivedsofar = 0;
 
-	captures[selectedcapture = captures.length] = capture;
+	captures[captures.length] = capture;
+
+	change_selected_capture(0, Infinity);
 
 	// Set up the interface
 

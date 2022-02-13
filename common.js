@@ -38,6 +38,8 @@ var requestcapture = false, capturerunning = false, receivedcapture, receivedsof
 
 var captures = [], selectedcapture = 0;
 
+var capturevaluecache = [];
+
 const fresh_port_spec = {
 	"id": null,
 	"color": null,

@@ -272,18 +272,27 @@ function capture_setup_check() {
  * Changes the currently selected capture for another one.
  */
 
-function change_selected_capture(interval) {
+function change_selected_capture(interval, absolute = undefined) {
 	if(interval < 0 && get_id("viewpreviousbutton").style.filter) return; 
 	if(interval > 0 && get_id("viewnextbutton").style.filter) return; 
 
 	if(captures.length > 0) {
-		selectedcapture += interval;
+		if(absolute != undefined && absolute != Infinity)
+			selectedcapture = absolute;
+		else if(absolute == Infinity)
+			selectedcapture = captures.length - 1;
+		else
+			selectedcapture += interval;
 
 		if(selectedcapture < 0)
 			selectedcapture = 0;
 		else if(selectedcapture >= captures.length)
 			selectedcapture = captures.length - 1;
+	} else {
+		selectedcapture = 0;
 	}
+
+	// TODO: pre-calculate the value cache and stop using isNaN everywhere to get the actual number of captures!
 
 	main_window_reset(true);
 }
@@ -314,7 +323,6 @@ function change_capture_view() {
 	}
 
 	main_window_reset(true);
-	update_button_validity();
 }
 
 /*
@@ -449,7 +457,7 @@ function capture_management() {
 	select.onchange = () => {
 		input.value = captures[select.selectedIndex].title;
 		get_win_el_class(w, "windowbutton").style.backgroundColor = "rgba(0, 0, 0, .1)";
-		selectedcapture = select.selectedIndex;
+		change_selected_capture(0, select.selectedIndex);
 		main_window_reset(true);
 	}
 	
@@ -467,9 +475,9 @@ function capture_management() {
 		if(selectedcapture > 0) {
 			const capture = captures[selectedcapture];
 			captures[selectedcapture] = captures[selectedcapture - 1];
+			captures[selectedcapture - 1] = capture;
 
-			selectedcapture--;
-			captures[selectedcapture] = capture;
+			change_selected_capture(-1);
 
 			capture_management();
 		}
@@ -479,9 +487,9 @@ function capture_management() {
 		if((selectedcapture + 1) < captures.length) {
 			const capture = captures[selectedcapture];
 			captures[selectedcapture] = captures[selectedcapture + 1];
+			captures[selectedcapture + 1] = capture;
 
-			selectedcapture++;
-			captures[selectedcapture] = capture;
+			change_selected_capture(1);
 
 			capture_management();
 		}

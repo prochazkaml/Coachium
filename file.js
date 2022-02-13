@@ -32,8 +32,7 @@ function load_file_local(are_you_sure) {
 
 			reader.onload = (x) => {
 				captures = JSON.parse(x.target.result);
-				selectedcapture = 0;
-				main_window_reset(true);
+				change_selected_capture(0, 0);
 
 				get_id("statusmsg").innerHTML = jslang.STATUS_FILE_LOADED;
 			};
@@ -133,12 +132,7 @@ function remove_capture(are_you_sure) {
 
 		captures.splice(selectedcapture, 1);
 
-		if(captures.length > 0) {
-			if(selectedcapture >= captures.length)
-				selectedcapture = captures.length - 1;
-		} else {
-			selectedcapture = 0;
-		}
+		change_selected_capture(0);
 
 		get_id("statusmsg").innerHTML = format(jslang.STATUS_CAPTURE_REMOVED, oldselected + 1);
 
@@ -163,10 +157,8 @@ function remove_all_captures(are_you_sure) {
 		// Well, it's on you.
 
 		captures = [];
-		selectedcapture = 0;
+		change_selected_capture(0, 0);
 
 		get_id("statusmsg").innerHTML = jslang.STATUS_ALL_REMOVED;
-
-		main_window_reset(true);
 	}
 }
