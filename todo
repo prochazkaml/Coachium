@@ -2,20 +2,25 @@ Does not require hardware:
 - show value on the graph when hovering over a data point
 - drawing XY as double X
 - make the about and privacy policy pages use a similar translation system as the main page
+- use cookies for the selected language
 - add more functions to the fit function dialog (quadratic, sine etc.)
 
 Requires hardware:
 - watchdog!!!
 - fix the realtime capture
-- trigger (conditional capture) mode
-- counter mode
 - ability to zero out a sensor
 - ability to manually attach sensors
+- trigger (conditional capture) mode
+
+Future stuff:
+- playing back the captured data as audio (mono/stereo)
+- computer's audio input as a sensor
+- counter mode
+- sensor calibration
 - 40 kHz capture on €Lab
 - cyclic buffer on €Lab
 - oscilloscope mode
-
-Future stuff:
+- some interfaces have outputs as well as inputs, so be able to control them as well
 - create a universal driver system for easily implementing more devices
 - support more devices I could get access to (CoachLab, €Lab with motion (or whatever it's called), etc.)
 - support more devices I would have to beg for (non-CMA stuff)

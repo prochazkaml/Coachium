@@ -31,6 +31,24 @@ We strongly hope that we have introduced to you what Coachium actually is, and w
 - Capturing data in real time into charts
 - Save a near infinite number of captures to a single workbook file (as opposed to Coach, which can only save a single capture per file), which can be then saved locally or to Google Drive (for submitting directly to Google Classroom, for example)
 
+## Project roadmap
+
+Please [click here](https://github.com/prochazkaml/Coachium/blob/master/todo) to view the current status of the Coachium to-do list.
+
+**Coachium is currently in the pre-alpha stage.** This means that not all of the features which I have originally planned have been implemented, and it still may be riddled with bugs.
+
+### Alpha stage
+
+Coachium will reach the alpha stage when it is ready to be used in lessons for basic tasks (current-voltage characteristics, figuring out the resistance of a resistor etc.), the bugs that I will notice during development are fixed and all of the basic features that are in the "Does not require hardware" and "Requires hardware" categories in the to-do list are implemented.
+
+### Beta stage
+
+Next will follow the beta stage, as expected. That will occur when I request from the teachers at our school to actually use Coachium instead of CMA Coach with students for a couple of classes, and all of the reported bugs/suggested features by the students as well as the teachers are fixed/implemented.
+
+### Full release
+
+Coachium will get the first full release when the software is stress-tested for a full school year. New features will be added (from the "Future stuff" category in the to-do list – will very likely be renamed at some point), bugs will be fixed and Coachium will receive a simple version numbering system for the users and server maintainers to easily keep track of the changes.
+
 ## How can I try it out?
 
 If you are interested in trying this software out, visit our [central instance](https://coachium.prochazka.ml/). Beware that the default language of this instance is Czech, however, you can change that by clicking on the button in the top right corner.
@@ -48,7 +66,7 @@ cd /var/www/html # Or any other directory where your server root is!
 git clone https://github.com/prochazkaml/Coachium coachium # Make the downloaded repo lower-case
 ```
 
-Then, edit the first line of the file `i18n/default.js`, where you will see the following:
+Then, open the file `i18n/default.js`, where you will see the following as the first line of actual code:
 
 ```js
 const DEFAULT_LANGUAGE = "cs";
