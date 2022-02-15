@@ -280,7 +280,8 @@ for(var language of languages) {
 
 	((id) => {
 		option.onclick = () => {
-			window.location.href = ".?lang=" + id;
+			document.cookie = "lang=" + id;
+			location.reload();
 		};
 	})(language.id);
 
@@ -289,9 +290,12 @@ for(var language of languages) {
 
 const params = new URLSearchParams(window.location.search);
 
-var lang = params.get("lang");
+var lang = read_cookie("lang");
 
-if(!lang) lang = DEFAULT_LANGUAGE;
+if(lang == "") {
+	lang = DEFAULT_LANGUAGE;
+	document.cookie = "lang=" + lang;
+}
 
 var script = document.createElement("script");
 

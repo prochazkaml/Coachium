@@ -218,3 +218,29 @@ function tags_encode(s) {
 	el.innerText = el.textContent = s;
 	return el.innerHTML;
 }
+
+/*
+ * read_cookie(key)
+ * 
+ * Reads the cookie and finds the correct key value.
+ * 
+ * More or less taken from here: https://www.w3schools.com/js/js_cookies.asp
+ */
+
+function read_cookie(key) {
+	const cookies = decodeURIComponent(document.cookie).split(';');
+
+	for(let i = 0; i <cookies.length; i++) {
+		const val = cookies[i];
+
+		while(val.charAt(0) == ' ') {
+			val = val.substring(1);
+		}
+	
+		if (val.indexOf(key + "=") == 0) {
+			return val.substring(key.length + 1, val.length);
+		}
+	}
+
+	return "";
+}
