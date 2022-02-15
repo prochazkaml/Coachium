@@ -562,7 +562,6 @@ function canvasmousemovehandler(e) {
 	mouseY = y;
 
 	if(mouseX != oldmouseX || mouseY != oldmouseY) {
-		console.log(mouseX, mouseY);
 		mousepositions[0][0] = mouseX;
 		mousepositions[0][1] = mouseY;
 
