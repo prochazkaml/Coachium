@@ -1,7 +1,6 @@
 Does not require hardware:
 - show value on the graph when hovering over a data point
 - drawing XY as double X
-- add more functions to the fit function dialog (quadratic, sine etc.)
 
 Requires hardware:
 - watchdog!!!
@@ -11,6 +10,7 @@ Requires hardware:
 - trigger (conditional capture) mode
 
 Future stuff:
+- add more functions to the fit function dialog (quadratic, sine etc.)
 - playing back the captured data as audio (mono/stereo)
 - computer's audio input as a sensor
 - counter mode
