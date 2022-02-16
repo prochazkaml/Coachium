@@ -4,7 +4,7 @@
 	font-weight: normal;
 	src:
 		local(""),
-		url("misc/ubuntu_normal.woff2") format("woff2");
+		url("assets/ubuntu_normal.woff2") format("woff2");
 }
 
 @font-face {
@@ -13,7 +13,7 @@
 	font-weight: bold;
 	src:
 		local(""),
-		url("misc/ubuntu_thicc.woff2") format("woff2");
+		url("assets/ubuntu_thicc.woff2") format("woff2");
 }
 
 html {
@@ -32,7 +32,7 @@ html,body {
 
 body {
 	font-family: "Ubuntu", sans-serif;
-	background: url("misc/wallpaper.webp");
+	background: url("assets/wallpaper.webp");
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: cover;
