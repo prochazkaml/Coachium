@@ -163,6 +163,29 @@ var htmllang = {
 	"WINDOW19_FUN_LINEAR": "Linear (y = ax + b)",
 	"WINDOW19_FUN_QUADRATIC": "Quadratic (y = ax² + bx + c)",
 	"WINDOW19_CHECKBOX": "Show this function on the graph",
+
+	// "About" window text
+
+	"ABOUT_TITLE": "What is Coachium?",
+	"ABOUT_BODY":
+		"<p>Coachium serves as an alternative to the Coach software developed by CMA Amsterdam, which is used to communicate with interfaces and sensors made by the same company (currently, Coachium only supports the €Lab interface and intelligent sensors), which aid you in measuring different physical quantities and capturing measured data into a graph.</p>" +
+		"<p>Coachium is attempting to be as easy-to-use as possible (compared to the relatively complex CMA Coach), making it available for everyone. CMA Coach is in fact a highly extensive piece of software, which also means that even the simplest operations still require the user to have some prerequisite knowledge about using the software (eg. if you want to start a capture into a graph, first, you have to create a graph panel and configure it, then configure the capture and finally start the capture), without which you will not simply get by.</p>" +
+		"<p>Thanks to the simple user interface of Coachium, everything makes sense, all operations which you might wish to perform are easily available in the panel of icons, which are all comprehensively labelled, nothing is ever hidden here.</p>" +
+		"<p>That is why Coachium has to slightly differ to the way the old CMA Coach was used. Coachium operates on a \"workbook\" principle, meaning that if the user opens Coachium, they can create as many captures and graphs as they wish and then save it all as a single \"workbook\" file (ie. if you are performing current–voltage characteristics of several components, you don't have to save each component as an individual file). Of course, there is still the option (and it is highly recommended) to name each capture, so that the teacher could make sense of your handed in workbook.</p>" +
+		"<p>Moreover, since Coachium is being developed in the 21st century, it has some modern \"tricks\" up its sleeve. Mainly, you are able to save your workbook of captures directly to your Google Drive with a single click, from where you can instantly hand it in to your teacher in Google Classroom.</p>" +
+		"<p>We strongly hope that we have introduced to you what Coachium actually is, and we also hope that you will enjoy working with it!</p>",
+
+	// "Privacy policy" window text
+
+	"PP_TITLE": "Privacy policy",
+	"PP_BODY":
+		"<p>When the \"Save the capture workbook to Google Drive\" on the top panel is pressed, this application will contact Google Services in order to save the capture workbook file to your Google Account's Google Drive.</p>" +
+		"<p>This is the only reason why this app might need access to your Google Account. We do not read <i>any</i> data from your account (other than your public full name for naming the saved file), we do not store any information about you on our server, we do not log any activity, we are only saving your capture file to your account, but only if you press said button.</p>" +
+		"<p>If you do not wish to allow us to access your Google Account, you always have the option to download the capture workbook file directly to your computer and then manually upload it to Google Drive. We only provide the feature for your convenience.</p>" +
+		"<b>" +
+			"<p>The only Google user datum we access and use is your public full name for appropriately naming the saved file.</p>" +
+			"<p>We do not store or share with anyone any of your Google user data.</p>" +
+		"</b>",
 };
 
 var jslang = {

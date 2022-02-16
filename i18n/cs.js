@@ -9,7 +9,7 @@ const alt_htmllang = {
 	// Homepage text
 
 	"HOMEPAGE_ABOUT_LINK": "Co je to Coachium?",
-	"HOMEPAGE_PRIVACY_POLICY_LINK": "Privacy policy",
+	"HOMEPAGE_PRIVACY_POLICY_LINK": "Zásady ochrany osobních údajů",
 	"HOMEPAGE_COMMIT_CHECKING": "Kontroluji verzi...",
 	"TITLE_HOMEPAGE_ABOUT": "O programu Coachium...",
 
@@ -155,6 +155,29 @@ const alt_htmllang = {
 	"WINDOW19_FUN_LINEAR": "Lineární (y = ax + b)",
 	"WINDOW19_FUN_QUADRATIC": "Kvadratická (y = ax² + bx + c)",
 	"WINDOW19_CHECKBOX": "Zobrazit tuto funkci na grafu",
+
+	// "About" window text
+
+	"ABOUT_TITLE": "Co je to Coachium?",
+	"ABOUT_BODY":
+		"<p>Coachium slouží jako webová alternativa k softwaru Coach vyvíjený firmou CMA Amsterdam, který je určen ke komunikaci s rozhraními a čidly od téže firmy (momentálně je Coachiem podporovaný pouze €Lab a inteligentní čidla), se kterými lze provést měření různých fyzikálních veličin a zaznamenat jejich výsledky do grafu.</p>" +
+		"<p>Coachium se rovněž snaží relativně komplexní software CMA Coach zjednodušit, aby mohl být jednoduše přístupný každému. CMA Coach je totiž velmi obsáhlý software, což ale znamená, že i ty nejjednodušší operace vyžadují po uživateli některé základní znalosti o používání tohoto softwaru (např. pokud si přejete provést měření do grafu, musíte nejprve vědět, že musíte nejdříve vytvořit panel grafu, nastavit ho, pak nakonfigurovat měření a teprve poté ho spustit), bez kterých se neobejdete.</p>" +
+		"<p>Díky jednoduchému uživatelskému rozhraní v Coachiu vše dává smysl, veškeré operace, které byste si přáli provést, jsou dostupné na panelu s ikonkami, jejichž funkce jsou vždy srozumitelně popsané; nic není nikde zbytečně skryté.</p>" +
+		"<p>Proto se Coachium od starého CMA Coache musí trochu lišit. Coachium funguje na principu „sešitu“, tj. když uživatel otevře Coachium, může vytvořit libovolný počet měření a grafů, která poté uloží jako jeden „sešit“ (např. pokud provádíte volt-ampérovou charakteristiku několika komponent, nemusíte každou komponentu ukládat jako samostatný soubor). Samozřejmě máte možnost (a je silně doporučeno) si každé měření pojmenovat, aby se v odevzdaném sešitu vyučující vyznal.</p>" +
+		"<p>A navíc, jelikož je Coachium vyvíjen ve 21. století, obsahuje i některé moderní „vychytávky“, např. máte možnost si uložit svůj sešit měření přímo na Váš Google Disk s jediným kliknutím, odkud ho můžete ihned odevzdat vyučujícímu přímo na Google Učebnu.</p>" +
+		"<p>Nyní pevně doufáme, že jsme Vás seznámili o tom, co to Coachium vlastně je, a zároveň doufáme, že si práci s ním užijete!</p>",
+
+	// "Privacy policy" window text
+
+	"PP_TITLE": "Zásady ochrany osobních údajů",
+	"PP_BODY":
+		"<p>Tato aplikace, při kliknutí na tlačítko „Uložit sešit záznamů na Google Disk“ na horním panelu, kontaktuje služby Google, aby mohla uložit soubor sešitu záznamů na Google Disk Vašeho Google účtu.</p>" +
+		"<p>To je vše, kvůli čemu bychom potřebovali přístup k Vašemu Google účtu. Nečteme z Vašeho účtu <i>žádná</i> data (kromě vašeho jména pro správné pojmenování uloženého souboru), nic si o vás neukládáme na náš server, nezaznamenáváme žádnou aktivitu, pouze ukládáme Váš soubor záznamu, a to pouze tehdy, když stisknete dané tlačítko.</p>" +
+		"<p>Pokud si nepřejete, abychom měli přístup k Vašemu Google Účtu, máte vždy možnost si soubor sešit záznamů stáhnout jako soubor přímo do Vašeho počítače a poté ho ručně nahrát na Google Disk. Tuto funkci Vám poskytujeme jen pro Vaše pohodlí.</p>" +
+		"<b>" +
+			"<p>Jediný údaj z Vašeho Google účtu, který čteme a používáme, je vaše veřejné jméno pro správné pojmenování souboru.</p>" +
+			"<p>Neukládáme si a nesdílíme s nikým žádná data z Vašeho Google účtu.</p>" +
+		"</b>",
 };
 
 const alt_jslang = {

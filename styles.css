@@ -150,6 +150,33 @@ nav {
 	transition: transform .3s;
 }
 
+.bigwindow {
+	padding: 0;
+	border-radius: 0;
+
+	position: relative;
+
+	transform: scale(.9);
+	transition: transform .3s;
+	
+	width: 100%;
+	height: 100%;
+	overflow-y: scroll;
+}
+
+.bigwindowbutton {
+	height: 1em;
+	position: absolute;
+	top: 1em;
+}
+
+.bigwindowbody {
+	max-width: 40em;
+	line-height: 1.8;
+	text-align: justify;
+	margin: 1em auto;
+}
+
 .popupwindow h1 {
 	margin: 0;
 }

@@ -31,15 +31,29 @@ function popup_window(id) {
 }
 
 /*
- * close_window()
+ * close_window(id)
  *
- * Closes the currently open window.
+ * Closes the currently open window or the one specified by an ID.
  */
 
-function close_window() {
+function close_window(id = undefined) {
 	if(openwindow >= 0) {
-		var win = windowstack[openwindow];
-		openwindow--;
+		var win;
+		
+		if(id == undefined) {
+			win = windowstack[openwindow];
+		} else {
+			if(!windowstack.includes(id)) return;
+
+			win = id;
+
+			// Remove the specified window from the stack, could be anywhere
+
+			const index = windowstack.indexOf(id);
+			if(index > -1) windowstack.splice(index, 1);
+		}
+
+		windowstack.length = openwindow--;
 
 		get_win_overlay(win).style.pointerEvents = "";
 		get_win_overlay(win).style.opacity = "";
@@ -817,6 +831,20 @@ document.addEventListener('keydown', (event) => {
 		}
 	}
 });
+
+/*
+ * Callback when the URL hash changes
+ */
+
+window.onhashchange = () => {
+	const hash = new URL(document.URL).hash;
+
+	close_window("about");
+	close_window("pp");
+
+	if(hash == "#about") popup_window("about");
+	if(hash == "#privacy-policy") popup_window("pp");
+}
 
 /*
  * Error handler for the entire application
