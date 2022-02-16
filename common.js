@@ -231,7 +231,7 @@ function read_cookie(key) {
 	const cookies = decodeURIComponent(document.cookie).split(';');
 
 	for(let i = 0; i <cookies.length; i++) {
-		const val = cookies[i];
+		var val = cookies[i];
 
 		while(val.charAt(0) == ' ') {
 			val = val.substring(1);
