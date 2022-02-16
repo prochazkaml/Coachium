@@ -428,10 +428,13 @@ function canvas_reset(event) {
 			ctx.fillText(jslang.MAINWIN_NO_CAPTURES_2, canvas.width / 2, canvas.height / 2 + 16);
 		}
 
-		drawcache = ctx.getImageData(0, 0, canvas.width, canvas.height);
+		drawcache = null;
 	}
 
 	if(event == CANVAS_EVENT_ZOOM_CROSSHAIR_MOVE) {
+		if(drawcache == null)
+			drawcache = ctx.getImageData(0, 0, canvas.width, canvas.height);
+
 		ctx.putImageData(drawcache, 0, 0);
 
 		var x = mouseX, y = mouseY;
