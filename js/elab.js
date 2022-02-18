@@ -313,7 +313,7 @@ function capture_redraw() {
 		}
 	}
 
-	main_window_reset(true);
+	main_window_reset(true, false);
 
 	if(capturerunning)
 		setTimeout(capture_redraw, 16);

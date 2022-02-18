@@ -61,7 +61,7 @@ function fit_function() {
 				}
 			}
 
-			main_window_reset(false);
+			main_window_reset(false, false);
 		}
 	}
 

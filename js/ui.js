@@ -170,10 +170,10 @@ function ui_connect(actually_connect) {
 
 			// Automatically resizes the canvas when the window is resized
 
-			window.addEventListener('resize', () => { main_window_reset(false); }, false);
-			window.addEventListener('deviceorientation', () => { main_window_reset(false); }, false);
+			window.addEventListener('resize', () => { main_window_reset(false, true); }, false);
+			window.addEventListener('deviceorientation', () => { main_window_reset(false, true); }, false);
 
-			main_window_reset(true);
+			main_window_reset(true, true);
 		}, 350);
 	} else {
 		get_id("statusmsg").innerHTML = jslang.STATUS_WELCOME;
@@ -370,7 +370,7 @@ function change_selected_capture(interval, absolute = undefined) {
 		}
 	}
 
-	main_window_reset(true);
+	main_window_reset(true, false);
 }
 
 /*
@@ -398,7 +398,7 @@ function change_capture_view() {
 		get_id("viewasgraphbutton").style.display = "none";
 	}
 
-	main_window_reset(true);
+	main_window_reset(true, true);
 }
 
 /*
@@ -439,7 +439,7 @@ function zoom_reset() {
 	zoomed_in = false;
 
 	update_button_validity();
-	main_window_reset(false); // Not needed, since we've done it already
+	main_window_reset(false, false); // Not needed, since we've done it already
 }
 
 /*
@@ -528,7 +528,7 @@ function capture_management() {
 		input.value = captures[select.selectedIndex].title;
 		get_win_el_class(w, "windowbutton").style.backgroundColor = "rgba(0, 0, 0, .1)";
 		change_selected_capture(0, select.selectedIndex);
-		main_window_reset(true);
+		main_window_reset(true, false);
 	}
 	
 	input.oninput = () => {

@@ -136,7 +136,7 @@ function remove_capture(are_you_sure) {
 
 		get_id("statusmsg").innerHTML = format(jslang.STATUS_CAPTURE_REMOVED, oldselected + 1);
 
-		main_window_reset(true);
+		main_window_reset(true, false);
 	}
 }
 

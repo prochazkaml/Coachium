@@ -8,24 +8,28 @@
 const CANVAS_EVENT_REDRAW_ENTIRE = 0;
 const CANVAS_EVENT_ZOOM_CROSSHAIR_MOVE = 1;
 const CANVAS_EVENT_GRAPH_MOVE = 2;
+const CANVAS_EVENT_RECALCULATE_STYLES = 3;
 
 // These variables control the zoomed in region. All of them range from 0 to 1.
 
 var zoomx1, zoomy1, zoomx2, zoomy2;
 
 /*
- * main_window_reset(reset_zoom)
+ * main_window_reset(reset_zoom, reset_layout)
  * 
  * Resets all values in the main window.
  */
 
-function main_window_reset(reset_zoom) {
+function main_window_reset(reset_zoom, reset_layout) {
 	if(canvas.style.display != "none") {
 		zoom_request_progress = 0;
 
 		if(reset_zoom) zoomed_in = false;
 		
-		canvas_reset(CANVAS_EVENT_REDRAW_ENTIRE);
+		if(reset_layout)
+			canvas_reset(CANVAS_EVENT_RECALCULATE_STYLES);
+		else
+			canvas_reset(CANVAS_EVENT_REDRAW_ENTIRE);
 	} else {
 		table_reset();
 	}
@@ -117,27 +121,33 @@ function canvas_reset(event) {
 	// Redraw again, if necessary
 
 	if(event != CANVAS_EVENT_ZOOM_CROSSHAIR_MOVE || drawcache == null) {
+		if(event == CANVAS_EVENT_RECALCULATE_STYLES) {			
+			// Reset canvas parameters
+
+			canvas.width = 0;
+			canvas.height = 0;
+			canvas.style.width = "100%";
+			canvas.style.height = "100%";
+
+			// Change the drawing size
+
+			canvas.width = canvas.offsetWidth;
+			canvas.height = canvas.offsetHeight;
+
+			// Reset the CSS
+
+			canvas.style.width = "";
+			canvas.style.height = "";
+		} else {
+			ctx.fillStyle = "white";
+			ctx.fillRect(0, 0, canvas.width, canvas.height);
+		}
+
 		if(canvas.style.display == "none") return;
-		
-		// Reset canvas parameters
-
-		canvas.width = 0;
-		canvas.height = 0;
-		canvas.style.width = "100%";
-		canvas.style.height = "100%";
-
-		// Change the drawing size
-
-		canvas.width = canvas.offsetWidth;
-		canvas.height = canvas.offsetHeight;
-
-		// Reset the CSS
-
-		canvas.style.width = "";
-		canvas.style.height = "";
 
 		// Set the default ctx values
 
+		ctx.fillStyle = "black";
 		ctx.textBaseline = "middle";
 		ctx.textAlign = "center";
 		ctx.font = "16px Ubuntu";
