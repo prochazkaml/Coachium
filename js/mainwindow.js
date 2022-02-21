@@ -503,50 +503,99 @@ function draw_crosshair(x, y) {
  */
 
 function table_reset() {
-	var out = "";
+	var out = document.createElement("div");
 	const capture = captures[selectedcapture];	
 
 	if(captures.length > 0) {
-		out = "<div style='margin-left:" + graph_margin_left + "px;margin-top:" + ((graph_margin_top - 16) / 2 - 2) + "px;margin-bottom:1em'><b>" + 
-		format(jslang.CAPTURE_FMT, selectedcapture + 1, captures.length, tags_encode(capture.title)) + "</b>";
-		
+		out.style.marginLeft = graph_margin_left + "px";
+		out.style.marginTop = ((graph_margin_top - 16) / 2 - 2) + "px";
+		out.style.marginBottom = "1em";
+
+		var title = document.createElement("b");
+		title.innerText = format(jslang.CAPTURE_FMT, selectedcapture + 1, captures.length, capture.title);
+		out.appendChild(title);
+
+		var tbl = document.createElement("table");
+		var tr = document.createElement("tr");
+
+		var th = document.createElement("th");
+		th.innerText = jslang.INTERVAL;
+		tr.appendChild(th);
+
 		switch(capture.sensorsetup) {
 			case 0:
-				out += "<table><tr><th>" + jslang.INTERVAL + "</th><th>" + format(jslang.SENSOR_1, capture.port_a.unit) + "</th><th>" + format(jslang.SENSOR_2, capture.port_b.unit) + "</th></tr>";
+				th = document.createElement("th");
+				th.innerText = format(jslang.SENSOR_1, capture.port_a.unit);
+				tr.appendChild(th);
+
+				th = document.createElement("th");
+				th.innerText = format(jslang.SENSOR_2, capture.port_b.unit);
+				tr.appendChild(th);
 				break;
 
 			case 1:
-				out += "<table><tr><th>" + jslang.INTERVAL + "</th><th>" + format(jslang.SENSOR_1, capture.port_a.unit) + "</th></tr>";
+				th = document.createElement("th");
+				th.innerText = format(jslang.SENSOR_1, capture.port_a.unit);
+				tr.appendChild(th);
 				break;
 
 			case 2:
-				out += "<table><tr><th>" + jslang.INTERVAL + "</th><th>" + format(jslang.SENSOR_2, capture.port_b.unit) + "</th></tr>";
+				th = document.createElement("th");
+				th.innerText = format(jslang.SENSOR_2, capture.port_b.unit);
+				tr.appendChild(th);
 				break;
 		}
+
+		tbl.appendChild(tr);
+
+		var td;
 
 		if(capture.sensorsetup) {
 			// Single sensor
 
 			for(var i = 0; i < capturecache.values.length; i++) {
-				out += "<tr><td>" + localize_num(i * capture.interval / 10000) + "</td><td>" +
-					capturecache.values[i][1] + "</td></tr>";
-			}				
+				tr = document.createElement("tr");
+				
+				td = document.createElement("td");
+				td.innerText = localize_num(i * capture.interval / 10000);
+				tr.appendChild(td);
+
+				td = document.createElement("td");
+				td.innerText = localize_num(capturecache.values[i][1]);
+				tr.appendChild(td);
+
+				tbl.appendChild(tr);
+			}
 		} else {
 			// Both sensors
 
 			for(var i = 0; i < capturecache.values.length; i++) {
-				out += "<tr><td>" + localize_num(i * capture.interval / 10000) + "</td><td>" +
-					capturecache.values[i][0] + "</td><td>" + 
-					capturecache.values[i][1] + "</td></tr>";
+				tr = document.createElement("tr");
+				
+				td = document.createElement("td");
+				td.innerText = localize_num(i * capture.interval / 10000);
+				tr.appendChild(td);
+
+				td = document.createElement("td");
+				td.innerText = localize_num(capturecache.values[i][0]);
+				tr.appendChild(td);
+
+				td = document.createElement("td");
+				td.innerText = localize_num(capturecache.values[i][1]);
+				tr.appendChild(td);
+
+				tbl.appendChild(tr);
 			}				
 		}
-
-		out += "</table></div>";
 	} else {
-		out = "<div class='infomsg'><h2>" + jslang.MAINWIN_NO_CAPTURES_1 + "</h2><h3>" + jslang.MAINWIN_NO_CAPTURES_2 + "</h3></div>";
+		out.className = "infomsg";
+		out.innerHTML = "<h2>" + jslang.MAINWIN_NO_CAPTURES_1 + "</h2><h3>" + jslang.MAINWIN_NO_CAPTURES_2 + "</h3>";
 	}
 
-	table.innerHTML = out;
+	out.appendChild(tbl);
+
+	table.innerHTML = "";
+	table.appendChild(out);
 }
 
 var mouseX = 0, mouseY = 0, oldmouseX = -1, oldmouseY = -1, lock = false;
