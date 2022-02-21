@@ -156,6 +156,12 @@ const alt_htmllang = {
 	"WINDOW19_FUN_QUADRATIC": "Kvadratická (y = ax² + bx + c)",
 	"WINDOW19_CHECKBOX": "Zobrazit tuto funkci na grafu",
 
+	"WINDOW20_TITLE": "Chyba připojování zařízení",
+	"WINDOW20_PAR0":
+		"Nastala neočekávaná chyba při pokusu ke připojení k<br>" +
+		"vybranému zařízení. Prosím ujistěte se, zda k němu<br>" +
+		"máte dostatečná oprávnění.",
+
 	// "About" window text
 
 	"ABOUT_TITLE": "Co je to Coachium?",

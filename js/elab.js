@@ -567,17 +567,21 @@ async function webhid_connect() {
 
 	device.addEventListener("inputreport", input_report_callback);
 
-	await device.open();
-	await send_report();
-	await send_report(); // €Lab needs to receive the initial command twice 🤷
+	try {
+		await device.open();
+		await send_report();
+		await send_report(); // €Lab needs to receive the initial command twice 🤷
 
-	connected = true;
+		connected = true;
 
-	ui_connect(true);
+		ui_connect(true);
 
-	background_task_handle = setInterval(background_task, 125);
+		background_task_handle = setInterval(background_task, 125);
 
-	console.log(device);
+		console.log(device);
+	} catch (error) {
+		popup_window(WINDOWID_DEVICE_OPEN_ERROR);		
+	}
 }
 
 /*

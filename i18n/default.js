@@ -164,6 +164,12 @@ var htmllang = {
 	"WINDOW19_FUN_QUADRATIC": "Quadratic (y = ax² + bx + c)",
 	"WINDOW19_CHECKBOX": "Show this function on the graph",
 
+	"WINDOW20_TITLE": "Device open error",
+	"WINDOW20_PAR0":
+		"An error has occured when trying to access<br>" +
+		"the selected device. Please make sure you<br>" +
+		"have the permission to access the device.",
+
 	// "About" window text
 
 	"ABOUT_TITLE": "What is Coachium?",
