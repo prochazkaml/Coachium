@@ -718,7 +718,7 @@ function canvasmousewheelhandler(event) {
 	if(scale > 0) {
 		// Zoom in
 
-		if(scale > 1) scale = 1;
+		if(scale > 0.5) scale = 0.5;
 
 		zoomx1 += xl * scale;
 		zoomy1 += yb * scale;
@@ -728,7 +728,7 @@ function canvasmousewheelhandler(event) {
 	} else {
 		// Zoom out
 
-		if(scale < -1) scale = -1;
+		if(scale < -0.5) scale = -0.5;
 
 		zoomx1 += xl * scale;
 		zoomy1 += yb * scale;
