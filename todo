@@ -1,15 +1,14 @@
-Does not require hardware:
+Required for initial testing:
 - show value on the graph when hovering over a data point
-- drawing XY as double X
-
-Requires hardware:
 - watchdog!!!
 - fix the realtime capture
 - ability to zero out a sensor
-- ability to manually attach sensors
-- trigger (conditional capture) mode
 
 Future stuff:
+- drawing XY as double X
+- ability to manually attach sensors
+- trigger (conditional capture) mode
+- moving the windows around
 - add more functions to the fit function dialog (quadratic, sine etc.)
 - playing back the captured data as audio (mono/stereo)
 - computer's audio input as a sensor
