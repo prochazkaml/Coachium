@@ -313,6 +313,10 @@ function capture_redraw() {
 		}
 	}
 
+	if(receivedsofar / capturesetupsamplesize > capturecache.values.length) {
+		generate_cache(receivedcapture, capturecache.values.length, receivedsofar / capturesetupsamplesize);
+	}
+
 	main_window_reset(true, false);
 
 	if(capturerunning)
@@ -447,6 +451,8 @@ async function deinitialize_capture() {
 
 	capturerunning = false;
 	requestcapture = false;
+
+	change_selected_capture(0, Infinity);
 
 	update_button_validity();
 }

@@ -1,7 +1,6 @@
 Required for initial testing:
 - show value on the graph when hovering over a data point
 - watchdog!!!
-- fix the realtime capture
 - ability to zero out a sensor
 
 Future stuff:

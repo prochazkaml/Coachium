@@ -245,3 +245,46 @@ function read_cookie(key) {
 
 	return "";
 }
+
+/*
+ * generate_cache(values, start, end)
+ * 
+ * Generates the cache data required for rendering the main window
+ * from the currently selected capture.
+ */
+
+function generate_cache(values, start, end) {
+	const capture = captures[selectedcapture];
+
+	if(capture.sensorsetup) {
+		// Only one sensor was used
+		
+		const sensor = (capture.sensorsetup == 1) ? capture.port_a : capture.port_b;
+
+		for(var i = start; i < end; i++) {
+			if(isNaN(values[i])) break;
+
+			capturecache.values[i] = [
+				capture.interval / 10000 * i,
+				convert_12bit_to_real(values[i], sensor.coeff_a,
+					sensor.coeff_b, sensor.high_voltage)
+			];
+		}
+	} else {
+		// Both sensors were used
+
+		const sensor_a = capture.port_a, sensor_b = capture.port_b;
+
+		for(var i = start / 2; i < end / 2; i++) {
+			if(isNaN(values[i * 2])) break;
+			if(isNaN(values[i * 2 + 1])) break;
+
+			capturecache.values[i] = [
+				convert_12bit_to_real(values[i * 2 + 1], sensor_b.coeff_a,
+					sensor_b.coeff_b, sensor_b.high_voltage),
+				convert_12bit_to_real(values[i * 2], sensor_a.coeff_a,
+					sensor_a.coeff_b, sensor_a.high_voltage)
+			];
+		}
+	}
+}

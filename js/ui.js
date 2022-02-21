@@ -326,18 +326,6 @@ function change_selected_capture(interval, absolute = undefined) {
 		capturecache.y.unitname = sensor.unit;
 		capturecache.y.min = sensor.min_value;
 		capturecache.y.max = sensor.max_value;
-
-		// Values
-
-		for(var i = 0; i < capture.samples; i++) {
-			if(isNaN(capture.captureddata[i])) break;
-
-			capturecache.values[i] = [
-				capture.interval / 10000 * i,
-				convert_12bit_to_real(capture.captureddata[i], sensor.coeff_a,
-					sensor.coeff_b, sensor.high_voltage)
-			];
-		}
 	} else {
 		// Both sensors were used
 
@@ -354,21 +342,9 @@ function change_selected_capture(interval, absolute = undefined) {
 		capturecache.y.unitname = sensor_a.unit;
 		capturecache.y.min = sensor_a.min_value;
 		capturecache.y.max = sensor_a.max_value;
-
-		// Values
-
-		for(var i = 0; i < capture.samples / 2; i++) {
-			if(isNaN(capture.captureddata[i * 2])) break;
-			if(isNaN(capture.captureddata[i * 2 + 1])) break;
-
-			capturecache.values[i] = [
-				convert_12bit_to_real(capture.captureddata[i * 2 + 1], sensor_b.coeff_a,
-					sensor_b.coeff_b, sensor_b.high_voltage),
-				convert_12bit_to_real(capture.captureddata[i * 2], sensor_a.coeff_a,
-					sensor_a.coeff_b, sensor_a.high_voltage)
-			];
-		}
 	}
+
+	generate_cache(capture.captureddata, 0, capture.samples);
 
 	main_window_reset(true, false);
 }
