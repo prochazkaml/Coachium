@@ -370,6 +370,7 @@ async function initialize_capture() {
 	capture.port_a.raw_eeprom = undefined;
 	capture.port_b = JSON.parse(JSON.stringify(ports[1]));
 	capture.port_b.raw_eeprom = undefined;
+	capture.captureddata = [];
 
 	receivedcapture = new Array(capturesetupsamples);
 	receivedsofar = 0;
