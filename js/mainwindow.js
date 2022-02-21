@@ -696,7 +696,7 @@ function canvasmousechangehandler(status) {
  */
 
 function canvasmousewheelhandler(event) {
-	const scale = event.deltaY * -0.001,
+	var scale = event.deltaY * -0.001,
 		mousex = (mousepositions[0][0] - graph_margin_left) / (canvas.width - graph_margin_left - graph_margin_right),
 		mousey = (mousepositions[0][1] - graph_margin_top) / (canvas.height - graph_margin_top - graph_margin_bottom);
 
