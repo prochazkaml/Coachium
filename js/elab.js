@@ -8,6 +8,9 @@
 var outreport = [ 0x04, 0x01, 0x0B, 0x80, 0x0C, 0x33, 0x0B, 0x00 ];
 var outreportaddress = 0;
 
+var watchdog_received = 0, watchdog_acknowledged = -1;
+var watchdog_handle;
+
 var background_task_cycle = -1;
 var background_task_handle;
 var transfer_in_progress = false;
@@ -94,6 +97,8 @@ function send_report() {
 
 function input_report_callback(event) {
 	if(!connected) return;
+
+	watchdog_received++;
 
 	if(!capturerunning) switch(outreport[0]) {
 		case 0x3:
@@ -529,6 +534,21 @@ function background_task() {
 	}
 }
 
+function watchdog_task() {
+	if(!connected) {
+		clearInterval(watchdog_handle);
+		return;
+	}
+
+	if(!capturerunning) {
+		if(watchdog_received > watchdog_acknowledged) {
+			watchdog_acknowledged = watchdog_received;
+		} else {
+			console.log("WATCHDOG ERROR!!!");
+		}
+	}
+}
+
 /*
  * async webhid_connect()
  * 
@@ -583,6 +603,7 @@ async function webhid_connect() {
 		ui_connect(true);
 
 		background_task_handle = setInterval(background_task, 125);
+		watchdog_handle = setInterval(watchdog_task, 1000);
 
 		console.log(device);
 	} catch (error) {
@@ -619,4 +640,7 @@ async function webhid_disconnect() {
 	outreportaddress = 0;
 	background_task_cycle = -1;
 	transfer_in_progress = false;
+
+	watchdog_received = 0;
+	watchdog_acknowledged = -1;
 }
