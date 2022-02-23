@@ -319,7 +319,7 @@ function capture_redraw() {
 	}
 
 	if(receivedsofar / capturesetupsamplesize > capturecache.values.length) {
-		generate_cache(receivedcapture, capturecache.values.length, receivedsofar / capturesetupsamplesize);
+		generate_cache(receivedcapture, capturecache.values.length * capturesetupsamplesize, receivedsofar);
 	}
 
 	main_window_reset(true, false);
