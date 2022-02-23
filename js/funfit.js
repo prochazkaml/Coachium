@@ -22,7 +22,7 @@ function fit_function() {
 
 	const select = get_win_el_tag(WINDOWID_FIT_FUNCTION, "select");
 	const checkbox = get_win_el_tag(WINDOWID_FIT_FUNCTION, "input");
-	const capture = captures[selectedcapture];
+	select.selectedIndex = 0;
 
 	// Automatically update the values when the selected function is changed
 	
