@@ -170,6 +170,10 @@ var htmllang = {
 		"the selected device. Please make sure you<br>" +
 		"have the permission to access the device.",
 
+	"WINDOW21_TITLE": "Watchdog barked",
+	"WINDOW21_PAR0": "An error has occured while communicating with the interface.",
+	"WINDOW21_PAR1": "Do you want to restart the interface?",
+
 	// "About" window text
 
 	"ABOUT_TITLE": "What is Coachium?",
@@ -231,6 +235,8 @@ var jslang = {
 
 	"STATUS_NO_DEVICE_SELECTED": "No device was selected!",
 	"STATUS_DEVICE_DISCONNECTED": "{0} was forcefully disconnected!",
+
+	"WATCHDOG_MSG": "Please wait...",
 
 	// ui.js
 

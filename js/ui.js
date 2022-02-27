@@ -647,7 +647,7 @@ window.onload = () => {
 
 	get_id("connectbutton").onclick = () => {
 		if(!connected) {
-			webhid_connect();
+			webhid_select();
 		} else {
 			webhid_disconnect();
 		}

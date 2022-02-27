@@ -162,6 +162,10 @@ const alt_htmllang = {
 		"vybranému zařízení. Prosím ujistěte se, zda k němu<br>" +
 		"máte dostatečná oprávnění.",
 
+	"WINDOW21_TITLE": "Hlídací pes zaštěkal",
+	"WINDOW21_PAR0": "Došlo k chybě při komunikaci s rozhraním.",
+	"WINDOW21_PAR1": "Přejete si rozhraní restartovat?",
+
 	// "About" window text
 
 	"ABOUT_TITLE": "Co je to Coachium?",
@@ -223,6 +227,8 @@ const alt_jslang = {
 
 	"STATUS_NO_DEVICE_SELECTED": "Nebylo vybráno žádné zařízení!",
 	"STATUS_DEVICE_DISCONNECTED": "Zařízení {0} násilně odpojeno!",
+
+	"WATCHDOG_MSG": "Vyčkejte prosím...",
 
 	// ui.js
 

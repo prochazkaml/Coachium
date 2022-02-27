@@ -26,6 +26,7 @@ const WINDOWID_CAPTURE_INFO = 17;
 const WINDOWID_GOOGLE_SERVICES_ERR = 18;
 const WINDOWID_FIT_FUNCTION = 19;
 const WINDOWID_DEVICE_OPEN_ERROR = 20;
+const WINDOWID_WATCHDOG_ERROR = 21;
 
 var openwindow = -1, windowstack = [], zindex = 10;
 

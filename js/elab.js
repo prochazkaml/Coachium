@@ -8,7 +8,7 @@
 var outreport = [ 0x04, 0x01, 0x0B, 0x80, 0x0C, 0x33, 0x0B, 0x00 ];
 var outreportaddress = 0;
 
-var watchdog_received = 0, watchdog_acknowledged = -1;
+var watchdog_received = 0, watchdog_acknowledged = -1, watchdog_triggered = 0;
 var watchdog_handle;
 
 var background_task_cycle = -1;
@@ -470,11 +470,6 @@ async function deinitialize_capture() {
  */
 
 function background_task() {
-	if(!connected) {
-		clearInterval(background_task_handle);
-		return;
-	}
-
 	if(!capturerunning) {
 		if(transfer_in_progress || !verified) return;
 
@@ -534,28 +529,51 @@ function background_task() {
 	}
 }
 
-function watchdog_task() {
-	if(!connected) {
-		clearInterval(watchdog_handle);
-		return;
-	}
+/*
+ * watchdog_task()
+ * 
+ * A background task (executed every second), which continuously
+ * monitors device activity. If no packet has been received within
+ * the last 3 seconds, it throws up a warning dialog.
+ */
 
+function watchdog_task() {
 	if(!capturerunning) {
 		if(watchdog_received > watchdog_acknowledged) {
-			watchdog_acknowledged = watchdog_received;
+			watchdog_triggered = 0;
+
+			close_window(WINDOWID_WATCHDOG_ERROR);
 		} else {
-			console.log("WATCHDOG ERROR!!!");
+			if(watchdog_triggered == 3) {
+				get_id("watchdogmsg").innerHTML = "";
+				popup_window(WINDOWID_WATCHDOG_ERROR);
+			}
+
+			watchdog_triggered++;
 		}
+
+		watchdog_acknowledged = watchdog_received;
+	}
+}
+
+var watchdog_timeout = null;
+
+function watchdog_restart() {
+	if(connected && watchdog_timeout == null) {
+		get_id("watchdogmsg").innerHTML = jslang.WATCHDOG_MSG;
+
+		webhid_disconnect();
+		watchdog_timeout = setTimeout(() => {webhid_connect(); watchdog_timeout = null;}, 1000);
 	}
 }
 
 /*
- * async webhid_connect()
+ * async webhid_select()
  * 
  * Pops up a window to select a device and connects to it with WebHID.
  */
 
-async function webhid_connect() {
+async function webhid_select() {
 	if(!('hid' in navigator)) {
 		popup_window(WINDOWID_WEBHID_UNAVAILABLE);
 		return;
@@ -577,8 +595,17 @@ async function webhid_connect() {
 		return;
 	}
 
-	device = devices[0];
-	
+	device = devices[0];	
+	webhid_connect();
+}
+
+/*
+ * async webhid_connect()
+ * 
+ * Connects to the previously selected device.
+ */
+
+async function webhid_connect() {
 	navigator.hid.addEventListener('disconnect', ({device}) => {
 		if(connected) {
 			webhid_disconnect();
@@ -618,6 +645,9 @@ async function webhid_connect() {
  */
 
 async function webhid_disconnect() {
+	clearInterval(background_task_handle);
+	clearInterval(watchdog_handle);
+
 	connected = false;
 	verified = false;
 
@@ -643,4 +673,5 @@ async function webhid_disconnect() {
 
 	watchdog_received = 0;
 	watchdog_acknowledged = -1;
+	watchdog_triggered = 0;
 }
