@@ -1,7 +1,6 @@
 Required for initial testing:
 - show value on the graph when hovering over a data point
 - ability to zero out a sensor
-- actually reset all of the variables in webhid_disconnect
 
 Future stuff:
 - drawing XY as double X
