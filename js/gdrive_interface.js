@@ -17,7 +17,7 @@ function popup_gdrive_window() {
 	if(get_id("savegdrivebutton").style.filter) return;
 
 	if(get_win_el_tag(WINDOWID_GDRIVE_NAME, "input").value == "񂁩MISSING")
-		get_id("gdrive_iframe").contentWindow.postMessage("_gdriveinterface{\"cmd\":\"get_user_name\"}", "*");
+		get_id("gdrive_iframe").contentWindow.postMessage("_gdriveinterface{\"cmd\":\"get_token\"}", "*");
 	else
 		popup_window(WINDOWID_GDRIVE_NAME);
 }
@@ -54,32 +54,26 @@ window.addEventListener('message', (response) => {
 
 		if(!gdrive_response) {
 			popup_window(WINDOWID_GOOGLE_SERVICES_ERR);
-		} else if(gdrive_response.startsWith("username:")) {
-			gdrive_response = gdrive_response.substr(9);
+		} else if(gdrive_response == "login ok") {
+			inputfield = get_win_el_tag(WINDOWID_GDRIVE_NAME, "input");
 
-			if(gdrive_response.toLowerCase().includes("error")) {
-				get_win_el_tag(WINDOWID_GDRIVE_GENERIC_ERR, "textarea").value = gdrive_response;
-				popup_window(WINDOWID_GDRIVE_GENERIC_ERR);
-			} else {
-				inputfield = get_win_el_tag(WINDOWID_GDRIVE_NAME, "input");
-
-				if(inputfield.value == "񂁩MISSING") {
-					var d = new Date();
-					var str = d.getDate() + ". " + (d.getMonth() + 1) + ". " + d.getFullYear();
-					inputfield.value = format(jslang.DEFAULT_FILENAME, gdrive_response, str);
-				}
-				
-				setTimeout(() => {
-					inputfield.select();
-				}, 100);
-
-				popup_window(WINDOWID_GDRIVE_NAME);
+			if(inputfield.value == "񂁩MISSING") {
+				var d = new Date();
+				var str = d.getDate() + ". " + (d.getMonth() + 1) + ". " + d.getFullYear();
+				inputfield.value = format(jslang.DEFAULT_FILENAME, jslang.DEFAULT_USERNAME, str);
 			}
+			
+			setTimeout(() => {
+				inputfield.select();
+			}, 100);
+
+			popup_window(WINDOWID_GDRIVE_NAME);
 		} else {
 			if(gdrive_response.includes("error")) {
 				if(gdrive_requested) {
 					get_win_el_tag(WINDOWID_GDRIVE_SAVE_ERR, "textarea").value = gdrive_response;
 					popup_window(WINDOWID_GDRIVE_SAVE_ERR);
+					gdrive_requested = false;
 				} else {
 					get_win_el_tag(WINDOWID_GDRIVE_GENERIC_ERR, "textarea").value = gdrive_response;
 					popup_window(WINDOWID_GDRIVE_GENERIC_ERR);
@@ -88,6 +82,7 @@ window.addEventListener('message', (response) => {
 				if(gdrive_requested) {
 					get_win_el_tag(WINDOWID_GDRIVE_SAVE_OK, "a").href = "https://drive.google.com/file/d/" + gdrive_response;
 					popup_window(WINDOWID_GDRIVE_SAVE_OK);
+					gdrive_requested = false;
 				} else {
 					get_win_el_tag(WINDOWID_GDRIVE_GENERIC_ERR, "textarea").value = gdrive_response;
 					popup_window(WINDOWID_GDRIVE_GENERIC_ERR);

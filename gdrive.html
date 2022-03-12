@@ -2,6 +2,8 @@
 <html>
 	<head>
 		<meta charset="utf-8" />
+		<script src="https://apis.google.com/js/api.js" onload="gapiLoad()" async defer></script>
+		<script src="https://accounts.google.com/gsi/client" onload="gisInit()" async defer></script>
 	</head>
 	<body>
 		<script>
@@ -11,9 +13,8 @@
 				"https://coachium.randovka.cz",
 			];
 
-			// Almost entirely stolen from here: https://developers.google.com/drive/api/v3/quickstart/js
-
-			var signedin = false;
+			var tokenClient;
+		    var access_token = null;
 
 			function msg(...rest) {
 				window.parent.postMessage({
@@ -26,18 +27,17 @@
 				if(allowed_domains.includes(response.origin) && response.data.startsWith("_gdriveinterface")) {
 					var json = JSON.parse(response.data.substring(16));
 
-					if(json["cmd"]) {
-						switch(json["cmd"]) {
-							case "get_user_name":
-								get_user_name();
-								break;
+					switch(json["cmd"]) {
+						case "get_token":
+							get_token();
+							break;
 
-							case "save_file_to_Drive":
-								if(json["name"] && json["data"]) {
-									save_file_to_Drive(json["name"], json["data"]);
-								}
-								break;
-						}
+						case "save_file_to_Drive":
+							if(json["name"] && json["data"]) {
+								save_file_to_Drive(json["name"], json["data"]);
+							}
+
+							break;
 					}
 				} else if(!response.origin.includes("google")) {
 					console.log("Attempt to communicate from origin " + response.origin);
@@ -45,53 +45,42 @@
 				}
 			}); 
 
-
-			/**
-			 *  Initializes the API client library and sets up sign-in state
-			 *  listeners.
-			 */
-			function initClient() {
-				gapi.client.init({
-					apiKey: 'AIzaSyDs-Sd-vYMoCDzZG4m4vzisNjBJzRimQ5s',
-					clientId: '883835263732-tlmcuubn46btmrprh474vtqsfls1ccg9.apps.googleusercontent.com',
-					discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"],
-					scope: 'https://www.googleapis.com/auth/drive.file'
-				}).then(function () {
-					// Listen for sign-in state changes.
-					// I gutted this part a bit...
-					gapi.auth2.getAuthInstance().isSignedIn.listen((s) => { signedin = s; });
-
-					// Handle the initial sign-in state.
-					signedin = gapi.auth2.getAuthInstance().isSignedIn.get();
-				}, function(error) {
-					msg(JSON.stringify(error, null, 2));
+			function gapiStart() {
+				gapi.client.init({}).then(function() {
+					gapi.client.load('drive', 'v3');
+				}).then((response) => {}, (reason) => {
+					msg('error ' + reason.result.error.message);
 				});
 			}
 
-			function get_user_name() {
-				if(!signedin) {
-					try {
-						gapi.auth2.getAuthInstance().signIn().then(() => {
-							msg("username:" + gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile().getName());
-						}, (error) => {
-							msg("username:" + JSON.stringify(error, null, 2))
-						});
-					} catch(err) {
-						msg("username:" + err);
-					}
+			function gapiLoad() {
+				gapi.load('client', gapiStart);
+			}
+
+			function gisInit() {
+				tokenClient = google.accounts.oauth2.initTokenClient({
+					client_id: '883835263732-tlmcuubn46btmrprh474vtqsfls1ccg9.apps.googleusercontent.com',
+					scope: 'https://www.googleapis.com/auth/drive.file',
+					callback: (tokenResponse) => {
+						access_token = tokenResponse.access_token;
+						msg("login ok");
+					},
+				});
+			}
+
+			function get_token() {
+				if(!access_token) {
+					tokenClient.requestAccessToken();
 				} else {
-					msg("username:" + gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile().getName());
+					msg("login ok");
 				}
 			}
 
+
 			function save_file_to_Drive(name, data) {
-				if(!signedin) {
+				if(!access_token) {
 					try {
-						gapi.auth2.getAuthInstance().signIn().then(() => {
-							save_file(name, data);
-						}, (error) => {
-							msg(JSON.stringify(error, null, 2))
-						});
+						tokenClient.requestAccessToken();
 					} catch(err) {
 						msg(err);
 					}
@@ -136,10 +125,6 @@
 				
 				request.execute(callback);
 			}
-		</script>
-		<script async defer src="https://apis.google.com/js/api.js"
-			onload="this.onload=function(){};gapi.load('client:auth2', initClient);"
-			onreadystatechange="if (this.readyState === 'complete') this.onload()">
 		</script>
 	</body>
 </html>
