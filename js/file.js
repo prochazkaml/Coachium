@@ -69,11 +69,17 @@ function save_file_local(name_chosen) {
 			var d = new Date();
 			var str = d.getDate() + ". " + (d.getMonth() + 1) + ". " + d.getFullYear();
 			inputfield.value = format(jslang.DEFAULT_FILENAME, jslang.DEFAULT_USERNAME, str);
+
+			setTimeout(() => {
+				inputfield.select();
+				inputfield.selectionStart = 0;
+				inputfield.selectionEnd = jslang.DEFAULT_USERNAME.length;
+			}, 100);
+		} else {
+			setTimeout(() => {
+				inputfield.select();
+			}, 100);
 		}
-		
-		setTimeout(() => {
-			inputfield.select();
-		}, 100);
 
 		popup_window(WINDOWID_LOCAL_SAVE_NAME);
 	}

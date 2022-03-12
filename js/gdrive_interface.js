@@ -16,10 +16,15 @@ var gdrive_response;
 function popup_gdrive_window() {
 	if(get_id("savegdrivebutton").style.filter) return;
 
-	if(get_win_el_tag(WINDOWID_GDRIVE_NAME, "input").value == "񂁩MISSING")
+	if(get_win_el_tag(WINDOWID_GDRIVE_NAME, "input").value == "񂁩MISSING") {
 		get_id("gdrive_iframe").contentWindow.postMessage("_gdriveinterface{\"cmd\":\"get_token\"}", "*");
-	else
+	} else {
+		setTimeout(() => {
+			get_win_el_tag(WINDOWID_GDRIVE_NAME, "input").select();
+		}, 100);
+
 		popup_window(WINDOWID_GDRIVE_NAME);
+	}
 }
 
 /*
@@ -65,6 +70,8 @@ window.addEventListener('message', (response) => {
 			
 			setTimeout(() => {
 				inputfield.select();
+				inputfield.selectionStart = 0;
+				inputfield.selectionEnd = jslang.DEFAULT_USERNAME.length;
 			}, 100);
 
 			popup_window(WINDOWID_GDRIVE_NAME);
