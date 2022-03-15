@@ -142,15 +142,6 @@ const alt_htmllang = {
 
 	"WINDOW17_TITLE": "Podrobnosti záznamu",
 
-	"WINDOW18_TITLE": "Chyba Google Služeb",
-	"WINDOW18_PAR0":
-		"Taková situace může nastat, když neudělíte této aplikaci<br>" +
-		"dostatečná oprávnění k zápisu souborů na Váš Google Disk.",
-	"WINDOW18_PAR1":
-		"Pokud jste tak již učinili, prosím navštivte následující<br>" +
-		"odkaz, tam v seznamu najděte Coachium, klikněte na<br>" +
-		"<b>ODEBRAT PŘÍSTUP</b> a zkuste se přihlásit znovu.",
-
 	"WINDOW19_TITLE": "Fit funkce",
 	"WINDOW19_FUN_LINEAR": "Lineární (y = ax + b)",
 	"WINDOW19_FUN_QUADRATIC": "Kvadratická (y = ax² + bx + c)",

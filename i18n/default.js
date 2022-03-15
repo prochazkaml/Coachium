@@ -150,15 +150,6 @@ var htmllang = {
 
 	"WINDOW17_TITLE": "Capture properties",
 
-	"WINDOW18_TITLE": "Google Services error",
-	"WINDOW18_PAR0":
-		"That can occur if you do not grant this application<br>" +
-		"permission to write files to your Google Drive.",
-	"WINDOW18_PAR1":
-		"If you hane not done so, please visit the following<br>" +
-		"web page, search for Coachium in the list, click on<br>" +
-		"<b>REMOVE ACCESS</b> and try logging in again.",
-
 	"WINDOW19_TITLE": "Fit function",
 	"WINDOW19_FUN_LINEAR": "Linear (y = ax + b)",
 	"WINDOW19_FUN_QUADRATIC": "Quadratic (y = ax² + bx + c)",

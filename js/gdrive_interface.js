@@ -57,9 +57,7 @@ window.addEventListener('message', (response) => {
 
 		console.log(gdrive_response);
 
-		if(!gdrive_response) {
-			popup_window(WINDOWID_GOOGLE_SERVICES_ERR);
-		} else if(gdrive_response == "login ok") {
+		if(gdrive_response == "login ok") {
 			inputfield = get_win_el_tag(WINDOWID_GDRIVE_NAME, "input");
 
 			if(inputfield.value == "񂁩MISSING") {
