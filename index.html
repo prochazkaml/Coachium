@@ -69,18 +69,22 @@
 
 		<footer>
 			<div id="footercontents">
-				<div class="port" id="port1">
+				<div class="port" id="port1" onclick="port_popup('1');">
 					<div class="portlabel">1</div>
 					<div class="portstatus" id=port1status></div>
 					<div class="portvalue" id=port1value></div>
 				</div>
 
-				<div class="port" id="port2">
+				<div class="port" id="port2" onclick="port_popup('2');">
 					<div class="portlabel">2</div>
 					<div class="portstatus" id=port2status></div>
 					<div class="portvalue" id=port2value></div>
 				</div>
 			</div>
+
+				<div class="portpopup" id="portpopupwindow">
+					Test
+				</div>
 		</footer>
 
 		<div id="window0overlay" class="windowoverlay">

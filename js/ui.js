@@ -17,7 +17,7 @@ var closetimeoutids = [];
 
 function popup_window(id) {
 	if(!(openwindow >= 0 && windowstack[openwindow] == id)) {
-		if(closetimeoutids[id]) clearInterval(closetimeoutids[id]);
+		if(closetimeoutids[id]) clearTimeout(closetimeoutids[id]);
 
 		openwindow++;
 
@@ -75,6 +75,63 @@ function close_window(id = undefined) {
 function confirm_window() {
 	if(openwindow >= 0) {
 		get_win_el_class(windowstack[openwindow], "windowbutton").click();
+	}
+}
+
+/*
+ * port_popup(id)
+ * 
+ * Pops up the port configuration popup next to the requesting port.
+ */
+
+var port_popup_timeout = null;
+
+function port_popup(id) {
+	const win = get_id("portpopupwindow"),
+		port = get_id("port" + id);
+
+	if(port_popup_timeout) clearTimeout(port_popup_timeout)
+
+	// TODO: generate popup contents
+
+	win.style.display = "initial";
+
+	const portrect = port.getBoundingClientRect(), winrect = win.getBoundingClientRect();
+
+	win.style.left = (portrect.x + (portrect.width - winrect.width) / 2) + "px";
+	win.style.top = (portrect.y - winrect.height + portrect.height / 2) + "px";
+
+	win.style.opacity = 1;
+	win.style.pointerEvents = "auto";
+
+	window.addEventListener("mousedown", close_port_popup_listener);
+}
+
+/*
+ * close_port_popup_listener(event)
+ * 
+ * Event listener for the entire window, listens for mouse down events.
+ * 
+ * Only active when the port popup is displayed, and is used for
+ * closing it when the user clicks away from the popup.
+ */
+
+function close_port_popup_listener(event) {
+	const win = get_id("portpopupwindow");
+	const winrect = win.getBoundingClientRect();
+
+	if(event.x < winrect.x || event.x > (winrect.x + winrect.width) ||
+		event.y < winrect.y || event.y > (winrect.y + winrect.height)) {
+
+		win.style.opacity = "";
+		win.style.transform = "";
+		win.style.pointerEvents = "none";
+
+		port_popup_timeout = setTimeout(() => {
+			win.style.display = "";
+		}, 500);
+
+		window.removeEventListener("mousedown", close_port_popup_listener);
 	}
 }
 
