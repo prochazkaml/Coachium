@@ -263,7 +263,7 @@ function generate_cache(values, start, end) {
 		const sensor = (capture.sensorsetup == 1) ? capture.port_a : capture.port_b;
 
 		for(var i = start; i < end; i++) {
-			if(isNaN(values[i])) break;
+			if(values[i] == null) break;
 
 			capturecache.values[i] = [
 				capture.interval / 10000 * i,
@@ -277,8 +277,8 @@ function generate_cache(values, start, end) {
 		const sensor_a = capture.port_a, sensor_b = capture.port_b;
 
 		for(var i = start / 2; i < end / 2; i++) {
-			if(isNaN(values[i * 2])) break;
-			if(isNaN(values[i * 2 + 1])) break;
+			if(values[i * 2] == null) break;
+			if(values[i * 2 + 1] == null) break;
 
 			capturecache.values[i] = [
 				convert_12bit_to_real(values[i * 2 + 1], sensor_b.coeff_a,
