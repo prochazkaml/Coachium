@@ -587,12 +587,12 @@ function table_reset() {
 				tbl.appendChild(tr);
 			}				
 		}
+		
+		out.appendChild(tbl);
 	} else {
 		out.className = "infomsg";
 		out.innerHTML = "<h2>" + jslang.MAINWIN_NO_CAPTURES_1 + "</h2><h3>" + jslang.MAINWIN_NO_CAPTURES_2 + "</h3>";
 	}
-
-	out.appendChild(tbl);
 
 	table.innerHTML = "";
 	table.appendChild(out);
