@@ -321,6 +321,7 @@ footer {
 .portpopup {
 	position: absolute;
 	top: 0;
+	margin-top: 0;
 	left: 0;
 	z-index: 2;
 	display: none;
@@ -334,7 +335,33 @@ footer {
 	border-radius: .5em;
 
 	opacity: 0;
-	transition: opacity .3s;
+	transition: opacity .2s, margin-top .2s;
+}
+
+.portpopup:before {
+    transform: rotate(45deg);
+
+	box-shadow: 0 0 .3em rgba(0, 0, 0, 1);
+
+	content: "";
+    position: absolute;
+    bottom: -0.8em;
+    left: calc(50% - 0.8em);
+	width: 1.6em;
+	height: 1.6em;
+	background-color: white;
+
+	clip: rect(0em, 2em, 2em, 0em);
+}
+
+.portpopup:after {
+	content: "";
+    position: absolute;
+    bottom: 0;
+    left: calc(50% - 1.15em);
+	width: 2.3em;
+	height: 1.15em;
+	background-color: white;
 }
 
 main {

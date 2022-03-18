@@ -84,13 +84,16 @@ function confirm_window() {
  * Pops up the port configuration popup next to the requesting port.
  */
 
-var port_popup_timeout = null;
+var port_popup_timeout = null, port_popup_port_id = null;
 
 function port_popup(id) {
-	const win = get_id("portpopupwindow"),
-		port = get_id("port" + id);
+	const win = get_class("portpopup");
+	const port = get_id("port" + (port_popup_port_id = id));
 
-	if(port_popup_timeout) clearTimeout(port_popup_timeout)
+	if(port_popup_timeout) {
+		clearTimeout(port_popup_timeout);
+		port_popup_timeout = null;
+	}
 
 	// TODO: generate popup contents
 
@@ -99,10 +102,12 @@ function port_popup(id) {
 	const portrect = port.getBoundingClientRect(), winrect = win.getBoundingClientRect();
 
 	win.style.left = (portrect.x + (portrect.width - winrect.width) / 2) + "px";
-	win.style.top = (portrect.y - winrect.height + portrect.height / 2) + "px";
+	win.style.top = (portrect.y - winrect.height) + "px";
 
 	win.style.opacity = 1;
 	win.style.pointerEvents = "auto";
+
+	win.style.marginTop = (portrect.height / 4) + "px";
 
 	window.addEventListener("mousedown", close_port_popup_listener);
 }
@@ -117,18 +122,25 @@ function port_popup(id) {
  */
 
 function close_port_popup_listener(event) {
-	const win = get_id("portpopupwindow");
+	const win = get_class("portpopup");
+
+	if(port_popup_timeout || !port_popup_port_id || win.style.display == "") return;
+
 	const winrect = win.getBoundingClientRect();
 
-	if(event.x < winrect.x || event.x > (winrect.x + winrect.width) ||
+	if(event.force ||
+		event.x < winrect.x || event.x > (winrect.x + winrect.width) ||
 		event.y < winrect.y || event.y > (winrect.y + winrect.height)) {
 
 		win.style.opacity = "";
 		win.style.transform = "";
 		win.style.pointerEvents = "none";
 
+		win.style.marginTop = "0px";
+
 		port_popup_timeout = setTimeout(() => {
 			win.style.display = "";
+			port_popup_timeout = null;
 		}, 500);
 
 		window.removeEventListener("mousedown", close_port_popup_listener);
@@ -227,8 +239,15 @@ function ui_connect(actually_connect) {
 
 			// Automatically resizes the canvas when the window is resized
 
-			window.addEventListener('resize', () => { main_window_reset(false, true); }, false);
-			window.addEventListener('deviceorientation', () => { main_window_reset(false, true); }, false);
+			window.addEventListener('resize', () => {
+				main_window_reset(false, true);
+				close_port_popup_listener({"force": true});
+			}, false);
+
+			window.addEventListener('deviceorientation', () => {
+				main_window_reset(false, true);
+				close_port_popup_listener({"force": true});
+			}, false);
 
 			main_window_reset(true, true);
 		}, 350);
