@@ -22,3 +22,4 @@ Future stuff:
 - support for more than 2 sensors
 - translate to more languages than just English or Czech
 - importing legacy CMR files from Coach
+- the canvas is a blurry mess when the display scaling is not exactly 100 %
