@@ -176,24 +176,6 @@ nav {
 	transition: transform .3s;
 }
 
-.portpopupitem {
-	margin: .25em;
-	padding: .5em;
-	background-color: rgba(0, 0, 0, 0);
-	border-radius: .5em;
-	
-	text-align: left;
-
-	user-select: none;
-	cursor: pointer;
-
-	transition: background-color .3s;
-}
-
-.portpopupitem:hover {
-	background-color: rgba(0, 0, 0, .1);
-}
-
 .bigwindow {
 	padding: 0;
 	border-radius: 0;
@@ -371,7 +353,7 @@ footer {
 	z-index: 2;
 	display: none;
 
-	padding: 1em;
+	padding: calc(1.15em - .25em);
 
 	pointer-events: none;
 
@@ -407,6 +389,24 @@ footer {
 	width: 2.3em;
 	height: 1.15em;
 	background-color: white;
+}
+
+.portpopupitem {
+	margin: .25em;
+	padding: .5em;
+	background-color: rgba(0, 0, 0, 0);
+	border-radius: .5em;
+	
+	text-align: left;
+
+	user-select: none;
+	cursor: pointer;
+
+	transition: background-color .3s;
+}
+
+.portpopupitem:hover {
+	background-color: rgba(0, 0, 0, .1);
 }
 
 main {

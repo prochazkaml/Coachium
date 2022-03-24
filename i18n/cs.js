@@ -57,6 +57,14 @@ const alt_htmllang = {
 	"TITLE_CAPTURE_MGMT": "Spravovat záznamy [M]",
 	"TITLE_CAPTURE_INFO": "Zobrazit podrobnosti tohoto záznamu [I]",
 
+	// Port popup window buttons
+
+	"PORT_CONNECT": "Připojit čidlo",
+	"PORT_DISCONNECT": "Odpojit toto čidlo",
+	"PORT_ZERO_OUT": "Vynulovat hodnotu",
+	"PORT_RESET": "Obnovit původní nulovou hodnotu",
+	"PORT_INFO": "Vlastnosti čidla",
+
 	// Window contents
 
 	"WINDOW0_TITLE": "Coachium pre-alpha",

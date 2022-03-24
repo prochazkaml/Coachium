@@ -59,6 +59,14 @@ var htmllang = {
 	"TITLE_CAPTURE_MGMT": "Manage captures [M]",
 	"TITLE_CAPTURE_INFO": "Display this capture's details [I]",
 
+	// Port popup window buttons
+
+	"PORT_CONNECT": "Connect a sensor",
+	"PORT_DISCONNECT": "Disconnect this sensor",
+	"PORT_ZERO_OUT": "Zero out the value",
+	"PORT_RESET": "Reset the original zero value",
+	"PORT_INFO": "Sensor properties",
+
 	// Window contents
 
 	"WINDOW0_TITLE": "Coachium pre-alpha",
