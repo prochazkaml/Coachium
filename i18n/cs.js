@@ -60,11 +60,14 @@ const alt_htmllang = {
 	// Window contents
 
 	"WINDOW0_TITLE": "Coachium pre-alpha",
-	"WINDOW0_PAR0": "Vytvořil Michal Procházka, 2021–2022.",
+	"WINDOW0_PAR0": "Copyright (C) Michal Procházka, 2021–2022.",
 	"WINDOW0_PAR1":
 		"Založeno na mé práci reverzního inženýrství komunikace<br>" +
 		"mezi rozhraním CMA €Lab a softwarem CMA Coach.",
 	"WINDOW0_PAR2": "Viz zde:",
+	"WINDOW0_PAR3":
+		"Tento program je svobodný software, distribuován pod<br>" +
+		"licencí <a href=\"https://www.gnu.org/licenses/gpl-3.0.en.html\" target=\"_blank\">GNU General Public License verze 3</a>.",
 
 	"WINDOW1_TITLE": "Interní chyba aplikace",
 	"WINDOW1_PAR0": "V aplikaci nastala neočekávaná chyba.",
