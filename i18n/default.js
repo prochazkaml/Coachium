@@ -197,7 +197,7 @@ var htmllang = {
 		"<p>This is the only reason why this app might need access to your Google Account. We do not read <i>any</i> data from your account (other than your public full name for naming the saved file), we do not store any information about you on our server, we do not log any activity, we are only saving your capture file to your account, but only if you press said button.</p>" +
 		"<p>If you do not wish to allow us to access your Google Account, you always have the option to download the capture workbook file directly to your computer and then manually upload it to Google Drive. We only provide the feature for your convenience.</p>" +
 		"<b>" +
-			"<p>The only Google user datum we access and use is your public full name for appropriately naming the saved file.</p>" +
+			"<p>We do not access any of your Google user data.</p>" +
 			"<p>We do not store or share with anyone any of your Google user data.</p>" +
 		"</b>",
 };
