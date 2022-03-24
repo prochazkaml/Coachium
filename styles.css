@@ -176,6 +176,24 @@ nav {
 	transition: transform .3s;
 }
 
+.portpopupitem {
+	margin: .25em;
+	padding: .5em;
+	background-color: rgba(0, 0, 0, 0);
+	border-radius: .5em;
+	
+	text-align: left;
+
+	user-select: none;
+	cursor: pointer;
+
+	transition: background-color .3s;
+}
+
+.portpopupitem:hover {
+	background-color: rgba(0, 0, 0, .1);
+}
+
 .bigwindow {
 	padding: 0;
 	border-radius: 0;
