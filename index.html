@@ -40,8 +40,8 @@
 				<b><a href="https://github.com/prochazkaml/Coachium"><span class="L18N_HOMEPAGE_COMMIT_CHECKING"></span></a></b> |
 				<a href="#about"><span class="L18N_HOMEPAGE_ABOUT_LINK"></span></a> | 
 				<a href="#privacy-policy"><span class="L18N_HOMEPAGE_PRIVACY_POLICY_LINK"></span></a> |
-				<span class="navbutton"><img src="assets/icons/language.svg" style="height: 1em; vertical-align: text-bottom;" onclick="start_language_win();"></span> |
-				<span class="navbutton"><img src="assets/icons/about.svg" style="height: 1em; vertical-align: text-bottom;" class="L18N_TITLE_HOMEPAGE_ABOUT" onclick="popup_window(WINDOWID_ABOUT);"></span>
+				<span class="navbutton mainpagebutton"><img src="assets/icons/language.svg" onclick="start_language_win();"></span> |
+				<span class="navbutton mainpagebutton"><img src="assets/icons/about.svg" class="L18N_TITLE_HOMEPAGE_ABOUT" onclick="popup_window(WINDOWID_ABOUT);"></span>
 			</div>
 		</div>
 
@@ -503,8 +503,10 @@
 					<div class="L18N_ABOUT_BODY"></div>
 				</div>
 
-				<img src="assets/icons/close.svg" class="bigwindowbutton" style="left: 1em;" onclick="window.location.hash = '';">
-				<img src="assets/icons/language.svg" class="bigwindowbutton" style="right: 1em;" onclick="start_language_win();">
+				<div class="bigwindowbuttonlist">
+					<span class="navbutton mainpagebutton"><img src="assets/icons/language.svg" onclick="start_language_win();"></span> |
+					<span class="navbutton mainpagebutton"><img src="assets/icons/close.svg" onclick="window.location.hash = '';"></span>
+				</div>
 			</div>
 		</div>
 
@@ -516,8 +518,10 @@
 					<div class="L18N_PP_BODY"></div>
 				</div>
 
-				<img src="assets/icons/close.svg" class="bigwindowbutton" style="left: 1em;" onclick="window.location.hash = '';">
-				<img src="assets/icons/language.svg" class="bigwindowbutton" style="right: 1em;" onclick="start_language_win();">
+				<div class="bigwindowbuttonlist">
+					<span class="navbutton mainpagebutton"><img src="assets/icons/language.svg" onclick="start_language_win();"></span> |
+					<span class="navbutton mainpagebutton"><img src="assets/icons/close.svg" onclick="window.location.hash = '';"></span>
+				</div>
 			</div>
 		</div>
 

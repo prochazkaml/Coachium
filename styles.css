@@ -113,6 +113,12 @@ nav {
 	user-select: none;
 }
 
+.mainpagebutton img {
+	height: 1em;
+	vertical-align: text-bottom;
+	user-select: none;
+}
+
 .navspacer {
 	width: 1em;
 }
@@ -184,10 +190,11 @@ nav {
 	overflow-y: scroll;
 }
 
-.bigwindowbutton {
-	height: 1em;
+.bigwindowbuttonlist {
 	position: absolute;
-	top: 1em;
+	top: 0em;
+	right: 0em;
+	margin: 1em;
 }
 
 .bigwindowbody {
