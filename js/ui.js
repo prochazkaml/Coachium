@@ -23,8 +23,9 @@ var closetimeoutids = [];
 /*
  * ui_hardware_change_trigger()
  * 
- * This function should be called whenever a hardware change occurs
- * (i.e. when a sensor/device gets connected/disconnected).
+ * This function should be called whenever a following hardware change occurs:
+ * - sensor/device gets connected/disconnected
+ * - capture is started/stopped
  * 
  * Handles all UI changes when such change happens.
  */
@@ -32,6 +33,7 @@ var closetimeoutids = [];
 function ui_hardware_change_trigger() {
 	update_port_popup();
 	capture_setup_check();
+	update_button_validity();
 }
 
 /*
@@ -150,7 +152,7 @@ function update_port_popup() {
 
 	if(id == null) return;
 
-	if(!ports[id].connected) {
+	if(!ports[id].connected || capturerunning) {
 		enable_port_popup_button("L18N_PORT_ZERO_OUT", false);
 		enable_port_popup_button("L18N_PORT_RESET", false);
 	} else {

@@ -452,7 +452,8 @@ async function initialize_capture() {
 
 	await send_report(outreport);
 
-	update_button_validity();
+	ui_hardware_change_trigger();
+
 	capture_redraw();
 }
 
@@ -474,9 +475,9 @@ async function deinitialize_capture() {
 	capturerunning = false;
 	requestcapture = false;
 
+	ui_hardware_change_trigger();
+	
 	change_selected_capture(0, Infinity);
-
-	update_button_validity();
 }
 
 /*
