@@ -21,6 +21,20 @@
 var closetimeoutids = [];
 
 /*
+ * ui_hardware_change_trigger()
+ * 
+ * This function should be called whenever a hardware change occurs
+ * (i.e. when a sensor/device gets connected/disconnected).
+ * 
+ * Handles all UI changes when such change happens.
+ */
+
+function ui_hardware_change_trigger() {
+	update_port_popup();
+	capture_setup_check();
+}
+
+/*
  * popup_window(id)
  *
  * Pops up a window according to the given ID.

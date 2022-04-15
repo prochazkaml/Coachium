@@ -168,8 +168,7 @@ function input_report_callback(event) {
 
 					ports[outreport[1]].connected = false;
 					get_id("port" + ports[outreport[1]].id).style.backgroundColor = "";
-					update_port_popup();
-					capture_setup_check();
+					ui_hardware_change_trigger();
 
 					// Save the currently read value into the port's read cache
 
@@ -196,8 +195,7 @@ function input_report_callback(event) {
 				
 				ports[outreport[1]].connected = false;
 
-				update_port_popup();
-				capture_setup_check();
+				ui_hardware_change_trigger();
 			}
 
 			if(outreportaddress == eeprom_length) {
@@ -283,8 +281,7 @@ function input_report_callback(event) {
 				get_id("port" + ports[outreport[1]].id).style.backgroundColor = ports[outreport[1]].color;
 				ports[outreport[1]].connected = true;
 				
-				update_port_popup();
-				capture_setup_check();
+				ui_hardware_change_trigger();
 			}
 
 			// If the sensor was disconnected, or the the read process was finished, reset the read address
@@ -653,6 +650,8 @@ async function webhid_connect() {
 		watchdog_handle = setInterval(watchdog_task, 1000);
 
 		console.log(device);
+
+		ui_hardware_change_trigger();
 	} catch (error) {
 		popup_window(WINDOWID_DEVICE_OPEN_ERROR);		
 	}
@@ -694,4 +693,6 @@ async function webhid_disconnect() {
 	watchdog_received = 0;
 	watchdog_acknowledged = -1;
 	watchdog_triggered = 0;
+			
+	ui_hardware_change_trigger();
 }
