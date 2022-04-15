@@ -339,7 +339,7 @@ function capture_redraw() {
 		generate_cache(receivedcapture, capturecache.values.length * capturesetupsamplesize, receivedsofar);
 	}
 
-	main_window_reset(true, false);
+	main_window_reset(false, false);
 
 	if(capturerunning)
 		setTimeout(capture_redraw, 16);
@@ -476,8 +476,6 @@ async function deinitialize_capture() {
 	requestcapture = false;
 
 	ui_hardware_change_trigger();
-	
-	change_selected_capture(0, Infinity);
 }
 
 /*
