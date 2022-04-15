@@ -101,14 +101,14 @@ var port_popup_timeout = null, port_popup_port_id = null;
 
 function port_popup(id) {
 	const win = get_class("portpopup");
-	const port = get_id("port" + (port_popup_port_id = id));
+	const port = get_id("port" + ((port_popup_port_id = id) + 1));
 
 	if(port_popup_timeout) {
 		clearTimeout(port_popup_timeout);
 		port_popup_timeout = null;
 	}
 
-	// TODO: generate popup contents
+	update_port_popup();
 
 	win.style.display = "initial";
 
@@ -126,6 +126,37 @@ function port_popup(id) {
 }
 
 /*
+ * update_port_popup()
+ * 
+ * Updates each entry's validity in the port configuration popup.
+ */
+
+function update_port_popup() {
+	const id = port_popup_port_id;
+
+	if(id == null) return;
+
+	if(!ports[id].connected) {
+		enable_port_popup_button("L18N_PORT_ZERO_OUT", false);
+		enable_port_popup_button("L18N_PORT_RESET", false);
+	} else {
+		enable_port_popup_button("L18N_PORT_ZERO_OUT", true);
+		enable_port_popup_button("L18N_PORT_RESET", ports[id].zero_offset != null);
+	}
+}
+
+/*
+ * enable_port_popup_button(htmlclass, active)
+ * 
+ * Sets a particular button in the port configuration popup as active/inactive.
+ */
+
+function enable_port_popup_button(htmlclass, active) {
+	get_class(htmlclass).classList.remove(active ? "portpopupitemdisabled" : "portpopupitem");
+	get_class(htmlclass).classList.add(active ? "portpopupitem" : "portpopupitemdisabled");
+}
+
+/*
  * close_port_popup_listener(event)
  * 
  * Event listener for the entire window, listens for mouse down events.
@@ -137,7 +168,7 @@ function port_popup(id) {
 function close_port_popup_listener(event) {
 	const win = get_class("portpopup");
 
-	if(port_popup_timeout || !port_popup_port_id || win.style.display == "") return;
+	if(port_popup_timeout || port_popup_port_id == null || win.style.display == "") return;
 
 	const winrect = win.getBoundingClientRect();
 
@@ -150,6 +181,8 @@ function close_port_popup_listener(event) {
 		win.style.pointerEvents = "none";
 
 		win.style.marginTop = "0px";
+
+		port_popup_port_id = null;
 
 		port_popup_timeout = setTimeout(() => {
 			win.style.display = "";

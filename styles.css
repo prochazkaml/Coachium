@@ -409,6 +409,18 @@ footer {
 	background-color: rgba(0, 0, 0, .1);
 }
 
+.portpopupitemdisabled {
+	margin: .25em;
+	padding: .5em;
+	background-color: rgba(0, 0, 0, 0);
+	color: #606060;
+	border-radius: .5em;
+		
+	text-align: left;
+
+	user-select: none;
+}
+
 main {
 	flex: 1;
 	z-index: 0;

@@ -73,7 +73,8 @@ var ports = [
 		"coeff_a": 0,
 		"coeff_b": 0,
 		"high_voltage": false,
-		"raw_eeprom": new Uint8Array(eeprom_length)
+		"raw_eeprom": new Uint8Array(eeprom_length),
+		"zero_offset": null
 	}, {
 		"id": "2",
 		"color": "#FF6",
@@ -86,7 +87,8 @@ var ports = [
 		"coeff_a": 0,
 		"coeff_b": 0,
 		"high_voltage": false,
-		"raw_eeprom": new Uint8Array(eeprom_length)
+		"raw_eeprom": new Uint8Array(eeprom_length),
+		"zero_offset": null
 	}
 ];
 
@@ -166,6 +168,7 @@ function input_report_callback(event) {
 
 					ports[outreport[1]].connected = false;
 					get_id("port" + ports[outreport[1]].id).style.backgroundColor = "";
+					update_port_popup();
 					capture_setup_check();
 
 					// Save the currently read value into the port's read cache
@@ -193,6 +196,7 @@ function input_report_callback(event) {
 				
 				ports[outreport[1]].connected = false;
 
+				update_port_popup();
 				capture_setup_check();
 			}
 
@@ -270,6 +274,8 @@ function input_report_callback(event) {
 
 				// Done!
 
+				ports[outreport[1]].zero_offset = null;
+
 				get_id("port" + ports[outreport[1]].id + "status").innerHTML =
 					jslang.SENSOR_INTELLIGENT + ": " + ports[outreport[1]].name + " (" + ports[outreport[1]].min_value +
 					" – " + ports[outreport[1]].max_value + " " + ports[outreport[1]].unit + ")";
@@ -277,6 +283,7 @@ function input_report_callback(event) {
 				get_id("port" + ports[outreport[1]].id).style.backgroundColor = ports[outreport[1]].color;
 				ports[outreport[1]].connected = true;
 				
+				update_port_popup();
 				capture_setup_check();
 			}
 
