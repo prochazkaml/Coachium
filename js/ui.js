@@ -436,10 +436,10 @@ function change_selected_capture(interval, absolute = undefined) {
 		else
 			selected_capture += interval;
 
-	if(selected_capture < 0)
-		selected_capture = 0;
-	else if(selected_capture >= captures.length)
-		selected_capture = captures.length - 1;
+		if(selected_capture < 0)
+			selected_capture = 0;
+		else if(selected_capture >= captures.length)
+			selected_capture = captures.length - 1;
 
 		const capture = captures[selected_capture];
 	
@@ -481,6 +481,8 @@ function change_selected_capture(interval, absolute = undefined) {
 
 		generate_cache(capture.captureddata, 0, capture.samples);
 	} else {
+		capture_cache.values = [];
+
 		selected_capture = 0;
 	}
 
