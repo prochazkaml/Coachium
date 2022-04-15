@@ -436,53 +436,53 @@ function change_selected_capture(interval, absolute = undefined) {
 		else
 			selected_capture += interval;
 
-		if(selected_capture < 0)
-			selected_capture = 0;
-		else if(selected_capture >= captures.length)
-			selected_capture = captures.length - 1;
+	if(selected_capture < 0)
+		selected_capture = 0;
+	else if(selected_capture >= captures.length)
+		selected_capture = captures.length - 1;
+
+		const capture = captures[selected_capture];
+	
+		capture_cache.values = [];
+
+		if(capture.sensorsetup) {
+			// Only one sensor was used
+			
+			const sensor = (capture.sensorsetup == 1) ? capture.port_a : capture.port_b;
+
+			// X axis parameters
+
+			capture_cache.x.unitname = "s";
+			capture_cache.x.min  = 0;
+			capture_cache.x.max = capture.seconds;
+
+			// Y axis parameters
+
+			capture_cache.y.unitname = sensor.unit;
+			capture_cache.y.min = sensor.min_value;
+			capture_cache.y.max = sensor.max_value;
+		} else {
+			// Both sensors were used
+
+			const sensor_a = capture.port_a, sensor_b = capture.port_b;
+
+			// X axis parameters
+
+			capture_cache.x.unitname = sensor_b.unit;
+			capture_cache.x.min = sensor_b.min_value;
+			capture_cache.x.max = sensor_b.max_value;
+
+			// Y axis parameters
+
+			capture_cache.y.unitname = sensor_a.unit;
+			capture_cache.y.min = sensor_a.min_value;
+			capture_cache.y.max = sensor_a.max_value;
+		}
+
+		generate_cache(capture.captureddata, 0, capture.samples);
 	} else {
 		selected_capture = 0;
 	}
-
-	const capture = captures[selected_capture];
-	
-	capture_cache.values = [];
-
-	if(capture.sensorsetup) {
-		// Only one sensor was used
-		
-		const sensor = (capture.sensorsetup == 1) ? capture.port_a : capture.port_b;
-
-		// X axis parameters
-
-		capture_cache.x.unitname = "s";
-		capture_cache.x.min  = 0;
-		capture_cache.x.max = capture.seconds;
-
-		// Y axis parameters
-
-		capture_cache.y.unitname = sensor.unit;
-		capture_cache.y.min = sensor.min_value;
-		capture_cache.y.max = sensor.max_value;
-	} else {
-		// Both sensors were used
-
-		const sensor_a = capture.port_a, sensor_b = capture.port_b;
-
-		// X axis parameters
-
-		capture_cache.x.unitname = sensor_b.unit;
-		capture_cache.x.min = sensor_b.min_value;
-		capture_cache.x.max = sensor_b.max_value;
-
-		// Y axis parameters
-
-		capture_cache.y.unitname = sensor_a.unit;
-		capture_cache.y.min = sensor_a.min_value;
-		capture_cache.y.max = sensor_a.max_value;
-	}
-
-	generate_cache(capture.captureddata, 0, capture.samples);
 
 	main_window_reset(true, false);
 }
