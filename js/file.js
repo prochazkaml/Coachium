@@ -147,9 +147,9 @@ function remove_capture(are_you_sure) {
 	} else {
 		// Well, it's on you.
 
-		var oldselected = selectedcapture;
+		var oldselected = selected_capture;
 
-		captures.splice(selectedcapture, 1);
+		captures.splice(selected_capture, 1);
 
 		change_selected_capture(0);
 

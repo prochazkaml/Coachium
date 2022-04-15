@@ -41,7 +41,7 @@ const WINDOWID_FIT_FUNCTION = 19;
 const WINDOWID_DEVICE_OPEN_ERROR = 20;
 const WINDOWID_WATCHDOG_ERROR = 21;
 
-var openwindow = -1, windowstack = [], zindex = 10;
+var open_window = -1, window_stack = [], zindex = 10;
 
 var header, nav, main, footer, canvas, ctx, table;
 
@@ -49,11 +49,11 @@ var device, connected = false, verified = false;
 
 var zoom_request_progress = 0, zoom_move_request = false, zoomed_in = false;
 
-var requestcapture = false, capturerunning = false, receivedcapture, receivedsofar;
+var request_capture = false, capture_running = false, received_capture, received_so_far;
 
-var captures = [], selectedcapture = 0;
+var captures = [], selected_capture = 0;
 
-var capturecache = {
+var capture_cache = {
 	"x": {
 		"min": null,
 		"max": null,
@@ -268,7 +268,7 @@ function read_cookie(key) {
  */
 
 function generate_cache(values, start, end) {
-	const capture = captures[selectedcapture];
+	const capture = captures[selected_capture];
 
 	if(capture.sensorsetup) {
 		// Only one sensor was used
@@ -278,7 +278,7 @@ function generate_cache(values, start, end) {
 		for(var i = start; i < end; i++) {
 			if(values[i] == null) break;
 
-			capturecache.values[i] = [
+			capture_cache.values[i] = [
 				capture.interval / 10000 * i,
 				convert_12bit_to_real(values[i], sensor.coeff_a,
 					sensor.coeff_b, sensor.high_voltage)
@@ -293,7 +293,7 @@ function generate_cache(values, start, end) {
 			if(values[i * 2] == null) break;
 			if(values[i * 2 + 1] == null) break;
 
-			capturecache.values[i] = [
+			capture_cache.values[i] = [
 				convert_12bit_to_real(values[i * 2 + 1], sensor_b.coeff_a,
 					sensor_b.coeff_b, sensor_b.high_voltage),
 				convert_12bit_to_real(values[i * 2], sensor_a.coeff_a,

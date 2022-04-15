@@ -166,7 +166,7 @@ function canvas_reset(event) {
 		ctx.font = "16px Ubuntu";
 
 		if(captures.length > 0) {
-			const capture = captures[selectedcapture];	
+			const capture = captures[selected_capture];	
 
 			ctx.lineWidth = 2;
 			ctx.strokeStyle = "black";
@@ -191,13 +191,13 @@ function canvas_reset(event) {
 		
 			// Calculate the above described values
 		
-			x_unit_name = capturecache.x.unitname;
-			x_int_min = x_min = capturecache.x.min;
-			x_int_max = x_max = capturecache.x.max;
+			x_unit_name = capture_cache.x.unitname;
+			x_int_min = x_min = capture_cache.x.min;
+			x_int_max = x_max = capture_cache.x.max;
 
-			y_unit_name = capturecache.y.unitname;
-			y_int_min = y_min = capturecache.y.min;
-			y_int_max = y_max = capturecache.y.max;
+			y_unit_name = capture_cache.y.unitname;
+			y_int_min = y_min = capture_cache.y.min;
+			y_int_max = y_max = capture_cache.y.max;
 
 			// Calculate the rest of the X axis parameters
 
@@ -293,9 +293,9 @@ function canvas_reset(event) {
 				
 			var x, last_x = null, y, last_y = null;
 
-			for(var i = 0; i < capturecache.values.length; i++) {
-				x = x_actual_offset + capturecache.values[i][0] * x_unit_in_px;
-				y = y_actual_offset - capturecache.values[i][1] * y_unit_in_px;
+			for(var i = 0; i < capture_cache.values.length; i++) {
+				x = x_actual_offset + capture_cache.values[i][0] * x_unit_in_px;
+				y = y_actual_offset - capture_cache.values[i][1] * y_unit_in_px;
 
 				if(i && 
 					(last_x >= 0 || x >= 0) &&
@@ -430,11 +430,11 @@ function canvas_reset(event) {
 			ctx.textBaseline = "top";
 			ctx.textAlign = "left";
 			ctx.font = "bold 16px Ubuntu";
-			ctx.fillText(format(jslang.CAPTURE_FMT, selectedcapture + 1, captures.length, capture.title), graph_margin_left, (graph_margin_top - 16) / 2);
+			ctx.fillText(format(jslang.CAPTURE_FMT, selected_capture + 1, captures.length, capture.title), graph_margin_left, (graph_margin_top - 16) / 2);
 	
 			// If the capture is currently running, display a "crosshair"
 	
-			if(capturerunning && selectedcapture == (captures.length - 1) && x != null && y != null) {
+			if(capture_running && selected_capture == (captures.length - 1) && x != null && y != null) {
 				ctx.beginPath();
 				ctx.strokeStyle = "rgba(0, 0, 255, 0.3)";
 				
@@ -517,7 +517,7 @@ function draw_crosshair(x, y) {
 
 function table_reset() {
 	var out = document.createElement("div");
-	const capture = captures[selectedcapture];	
+	const capture = captures[selected_capture];	
 
 	if(captures.length > 0) {
 		out.style.marginLeft = graph_margin_left + "px";
@@ -525,7 +525,7 @@ function table_reset() {
 		out.style.marginBottom = "1em";
 
 		var title = document.createElement("b");
-		title.innerText = format(jslang.CAPTURE_FMT, selectedcapture + 1, captures.length, capture.title);
+		title.innerText = format(jslang.CAPTURE_FMT, selected_capture + 1, captures.length, capture.title);
 		out.appendChild(title);
 
 		var tbl = document.createElement("table");
@@ -566,7 +566,7 @@ function table_reset() {
 		if(capture.sensorsetup) {
 			// Single sensor
 
-			for(var i = 0; i < capturecache.values.length; i++) {
+			for(var i = 0; i < capture_cache.values.length; i++) {
 				tr = document.createElement("tr");
 				
 				td = document.createElement("td");
@@ -574,7 +574,7 @@ function table_reset() {
 				tr.appendChild(td);
 
 				td = document.createElement("td");
-				td.innerText = localize_num(capturecache.values[i][1]);
+				td.innerText = localize_num(capture_cache.values[i][1]);
 				tr.appendChild(td);
 
 				tbl.appendChild(tr);
@@ -582,7 +582,7 @@ function table_reset() {
 		} else {
 			// Both sensors
 
-			for(var i = 0; i < capturecache.values.length; i++) {
+			for(var i = 0; i < capture_cache.values.length; i++) {
 				tr = document.createElement("tr");
 				
 				td = document.createElement("td");
@@ -590,11 +590,11 @@ function table_reset() {
 				tr.appendChild(td);
 
 				td = document.createElement("td");
-				td.innerText = localize_num(capturecache.values[i][0]);
+				td.innerText = localize_num(capture_cache.values[i][0]);
 				tr.appendChild(td);
 
 				td = document.createElement("td");
-				td.innerText = localize_num(capturecache.values[i][1]);
+				td.innerText = localize_num(capture_cache.values[i][1]);
 				tr.appendChild(td);
 
 				tbl.appendChild(tr);

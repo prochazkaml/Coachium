@@ -40,7 +40,7 @@ function fit_function() {
 	// Automatically update the values when the selected function is changed
 	
 	select.onchange = () => {
-		const algo_output = fitting_algos[select.selectedIndex](capturecache.values);
+		const algo_output = fitting_algos[select.selectedIndex](capture_cache.values);
 
 		// Update the info dialog
 
@@ -54,23 +54,23 @@ function fit_function() {
 
 		// Handle the check box
 
-		if(!captures[selectedcapture].functions)
+		if(!captures[selected_capture].functions)
 			checkbox.checked = false;
 		else
-			checkbox.checked = algo_output.type in captures[selectedcapture].functions;
+			checkbox.checked = algo_output.type in captures[selected_capture].functions;
 
 		checkbox.onchange = () => {
-			if(!captures[selectedcapture].functions) {
+			if(!captures[selected_capture].functions) {
 				if(checkbox.checked) {
-					captures[selectedcapture].functions = {
+					captures[selected_capture].functions = {
 						[algo_output.type]: algo_output.output
 					};
 				}
 			} else {
 				if(checkbox.checked) {
-					captures[selectedcapture].functions[algo_output.type] = algo_output.output;
+					captures[selected_capture].functions[algo_output.type] = algo_output.output;
 				} else {
-					delete captures[selectedcapture].functions[algo_output.type];
+					delete captures[selected_capture].functions[algo_output.type];
 				}
 			}
 

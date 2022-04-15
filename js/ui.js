@@ -45,12 +45,12 @@ function ui_hardware_change_trigger() {
  */
 
 function popup_window(id) {
-	if(!(openwindow >= 0 && windowstack[openwindow] == id)) {
+	if(!(open_window >= 0 && window_stack[open_window] == id)) {
 		if(closetimeoutids[id]) clearTimeout(closetimeoutids[id]);
 
-		openwindow++;
+		open_window++;
 
-		windowstack[openwindow] = id;
+		window_stack[open_window] = id;
 
 		get_win_overlay(id).style.zIndex = zindex++;
 		get_win_overlay(id).style.pointerEvents = "auto";
@@ -66,23 +66,23 @@ function popup_window(id) {
  */
 
 function close_window(id = undefined) {
-	if(openwindow >= 0) {
+	if(open_window >= 0) {
 		var win;
 		
 		if(id == undefined) {
-			win = windowstack[openwindow];
+			win = window_stack[open_window];
 		} else {
-			if(!windowstack.includes(id)) return;
+			if(!window_stack.includes(id)) return;
 
 			win = id;
 
 			// Remove the specified window from the stack, could be anywhere
 
-			const index = windowstack.indexOf(id);
-			if(index > -1) windowstack.splice(index, 1);
+			const index = window_stack.indexOf(id);
+			if(index > -1) window_stack.splice(index, 1);
 		}
 
-		windowstack.length = openwindow--;
+		window_stack.length = open_window--;
 
 		get_win_overlay(win).style.pointerEvents = "";
 		get_win_overlay(win).style.opacity = "";
@@ -102,8 +102,8 @@ function close_window(id = undefined) {
  */
 
 function confirm_window() {
-	if(openwindow >= 0) {
-		get_win_el_class(windowstack[openwindow], "windowbutton").click();
+	if(open_window >= 0) {
+		get_win_el_class(window_stack[open_window], "windowbutton").click();
 	}
 }
 
@@ -152,7 +152,7 @@ function update_port_popup() {
 
 	if(id == null) return;
 
-	if(!ports[id].connected || capturerunning) {
+	if(!ports[id].connected || capture_running) {
 		enable_port_popup_button("L18N_PORT_ZERO_OUT", false);
 		enable_port_popup_button("L18N_PORT_RESET", false);
 	} else {
@@ -413,7 +413,7 @@ function capture_setup_check() {
 	const startbutton = get_win_el_class(WINDOWID_CAPTURE_SETUP, "windowbutton");
 
 	startbutton.style.backgroundColor = sensors_err ? "rgba(0, 0, 0, .1)" : "";
-	startbutton.onclick = sensors_err ? (() => {}) : (() => { close_window(); requestcapture = 1; });
+	startbutton.onclick = sensors_err ? (() => {}) : (() => { close_window(); request_capture = 1; });
 
 	return sensors_err;
 }
@@ -430,23 +430,23 @@ function change_selected_capture(interval, absolute = undefined) {
 
 	if(captures.length > 0) {
 		if(absolute != undefined && absolute != Infinity)
-			selectedcapture = absolute;
+			selected_capture = absolute;
 		else if(absolute == Infinity)
-			selectedcapture = captures.length - 1;
+			selected_capture = captures.length - 1;
 		else
-			selectedcapture += interval;
+			selected_capture += interval;
 
-		if(selectedcapture < 0)
-			selectedcapture = 0;
-		else if(selectedcapture >= captures.length)
-			selectedcapture = captures.length - 1;
+		if(selected_capture < 0)
+			selected_capture = 0;
+		else if(selected_capture >= captures.length)
+			selected_capture = captures.length - 1;
 	} else {
-		selectedcapture = 0;
+		selected_capture = 0;
 	}
 
-	const capture = captures[selectedcapture];
+	const capture = captures[selected_capture];
 	
-	capturecache.values = [];
+	capture_cache.values = [];
 
 	if(capture.sensorsetup) {
 		// Only one sensor was used
@@ -455,15 +455,15 @@ function change_selected_capture(interval, absolute = undefined) {
 
 		// X axis parameters
 
-		capturecache.x.unitname = "s";
-		capturecache.x.min  = 0;
-		capturecache.x.max = capture.seconds;
+		capture_cache.x.unitname = "s";
+		capture_cache.x.min  = 0;
+		capture_cache.x.max = capture.seconds;
 
 		// Y axis parameters
 
-		capturecache.y.unitname = sensor.unit;
-		capturecache.y.min = sensor.min_value;
-		capturecache.y.max = sensor.max_value;
+		capture_cache.y.unitname = sensor.unit;
+		capture_cache.y.min = sensor.min_value;
+		capture_cache.y.max = sensor.max_value;
 	} else {
 		// Both sensors were used
 
@@ -471,15 +471,15 @@ function change_selected_capture(interval, absolute = undefined) {
 
 		// X axis parameters
 
-		capturecache.x.unitname = sensor_b.unit;
-		capturecache.x.min = sensor_b.min_value;
-		capturecache.x.max = sensor_b.max_value;
+		capture_cache.x.unitname = sensor_b.unit;
+		capture_cache.x.min = sensor_b.min_value;
+		capture_cache.x.max = sensor_b.max_value;
 
 		// Y axis parameters
 
-		capturecache.y.unitname = sensor_a.unit;
-		capturecache.y.min = sensor_a.min_value;
-		capturecache.y.max = sensor_a.max_value;
+		capture_cache.y.unitname = sensor_a.unit;
+		capture_cache.y.min = sensor_a.min_value;
+		capture_cache.y.max = sensor_a.max_value;
 	}
 
 	generate_cache(capture.captureddata, 0, capture.samples);
@@ -587,14 +587,14 @@ function info_generate_sensor(sensor) {
 function show_capture_info() {
 	if(get_id("captureinfobutton").style.filter) return;
 
-	const capture = captures[selectedcapture];
+	const capture = captures[selected_capture];
 
 	var str = format(jslang.INFO_WINDOW_CONTENTS,
 		capture.samples,
 		capture.samples / (capture.sensorsetup ? 1 : 2),
 		localize_num(round(10000 / capture.interval, 2)),
 		capture.seconds,
-		(capturecache.values.length - 1) * capture.interval / 10000
+		(capture_cache.values.length - 1) * capture.interval / 10000
 	);
 
 	switch(capture.sensorsetup) {
@@ -647,19 +647,19 @@ function capture_management() {
 	
 	input.oninput = () => {
 		get_win_el_class(w, "windowbutton").style.backgroundColor =
-			(input.value == captures[selectedcapture].title) ? "rgba(0, 0, 0, .1)" : "";
+			(input.value == captures[selected_capture].title) ? "rgba(0, 0, 0, .1)" : "";
 	}
 
 	get_win_el_class(w, "windowbutton", 0).onclick = () => {
-		captures[selectedcapture].title = input.value;
+		captures[selected_capture].title = input.value;
 		capture_management();
 	}
 
 	get_win_el_class(w, "windowbutton", 1).onclick = () => {
-		if(selectedcapture > 0) {
-			const capture = captures[selectedcapture];
-			captures[selectedcapture] = captures[selectedcapture - 1];
-			captures[selectedcapture - 1] = capture;
+		if(selected_capture > 0) {
+			const capture = captures[selected_capture];
+			captures[selected_capture] = captures[selected_capture - 1];
+			captures[selected_capture - 1] = capture;
 
 			change_selected_capture(-1);
 
@@ -668,10 +668,10 @@ function capture_management() {
 	}
 
 	get_win_el_class(w, "windowbutton", 2).onclick = () => {
-		if((selectedcapture + 1) < captures.length) {
-			const capture = captures[selectedcapture];
-			captures[selectedcapture] = captures[selectedcapture + 1];
-			captures[selectedcapture + 1] = capture;
+		if((selected_capture + 1) < captures.length) {
+			const capture = captures[selected_capture];
+			captures[selected_capture] = captures[selected_capture + 1];
+			captures[selected_capture + 1] = capture;
 
 			change_selected_capture(1);
 
@@ -679,7 +679,7 @@ function capture_management() {
 		}
 	}
 
-	get_win_el_tag(w, "option", selectedcapture).selected = true;
+	get_win_el_tag(w, "option", selected_capture).selected = true;
 	select.onchange();
 
 	popup_window(w);
@@ -692,7 +692,7 @@ function capture_management() {
  */
 
 function update_button_validity() {
-	if(capturerunning) {
+	if(capture_running) {
 		get_id("capturestopbutton").style.display = "";
 		get_id("capturestartbutton").style.display = "none";
 
@@ -751,12 +751,12 @@ function update_button_validity() {
 				get_id("zoomresetbutton").style.filter = "contrast(0)";
 			}
 
-			if(selectedcapture == 0)
+			if(selected_capture == 0)
 				get_id("viewpreviousbutton").style.filter = "contrast(0)";
 			else
 				get_id("viewpreviousbutton").style.filter = "";
 
-			if(selectedcapture >= (captures.length - 1))
+			if(selected_capture >= (captures.length - 1))
 				get_id("viewnextbutton").style.filter = "contrast(0)";
 			else
 				get_id("viewnextbutton").style.filter = "";
@@ -859,7 +859,7 @@ document.addEventListener('keydown', (event) => {
 
 	const key = event.key.toLowerCase();
 
-	if(openwindow >= 0) {
+	if(open_window >= 0) {
 		switch(key) {
 			case "escape":
 				close_window();
@@ -890,10 +890,10 @@ document.addEventListener('keydown', (event) => {
 			case " ":
 				event.preventDefault();
 				
-				if(!capturerunning)
+				if(!capture_running)
 					create_capture();
 				else
-					requestcapture = 1;
+					request_capture = 1;
 
 				break;
 

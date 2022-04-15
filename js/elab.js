@@ -115,7 +115,7 @@ function input_report_callback(event) {
 
 	watchdog_received++;
 
-	if(!capturerunning) switch(outreport[0]) {
+	if(!capture_running) switch(outreport[0]) {
 		case 0x3:
 			// Value read from an input port
 
@@ -292,12 +292,12 @@ function input_report_callback(event) {
 			break;
 	} else {
 		for(var i = 0; i < capturesetuppacketsize; i++) {
-			receivedcapture[receivedsofar++] = (((event.data.getUint8(0 + i * 2) & 0x3F) << 6) | event.data.getUint8(1 + i * 2));
+			received_capture[received_so_far++] = (((event.data.getUint8(0 + i * 2) & 0x3F) << 6) | event.data.getUint8(1 + i * 2));
 
-			if(receivedsofar >= capturesetupsamples) break;
+			if(received_so_far >= capturesetupsamples) break;
 		}
 
-		if(receivedsofar >= capturesetupsamples) deinitialize_capture();
+		if(received_so_far >= capturesetupsamples) deinitialize_capture();
 	}
 
 	// Allow the background_task to work again
@@ -314,34 +314,34 @@ function input_report_callback(event) {
  */
 
 function capture_redraw() {
-	if(receivedsofar) {
-		get_id("statusmsg").innerHTML = format(jslang.STATUS_CAPTURE_RUNNING, receivedsofar, localize_num(((receivedsofar / capturesetupsamplesize - 1) * captures[captures.length - 1].interval / 10000).toFixed(2)));
+	if(received_so_far) {
+		get_id("statusmsg").innerHTML = format(jslang.STATUS_CAPTURE_RUNNING, received_so_far, localize_num(((received_so_far / capturesetupsamplesize - 1) * captures[captures.length - 1].interval / 10000).toFixed(2)));
 
 		switch(capturesetupmode) {
 			case 0:
-				get_id("port1value").innerHTML = prettyprint_value(0, receivedcapture[receivedsofar - 2]);
-				get_id("port2value").innerHTML = prettyprint_value(1, receivedcapture[receivedsofar - 1]);
+				get_id("port1value").innerHTML = prettyprint_value(0, received_capture[received_so_far - 2]);
+				get_id("port2value").innerHTML = prettyprint_value(1, received_capture[received_so_far - 1]);
 				break;
 
 			case 1:
-				get_id("port1value").innerHTML = prettyprint_value(0, receivedcapture[receivedsofar - 1]);
+				get_id("port1value").innerHTML = prettyprint_value(0, received_capture[received_so_far - 1]);
 				get_id("port2value").innerHTML = "–";
 				break;
 
 			case 2:
 				get_id("port1value").innerHTML = "–";
-				get_id("port2value").innerHTML = prettyprint_value(1, receivedcapture[receivedsofar - 1]);
+				get_id("port2value").innerHTML = prettyprint_value(1, received_capture[received_so_far - 1]);
 				break;
 		}
 	}
 
-	if(receivedsofar / capturesetupsamplesize > capturecache.values.length) {
-		generate_cache(receivedcapture, capturecache.values.length * capturesetupsamplesize, receivedsofar);
+	if(received_so_far / capturesetupsamplesize > capture_cache.values.length) {
+		generate_cache(received_capture, capture_cache.values.length * capturesetupsamplesize, received_so_far);
 	}
 
 	main_window_reset(false, false);
 
-	if(capturerunning)
+	if(capture_running)
 		setTimeout(capture_redraw, 16);
 	else
 		get_id("statusmsg").innerHTML = jslang.STATUS_CAPTURE_FINISHED;
@@ -354,7 +354,7 @@ function capture_redraw() {
  */
 
 async function initialize_capture() {
-	requestcapture = false;
+	request_capture = false;
 
 	capturesetupmode = get_id("capturesetupsensors").selectedIndex;
 	
@@ -398,8 +398,8 @@ async function initialize_capture() {
 	capture.port_b.raw_eeprom = undefined;
 	capture.captureddata = [];
 
-	receivedcapture = new Array(capturesetupsamples);
-	receivedsofar = 0;
+	received_capture = new Array(capturesetupsamples);
+	received_so_far = 0;
 
 	captures[captures.length] = capture;
 
@@ -446,7 +446,7 @@ async function initialize_capture() {
 			break
 	}
 
-	capturerunning = true;
+	capture_running = true;
 
 	capturesetuppacketsize = capturesetupsamplesize * samples_per_packet;
 
@@ -470,10 +470,10 @@ async function deinitialize_capture() {
 
 	await device.sendReport(0, new Uint8Array(outreport));
 
-	captures[captures.length - 1].captureddata = receivedcapture;
+	captures[captures.length - 1].captureddata = received_capture;
 
-	capturerunning = false;
-	requestcapture = false;
+	capture_running = false;
+	request_capture = false;
 
 	ui_hardware_change_trigger();
 }
@@ -486,12 +486,12 @@ async function deinitialize_capture() {
  */
 
 function background_task() {
-	if(!capturerunning) {
+	if(!capture_running) {
 		if(transfer_in_progress || !verified) return;
 
 		transfer_in_progress = true;
 
-		if(requestcapture) {
+		if(request_capture) {
 			initialize_capture();
 		} else {
 			background_task_cycle++;
@@ -539,7 +539,7 @@ function background_task() {
 			send_report();
 		}
 	} else {
-		if(requestcapture) {
+		if(request_capture) {
 			deinitialize_capture();
 		}
 	}
@@ -554,7 +554,7 @@ function background_task() {
  */
 
 function watchdog_task() {
-	if(!capturerunning) {
+	if(!capture_running) {
 		if(watchdog_received > watchdog_acknowledged) {
 			watchdog_triggered = 0;
 
@@ -672,8 +672,8 @@ async function webhid_disconnect() {
 	get_id("capturestartbutton").style.display = "";
 	get_id("capturestopbutton").style.display = "none";
 
-	capturerunning = false;
-	requestcapture = false;
+	capture_running = false;
+	request_capture = false;
 
 	ui_disconnect();
 
