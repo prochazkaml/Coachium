@@ -106,7 +106,7 @@
 				<div class="portpopupitem L18N_PORT_DISCONNECT"></div>-->
 				<div class="portpopupitem L18N_PORT_ZERO_OUT"></div>
 				<div class="portpopupitem L18N_PORT_RESET"></div>
-				<div class="portpopupitem L18N_PORT_INFO"></div>
+				<div class="portpopupitem L18N_PORT_INFO" onclick="close_port_popup(); popup_port_info();"></div>
 			</div>
 		</footer>
 
@@ -436,6 +436,19 @@
 			<div class="windowcloselayer" onclick="close_window();"></div>
 			<div class="popupwindow">
 				<h1 class="L18N_WINDOW17_TITLE"></h1>
+
+				<div></div>
+
+				<div class="windowbuttonlist">
+					<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();"></div>
+				</div>
+			</div>
+		</div>
+
+		<div id="window18overlay" class="windowoverlay">
+			<div class="windowcloselayer" onclick="close_window();"></div>
+			<div class="popupwindow">
+				<h1 class="L18N_WINDOW18_TITLE"></h1>
 
 				<div></div>
 

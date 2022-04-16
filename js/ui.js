@@ -192,21 +192,43 @@ function close_port_popup_listener(event) {
 		event.x < winrect.x || event.x > (winrect.x + winrect.width) ||
 		event.y < winrect.y || event.y > (winrect.y + winrect.height)) {
 
-		win.style.opacity = "";
-		win.style.transform = "";
-		win.style.pointerEvents = "none";
-
-		win.style.marginTop = "0px";
-
-		port_popup_port_id = null;
-
-		port_popup_timeout = setTimeout(() => {
-			win.style.display = "";
-			port_popup_timeout = null;
-		}, 500);
-
-		window.removeEventListener("mousedown", close_port_popup_listener);
+		close_port_popup();
 	}
+}
+
+/*
+ * close_port_popup()
+ * 
+ * Closes the currently open port configuration popup.
+ */
+
+function close_port_popup() {
+	const win = get_class("portpopup");
+
+	win.style.opacity = "";
+	win.style.transform = "";
+	win.style.pointerEvents = "none";
+
+	win.style.marginTop = "0px";
+
+	port_popup_port_id = null;
+
+	port_popup_timeout = setTimeout(() => {
+		win.style.display = "";
+		port_popup_timeout = null;
+	}, 500);
+
+	window.removeEventListener("mousedown", close_port_popup_listener);
+}
+
+/*
+ * popup_port_info();
+ * 
+ * Fills the port info popup dialog and displays it.
+ */
+
+function popup_port_info() {
+	popup_window(WINDOWID_SENSOR_INFO);
 }
 
 /*

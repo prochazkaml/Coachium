@@ -174,6 +174,8 @@ var htmllang = {
 
 	"WINDOW17_TITLE": "Capture properties",
 
+	"WINDOW18_TITLE": "Sensor properties",
+
 	"WINDOW19_TITLE": "Fit function",
 	"WINDOW19_FUN_LINEAR": "Linear (y = ax + b)",
 	"WINDOW19_FUN_QUADRATIC": "Quadratic (y = ax² + bx + c)",
