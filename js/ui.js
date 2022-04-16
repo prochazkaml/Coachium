@@ -159,6 +159,8 @@ function update_port_popup() {
 		enable_port_popup_button("L18N_PORT_ZERO_OUT", true);
 		enable_port_popup_button("L18N_PORT_RESET", ports[id].zero_offset != null);
 	}
+
+	enable_port_popup_button("L18N_PORT_INFO", ports[id].connected);
 }
 
 /*
@@ -184,7 +186,7 @@ function enable_port_popup_button(htmlclass, active) {
 function close_port_popup_listener(event) {
 	const win = get_class("portpopup");
 
-	if(port_popup_timeout || port_popup_port_id == null || win.style.display == "") return;
+	if(port_popup_timeout || win.style.display == "") return;
 
 	const winrect = win.getBoundingClientRect();
 
@@ -215,8 +217,6 @@ function close_port_popup() {
 
 	win.style.marginTop = "0px";
 
-	port_popup_port_id = null;
-
 	port_popup_timeout = setTimeout(() => {
 		win.style.display = "";
 		port_popup_timeout = null;
@@ -232,6 +232,24 @@ function close_port_popup() {
  */
 
 function popup_port_info() {
+	if(get_class("L18N_PORT_INFO").classList.contains("portpopupitemdisabled")) return;
+
+	close_port_popup(); 
+	
+	const sensor = ports[port_popup_port_id];
+
+	var out;
+
+	out = format(jslang.INFO_WINDOW_SENSOR,
+		sensor.id,
+		sensor.name,
+		localize_num(round(sensor.min_value, 2)),
+		localize_num(round(sensor.max_value, 2)),
+		sensor.unit
+	);
+
+	get_win_el_tag(WINDOWID_SENSOR_INFO, "div").innerHTML = out;
+
 	popup_window(WINDOWID_SENSOR_INFO);
 }
 

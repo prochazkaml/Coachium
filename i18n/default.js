@@ -241,7 +241,7 @@ var jslang = {
 
 	"UNTITLED_CAPTURE": "Untitled capture",
 
-	// elab.js
+	// elab.js (and some ui.js)
 
 	"SENSOR_LOADING": "Loading intelligent sensor data...",
 	"SENSOR_DISCONNECTED": "Sensor not connected",
