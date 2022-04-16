@@ -63,7 +63,6 @@ const alt_htmllang = {
 	"PORT_DISCONNECT": "Odpojit toto čidlo",
 	"PORT_ZERO_OUT": "Vynulovat hodnotu",
 	"PORT_RESET": "Obnovit původní nulovou hodnotu",
-	"PORT_INFO": "Podrobnosti čidla",
 
 	// Window contents
 
@@ -165,8 +164,6 @@ const alt_htmllang = {
 	"WINDOW13_TITLE": "Správce záznamů",
 
 	"WINDOW17_TITLE": "Podrobnosti záznamu",
-
-	"WINDOW18_TITLE": "Podrobnosti čidla",
 
 	"WINDOW19_TITLE": "Fit funkce",
 	"WINDOW19_FUN_LINEAR": "Lineární (y = ax + b)",
