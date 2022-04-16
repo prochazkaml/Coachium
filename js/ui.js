@@ -188,9 +188,13 @@ function close_port_popup_listener(event) {
 
 	const winrect = win.getBoundingClientRect();
 
+	const portrect = get_id("port" + (port_popup_port_id + 1)).getBoundingClientRect();
+
 	if(event.force ||
-		event.x < winrect.x || event.x > (winrect.x + winrect.width) ||
-		event.y < winrect.y || event.y > (winrect.y + winrect.height)) {
+	  (event.x < winrect.x || event.x > (winrect.x + winrect.width) ||
+	   event.y < winrect.y || event.y > (winrect.y + winrect.height)) &&
+	 !(event.x > portrect.x && event.x < (portrect.x + portrect.width) &&
+	   event.y > portrect.y && event.y < (portrect.y + portrect.height))) {
 
 		close_port_popup();
 	}
