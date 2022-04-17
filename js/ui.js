@@ -224,6 +224,36 @@ function close_port_popup() {
 }
 
 /*
+ * zero_out_sensor()
+ * 
+ * If allowed, zeroes out the sensor.
+ */
+
+function zero_out_sensor() {
+	if(get_class("L18N_PORT_ZERO_OUT").classList.contains("portpopupitemdisabled")) return;
+
+	close_port_popup();
+
+	if(ports[port_popup_port_id].zero_offset == null) ports[port_popup_port_id].zero_offset = 0;
+
+	ports[port_popup_port_id].zero_offset += ports[port_popup_port_id].value;
+}
+
+/*
+ * reset_sensor_zero_point()
+ * 
+ * Closes the currently open port configuration popup.
+ */
+
+function reset_sensor_zero_point() {
+	if(get_class("L18N_PORT_RESET").classList.contains("portpopupitemdisabled")) return;
+
+	close_port_popup();
+
+	ports[port_popup_port_id].zero_offset = null;
+}
+
+/*
  * get_win(win_id)
  * get_win_el_id(win_id, el_id)
  * get_win_el_class(win_id, el_class, index)

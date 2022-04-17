@@ -36,7 +36,7 @@ const WINDOWID_LANGUAGE_SELECTOR = 14;
 const WINDOWID_LANGUAGE_ERROR = 15;
 const WINDOWID_LOCAL_SAVE_NAME = 16;
 const WINDOWID_CAPTURE_INFO = 17;
-const WINDOWID_SENSOR_INFO = 18;
+// WINDOWID 18 IS FREE!!!
 const WINDOWID_FIT_FUNCTION = 19;
 const WINDOWID_DEVICE_OPEN_ERROR = 20;
 const WINDOWID_WATCHDOG_ERROR = 21;
@@ -191,32 +191,16 @@ function convert_12bit_to_real(val, a, b, hv) {
 }
 
 /*
- * convert_12bit_to_string(val, a, b, hv, max)
- * 
- * Converts a raw 12-bit value to a string containing a human-readable number
- * of a given unit. The value is rounded to 4 valid digits, same as Coach.
+ * prettyprint_value(id)
+ *'
+ * Converts the sensor's current value to a human-readable string.
  */
 
-function convert_12bit_to_string(val, a, b, hv, max) {
-	var digits = 3 - Math.floor(Math.log10(max));
-
-	if(isNaN(val))
-		return "–";
-	else
-		return localize_num(round(convert_12bit_to_real(val, a, b, hv), digits).toFixed(digits));
-}
-
-/*
- * prettyprint_value(id, val)
- *
- * Converts a raw 12-bit value from a sensor to a human-readable string.
- */
-
-function prettyprint_value(id, val) {
+function prettyprint_value(id) {
+	var digits = 3 - Math.floor(Math.log10(ports[id].max_value));
+	
 	if(ports[id].connected) {
-		var converted = convert_12bit_to_string(val, ports[id].coeff_a, ports[id].coeff_b, ports[id].high_voltage, ports[id].max_value);
-
-		return converted + " " + ports[id].unit;
+		return localize_num(round(ports[id].value, digits).toFixed(digits)) + " " + ports[id].unit;
 	} else {
 		return "–";
 	}
@@ -273,7 +257,9 @@ function generate_cache(values, start, end) {
 	if(capture.sensorsetup) {
 		// Only one sensor was used
 		
-		const sensor = (capture.sensorsetup == 1) ? capture.port_a : capture.port_b;
+		var sensor = (capture.sensorsetup == 1) ? capture.port_a : capture.port_b;
+
+		if(!sensor.zero_offset) sensor.zero_offset = 0;
 
 		for(var i = start; i < end; i++) {
 			if(values[i] == null) break;
@@ -281,13 +267,16 @@ function generate_cache(values, start, end) {
 			capture_cache.values[i] = [
 				capture.interval / 10000 * i,
 				convert_12bit_to_real(values[i], sensor.coeff_a,
-					sensor.coeff_b, sensor.high_voltage)
+					sensor.coeff_b, sensor.high_voltage) - sensor.zero_offset
 			];
 		}
 	} else {
 		// Both sensors were used
 
-		const sensor_a = capture.port_a, sensor_b = capture.port_b;
+		var sensor_a = capture.port_a, sensor_b = capture.port_b;
+
+		if(!sensor_a.zero_offset) sensor_a.zero_offset = 0;
+		if(!sensor_b.zero_offset) sensor_b.zero_offset = 0;
 
 		for(var i = start / 2; i < end / 2; i++) {
 			if(values[i * 2] == null) break;
@@ -295,9 +284,9 @@ function generate_cache(values, start, end) {
 
 			capture_cache.values[i] = [
 				convert_12bit_to_real(values[i * 2 + 1], sensor_b.coeff_a,
-					sensor_b.coeff_b, sensor_b.high_voltage),
+					sensor_b.coeff_b, sensor_b.high_voltage) - sensor_b.zero_offset,
 				convert_12bit_to_real(values[i * 2], sensor_a.coeff_a,
-					sensor_a.coeff_b, sensor_a.high_voltage)
+					sensor_a.coeff_b, sensor_a.high_voltage) - sensor_a.zero_offset
 			];
 		}
 	}

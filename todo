@@ -1,6 +1,5 @@
 Required for initial testing (current–voltage characteristic of diodes):
 - show value on the graph when hovering over a data point
-- ability to zero out a sensor
 - zoom to data
 
 Future stuff:

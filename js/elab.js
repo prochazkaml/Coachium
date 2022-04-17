@@ -67,6 +67,7 @@ var ports = [
 		"connected": false,
 		"intelligent": true,
 		"name": "",
+		"value": 0,
 		"unit": "",
 		"min_value": 0,
 		"max_value": 0,
@@ -81,6 +82,7 @@ var ports = [
 		"connected": false,
 		"intelligent": true,
 		"name": "",
+		"value": 0,
 		"unit": "",
 		"min_value": 0,
 		"max_value": 0,
@@ -125,13 +127,15 @@ function input_report_callback(event) {
 				case 0x1: case 0x2:
 					// Port 1
 
-					get_id("port1value").innerHTML = prettyprint_value(0, val);
+					ports[0].value = convert_12bit_to_real(val, ports[0].coeff_a, ports[0].coeff_b, ports[0].high_voltage) - ports[0].zero_offset;
+					get_id("port1value").innerHTML = prettyprint_value(0, ports[0].value);
 					break;
 
 				case 0x4: case 0x5:
 					// Port 2
 
-					get_id("port2value").innerHTML = prettyprint_value(1, val);
+					ports[1].value = convert_12bit_to_real(val, ports[1].coeff_a, ports[1].coeff_b, ports[1].high_voltage) - ports[1].zero_offset;
+					get_id("port2value").innerHTML = prettyprint_value(1, ports[1].value);
 					break;
 			}
 			break;
@@ -319,18 +323,25 @@ function capture_redraw() {
 
 		switch(capturesetupmode) {
 			case 0:
-				get_id("port1value").innerHTML = prettyprint_value(0, received_capture[received_so_far - 2]);
-				get_id("port2value").innerHTML = prettyprint_value(1, received_capture[received_so_far - 1]);
+				ports[0].value = convert_12bit_to_real(received_capture[received_so_far - 2], ports[0].coeff_a, ports[0].coeff_b, ports[0].high_voltage) - ports[0].zero_offset;
+				ports[1].value = convert_12bit_to_real(received_capture[received_so_far - 1], ports[1].coeff_a, ports[1].coeff_b, ports[1].high_voltage) - ports[1].zero_offset;
+
+				get_id("port1value").innerHTML = prettyprint_value(0);
+				get_id("port2value").innerHTML = prettyprint_value(1);
 				break;
 
 			case 1:
-				get_id("port1value").innerHTML = prettyprint_value(0, received_capture[received_so_far - 1]);
+				ports[0].value = convert_12bit_to_real(received_capture[received_so_far - 1], ports[0].coeff_a, ports[0].coeff_b, ports[0].high_voltage) - ports[0].zero_offset;
+
+				get_id("port1value").innerHTML = prettyprint_value(0);
 				get_id("port2value").innerHTML = "–";
 				break;
 
 			case 2:
+				ports[1].value = convert_12bit_to_real(received_capture[received_so_far - 1], ports[1].coeff_a, ports[1].coeff_b, ports[1].high_voltage) - ports[1].zero_offset;
+
 				get_id("port1value").innerHTML = "–";
-				get_id("port2value").innerHTML = prettyprint_value(1, received_capture[received_so_far - 1]);
+				get_id("port2value").innerHTML = prettyprint_value(1);
 				break;
 		}
 	}
