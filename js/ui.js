@@ -586,6 +586,49 @@ function request_zoom_in() {
 }
 
 /*
+ * zoom_to_data()
+ * 
+ * Automatically determines the zoom region based on the captured data.
+ */
+
+function zoom_to_data() {
+	var min_x = 1, min_y = 1, max_x = 0, max_y = 0;
+
+	for(var i = 0; i < capture_cache.values.length; i++) {
+		var x = (capture_cache.values[i][0] - capture_cache.x.min) / (capture_cache.x.max - capture_cache.x.min);
+		var y = (capture_cache.values[i][1] - capture_cache.y.min) / (capture_cache.y.max - capture_cache.y.min);
+
+		if(x > max_x) max_x = x;
+		if(x < min_x) min_x = x;
+
+		if(y > max_y) max_y = y;
+		if(y < min_y) min_y = y;
+	}
+
+	if(min_x < max_x && min_y < max_y) {
+		const w = max_x - min_x, h = max_y - min_y;
+
+		min_x -= w * .1; min_y -= h * .1;
+		max_x += w * .1; max_y += h * .1;
+	
+		if(min_x < 0) min_x = 0;
+		if(min_y < 0) min_y = 0;
+		if(max_x > 1) max_x = 1;
+		if(max_y > 1) max_y = 1;
+	
+		get_id("statusmsg").innerHTML = jslang.STATUS_ZOOM_DATA;
+		zoom_request_progress = 0;
+		zoomed_in = true;
+
+		zoomx1 = min_x; zoomy1 = min_y;
+		zoomx2 = max_x; zoomy2 = max_y;
+	
+		update_button_validity();
+		main_window_reset(false, false); // Not needed, since we've done it already	
+	}
+}
+
+/*
  * zoom_reset()
  * 
  * Resets the zoom on the graph.
@@ -754,6 +797,7 @@ function update_button_validity() {
 		get_id("viewpreviousbutton").style.filter = "contrast(0)";
 		get_id("viewnextbutton").style.filter = "contrast(0)";
 		get_id("zoominbutton").style.filter = "contrast(0)";
+		get_id("zoomdatabutton").style.filter = "contrast(0)";
 		get_id("zoomresetbutton").style.filter = "contrast(0)";
 
 		get_id("captureinfobutton").style.filter = "contrast(0)";
@@ -773,6 +817,7 @@ function update_button_validity() {
 			get_id("viewpreviousbutton").style.filter = "contrast(0)";
 			get_id("viewnextbutton").style.filter = "contrast(0)";
 			get_id("zoominbutton").style.filter = "contrast(0)";
+			get_id("zoomdatabutton").style.filter = "contrast(0)";
 			get_id("zoomresetbutton").style.filter = "contrast(0)";
 			get_id("captureinfobutton").style.filter = "contrast(0)";
 		} else {
@@ -786,6 +831,7 @@ function update_button_validity() {
 
 			if(canvas.style.display != "none") {
 				get_id("zoominbutton").style.filter = "";
+				get_id("zoomdatabutton").style.filter = "";
 
 				if(zoomed_in)
 					get_id("zoomresetbutton").style.filter = "";
@@ -794,6 +840,7 @@ function update_button_validity() {
 
 			} else {
 				get_id("zoominbutton").style.filter = "contrast(0)";
+				get_id("zoomdatabutton").style.filter = "contrast(0)";
 				get_id("zoomresetbutton").style.filter = "contrast(0)";
 			}
 
@@ -985,8 +1032,12 @@ document.addEventListener('keydown', (event) => {
 				request_zoom_in();
 				break;
 
-			case "=":
+			case "-":
 				zoom_reset();
+				break;
+
+			case "=":
+				zoom_to_data();
 				break;
 		}
 	}

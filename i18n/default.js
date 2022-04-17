@@ -55,7 +55,8 @@ var htmllang = {
 	"TITLE_SHOW_AS_CHART": "Display capture data as a chart [T]",
 	"TITLE_NEXT_CAPTURE": "Show the next capture [→ or PageDown]",
 	"TITLE_CHART_ZOOM_IN": "Zoom into the chart [+]",
-	"TITLE_CHART_ZOOM_RESET": "Reset the zoom on the chart [=]",
+	"TITLE_CHART_ZOOM_DATA": "Zoom to data [=]",
+	"TITLE_CHART_ZOOM_RESET": "Reset the zoom on the chart [-]",
 	"TITLE_CAPTURE_MGMT": "Manage captures [M]",
 	"TITLE_CAPTURE_INFO": "Display this capture's details [I]",
 
@@ -270,6 +271,8 @@ var jslang = {
 	"STATUS_ZOOM_IN_REQUEST": "Select the zoom region.",
 	"STATUS_ZOOM_IN_CONFIRM": "The selected region was zoomed in.",
 	"STATUS_ZOOM_IN_CANCEL": "Zoom region select canceled.",
+	"STATUS_ZOOM_DATA": "Zoomed into the data region.",
+	"STATUS_ZOOM_DATA_ERROR": "Error zooming into the data region.",
 	"STATUS_ZOOM_RESET": "The zoom on the chart has been reset.",
 
 	"INFO_WINDOW_CONTENTS":

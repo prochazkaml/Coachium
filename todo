@@ -1,6 +1,5 @@
 Required for initial testing (current–voltage characteristic of diodes):
 - show value on the graph when hovering over a data point
-- zoom to data
 
 Future stuff:
 - break up ui.js and mainwindow.js, they're too big

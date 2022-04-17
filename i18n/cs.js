@@ -53,7 +53,8 @@ const alt_htmllang = {
 	"TITLE_SHOW_AS_CHART": "Zobrazit záznam jako graf [T]",
 	"TITLE_NEXT_CAPTURE": "Zobrazit následující záznam v sešitě [→ nebo PageDown]",
 	"TITLE_CHART_ZOOM_IN": "Přiblížit pohled na graf [+]",
-	"TITLE_CHART_ZOOM_RESET": "Obnovit pohled na graf [=]",
+	"TITLE_CHART_ZOOM_DATA": "Přiblížit na data [=]",
+	"TITLE_CHART_ZOOM_RESET": "Obnovit pohled na graf [-]",
 	"TITLE_CAPTURE_MGMT": "Spravovat záznamy [M]",
 	"TITLE_CAPTURE_INFO": "Zobrazit podrobnosti tohoto záznamu [I]",
 
@@ -262,6 +263,8 @@ const alt_jslang = {
 	"STATUS_ZOOM_IN_REQUEST": "Vyberte oblast, kterou chcete přiblížit.",
 	"STATUS_ZOOM_IN_CONFIRM": "Vybraná oblast přiblížena.",
 	"STATUS_ZOOM_IN_CANCEL": "Výběr oblasti pro přiblížení zrušen.",
+	"STATUS_ZOOM_DATA": "Přiblížena oblast s daty.",
+	"STATUS_ZOOM_DATA_ERROR": "Chyba přibližování do oblasti s daty.",
 	"STATUS_ZOOM_RESET": "Pohled na graf obnoven.",
 
 	"INFO_WINDOW_CONTENTS":
