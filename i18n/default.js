@@ -255,9 +255,9 @@ var jslang = {
 
 	// ui.js
 
-	"HOMEPAGE_COMMIT_OK": "👍 Lastest version ({0})",
+	"HOMEPAGE_COMMIT_OK": "👍 Latest version ({0})",
 	"HOMEPAGE_COMMIT_OLD": "👎 Outdated version, please update! ({0} installed, {1} available)",
-	"HOMEPAGE_COMMIT_ERR": "😕 Error checking latest version",
+	"HOMEPAGE_COMMIT_ERR": "😕 Error verifying the latest version",
 
 	"CHECKSUM_NOT_RESPONDING": "not responding",
 	"BUTTON_DISCONNECT": "Disconnect from device",
