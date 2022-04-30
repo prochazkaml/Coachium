@@ -592,6 +592,10 @@ function request_zoom_in() {
  */
 
 function zoom_to_data() {
+	if(get_id("zoomdatabutton").style.filter) return;
+
+	canvas.style.cursor = "auto";
+
 	var min_x = 1, min_y = 1, max_x = 0, max_y = 0;
 
 	for(var i = 0; i < capture_cache.values.length; i++) {
