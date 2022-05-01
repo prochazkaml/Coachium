@@ -774,9 +774,10 @@ function canvasmousechangehandler(status) {
 
 				update_button_validity();
 				get_id("statusmsg").innerHTML = jslang.STATUS_ZOOM_IN_CONFIRM;
+
+				canvas_reset(CANVAS_EVENT_REDRAW_ENTIRE);
 			}
 
-			canvas_reset(CANVAS_EVENT_REDRAW_ENTIRE);
 			break;
 	}
 	
