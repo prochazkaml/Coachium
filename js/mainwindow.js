@@ -502,7 +502,8 @@ function canvas_reset(event) {
 	} else if(captures.length > 0) {
 		ovctx.clearRect(0, 0, overlay.width, overlay.height);
 
-		draw_crosshair(mouseX, mouseY, "rgba(0, 0, 255, .5)");
+		if(mouse_over_canvas)
+			draw_crosshair(mouseX, mouseY, "rgba(0, 0, 255, .5)");
 	}
 }
 
@@ -621,7 +622,7 @@ function table_reset() {
 	table.appendChild(out);
 }
 
-var mouseX = 0, mouseY = 0, oldmouseX = -1, oldmouseY = -1, lock = false;
+var mouseX = 0, mouseY = 0, oldmouseX = -1, oldmouseY = -1, lock = false, mouse_over_canvas = false;
 
 var mousepositions = [[-1, -1], [-1, -1]];
 
@@ -634,6 +635,8 @@ var mousepositions = [[-1, -1], [-1, -1]];
 function canvasmousemovehandler(e) {
 	if(lock) return;
 	lock = true;
+
+	mouse_over_canvas = true;
 
 	var x = e.offsetX, y = e.offsetY;
 
@@ -700,6 +703,8 @@ function canvasmousemovehandler(e) {
  */
 
 function canvasmouseleavehandler() {
+	mouse_over_canvas = false;
+	
 	if(!zoom_request_progress) ovctx.clearRect(0, 0, overlay.width, overlay.height);	;
 }
 
