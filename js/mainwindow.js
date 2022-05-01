@@ -22,6 +22,7 @@ const CANVAS_EVENT_REDRAW_ENTIRE = 0;
 const CANVAS_EVENT_ZOOM_CROSSHAIR_MOVE = 1;
 const CANVAS_EVENT_GRAPH_MOVE = 2;
 const CANVAS_EVENT_RECALCULATE_STYLES = 3;
+const CANVAS_EVENT_CURSOR_MOVE = 4;
 
 // These variables control the zoomed in region. All of them range from 0 to 1.
 
@@ -34,7 +35,7 @@ var zoomx1, zoomy1, zoomx2, zoomy2;
  */
 
 function main_window_reset(reset_zoom, reset_layout) {
-	if(canvas.style.display != "none") {
+	if(get_class("canvasstack").style.display != "none") {
 		zoom_request_progress = 0;
 
 		if(reset_zoom) zoomed_in = false;
@@ -131,32 +132,40 @@ const graph_margin_right  = 64;
 var drawcache = null;
 
 function canvas_reset(event) {
+	console.log(event);
+
 	// Redraw again, if necessary
 
-	if(event != CANVAS_EVENT_ZOOM_CROSSHAIR_MOVE || drawcache == null) {
+	if((event != CANVAS_EVENT_ZOOM_CROSSHAIR_MOVE && event != CANVAS_EVENT_CURSOR_MOVE) || drawcache == null) {
 		if(event == CANVAS_EVENT_RECALCULATE_STYLES) {			
 			// Reset canvas parameters
 
-			canvas.width = 0;
-			canvas.height = 0;
-			canvas.style.width = "100%";
-			canvas.style.height = "100%";
+			overlay.width = canvas.width = 0;
+			overlay.height = canvas.height = 0;
+			overlay.style.width = canvas.style.width = "100%";
+			overlay.style.height = canvas.style.height = "100%";
 
 			// Change the drawing size
 
 			canvas.width = canvas.offsetWidth;
 			canvas.height = canvas.offsetHeight;
 
+			overlay.width = overlay.offsetWidth;
+			overlay.height = overlay.offsetHeight;
+
 			// Reset the CSS
 
-			canvas.style.width = "";
-			canvas.style.height = "";
-		} else {
-			ctx.fillStyle = "white";
-			ctx.fillRect(0, 0, canvas.width, canvas.height);
+			overlay.style.width = canvas.style.width = "";
+			overlay.style.height = canvas.style.height = "";
 		}
 
-		if(canvas.style.display == "none") return;
+		ctx.clearRect(0, 0, canvas.width, canvas.height);
+		ovctx.clearRect(0, 0, overlay.width, overlay.height);
+
+//		ovctx.fillStyle = "rgba(255, 0, 0, .5)";
+//		ovctx.fillRect(0, 0, canvas.width, canvas.height);
+
+		if(get_class("canvasstack").style.display == "none") return;
 
 		// Set the default ctx values
 
@@ -455,58 +464,59 @@ function canvas_reset(event) {
 	}
 
 	if(event == CANVAS_EVENT_ZOOM_CROSSHAIR_MOVE) {
-		if(drawcache == null)
-			drawcache = ctx.getImageData(0, 0, canvas.width, canvas.height);
-
-		ctx.putImageData(drawcache, 0, 0);
+		ovctx.clearRect(0, 0, overlay.width, overlay.height);
 
 		var x = mouseX, y = mouseY;
 
 		switch(zoom_request_progress) {
 			case 1:
-				ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
-				ctx.fillRect(0, 0, canvas.width, canvas.height);
+				ovctx.fillStyle = "rgba(0, 0, 0, 0.5)";
+				ovctx.fillRect(0, 0, overlay.width, overlay.height);
 	
-				draw_crosshair(x, y);
+				draw_crosshair(x, y, "#0000FF");
 				break;
 
 			case 2:
-				ctx.fillStyle = "rgba(0, 0, 0, 0.29289)"; // (1 - x) * (1 - x) = 0,5
+				ovctx.fillStyle = "rgba(0, 0, 0, 0.29289)"; // (1 - x) * (1 - x) = 0,5
 
 				if(mousepositions[1][1] < y) {
-					ctx.fillRect(0, 0, canvas.width, mousepositions[1][1]);
-					ctx.fillRect(0, y, canvas.width, canvas.height);
+					ovctx.fillRect(0, 0, overlay.width, mousepositions[1][1]);
+					ovctx.fillRect(0, y, overlay.width, overlay.height);
 				} else {
-					ctx.fillRect(0, 0, canvas.width, y);
-					ctx.fillRect(0, mousepositions[1][1], canvas.width, canvas.height);
+					ovctx.fillRect(0, 0, overlay.width, y);
+					ovctx.fillRect(0, mousepositions[1][1], overlay.width, overlay.height);
 				}
 	
 				if(mousepositions[1][0] < x) {
-					ctx.fillRect(0, 0, mousepositions[1][0], canvas.height);
-					ctx.fillRect(x, 0, canvas.width, canvas.height);
+					ovctx.fillRect(0, 0, mousepositions[1][0], overlay.height);
+					ovctx.fillRect(x, 0, overlay.width, overlay.height);
 				} else {
-					ctx.fillRect(0, 0, x, canvas.height);
-					ctx.fillRect(mousepositions[1][0], 0, canvas.width, canvas.height);
+					ovctx.fillRect(0, 0, x, overlay.height);
+					ovctx.fillRect(mousepositions[1][0], 0, overlay.width, overlay.height);
 				}
 	
-				draw_crosshair(mousepositions[1][0], mousepositions[1][1]);
-				draw_crosshair(x, y);
+				draw_crosshair(mousepositions[1][0], mousepositions[1][1], "#0000FF");
+				draw_crosshair(x, y, "#0000FF");
 				break;
 		}
+	} else if(captures.length > 0) {
+		ovctx.clearRect(0, 0, overlay.width, overlay.height);
+
+		draw_crosshair(mouseX, mouseY, "rgba(0, 0, 255, .5)");
 	}
 }
 
-function draw_crosshair(x, y) {
-	ctx.beginPath();
-	ctx.strokeStyle = "rgba(0, 0, 255, 0.5)";
+function draw_crosshair(x, y, color) {
+	ovctx.beginPath();
+	ovctx.strokeStyle = color;
 
-	ctx.moveTo(x, graph_margin_top);
-	ctx.lineTo(x, canvas.height - graph_margin_bottom);
+	ovctx.moveTo(x, graph_margin_top);
+	ovctx.lineTo(x, canvas.height - graph_margin_bottom);
 
-	ctx.moveTo(graph_margin_left, y);
-	ctx.lineTo(canvas.width - graph_margin_right, y);
+	ovctx.moveTo(graph_margin_left, y);
+	ovctx.lineTo(canvas.width - graph_margin_right, y);
 
-	ctx.stroke();
+	ovctx.stroke();
 }
 
 /*
@@ -675,10 +685,22 @@ function canvasmousemovehandler(e) {
 			canvas_reset(CANVAS_EVENT_GRAPH_MOVE);
 		} else if(zoom_request_progress) {
 			canvas_reset(CANVAS_EVENT_ZOOM_CROSSHAIR_MOVE);
+		} else if(captures.length > 0) {
+			canvas_reset(CANVAS_EVENT_CURSOR_MOVE);
 		}
 	}
 
 	lock = false;
+}
+
+/*
+ * canvasmousemovehandler(e)
+ * 
+ * Callback, when the mouse leaves the canvas.
+ */
+
+function canvasmouseleavehandler() {
+	if(!zoom_request_progress) ovctx.clearRect(0, 0, overlay.width, overlay.height);	;
 }
 
 /*

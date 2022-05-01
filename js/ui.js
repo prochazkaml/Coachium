@@ -540,17 +540,17 @@ function change_selected_capture(interval, absolute = undefined) {
  */
 
 function change_capture_view() {
-	const c_visible = canvas.style.display != "none";
+	const c_visible = get_class("canvasstack").style.display != "none";
 
 	if(c_visible) {
-		canvas.style.display = "none";
+		get_class("canvasstack").style.display = "none";
 		table.style.display  = "";
 		main.style.overflowY = "scroll";
 
 		get_id("viewastablebutton").style.display = "none";
 		get_id("viewasgraphbutton").style.display = "";
 	} else {
-		canvas.style.display = "block";
+		get_class("canvasstack").style.display = "";
 		table.style.display  = "none";
 		main.style.overflowY = "hidden";
 
@@ -833,7 +833,7 @@ function update_button_validity() {
 			get_id("savegdrivebutton").style.filter = "";
 			get_id("captureinfobutton").style.filter = "";
 
-			if(canvas.style.display != "none") {
+			if(get_class("canvasstack").style.display != "none") {
 				get_id("zoominbutton").style.filter = "";
 				get_id("zoomdatabutton").style.filter = "";
 
@@ -897,6 +897,7 @@ window.onload = () => {
 	canvas.addEventListener("mousemove", canvasmousemovehandler);
 	canvas.addEventListener("mousedown", () => { canvasmousechangehandler(1); });
 	canvas.addEventListener("mouseup", () => { canvasmousechangehandler(0); });
+	canvas.addEventListener("mouseleave", canvasmouseleavehandler);
 	canvas.addEventListener("wheel", canvasmousewheelhandler);
 
 	// Check the current git commit version against GitHub
