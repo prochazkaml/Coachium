@@ -866,16 +866,18 @@ function update_button_validity() {
  */
 
 window.onload = () => {
-	document.getElementsByTagName("html")[0].style.opacity = 1;
+	get_tag("html").style.opacity = 1;
 
 	// Initialize constants for making the code simpler
 
-	header = document.getElementsByTagName("header")[0];
-	nav = document.getElementsByTagName("nav")[0];
-	main = document.getElementsByTagName("main")[0];
-	footer = document.getElementsByTagName("footer")[0];
-	canvas = document.getElementsByTagName("canvas")[0];
+	header = get_tag("header");
+	nav = get_tag("nav");
+	main = get_tag("main");
+	footer = get_tag("footer");
+	canvas = get_id("maincanvas");
 	ctx = canvas.getContext("2d");
+	overlay = get_id("overlaycanvas");
+	ovctx = overlay.getContext("2d");
 	table = get_id("table");
 	
 	// Initialize the connect button

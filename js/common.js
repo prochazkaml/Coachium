@@ -43,7 +43,7 @@ const WINDOWID_WATCHDOG_ERROR = 21;
 
 var open_window = -1, window_stack = [], zindex = 10;
 
-var header, nav, main, footer, canvas, ctx, table;
+var header, nav, main, footer, canvas, ctx, overlay, ovctx, table;
 
 var device, connected = false, verified = false;
 
