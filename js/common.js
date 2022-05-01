@@ -155,6 +155,19 @@ function round(num, digits = 0) {
 }
 
 /*
+ * ideal_round_fixed(num, max)
+ * 
+ * Rounds the input number to 4 valid digits according to
+ * the maximum possible value and returns it as a string.
+ */
+
+function ideal_round_fixed(num, max) {
+	const digits = 3 - Math.floor(Math.log10(max));
+
+	return round(num, digits).toFixed(digits);
+}
+
+/*
  * localize_num(num)
  * 
  * Localizes a string containing a number (or an actual number,
@@ -197,10 +210,8 @@ function convert_12bit_to_real(val, a, b, hv) {
  */
 
 function prettyprint_value(id) {
-	var digits = 3 - Math.floor(Math.log10(ports[id].max_value));
-	
 	if(ports[id].connected) {
-		return localize_num(round(ports[id].value, digits).toFixed(digits)) + " " + ports[id].unit;
+		return localize_num(ideal_round_fixed(ports[id].value, ports[id].max_value)) + " " + ports[id].unit;
 	} else {
 		return "–";
 	}

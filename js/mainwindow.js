@@ -26,7 +26,7 @@ const CANVAS_EVENT_CURSOR_MOVE = 4;
 
 // These variables control the zoomed in region. All of them range from 0 to 1.
 
-var zoomx1, zoomy1, zoomx2, zoomy2;
+var zoomx1 = 0, zoomy1 = 0, zoomx2 = 1, zoomy2 = 1;
 
 /*
  * main_window_reset(reset_zoom, reset_layout)
@@ -436,10 +436,10 @@ function canvas_reset(event) {
 	
 			// Capture name
 	
-			ctx.textBaseline = "top";
+			ctx.textBaseline = "middle";
 			ctx.textAlign = "left";
 			ctx.font = "bold 16px Ubuntu";
-			ctx.fillText(format(jslang.CAPTURE_FMT, selected_capture + 1, captures.length, capture.title), graph_margin_left, (graph_margin_top - 16) / 2);
+			ctx.fillText(format(jslang.CAPTURE_FMT, selected_capture + 1, captures.length, capture.title), graph_margin_left, graph_margin_top / 2);
 	
 			// If the capture is currently running, display a "crosshair"
 	
@@ -502,8 +502,30 @@ function canvas_reset(event) {
 	} else if(captures.length > 0) {
 		ovctx.clearRect(0, 0, overlay.width, overlay.height);
 
-		if(mouse_over_canvas)
+		if(mouse_over_canvas) {
 			draw_crosshair(mouseX, mouseY, "rgba(0, 0, 255, .5)");
+
+			var mx = (mouseX - graph_margin_left) / (canvas.width - graph_margin_left - graph_margin_right),
+				my = (mouseY - graph_margin_top) / (canvas.height - graph_margin_top - graph_margin_bottom),
+				uw = Math.abs(capture_cache.x.max - capture_cache.x.min),
+				uh = Math.abs(capture_cache.y.max - capture_cache.y.min);
+
+			uw = uw * (zoomx1 + mx * (zoomx2 - zoomx1)) + capture_cache.x.min;
+			uh = uh * (zoomy1 + my * (zoomy2 - zoomy1)) + capture_cache.y.min;
+
+			uh *= -1;
+
+			ovctx.textBaseline = "middle";
+			ovctx.textAlign = "right";
+			ovctx.font = "16px Ubuntu";
+			ovctx.fillText(
+				"X = " + localize_num(ideal_round_fixed(uw, capture_cache.x.max)) + " " + capture_cache.x.unitname,
+				overlay.width - graph_margin_right, graph_margin_top / 2 - 10);
+
+			ovctx.fillText(
+				"Y = " + localize_num(ideal_round_fixed(uh, capture_cache.y.max)) + " " + capture_cache.y.unitname, 
+				overlay.width - graph_margin_right, graph_margin_top / 2 + 10);
+		}
 	}
 }
 
@@ -790,7 +812,7 @@ function canvasmousechangehandler(status) {
 }
 
 /*
- * canvasmousemovehandler(e)
+ * canvasmousewheelhandler(e)
  * 
  * Callback, when the scroll wheel position changes over the canvas.
  */
