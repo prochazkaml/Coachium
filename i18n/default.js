@@ -69,7 +69,7 @@ var htmllang = {
 
 	// Window contents
 
-	"WINDOW0_TITLE": "Coachium pre-alpha",
+	"WINDOW0_TITLE": "Coachium alpha",
 	"WINDOW0_PAR0": "Copyright (C) Michal Procházka, 2021–2022.",
 	"WINDOW0_PAR1":
 		"Based on my work of reverse-engineering the communication<br>" +

@@ -1,6 +1,6 @@
 # Coachium
 
-# _CURRENTLY IN THE PRE-ALPHA STAGE, NOT MEANT FOR REGULAR USE AT THIS TIME!_
+# _CURRENTLY IN THE ALPHA STAGE, NOT MEANT FOR REGULAR USE AT THIS TIME!_
 
 Web-based software for interfacing with CMA educational interfaces and sensors. 
 
@@ -35,7 +35,7 @@ We strongly hope that we have introduced to you what Coachium actually is, and w
 
 Please [click here](https://github.com/prochazkaml/Coachium/blob/master/todo) to view the current status of the Coachium to-do list.
 
-**Coachium is currently in the pre-alpha stage.** This means that not all of the features which I have originally planned have been implemented, and it still may be riddled with bugs.
+**Coachium is currently in the alpha stage.** This means that not all of the features which I have originally planned have been implemented, and it still may be riddled with bugs.
 
 ### Alpha stage
 
