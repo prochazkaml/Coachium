@@ -61,10 +61,10 @@ body {
 }
 
 header {
-	padding: 2em;
+	padding: 32px;
 	background-color: #88F;
-	height: 12em;
-	box-shadow: 0 0 .3em rgba(0, 0, 0, .3);
+	height: 192px;
+	box-shadow: 0 0 5px rgba(0, 0, 0, .3);
 	color: white;
 	z-index: 2;
 
@@ -75,7 +75,7 @@ nav {
 	height: 0;
 
 	background-color: #CCF;
-	box-shadow: 0 0 .3em rgba(0, 0, 0, .3);
+	box-shadow: 0 0 5px rgba(0, 0, 0, .3);
 	z-index: 1;
 
 	transition: height .3s, background-color .3s;	
@@ -96,8 +96,8 @@ nav {
 }
 
 .navbutton {
-	height: 1.5em;
-	margin: .5em .25em;
+	height: 24px;
+	margin: 8px 4px;
 
 	cursor: pointer;
 
@@ -109,18 +109,18 @@ nav {
 }
 
 .navbutton img {
-	height: 1.5em;
+	height: 24px;
 	user-select: none;
 }
 
 .mainpagebutton img {
-	height: 1em;
+	height: 16px;
 	vertical-align: text-bottom;
 	user-select: none;
 }
 
 .navspacer {
-	width: 1em;
+	width: 16px;
 }
 
 #headercontents {
@@ -134,7 +134,7 @@ nav {
 }
 
 #introimg {
-	height: 5em;
+	height: 80px;
 	user-select: none;
 }
 
@@ -180,10 +180,10 @@ canvas {
 
 .popupwindow {
 	background-color: #FFF;
-	padding: 1em;
-	box-shadow: 0 0 .5em rgba(0, 0, 0, .3);
+	padding: 16px;
+	box-shadow: 0 0 8px rgba(0, 0, 0, .3);
 	text-align: center;
-	border-radius: .5em;
+	border-radius: 8px;
 
 	transform: scale(.9);
 	transition: transform .3s;
@@ -205,16 +205,16 @@ canvas {
 
 .bigwindowbuttonlist {
 	position: absolute;
-	top: 0em;
-	right: 0em;
-	margin: 1em;
+	top: 0;
+	right: 0;
+	margin: 16px;
 }
 
 .bigwindowbody {
-	max-width: 40em;
+	max-width: 640px;
 	line-height: 1.8;
 	text-align: justify;
-	margin: 1em auto;
+	margin: 16px auto;
 }
 
 .popupwindow h1 {
@@ -222,19 +222,19 @@ canvas {
 }
 
 .inlineshilllink {
-	padding: 0 .3em;
+	padding: 0 5px;
 	text-decoration: none;
 	display: inline;
 }
 
 .windowbutton {
 	flex: 1;
-	height: 1em;
+	height: 16px;
 	background-color: rgba(0, 0, 0, .2);
-	padding: .5em;
-	margin: .5em;
-	border-radius: 9999em;
-/*	box-shadow: 0 0 .5em rgba(0, 0, 0, .6); The shadow looks really weird here... 😕 */
+	padding: 8px;
+	margin: 8px;
+	border-radius: 9999px;
+/*	box-shadow: 0 0 8px rgba(0, 0, 0, .6); The shadow looks really weird here... 😕 */
 
 	cursor: pointer;
 	user-select: none;
@@ -246,25 +246,25 @@ canvas {
 }
 
 .windowbuttonlist {
-	width: calc(100% + 1em);
-	margin-top: 1em;
-	margin-left: -.5em;
-	margin-right: -.5em;
-	margin-bottom: -.5em;
+	width: calc(100% + 16px);
+	margin-top: 16px;
+	margin-left: -8px;
+	margin-right: -8px;
+	margin-bottom: -8px;
 
 	display: flex;
 	flex-direction: row;
 }
 
 .connectbutton {
-	width: calc(907 / 200 * 5em - 1em);
-	height: 1em;
+	width: calc(907 / 200 * 80px - 16px);
+	height: 16px;
 	background-color: rgba(255, 255, 255, .8);
-	border-radius: 9999em;
-	padding: .5em;
+	border-radius: 9999px;
+	padding: 8px;
 	margin: auto;
-	margin-top: 1.5em;
-	box-shadow: 0 0 .5em rgba(0, 0, 0, .3);
+	margin-top: 24px;
+	box-shadow: 0 0 8px rgba(0, 0, 0, .3);
 	cursor: pointer;
 	user-select: none;
 	transition: background-color .2s;
@@ -296,7 +296,7 @@ canvas {
 footer {
 	height: 0;
 	background-color: #88F;
-	box-shadow: 0 0 .3em rgba(0, 0, 0, .3);
+	box-shadow: 0 0 5px rgba(0, 0, 0, .3);
 	z-index: 1;
 
 	transition: height .3s, background-color .3s;
@@ -307,19 +307,19 @@ footer {
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
-	padding: .5em;
-	height: calc(100% - 2em);
+	padding: 8px;
+	height: calc(100% - 32px);
 	transition: opacity .3s;
 }
 
 .port {
 	flex: 1;
-	margin: .5em;
-	box-shadow: 0 0 .5em rgba(0, 0, 0, .3);
-	min-width: 28em;
-	padding: .5em;
+	margin: 8px;
+	box-shadow: 0 0 8px rgba(0, 0, 0, .3);
+	min-width: 448px;
+	padding: 8px;
 	background-color: rgba(255, 255, 255, .8);
-	height: 3em;
+	height: 48px;
 
 	transition: background-color .3s, filter .3s;
 
@@ -336,23 +336,23 @@ footer {
 }
 
 .portlabel {
-	font-size: 2em;
-	margin: 0 .25em;
+	font-size: 32px;
+	margin: 0 4px;
 }
 
 .portstatus {
-	margin: 0 .5em;
+	margin: 0 8px;
 	flex: 1;
 }
 
 .portvalue {
-	font-size: 2em;
-	margin: 0 .25em;
+	font-size: 32px;
+	margin: 0 4px;
 }
 
 .portdivider {
 	flex: 1;
-	margin-left: .5em;
+	margin-left: 8px;
 
 	display: flex;
 	flex-direction: column;
@@ -366,13 +366,13 @@ footer {
 	z-index: 2;
 	display: none;
 
-	padding: calc(1.15em - .25em);
+	padding: calc(18.4px - 4px);
 
 	pointer-events: none;
 
 	background-color: white;
-	box-shadow: 0 0 .3em rgba(0, 0, 0, 1);
-	border-radius: .5em;
+	box-shadow: 0 0 5px rgba(0, 0, 0, 1);
+	border-radius: 8px;
 
 	opacity: 0;
 	transition: opacity .2s, margin-top .2s;
@@ -381,34 +381,34 @@ footer {
 .portpopup:before {
     transform: rotate(45deg);
 
-	box-shadow: 0 0 .3em rgba(0, 0, 0, 1);
+	box-shadow: 0 0 5px rgba(0, 0, 0, 1);
 
 	content: "";
     position: absolute;
-    bottom: -0.8em;
-    left: calc(50% - 0.8em);
-	width: 1.6em;
-	height: 1.6em;
+    bottom: -12.8px;
+    left: calc(50% - 12.8px);
+	width: 25.6px;
+	height: 25.6px;
 	background-color: white;
 
-	clip: rect(0em, 2em, 2em, 0em);
+	clip: rect(0, 32px, 32px, 0);
 }
 
 .portpopup:after {
 	content: "";
     position: absolute;
     bottom: 0;
-    left: calc(50% - 1.15em);
-	width: 2.3em;
-	height: 1.15em;
+    left: calc(50% - 18.4px);
+	width: 36.8px;
+	height: 18.4px;
 	background-color: white;
 }
 
 .portpopupitem {
-	margin: .25em;
-	padding: .5em;
+	margin: 4px;
+	padding: 8px;
 	background-color: rgba(0, 0, 0, 0);
-	border-radius: .5em;
+	border-radius: 8px;
 	
 	text-align: left;
 
@@ -423,11 +423,11 @@ footer {
 }
 
 .portpopupitemdisabled {
-	margin: .25em;
-	padding: .5em;
+	margin: 4px;
+	padding: 8px;
 	background-color: rgba(0, 0, 0, 0);
 	color: #606060;
-	border-radius: .5em;
+	border-radius: 8px;
 		
 	text-align: left;
 
@@ -456,31 +456,31 @@ a {
 }
 
 #capturesetuptable td {
-	padding-top: .5em;
+	padding-top: 8px;
 }
 
 #capturesetuptable tr > td:first-child {
 	width: 50%;
 	text-align: right;
-	padding-right: .5em;
+	padding-right: 8px;
 }
 
 #capturesetuptable tr > td:last-child {
 	width: 50%;
 	text-align: left;
-	padding-left: .5em;
+	padding-left: 8px;
 }
 
 #table table {
-	margin-top: 1em;
+	margin-top: 16px;
 }
 
 .infomsg {
-	margin: .5em;
+	margin: 8px;
 }
 
 #table td, #table th {
-	padding: .25em;
+	padding: 4px;
 	text-align: left;
 }
 

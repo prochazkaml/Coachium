@@ -612,7 +612,7 @@ async function webhid_select() {
 
 	if(devices.length == 0) {
 		if(get_id("introerrmsg")) {
-			header.style.height = "13.5em";
+			header.style.height = "216px";
 			get_id("introerrmsg").innerHTML = jslang.STATUS_NO_DEVICE_SELECTED;
 			get_id("introerrmsg").style.opacity = 1;
 		} else {

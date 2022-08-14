@@ -310,8 +310,8 @@ function ui_connect(actually_connect) {
 		get_id("initialheader").style.flex = "0";
 		get_id("initialheader").innerHTML = "";
 
-		header.style.height = "3em";
-		header.style.padding = ".5em 1em";
+		header.style.height = "48px";
+		header.style.padding = "8px 16px";
 		
 		get_id("navcontents").style.display = "flex";
 
@@ -319,15 +319,15 @@ function ui_connect(actually_connect) {
 	
 		get_id("headercontents").style.opacity = 0;
 	
-		nav.style.height = "2.5em";
-		footer.style.height = "6em";
+		nav.style.height = "40px";
+		footer.style.height = "96px";
 
 		setTimeout(() => {
 			get_id("connectbuttonguest").remove();
 
-			get_id("introimg").style.height = "3em";
+			get_id("introimg").style.height = "48px";
 			get_id("connectbutton").style.margin = "0";
-			get_id("connectbutton").style.width = "calc(907 / 200 * 3em - 1em)";
+			get_id("connectbutton").style.width = "calc(907 / 200 * 48px - 16px)";
 			if(actually_connect) get_id("connectbutton").innerHTML = jslang.BUTTON_DISCONNECT;
 
 			header.style.height = "auto";
@@ -656,7 +656,7 @@ function zoom_reset() {
  */
 
 function info_generate_sensor(sensor) {
-	var out = "<div style=\"padding:.5em;margin:1em 0;background-color:" + sensor.color + "\">";
+	var out = "<div style=\"padding:8px;margin:16px 0;background-color:" + sensor.color + "\">";
 
 	out += format(jslang.INFO_WINDOW_SENSOR,
 		sensor.id,

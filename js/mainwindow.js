@@ -555,7 +555,7 @@ function table_reset() {
 	if(captures.length > 0) {
 		out.style.marginLeft = graph_margin_left + "px";
 		out.style.marginTop = ((graph_margin_top - 16) / 2 - 2) + "px";
-		out.style.marginBottom = "1em";
+		out.style.marginBottom = "16px";
 
 		var title = document.createElement("b");
 		title.innerText = format(jslang.CAPTURE_FMT, selected_capture + 1, captures.length, capture.title);
