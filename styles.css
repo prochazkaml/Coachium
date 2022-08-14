@@ -471,12 +471,13 @@ a {
 	padding-left: 8px;
 }
 
-#table table {
-	margin-top: 16px;
-}
-
 .infomsg {
 	margin: 8px;
+}
+
+#table table {
+	margin-top: 16px;
+	border-bottom-width: 0 !important;
 }
 
 #table td, #table th {
