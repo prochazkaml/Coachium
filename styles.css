@@ -485,12 +485,18 @@ a {
 }
 
 #table th {
+	position: sticky;
+	top: 0;
 	background-color: #EEE;
+	border-top-width: 2px !important;
 }
 
 #table table, #table td, #table th {
-	border: 2px solid black;
-	border-collapse: collapse;
+	border-style: solid;
+	border-color: black;
+	border-width: 0 1px 2px 1px;
+	border-spacing: 0;
+	border-collapse: separate;
 }
 
 * {
