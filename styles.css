@@ -52,6 +52,7 @@ html,body {
 
 body {
 	font-family: "Ubuntu", sans-serif;
+	font-size: 16px;
 	background: url("assets/wallpaper.webp");
 	background-position: center;
 	background-repeat: no-repeat;
@@ -307,19 +308,24 @@ footer {
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
+	align-items: center;
+	justify-content: center;  
+
 	padding: 8px;
-	height: calc(100% - 32px);
+	height: calc(100% - 16px);
+
 	transition: opacity .3s;
+	color: white;
 }
 
 .port {
 	flex: 1;
 	margin: 8px;
 	box-shadow: 0 0 8px rgba(0, 0, 0, .3);
-	min-width: 448px;
 	padding: 8px;
 	background-color: rgba(255, 255, 255, .8);
 	height: 48px;
+	color: black;
 
 	transition: background-color .3s, filter .3s;
 
@@ -451,24 +457,150 @@ a {
 	color: black;
 }
 
-#capturesetuptable table {
-	width: 100%;
+.capturesetuptable {
+	margin-top: 16px;
+	display: flex;
+	flex-direction: row;
 }
 
-#capturesetuptable td {
-	padding-top: 8px;
+.capturesetuptable td {
+	margin: 0;
+	padding: 0;
 }
 
-#capturesetuptable tr > td:first-child {
-	width: 50%;
-	text-align: right;
-	padding-right: 8px;
+.capturesetupmodeheader {
+	flex-grow: 0;
+
+	display: flex;
+	flex-direction: row;
+	user-select: none;
 }
 
-#capturesetuptable tr > td:last-child {
-	width: 50%;
+.capturesetupmodeheader > * {
+	padding: 16px;
+	flex-basis: 0;
+	flex-grow: 1;
+}
+
+.capturesetupmodeheader > * > img {
+	height: 24px;
+	vertical-align: text-top;
+	margin-top: -3px;
+}
+
+.capturesetupmodeheaderinactive {
+	background-color: #BBB;
+	cursor: pointer;
+}
+
+.capturesetupmodebody {
+	flex-grow: 1;
+
 	text-align: left;
+	padding: 16px;
+	display: flex;
+	flex-direction: column;
+}
+
+.capturesetupmodebodytext {
+	flex-grow: 0;
+}
+
+.capturesetupmodebodyspacer {
+	flex-grow: 1;
+}
+
+.capturesetupmodebodyportlist {
+	flex-grow: 0;
+	overflow-x: scroll;
+	background-color: white;
+	padding-bottom: 8px;
+
+	display: flex;
+	flex-direction: row;
+}
+
+.capturesetupmodebodydropzone {
+	flex-shrink: 0;
+
 	padding-left: 8px;
+	min-width: calc(100% - 8px);
+	height: 136px;
+	display: flex;
+	flex-direction: row;
+}
+
+.capturesetupmodebodyxyportlist {
+	flex-grow: 0;
+	padding-bottom: 8px;
+
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+.capturesetupmodebodyxylabel {
+	font-weight: bold;
+	font-size: 24px;
+
+	text-align: center;
+
+	flex-grow: 1;
+}
+
+.capturesetupmodebodyxydropzone {
+	flex-shrink: 0;
+
+	background-color: #FFF;
+
+	padding-left: 8px;
+	width: 168px;
+	height: 144px;
+	display: flex;
+	flex-direction: row;
+}
+
+.capturesetupsensorcontainer {
+	height: 375px;
+	overflow-y: scroll;
+	margin-right: 16px;
+}
+
+.capturesetupsensorcontainer > *:first-child {
+	position: sticky;
+	top: 0;
+	padding-bottom: 8px;
+	margin-right: 8px;
+	background-color: white;
+}
+
+#w2sensorsrc {
+	margin-top: -8px;
+}
+
+.capturesetupsensorblock {
+	flex-shrink: 0;
+
+	display: flex;
+	width: 160px;
+	height: 128px;
+	margin-top: 8px;
+	margin-right: 8px;
+	background-color: rgba(0, 0, 0, 0.2);
+	text-align: center;
+	flex-direction: column;
+	justify-content: center;
+	font-size: 16px;
+	user-select: none;
+}
+
+.capturesetupsensorblock > * {
+	margin: 4px 0;
+}
+
+.capturesetupsensorblock > *:first-child {
+	font-weight: bold;
+	font-size: 32px;
 }
 
 .infomsg {
@@ -502,4 +634,29 @@ a {
 
 * {
 	transition: flex .3s;
+}
+
+/* Dragula-dependent settings */
+
+.gu-mirror {
+	cursor: grabbing;
+	position: fixed !important;
+	margin: 0 !important;
+	z-index: 9999 !important;
+	opacity: 0.8;
+}
+
+.gu-hide {
+	display: none !important;
+}
+
+.gu-unselectable {
+	-webkit-user-select: none !important;
+	-moz-user-select: none !important;
+	-ms-user-select: none !important;
+	user-select: none !important;
+}
+
+.gu-transit {
+	opacity: 0.5;
 }

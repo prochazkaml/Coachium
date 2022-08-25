@@ -116,8 +116,10 @@ function confirm_window() {
 var port_popup_timeout = null, port_popup_port_id = null;
 
 function port_popup(id) {
+	if(driver === null) return;
+
 	const win = get_class("portpopup");
-	const port = get_id("port" + ((port_popup_port_id = id) + 1));
+	const port = get_id("port" + (port_popup_port_id = id));
 
 	if(port_popup_timeout) {
 		clearTimeout(port_popup_timeout);
@@ -148,16 +150,21 @@ function port_popup(id) {
  */
 
 function update_port_popup() {
+	if(driver === null) {
+		close_port_popup_listener({"force": true});
+		return;
+	}
+
 	const id = port_popup_port_id;
 
 	if(id == null) return;
 
-	if(!ports[id].connected || capture_running) {
+	if(!driver.ports[id].connected || driver.capture.running) {
 		enable_port_popup_button("L18N_PORT_ZERO_OUT", false);
 		enable_port_popup_button("L18N_PORT_RESET", false);
 	} else {
 		enable_port_popup_button("L18N_PORT_ZERO_OUT", true);
-		enable_port_popup_button("L18N_PORT_RESET", ports[id].zero_offset != null);
+		enable_port_popup_button("L18N_PORT_RESET", driver.ports[id].zero_offset != null);
 	}
 }
 
@@ -188,7 +195,7 @@ function close_port_popup_listener(event) {
 
 	const winrect = win.getBoundingClientRect();
 
-	const portrect = get_id("port" + (port_popup_port_id + 1)).getBoundingClientRect();
+	const portrect = get_id("port" + port_popup_port_id).getBoundingClientRect();
 
 	if(event.force ||
 	  (event.x < winrect.x || event.x > (winrect.x + winrect.width) ||
@@ -230,13 +237,17 @@ function close_port_popup() {
  */
 
 function zero_out_sensor() {
+	if(driver === null) return;
+
+	const id = port_popup_port_id;
+
 	if(get_class("L18N_PORT_ZERO_OUT").classList.contains("portpopupitemdisabled")) return;
 
 	close_port_popup();
 
-	if(ports[port_popup_port_id].zero_offset == null) ports[port_popup_port_id].zero_offset = 0;
+	if(driver.ports[id].zero_offset == null) driver.ports[id].zero_offset = 0;
 
-	ports[port_popup_port_id].zero_offset += ports[port_popup_port_id].value;
+	driver.ports[id].zero_offset += driver.ports[id].value;
 }
 
 /*
@@ -246,21 +257,22 @@ function zero_out_sensor() {
  */
 
 function reset_sensor_zero_point() {
+	if(driver === null) return;
+
 	if(get_class("L18N_PORT_RESET").classList.contains("portpopupitemdisabled")) return;
 
 	close_port_popup();
 
-	ports[port_popup_port_id].zero_offset = null;
+	driver.ports[port_popup_port_id].zero_offset = null;
 }
 
 /*
  * get_win(win_id)
- * get_win_el_id(win_id, el_id)
  * get_win_el_class(win_id, el_class, index)
  * get_win_el_tag(win_id, el_tag, index)
  *
  * Returns the entire window's DOM object or an element contained within
- * (by id, class name or tag name). Useful for manipulating with the windows.
+ * (by class name or tag name). Useful for manipulating with the windows.
  * 
  * If the function accepts the parameter "index" and it is not explicitly
  * stated, the function will assume 0 as the default.
@@ -272,10 +284,6 @@ function get_win_overlay(win_id) {
 
 function get_win(win_id) {
 	return get_win_overlay(win_id).getElementsByClassName("popupwindow")[0];
-}
-
-function get_win_el_id(win_id, el_id) {
-	return get_win(win_id).getElementById(el_id);
 }
 
 function get_win_el_class(win_id, el_class, index = 0) {
@@ -295,16 +303,9 @@ function get_win_el_tag(win_id, el_tag, index = 0) {
 var launched = 0;
 
 function ui_connect(actually_connect) {
-	launched = 1;
+	ui_hardware_change_trigger();
 
-	if(actually_connect) {
-		setTimeout(() => {
-			if(!verified) {
-				get_id("receivedsum").innerHTML = jslang.CHECKSUM_NOT_RESPONDING;
-				popup_window(WINDOWID_INVALID_CHECKSUM);
-			}
-		}, 300);
-	}
+	launched = 1;
 
 	if(get_id("introerrmsg")) {
 		get_id("initialheader").style.flex = "0";
@@ -333,7 +334,7 @@ function ui_connect(actually_connect) {
 			header.style.height = "auto";
 			nav.style.height = "auto";
 			main.style.opacity = 1;
-			footer.style.height = "auto";
+//			footer.style.height = "auto";
 
 			get_id("statusmsg").innerHTML = jslang.STATUS_WELCOME;
 
@@ -365,14 +366,26 @@ function ui_connect(actually_connect) {
 		footer.style.backgroundColor = "";
 	}
 
-	get_id("port1").style.backgroundColor =
-	get_id("port2").style.backgroundColor = "";
+	const plist = get_id("footercontents");
 
-	get_id("port1status").innerHTML = 
-	get_id("port2status").innerHTML = jslang.SENSOR_DISCONNECTED;
+	if(driver !== null && Object.keys(driver.ports).length > 0) {
+		// Create port <div>s
 
-	get_id("port1value").innerHTML = 
-	get_id("port2value").innerHTML = "–";
+		plist.innerHTML = "";
+
+		for(const port in driver.ports) {
+			plist.innerHTML +=
+				"<div id='port" + port + "' class='port' onclick='port_popup(\"" + port + "\");'>" +
+					"<div class='portlabel'>" + port + "</div>" +
+					"<div class='portstatus' id='port" + port + "status'>" + jslang.SENSOR_DISCONNECTED + "</div>" +
+					"<div class='portvalue' id='port" + port + "value'>–</div>" +
+				"</div>";
+		}
+	} else {
+		// No ports available
+		
+		plist.innerHTML = "<b>" + jslang.SENSOR_NONE_PRESENT + "</b>";
+	}
 
 	// Show that popup dialog when the user tries to leave the size
 
@@ -382,24 +395,57 @@ function ui_connect(actually_connect) {
 }
 
 /*
- * ui_disconnect()
+ * ui_disconnect(forceful)
  *
  * Makes the connect button appear again. Yay.
+ * 
+ * Changes to a flashy red theme if forceful disconnection occured!
  */
 
-function ui_disconnect() {
-	get_id("statusmsg").innerHTML = jslang.STATUS_DISCONNECTED;
+function ui_disconnect(forceful) {
+	driver = null;
+
 	get_id("connectbutton").innerHTML = htmllang.BUTTON_CONNECT;
+
+	if(!forceful) {
+		get_id("statusmsg").innerHTML = jslang.STATUS_DISCONNECTED;
+	} else {
+		get_id("statusmsg").innerHTML = jslang.STATUS_FORCE_DISCONNECTED;
+
+		nav.style.backgroundColor = "#FAA";
+		header.style.backgroundColor = "#F00";
+		footer.style.backgroundColor = "#F00";
+	}
+
+	ui_hardware_change_trigger();
+}
+
+/*
+ * capture_setup_change_mode()
+ *
+ * Changes the capture mode that is displayed in the capture setup window.
+ */
+
+function capture_setup_change_mode(mode) {
+	var hdr = get_win_el_class(WINDOWID_CAPTURE_SETUP, "capturesetupmodeheader").children;
+
+	hdr[mode].classList.remove("capturesetupmodeheaderinactive");
+	hdr[mode ^ 1].classList.add("capturesetupmodeheaderinactive");
+
+	var bodies = get_win(WINDOWID_CAPTURE_SETUP).getElementsByClassName("capturesetupmodebody");
+
+	bodies[mode].style.display = "";
+	bodies[mode ^ 1].style.display = "none";
 }
 
 /*
  * capture_setup_check()
  *
- * Check the validity of all input parameters for initializing the capture
+ * Check the validity of all input parameters for initializing the capture.
  */
 
 function capture_setup_check() {
-	var string = "";
+/*	var string = "";
 
 	var oldfreq = get_id("capturesetuphz").value;
 	var units = round(10000 / oldfreq);
@@ -459,7 +505,7 @@ function capture_setup_check() {
 	startbutton.style.backgroundColor = sensors_err ? "rgba(0, 0, 0, .1)" : "";
 	startbutton.onclick = sensors_err ? (() => {}) : (() => { close_window(); request_capture = 1; });
 
-	return sensors_err;
+	return sensors_err;*/
 }
 
 /*
@@ -779,13 +825,186 @@ function capture_management() {
 }
 
 /*
+ * device_select()
+ * 
+ * Initializes the driver list and pops up the device selection dialog.
+ */
+
+function device_select() {
+	const w = WINDOWID_DRIVER_SELECTOR;
+	const vendorlist = get_win_el_tag(w, "select", 0);
+	const devicelist = get_win_el_tag(w, "select", 1);
+	const connectbutton = get_win_el_class(w, "windowbutton", 0);
+
+	vendorlist.innerHTML = "";
+
+	for(const vendor in driverindex) {
+		var option = document.createElement("option");
+		option.innerText = vendor;
+	
+		vendorlist.appendChild(option);
+	}
+
+	vendorlist.onchange = () => {
+		devicelist.innerHTML = "";
+
+		for(const device in driverindex[vendorlist.value]) {
+			var option = document.createElement("option");
+			option.innerText = device;
+		
+			devicelist.appendChild(option);	
+		}
+
+		devicelist.selectedIndex = 0;
+		devicelist.onchange();
+	}
+
+	devicelist.onchange = () => {
+		connectbutton.innerText = format(jslang.CONNECT_BUTTON_TEXT, vendorlist.value, devicelist.value);
+	}
+
+	devicelist.ondblclick = () => {
+		connectbutton.click();
+	}
+
+	vendorlist.selectedIndex = 0;
+	vendorlist.onchange();
+
+	popup_window(w);
+}
+
+/*
+ * async driver_start()
+ * 
+ * Initializes a selected device driver as well as the device.
+ * If successful, it maintains the main operating thread until
+ * the device is disconnected.
+ */
+
+async function driver_start() {
+	const w = WINDOWID_DRIVER_SELECTOR;
+	const vendorlist = get_win_el_tag(w, "select", 0);
+	const devicelist = get_win_el_tag(w, "select", 1);
+
+	const device = driverindex[vendorlist.value][devicelist.value];
+
+	const lldriver = lldrivers[device.method];
+	const response = await lldriver.init(device.driver, () => { ui_disconnect(true) });
+
+	switch(response) {
+		case 1:
+			get_id("w7titleapi").innerText = lldriver.name;
+			get_id("w7parapi").innerText = lldriver.name;
+			popup_window(WINDOWID_LLAPI_UNAVAILABLE);
+			break;
+
+		case 2:
+			if(get_id("introerrmsg")) {
+				header.style.height = "216px";
+				get_id("introerrmsg").innerHTML = jslang.STATUS_NO_DEVICE_SELECTED;
+				get_id("introerrmsg").style.opacity = 1;
+			} else {
+				get_id("statusmsg").innerHTML = jslang.STATUS_NO_DEVICE_SELECTED;
+			}
+			break;
+
+		case 3:
+			popup_window(WINDOWID_DEVICE_OPEN_ERROR);
+			break;
+
+		case 4:
+			popup_window(WINDOWID_DEVICE_VERIFY_ERROR);
+			break;
+
+		default:
+			// Success, save the driver for later use
+		
+			driver = response;
+
+			// Update the UI to reflect the fact that we are connected
+
+			ui_connect(true);
+
+			// Main application thread (lol)
+			
+			while(driver !== null) {
+				// Iterate over each input port and wait 200 ms until disconnection
+
+				try {
+					for(const port in driver.ports) {
+						// TODO - handle errors on autodetect
+						
+						// Run auto-detection
+
+						await driver.autodetect(port, (status) => {
+							switch(status.type) {
+								case "load":
+									get_id("port" + port + "status").innerHTML =
+										jslang.SENSOR_LOADING + "<br><progress value=\"" + round(status.progress * 1000) + "\" max=\"1000\"></progress>";
+		
+									get_id("port" + port + "value").innerText = round(status.progress * 100) + " %";
+									break;
+
+								case "change":
+									const pobj = driver.ports[port];
+
+									if(pobj.connected) {
+										get_id("port" + port + "status").innerHTML =
+											(pobj.autodetect ? (jslang.SENSOR_INTELLIGENT + ": ") : "") +
+											pobj.name + " (" + pobj.min + "–" + pobj.max + " " + pobj.unit + ")";
+
+										get_id("port" + port).style.backgroundColor = pobj.color;		
+									} else {
+										get_id("port" + port + "status").innerHTML = jslang.SENSOR_DISCONNECTED;
+										get_id("port" + port).style.backgroundColor = "";			
+									}
+
+									ui_hardware_change_trigger();
+									break;
+							}
+						});
+
+						// Read the port's value
+
+						const pobj = driver.ports[port];
+						const val = await driver.getval(port);
+
+						if(val !== undefined) {
+							get_id("port" + port + "value").innerText = localize_num(ideal_round_fixed(val, pobj.max)) + " " + pobj.unit;
+						} else {
+							get_id("port" + port + "value").innerText = "–";
+						}
+					}
+				} catch(e) {
+					// Stop in case the device gets disconnected
+
+					console.log(e);
+					return;
+				}
+
+				await delay_ms(200);
+			}
+
+			break;
+	}
+}
+
+/*
  * update_button_validity()
  * 
  * Checks each (influenceble) button on the top bar if it is currently valid or not.
  */
 
 function update_button_validity() {
-	if(capture_running) {
+	if(driver === null || Object.keys(driver.ports).length == 0) {
+		get_id("capturestartbutton").style.filter = "contrast(0)";
+		get_id("capturestopbutton").style.filter = "contrast(0)";
+	} else {
+		get_id("capturestartbutton").style.filter = "";
+		get_id("capturestopbutton").style.filter = "";
+	}
+
+	if(driver !== null && driver.capture.running) {
 		get_id("capturestopbutton").style.display = "";
 		get_id("capturestartbutton").style.display = "none";
 
@@ -883,71 +1102,100 @@ window.onload = () => {
 	// Initialize the connect button
 
 	get_id("connectbutton").onclick = () => {
-		if(!connected) {
-			webhid_select();
+		if(driver === null) {
+			device_select();
 		} else {
-			webhid_disconnect();
+			driver.deinit();
+			ui_disconnect(false);
 		}
 	};
 
-	get_id("connectbuttonguest").onclick = () => { ui_connect(false); }
+	// Initialize capture setup window (TODO)
+
+	var sensorsrc = get_id("w2sensorsrc");
+	var sensordrop = get_win_el_class(WINDOWID_CAPTURE_SETUP, "capturesetupmodebodydropzone");
+	var sensordropx = get_win_el_class(WINDOWID_CAPTURE_SETUP, "capturesetupmodebodyxydropzone", 0);
+	var sensordropy = get_win_el_class(WINDOWID_CAPTURE_SETUP, "capturesetupmodebodyxydropzone", 1);
+
+	dragula([sensorsrc, sensordrop, sensordropx, sensordropy], {
+		copy: (el, source) => {
+			return source === sensorsrc;
+		},
+		accepts: (el, target) => {
+			if(target === sensorsrc) return false;
+
+			if(target === sensordropx || target === sensordropy) {
+				return target.querySelector("div.capturesetupsensorblock:not(.gu-transit)") == null;
+			} else {
+				return true;
+			}
+		},
+		direction: (el, target) => {
+			return (target == sensordrop) ? "horizontal" : "vertical";
+		},
+		removeOnSpill: true
+	});
+
+	get_win_el_class(WINDOWID_CAPTURE_SETUP, "windowbutton").onclick = () => { close_window() };
 
 	// Initialize all the callbacks on the canvas
 
-	canvas.addEventListener("mousemove", canvasmousemovehandler);
-	canvas.addEventListener("mousedown", () => { canvasmousechangehandler(1); });
-	canvas.addEventListener("mouseup", () => { canvasmousechangehandler(0); });
-	canvas.addEventListener("mouseleave", canvasmouseleavehandler);
-	canvas.addEventListener("wheel", canvasmousewheelhandler);
+	canvas.onmousemove = canvasmousemovehandler;
+	canvas.onmousedown = () => { canvasmousechangehandler(1); };
+	canvas.onmouseup = () => { canvasmousechangehandler(0); };
+	canvas.onmouseleave = canvasmouseleavehandler;
+	canvas.onwheel = canvasmousewheelhandler;
 
-	// Check the current git commit version against GitHub
+	if(location.hostname != "localhost") {
+		// Check the current git commit version against GitHub
 
-	var github_request = new XMLHttpRequest();
+		var github_request = new XMLHttpRequest();
 
-    github_request.onreadystatechange = function() { 
-        if (github_request.readyState == 4) {
-			if(github_request.status == 200) {
-				var sha1 = JSON.parse(github_request.responseText)["sha"];
+		github_request.onreadystatechange = function() { 
+			if (github_request.readyState == 4) {
+				if(github_request.status == 200) {
+					var sha1 = JSON.parse(github_request.responseText)["sha"];
 
-				if(sha1 == undefined) {
-					if(get_class("L18N_HOMEPAGE_COMMIT_CHECKING"))
-						get_class("L18N_HOMEPAGE_COMMIT_CHECKING").innerHTML = jslang.HOMEPAGE_COMMIT_ERR;
-				} else {
-					var local_request = new XMLHttpRequest();
-		
-					local_request.onreadystatechange = function() { 
-						if (local_request.readyState == 4) {
-							if(local_request.status == 200) {
-								var sha2 = local_request.responseText;
+					if(sha1 == undefined) {
+						if(get_class("L18N_HOMEPAGE_COMMIT_CHECKING"))
+							get_class("L18N_HOMEPAGE_COMMIT_CHECKING").innerHTML = jslang.HOMEPAGE_COMMIT_ERR;
+					} else {
+						var local_request = new XMLHttpRequest();
+			
+						local_request.onreadystatechange = function() { 
+							if (local_request.readyState == 4) {
+								if(local_request.status == 200) {
+									var sha2 = local_request.responseText;
 
-								if(sha1.substring(0, 7) == sha2.substring(0, 7)) {
-									if(get_class("L18N_HOMEPAGE_COMMIT_CHECKING"))
-										get_class("L18N_HOMEPAGE_COMMIT_CHECKING").innerHTML = 
-											format(jslang.HOMEPAGE_COMMIT_OK, sha1.substring(0, 7));
+									if(sha1.substring(0, 7) == sha2.substring(0, 7)) {
+										if(get_class("L18N_HOMEPAGE_COMMIT_CHECKING"))
+											get_class("L18N_HOMEPAGE_COMMIT_CHECKING").innerHTML = 
+												format(jslang.HOMEPAGE_COMMIT_OK, sha1.substring(0, 7));
+									} else {
+										if(get_class("L18N_HOMEPAGE_COMMIT_CHECKING"))
+											get_class("L18N_HOMEPAGE_COMMIT_CHECKING").innerHTML = 
+												format(jslang.HOMEPAGE_COMMIT_OLD, sha2.substring(0, 7), sha1.substring(0, 7));
+									}
 								} else {
 									if(get_class("L18N_HOMEPAGE_COMMIT_CHECKING"))
-										get_class("L18N_HOMEPAGE_COMMIT_CHECKING").innerHTML = 
-											format(jslang.HOMEPAGE_COMMIT_OLD, sha2.substring(0, 7), sha1.substring(0, 7));
+										get_class("L18N_HOMEPAGE_COMMIT_CHECKING").innerHTML = jslang.HOMEPAGE_COMMIT_ERR;
 								}
-							} else {
-								if(get_class("L18N_HOMEPAGE_COMMIT_CHECKING"))
-									get_class("L18N_HOMEPAGE_COMMIT_CHECKING").innerHTML = jslang.HOMEPAGE_COMMIT_ERR;
-							}
-						} 
+							} 
+						}
+			
+						local_request.open("GET", "./.git/refs/heads/master", true); // true for asynchronous 
+						local_request.send(null);
 					}
-		
-					local_request.open("GET", "./.git/refs/heads/master", true); // true for asynchronous 
-					local_request.send(null);
+				} else {
+					if(get_class("L18N_HOMEPAGE_COMMIT_CHECKING"))
+						get_class("L18N_HOMEPAGE_COMMIT_CHECKING").innerHTML = jslang.HOMEPAGE_COMMIT_ERR;
 				}
-			} else {
-				if(get_class("L18N_HOMEPAGE_COMMIT_CHECKING"))
-					get_class("L18N_HOMEPAGE_COMMIT_CHECKING").innerHTML = jslang.HOMEPAGE_COMMIT_ERR;
-			}
-		} 
-    }
+			} 
+		}
 
-    github_request.open("GET", "https://api.github.com/repos/prochazkaml/Coachium/commits/master", true);
-    github_request.send(null);
+		github_request.open("GET", "https://api.github.com/repos/prochazkaml/Coachium/commits/master", true);
+		github_request.send(null);
+	}
 }
 
 /*
@@ -955,8 +1203,6 @@ window.onload = () => {
  */
 
 document.addEventListener('keydown', (event) => {
-	if(!launched) return;
-
 	const key = event.key.toLowerCase();
 
 	if(open_window >= 0) {
@@ -970,6 +1216,8 @@ document.addEventListener('keydown', (event) => {
 				break;
 		}
 	} else {
+		if(!launched) return;
+
 		if(event.ctrlKey) switch(key) {
 			case "o":
 				event.preventDefault();
@@ -990,10 +1238,12 @@ document.addEventListener('keydown', (event) => {
 			case " ":
 				event.preventDefault();
 				
-				if(!capture_running)
-					create_capture();
-				else
-					request_capture = 1;
+				if(driver !== null) {
+					if(!driver.capture.running)
+						create_capture();
+					else
+						request_capture = 1;
+				}
 
 				break;
 
@@ -1075,4 +1325,3 @@ window.onerror = (msg, file, line) => {
 	popup_window(WINDOWID_JS_ERR);
 	return false;
 }
-

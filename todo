@@ -1,8 +1,30 @@
 Required for initial testing (current–voltage characteristic of diodes):
 - show value on the graph when hovering over a data point
+- rename mainwindow.js to renderer.js
+- actual window spawning/despawning (to prevent tabbing over to the next window!!!)
+- big windows (privacy policy, about) do not change the location hash on Esc
+- remove unused windows
+- update output file format
+- put the port panel on the right side
+- make the capture system tabbed
+- make the windows JS-generated (make some sort of toolkit)
+- break up ui.js and mainwindow.js, they're too big
+- remove trailing spaces/tabs from all source files!!!
+- unify code style (if () → if(), spaces to tabs, etc.)
+- split up the CSS
+- credits to FontAwesome
+- embed everything in a single file (HTML, CSS, JS, images, fonts...) - ideally compress everything, store it in raw binary
+- do not wait for GitHub/Google Drive
+- when an unknown language is loaded, set the cookie to English
+- make the capture progress not use Array.push, as it's way too slow
+- update mail address in the info dialog
+- ui.js button checking: do not use filter param, use a class instead which also has user-select: none and a cursor showing an error
+
+******************************************************-
+- UNCOMMENT GDRIVE.HTML!
+******************************************************-
 
 Future stuff:
-- break up ui.js and mainwindow.js, they're too big
 - drawing XY as double X
 - ability to manually attach sensors
 - trigger (conditional capture) mode
@@ -16,7 +38,6 @@ Future stuff:
 - cyclic buffer on €Lab
 - oscilloscope mode
 - some interfaces have outputs as well as inputs, so be able to control them as well
-- create a universal driver system for easily implementing more devices
 - support more devices I could get access to (CoachLab, €Lab with motion (or whatever it's called), etc.)
 - support more devices I would have to beg for (non-CMA stuff)
 - support for more than 2 sensors

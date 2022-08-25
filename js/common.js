@@ -18,38 +18,55 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+// General windows
+
 const WINDOWID_ABOUT = 0;
 const WINDOWID_JS_ERR = 1;
+
+// Capture/file management windows
+
 const WINDOWID_CAPTURE_SETUP = 2;
-const WINDOWID_GDRIVE_SAVE_OK = 3;
-const WINDOWID_GDRIVE_SAVE_ERR = 4;
-const WINDOWID_GDRIVE_GENERIC_ERR = 5;
-const WINDOWID_GDRIVE_NAME = 6;
-const WINDOWID_WEBHID_UNAVAILABLE = 7;
-const WINDOWID_INVALID_CHECKSUM = 8;
 const WINDOWID_FILE_IMPORT_ERR = 9;
 const WINDOWID_IMPORT_OVERWRITE_WARN = 10;
 const WINDOWID_REMOVE_CAPTURE_WARN = 11;
 const WINDOWID_NUKE_EVERYTHING_WARN = 12;
 const WINDOWID_CAPTURE_MANAGEMENT = 13;
-const WINDOWID_LANGUAGE_SELECTOR = 14;
-const WINDOWID_LANGUAGE_ERROR = 15;
 const WINDOWID_LOCAL_SAVE_NAME = 16;
 const WINDOWID_CAPTURE_INFO = 17;
-// WINDOWID 18 IS FREE!!!
 const WINDOWID_FIT_FUNCTION = 19;
+
+// Google Drive windows
+
+const WINDOWID_GDRIVE_SAVE_OK = 3;
+const WINDOWID_GDRIVE_SAVE_ERR = 4;
+const WINDOWID_GDRIVE_GENERIC_ERR = 5;
+const WINDOWID_GDRIVE_NAME = 6;
+
+// Driver/hardware windows
+
+const WINDOWID_DRIVER_SELECTOR = 18;
+
+const WINDOWID_LLAPI_UNAVAILABLE = 7;
+const WINDOWID_DEVICE_VERIFY_ERROR = 8;
 const WINDOWID_DEVICE_OPEN_ERROR = 20;
 const WINDOWID_WATCHDOG_ERROR = 21;
+
+// Language windows
+
+const WINDOWID_LANGUAGE_SELECTOR = 14;
+const WINDOWID_LANGUAGE_ERROR = 15;
+
+// Common variables
 
 var open_window = -1, window_stack = [], zindex = 10;
 
 var header, nav, main, footer, canvas, ctx, overlay, ovctx, table;
 
-var device, connected = false, verified = false;
+var driver = null;
 
 var zoom_request_progress = 0, zoom_move_request = false, zoomed_in = false;
 
-var request_capture = false, capture_running = false, received_capture, received_so_far;
+var request_capture = false;
 
 var captures = [], selected_capture = 0;
 
@@ -65,20 +82,6 @@ var capture_cache = {
 		"unitname": null,
 	},
 	"values": []
-};
-
-const fresh_port_spec = {
-	"id": null,
-	"color": null,
-	"connected": null,
-	"intelligent": null,
-	"name": null,
-	"unit": null,
-	"min_value": null,
-	"max_value": null,
-	"coeff_a": null,
-	"coeff_b": null,
-	"high_voltage": null
 };
 
 const fresh_capture = {
@@ -301,4 +304,14 @@ function generate_cache(values, start, end) {
 			];
 		}
 	}
+}
+
+/*
+ * async delay_ms(ms)
+ *
+ * Waits for a specified number of milliseconds.
+ */
+
+async function delay_ms(ms) {
+	await new Promise((r) => setTimeout(r, ms));
 }

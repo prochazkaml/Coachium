@@ -32,6 +32,7 @@ const alt_htmllang = {
 	"BUTTON_START_GUEST": "Spustit v režimu hosta",
 	"BUTTON_CLOSE": "Zavřít",
 	"BUTTON_START": "Spustit",
+	"BUTTON_START_CONDITIONAL": "Podmíněný záznam...",
 	"BUTTON_TRYAGAIN": "Zkusit znovu",
 	"BUTTON_SAVE": "Uložit",
 	"BUTTON_RESTART": "Restartovat",
@@ -106,25 +107,19 @@ const alt_htmllang = {
 
 	"WINDOW6_TITLE": "Jak se bude uložený sešit jmenovat?",
 
-	"WINDOW7_TITLE": "Chyba WebHID",
+	"WINDOW7_TITLE": "Chyba <span id='w7titleapi'></span>",
 	"WINDOW7_PAR0":
-		"Zdá se, že Váš prohlížeč nedpodporuje WebHID,<br>" +
-		"tudíž není možné se k žádnému zařízení připojit.",
+		"Zdá se, že Váš prohlížeč nedpodporuje <span id='w7parapi'></span>,<br>" +
+		"tudíž není možné se k tomuto zařízení připojit.",
 	"WINDOW7_PAR1":
-		"Pokud používáte prohlížeč na bázi Chromium<br>" +
-		"(Google Chrome, Brave, Microsoft Edge, Opera...),<br>" +
-		"pokuste se prohlížeč aktualizovat. WebHID je<br>" + 
-		"poměrně nový standard, proto nemusí být ve vaší<br>" +
-		"starší verzi podporován.",
-	"WINDOW7_PAR2":
-		"Mozilla Firefox (a jeho deriváty) a Apple Safari<br>" +
-		"WebHID <b>nepodporují</b>.",
+		"Pokuste se prosím Váš prohlížeč aktualizovat,<br>" +
+		"nebo nainstalovat jiný (Google Chrome má velmi<br>" + 
+		"dobrou podporu těchto moderních vymožeností).",
 
 	"WINDOW8_TITLE": "Něco se pokazilo.",
 	"WINDOW8_PAR0": "Chyba ověřování zařízení.",
 	"WINDOW8_PAR1":
-		"Kontrolní suma ověřovací pakety (<span id=\"receivedsum\"></span>)<br>" +
-		"nesouhlasí očekávané hodnotě (3754).",
+		"Kontrolní suma zařízení nesouhlasí s očekávanou hodnotou.",
 	"WINDOW8_PAR2":
 		"Doporučujeme restartovat aplikaci<br>" +
 		"a zkusit znovu.",
@@ -165,6 +160,8 @@ const alt_htmllang = {
 	"WINDOW13_TITLE": "Správce záznamů",
 
 	"WINDOW17_TITLE": "Podrobnosti záznamu",
+
+	"WINDOW18_TITLE": "Výběr zařízení",
 
 	"WINDOW19_TITLE": "Fit funkce",
 	"WINDOW19_FUN_LINEAR": "Lineární (y = ax + b)",
@@ -233,17 +230,8 @@ const alt_jslang = {
 
 	// elab.js
 
-	"SENSOR_LOADING": "Načítání inteligentního čidla...",
-	"SENSOR_DISCONNECTED": "Čidlo nepřipojeno",
-	"SENSOR_INTELLIGENT": "Inteligentní čidlo",
-
 	"STATUS_CAPTURE_RUNNING": "Záznam právě běží... ({0} vzorků, {1} sekund)",
 	"STATUS_CAPTURE_FINISHED": "Záznam skončil.",
-
-	"STATUS_NO_DEVICE_SELECTED": "Nebylo vybráno žádné zařízení!",
-	"STATUS_DEVICE_DISCONNECTED": "Zařízení {0} násilně odpojeno!",
-
-	"WATCHDOG_MSG": "Vyčkejte prosím...",
 
 	// ui.js
 
@@ -251,10 +239,16 @@ const alt_jslang = {
 	"HOMEPAGE_COMMIT_OLD": "👎 Zastaralá verze, prosím aktualizujte! ({0} nainstalovaná, {1} dostupná)",
 	"HOMEPAGE_COMMIT_ERR": "😕 Chyba ověřování nejnovější verze",
 
-	"CHECKSUM_NOT_RESPONDING": "nereaguje",
 	"BUTTON_DISCONNECT": "Odpojit se od zařízení",
 	"STATUS_WELCOME": "Vítejte v aplikaci Coachium!",
 	"STATUS_DISCONNECTED": "Zařízení odpojeno.",
+	"STATUS_NO_DEVICE_SELECTED": "Nebylo vybráno žádné zařízení!",
+	"STATUS_FORCE_DISCONNECTED": "Zařízení násilně odpojeno!",
+
+	"SENSOR_NONE_PRESENT": "Nenalezeny žádné vstupy. Prosím připojte kompatibilní zařízení.",
+	"SENSOR_LOADING": "Načítání inteligentního čidla...",
+	"SENSOR_DISCONNECTED": "Čidlo nepřipojeno",
+	"SENSOR_INTELLIGENT": "Inteligentní čidlo",
 
 	"SETUP_CLOSEST_USABLE_FREQ": "Nejbližší použitelná frekvence je<br>{0} Hz.",
 	"SETUP_REDUCED_RUNTIME": "Záznam poběží pouze {0} sekund.",
@@ -266,6 +260,8 @@ const alt_jslang = {
 	"STATUS_ZOOM_DATA": "Přiblížena oblast s daty.",
 	"STATUS_ZOOM_DATA_ERROR": "Chyba přibližování do oblasti s daty.",
 	"STATUS_ZOOM_RESET": "Pohled na graf obnoven.",
+
+	"CONNECT_BUTTON_TEXT": "Připojit se k {0} {1}",
 
 	"INFO_WINDOW_CONTENTS":
 		"<p>Celkem naměřeno <b>{0}</b> vzorků<br>" +

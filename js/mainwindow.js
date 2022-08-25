@@ -443,7 +443,7 @@ function canvas_reset(event) {
 	
 			// If the capture is currently running, display a "crosshair"
 	
-			if(capture_running && selected_capture == (captures.length - 1) && x != null && y != null) {
+			if(driver !== null && driver.capture.running && selected_capture == (captures.length - 1) && x != null && y != null) {
 				ctx.beginPath();
 				ctx.strokeStyle = "rgba(0, 0, 255, 0.3)";
 				
@@ -511,13 +511,12 @@ function canvas_reset(event) {
 				uh = Math.abs(capture_cache.y.max - capture_cache.y.min);
 
 			uw = uw * (zoomx1 + mx * (zoomx2 - zoomx1)) + capture_cache.x.min;
-			uh = uh * (zoomy1 + my * (zoomy2 - zoomy1)) + capture_cache.y.min;
-
-			uh *= -1;
+			uh = uh * (zoomy2 + my * (zoomy1 - zoomy2)) + capture_cache.y.min;
 
 			ovctx.textBaseline = "middle";
 			ovctx.textAlign = "right";
 			ovctx.font = "16px Ubuntu";
+			ovctx.fillStyle = "black";
 			ovctx.fillText(
 				"X = " + localize_num(ideal_round_fixed(uw, capture_cache.x.max)) + " " + capture_cache.x.unitname,
 				overlay.width - graph_margin_right, graph_margin_top / 2 - 10);

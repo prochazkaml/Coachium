@@ -26,13 +26,18 @@
 		<title>Coachium</title>
 		<link rel="stylesheet" href="styles.css" />
 		<link rel="icon" href="favicon.ico" />
+		<script src="js/lib/dragula.min.js"></script>
 		<script src="js/common.js"></script>
 		<script src="js/ui.js"></script>
 		<script src="js/mainwindow.js"></script>
-		<script src="js/elab.js"></script>
 		<script src="js/file.js"></script>
 		<script src="js/funfit.js"></script>
 		<script src="js/gdrive_interface.js"></script>
+		<script src="js/interfaces/lowlevel/webhid.js"></script>
+		<script src="js/interfaces/cma/sensors.js"></script>
+		<script src="js/interfaces/cma/elab.js"></script>
+		<script src="js/interfaces/cma/clab2p.js"></script>
+		<script src="js/interfaces/index.js"></script>
 	</head>
 	<body>
 		<div id="initialheader">
@@ -50,7 +55,7 @@
 				<img src="assets/logo.svg" id="introimg">
 				<div id="statusmsg"></div>
 				<div class="connectbutton" id="connectbutton"><span class="L18N_BUTTON_CONNECT"></span></div>
-				<div class="connectbutton" id="connectbuttonguest"><span class="L18N_BUTTON_START_GUEST"></span></div>
+				<div class="connectbutton" id="connectbuttonguest" onclick="ui_connect(false);"><span class="L18N_BUTTON_START_GUEST"></span></div>
 				<p id="introerrmsg"></p>
 			</div>
 		</header>
@@ -91,19 +96,7 @@
 		</main>
 
 		<footer>
-			<div id="footercontents">
-				<div class="port" id="port1" onclick="port_popup(0);">
-					<div class="portlabel">1</div>
-					<div class="portstatus" id=port1status></div>
-					<div class="portvalue" id=port1value></div>
-				</div>
-
-				<div class="port" id="port2" onclick="port_popup(1);">
-					<div class="portlabel">2</div>
-					<div class="portstatus" id=port2status></div>
-					<div class="portvalue" id=port2value></div>
-				</div>
-			</div>
+			<div id="footercontents"></div>
 
 			<div class="portpopup" id="portpopupwindow">
 				<div class="portpopupitem L18N_PORT_ZERO_OUT" onclick="zero_out_sensor();"></div>
@@ -161,43 +154,63 @@
 			<div class="popupwindow">
 				<h1 class="L18N_WINDOW2_TITLE"></h1>
 
-				<p class="L18N_WINDOW2_PAR0"></p>
-
-				<p><input id="capturesetupname" style="width: 75%;"></p>
-
-				<hr>
-
-				<p class="L18N_WINDOW2_PAR1"></p>
-
-				<div id="capturesetuptable">
-					<table>
-						<tr>
-							<td><input id="capturesetuphz" style="width: calc(50% - 8px); text-align: right" type="number" value="50" min="0.1" step="0.1" oninput="capture_setup_check();"></td>
-							<td class="L18N_WINDOW2_HZ"></td>
-						</tr>
-						<tr>
-							<td><input id="capturesetupsecs" style="width: calc(50% - 8px); text-align: right" type="number" value="10" min="0.1" step="0.1" oninput="capture_setup_check();"></td>
-							<td class="L18N_WINDOW2_SECONDS"></td>
-						</tr>
-					</table>
+				<div class="capturesetuptable">
+					<div>
+						<div class="capturesetupsensorcontainer">
+							<div>Dostupná čidla</div>
+							<div id="w2sensorsrc">
+								<div class="capturesetupsensorblock">
+									<div>A1: V</div>
+									<div>Voltage+-10</div>
+									<div>-10–10 V</div>
+								</div>
+								<div class="capturesetupsensorblock">
+									<div>A2: mA</div>
+									<div>Current+-500</div>
+									<div>-500–500 mA</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div style="width: 450px; vertical-align: top; background-color: #DDD; display: flex; flex-direction: column;">
+						<div class="capturesetupmodeheader">
+							<div onclick="capture_setup_change_mode(0);">
+								<img src="assets/icons/capture_std.svg"> Normální režim
+							</div>
+							<div onclick="capture_setup_change_mode(1);" class="capturesetupmodeheaderinactive">
+								<img src="assets/icons/capture_xy.svg"> Režim X-Y
+							</div>
+						</div>
+						<div class="capturesetupmodebody">
+							<div class="capturesetupmodebodytext">
+								V normálním režimu lze vybrat libovolné množství čidel (v rámci schopností hardwaru),
+								které budou zaznamenávány zároveň a budou zobrazeny v závislosti na čase. Je však i možné
+								si později zobrazit jen některá čidla, nebo si vygenerovat X-Y graf se dvěma vybranými čidly.
+							</div>
+							<div class="capturesetupmodebodyspacer"></div>
+							<div class="capturesetupmodebodyportlist">
+								<div class="capturesetupmodebodydropzone"></div>
+							</div>
+						</div>
+						<div class="capturesetupmodebody" style="display: none;">
+							<div class="capturesetupmodebodytext">
+								V režimu X-Y si můžete vybrat právě 2 čidla, jedno pro každou osu (X, Y).
+								Užitečné pro porovnávání různých veličin, kde není potřeba zobrazovat čas
+								(např. voltampérová charakteristika součástky).
+							</div>
+							<div class="capturesetupmodebodyspacer"></div>
+							<div class="capturesetupmodebodyxyportlist">
+								<div class="capturesetupmodebodyxylabel">X</div>
+								<div class="capturesetupmodebodyxydropzone"></div>
+								<div class="capturesetupmodebodyxylabel">Y</div>
+								<div class="capturesetupmodebodyxydropzone"></div>
+							</div>
+						</div>
+					</div>
 				</div>
-
-				<div style="color: #F00" id="capturesetuperr"></div>
-
-				<hr>
-
-				<p class="L18N_WINDOW2_PAR2"></p>
-
-				<select id="capturesetupsensors" style="width: 75%;" onchange="capture_setup_check(); create_capture_autogenerate = false;">
-					<option class="L18N_WINDOW2_SETUP_BOTH"></option>
-					<option class="L18N_WINDOW2_SETUP_FIRST"></option>
-					<option class="L18N_WINDOW2_SETUP_SECOND"></option>
-				</select>
-
-				<div style="color: #F00" id="capturesetupsensorserr"></div>
-
+						
 				<div class="windowbuttonlist">
-					<div class="windowbutton L18N_BUTTON_START" onclick=""></div> <!-- onclick is set automatically v ui.js -->
+					<div class="windowbutton L18N_BUTTON_START"></div> <!-- onclick is set automatically in ui.js -->
 					<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();"></div>
 				</div>
 			</div>
@@ -273,8 +286,6 @@
 				<p class="L18N_WINDOW7_PAR0"></p>
 
 				<p class="L18N_WINDOW7_PAR1"></p>
-
-				<p class="L18N_WINDOW7_PAR2"></p>
 
 				<div class="windowbuttonlist">
 					<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();"></div>
@@ -446,6 +457,25 @@
 			</div>
 		</div>
 
+		<div id="window18overlay" class="windowoverlay">
+			<div class="windowcloselayer" onclick="close_window();"></div>
+			<div class="popupwindow">
+				<h1 class="L18N_WINDOW18_TITLE"></h1><br>
+
+				<table>
+					<tr>
+						<td><select size="10" style="width: 300px;font-size: 18px;font-family:Ubuntu"></select></td>
+						<td><select size="10" style="width: 300px;font-size: 18px;font-family:Ubuntu"></select></td>
+					</tr>
+				</table>
+
+				<div class="windowbuttonlist">
+					<div class="windowbutton" onclick="close_window();driver_start();"></div>
+					<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();"></div>
+				</div>
+			</div>
+		</div>
+
 		<div id="window19overlay" class="windowoverlay">
 			<div class="windowcloselayer" onclick="close_window();"></div>
 			<div class="popupwindow">
@@ -532,7 +562,7 @@
 			</div>
 		</div>
 
-		<iframe style="display:none" id="gdrive_iframe" src="https://coachium.prochazka.ml/gdrive.html"></iframe>
+<!--		<iframe style="display:none" id="gdrive_iframe" src="https://coachium.prochazka.ml/gdrive.html"></iframe>-->
 	</body>
 	<script src="i18n/default.js"></script>
 	<script>window.onhashchange();</script>

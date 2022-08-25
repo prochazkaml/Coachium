@@ -21,7 +21,7 @@
 /*
  * load_file_local(are_you_sure)
  * 
- * Loads an XML file from local storage and processes it.
+ * Loads a JSON file from local storage and processes it.
  * 
  * For extra safety, it throws a warning, since loading another file
  * will erase all current work.
@@ -60,7 +60,7 @@ function load_file_local(are_you_sure) {
 /*
  * save_file_local(name_chosen)
  * 
- * Exports an XML file to local storage.
+ * Exports a JSON file to local storage.
  */
 
 function save_file_local(name_chosen) {
@@ -109,10 +109,12 @@ var create_capture_autogenerate = true;
  */
 
 function create_capture() {
+	if(get_id("capturestartbutton").style.filter) return;
+
 	zoom_reset();
 	
 	if(create_capture_autogenerate) {
-		if(ports[0].connected && ports[1].connected) {
+/*		if(ports[0].connected && ports[1].connected) {
 			// We are going to capture from both sensors
 
 			get_id("capturesetupsensors").selectedIndex = 0;
@@ -124,7 +126,7 @@ function create_capture() {
 			// From only the second sensor
 
 			get_id("capturesetupsensors").selectedIndex = 1;
-		}
+		}*/
 	}
 
 	setTimeout(() => {

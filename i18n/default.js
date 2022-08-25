@@ -34,6 +34,7 @@ var htmllang = {
 	"BUTTON_START_GUEST": "Start in guest mode",
 	"BUTTON_CLOSE": "Close",
 	"BUTTON_START": "Start",
+	"BUTTON_START_CONDITIONAL": "Conditional capture...",
 	"BUTTON_TRYAGAIN": "Try again",
 	"BUTTON_SAVE": "Save",
 	"BUTTON_RESTART": "Restart",
@@ -108,25 +109,19 @@ var htmllang = {
 
 	"WINDOW6_TITLE": "How will be the workbook called?",
 
-	"WINDOW7_TITLE": "WebHID error",
+	"WINDOW7_TITLE": "<span id='w7titleapi'></span> error",
 	"WINDOW7_PAR0":
 		"It seems that your web browser does not support<br>" +
-		"WebHID, so it is impossible to connect to your device.",
+		"<span id='w7parapi'></span>, so it is impossible to connect to your device.",
 	"WINDOW7_PAR1":
-		"If you are using a Chromium-based web browser<br>" +
-		"(Google Chrome, Brave, Microsoft Edge, Opera...),<br>" +
-		"we suggest updating your browser. WebHID is<br>" + 
-		"a relatively new standard, so it might not be<br>" +
-		"implemented in your older version.",
-	"WINDOW7_PAR2":
-		"Mozilla Firefox (and its derivatives) and Apple Safari<br>" +
-		"<b>do not</b> support WebHID.",
+		"Please try updating your browser, or trying<br>" +
+		"a different one (Google Chrome has very good<br>" +
+		"support of these new modern features).<br>",
 
 	"WINDOW8_TITLE": "Something went wrong.",
 	"WINDOW8_PAR0": "Error verifying the device.",
 	"WINDOW8_PAR1":
-		"The device's packet checksum (<span id=\"receivedsum\"></span>)<br>" +
-		"does not match the expected value (3754).",
+		"The device's checksum does not match the expected value.",
 	"WINDOW8_PAR2":
 		"We recommend restarting Coachium<br>" +
 		"and trying again.",
@@ -173,6 +168,8 @@ var htmllang = {
 	"WINDOW15_PAR1": "We apologize for the inconvenience.",
 
 	"WINDOW17_TITLE": "Capture properties",
+
+	"WINDOW18_TITLE": "Device selection",
 
 	"WINDOW19_TITLE": "Fit function",
 	"WINDOW19_FUN_LINEAR": "Linear (y = ax + b)",
@@ -241,17 +238,8 @@ var jslang = {
 
 	// elab.js
 
-	"SENSOR_LOADING": "Loading intelligent sensor data...",
-	"SENSOR_DISCONNECTED": "Sensor not connected",
-	"SENSOR_INTELLIGENT": "Intelligent sensor",
-
 	"STATUS_CAPTURE_RUNNING": "Capture in progress... ({0} samples, {1} seconds)",
 	"STATUS_CAPTURE_FINISHED": "Capture finished.",
-
-	"STATUS_NO_DEVICE_SELECTED": "No device was selected!",
-	"STATUS_DEVICE_DISCONNECTED": "{0} was forcefully disconnected!",
-
-	"WATCHDOG_MSG": "Please wait...",
 
 	// ui.js
 
@@ -259,10 +247,16 @@ var jslang = {
 	"HOMEPAGE_COMMIT_OLD": "👎 Outdated version, please update! ({0} installed, {1} available)",
 	"HOMEPAGE_COMMIT_ERR": "😕 Error verifying the latest version",
 
-	"CHECKSUM_NOT_RESPONDING": "not responding",
 	"BUTTON_DISCONNECT": "Disconnect from device",
 	"STATUS_WELCOME": "Welcome to Coachium!",
 	"STATUS_DISCONNECTED": "Device disconnected.",
+	"STATUS_NO_DEVICE_SELECTED": "No device was selected!",
+	"STATUS_FORCE_DISCONNECTED": "Device was forcefully disconnected!",
+
+	"SENSOR_NONE_PRESENT": "There are no capture ports available. Please connect a compatible device.",
+	"SENSOR_LOADING": "Loading intelligent sensor data...",
+	"SENSOR_DISCONNECTED": "Sensor not connected",
+	"SENSOR_INTELLIGENT": "Intelligent sensor",
 
 	"SETUP_CLOSEST_USABLE_FREQ": "The closest usable frequency<br>is {0} Hz.",
 	"SETUP_REDUCED_RUNTIME": "The capture will run for only<br>{0} seconds.",
@@ -274,6 +268,8 @@ var jslang = {
 	"STATUS_ZOOM_DATA": "Zoomed into the data region.",
 	"STATUS_ZOOM_DATA_ERROR": "Error zooming into the data region.",
 	"STATUS_ZOOM_RESET": "The zoom on the chart has been reset.",
+
+	"CONNECT_BUTTON_TEXT": "Connect to {0} {1}",
 
 	"INFO_WINDOW_CONTENTS":
 		"<p><b>{0}</b> total samples captured<br>" +
