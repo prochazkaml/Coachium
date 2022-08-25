@@ -539,6 +539,20 @@ a {
 	flex-direction: row;
 }
 
+.capturesetupmodebodydropzone:empty::after {
+	width: 100%;
+	height: 100%;
+	padding-right: 8px;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+
+	color: #888;
+	content: "Prosím přetáhněte sem čidla ze seznamu nalevo.";
+}
+
 .capturesetupmodebodyxyportlist {
 	flex-grow: 0;
 	padding-bottom: 8px;
@@ -567,6 +581,20 @@ a {
 	height: 144px;
 	display: flex;
 	flex-direction: row;
+}
+
+.capturesetupmodebodyxydropzone:empty::after {
+	width: 100%;
+	height: 100%;
+	padding-right: 8px;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+
+	color: #888;
+	content: "Prosím přetáhněte sem čidlo ze seznamu nalevo.";
 }
 
 .capturesetupsensorcontainer {
