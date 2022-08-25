@@ -79,6 +79,7 @@ var htmllang = {
 	"WINDOW0_PAR3":
 		"This program is free software, distributed under<br>" +
 		"the <a href=\"https://www.gnu.org/licenses/gpl-3.0.en.html\" target=\"_blank\">GNU General Public License version 3</a>.",
+	"WINDOW0_PAR4": "Most of the used icons come from the <a href=\"https://fontawesome.com/\">FontAwesome</a> project.",
 
 	"WINDOW1_TITLE": "Internal error",
 	"WINDOW1_PAR0": "An unexpected error has occured.",

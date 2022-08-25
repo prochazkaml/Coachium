@@ -77,6 +77,7 @@ const alt_htmllang = {
 	"WINDOW0_PAR3":
 		"Tento program je svobodný software, distribuován pod<br>" +
 		"licencí <a href=\"https://www.gnu.org/licenses/gpl-3.0.en.html\" target=\"_blank\">GNU General Public License verze 3</a>.",
+	"WINDOW0_PAR4": "Většina použitých ikon pochází z projektu <a href=\"https://fontawesome.com/\">FontAwesome</a>.",
 
 	"WINDOW1_TITLE": "Interní chyba aplikace",
 	"WINDOW1_PAR0": "V aplikaci nastala neočekávaná chyba.",
