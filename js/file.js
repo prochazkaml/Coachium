@@ -28,7 +28,7 @@
  */
 
 function load_file_local(are_you_sure) {
-	if(get_id("openbutton").style.filter) return;
+	if(get_id("openbutton").classList.contains("navbuttondisabled")) return;
 
 	if(captures.length > 0 && !are_you_sure) {
 		// Let's not risk if we have some captures in memory
@@ -64,7 +64,7 @@ function load_file_local(are_you_sure) {
  */
 
 function save_file_local(name_chosen) {
-	if(get_id("savebutton").style.filter) return;
+	if(get_id("savebutton").classList.contains("navbuttondisabled")) return;
 
 	var inputfield = get_win_el_tag(WINDOWID_LOCAL_SAVE_NAME, "input");
 
@@ -109,7 +109,7 @@ var create_capture_autogenerate = true;
  */
 
 function create_capture() {
-	if(get_id("capturestartbutton").style.filter) return;
+	if(get_id("capturestartbutton").classList.contains("navbuttondisabled")) return;
 
 	zoom_reset();
 	
@@ -144,7 +144,7 @@ function create_capture() {
  */
 
 function remove_capture(are_you_sure) {
-	if(get_id("removecapturebutton").style.filter) return;
+	if(get_id("removecapturebutton").classList.contains("navbuttondisabled")) return;
 
 	if(!are_you_sure) {
 		// Better ask the user if they are sure to delete the current capture
@@ -172,7 +172,7 @@ function remove_capture(are_you_sure) {
  */
 
 function remove_all_captures(are_you_sure) {
-	if(get_id("removeeverythingbutton").style.filter) return;
+	if(get_id("removeeverythingbutton").classList.contains("navbuttondisabled")) return;
 
 	if(!are_you_sure) {
 		// Better ask the user if they are sure to nuke literally everything

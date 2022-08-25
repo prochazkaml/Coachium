@@ -114,6 +114,15 @@ nav {
 	user-select: none;
 }
 
+.navbuttondisabled {
+	cursor: default;
+	filter: contrast(0);
+}
+
+.navbuttondisabled:hover {
+	filter: contrast(0);
+}
+
 .mainpagebutton img {
 	height: 16px;
 	vertical-align: text-bottom;

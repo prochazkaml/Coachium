@@ -27,7 +27,7 @@ var gdrive_response;
  */
 
 function popup_gdrive_window() {
-	if(get_id("savegdrivebutton").style.filter) return;
+	if(get_id("savegdrivebutton").classList.contains("navbuttondisabled")) return;
 
 	if(get_win_el_tag(WINDOWID_GDRIVE_NAME, "input").value == "񂁩MISSING") {
 		get_id("gdrive_iframe").contentWindow.postMessage("_gdriveinterface{\"cmd\":\"get_token\"}", "*");

@@ -515,8 +515,8 @@ function capture_setup_check() {
  */
 
 function change_selected_capture(interval, absolute = undefined) {
-	if(interval < 0 && get_id("viewpreviousbutton").style.filter) return; 
-	if(interval > 0 && get_id("viewnextbutton").style.filter) return; 
+	if(interval < 0 && get_id("viewpreviousbutton").classList.contains("navbuttondisabled")) return; 
+	if(interval > 0 && get_id("viewnextbutton").classList.contains("navbuttondisabled")) return; 
 
 	if(captures.length > 0) {
 		if(absolute != undefined && absolute != Infinity)
@@ -614,7 +614,7 @@ function change_capture_view() {
  */
 
 function request_zoom_in() {
-	if(get_id("zoominbutton").style.filter) return;
+	if(get_id("zoominbutton").classList.contains("navbuttondisabled")) return;
 
 	if(!zoom_request_progress) {
 		get_id("statusmsg").innerHTML = jslang.STATUS_ZOOM_IN_REQUEST;
@@ -638,7 +638,7 @@ function request_zoom_in() {
  */
 
 function zoom_to_data() {
-	if(get_id("zoomdatabutton").style.filter) return;
+	if(get_id("zoomdatabutton").classList.contains("navbuttondisabled")) return;
 
 	canvas.style.cursor = "auto";
 
@@ -685,7 +685,7 @@ function zoom_to_data() {
  */
 
 function zoom_reset() {
-	if(get_id("zoomresetbutton").style.filter) return;
+	if(get_id("zoomresetbutton").classList.contains("navbuttondisabled")) return;
 
 	get_id("statusmsg").innerHTML = jslang.STATUS_ZOOM_RESET;
 	zoom_request_progress = 0;
@@ -724,7 +724,7 @@ function info_generate_sensor(sensor) {
  */
 
 function show_capture_info() {
-	if(get_id("captureinfobutton").style.filter) return;
+	if(get_id("captureinfobutton").classList.contains("navbuttondisabled")) return;
 
 	const capture = captures[selected_capture];
 
@@ -762,7 +762,7 @@ function show_capture_info() {
  */
 
 function capture_management() {
-	if(get_id("capturemgmtbutton").style.filter) return;
+	if(get_id("capturemgmtbutton").classList.contains("navbuttondisabled")) return;
 
 	const w = WINDOWID_CAPTURE_MANAGEMENT;
 	const select = get_win_el_tag(w, "select");
@@ -997,85 +997,85 @@ async function driver_start() {
 
 function update_button_validity() {
 	if(driver === null || Object.keys(driver.ports).length == 0) {
-		get_id("capturestartbutton").style.filter = "contrast(0)";
-		get_id("capturestopbutton").style.filter = "contrast(0)";
+		get_id("capturestartbutton").classList.add("navbuttondisabled");
+		get_id("capturestopbutton").classList.add("navbuttondisabled");
 	} else {
-		get_id("capturestartbutton").style.filter = "";
-		get_id("capturestopbutton").style.filter = "";
+		get_id("capturestartbutton").classList.remove("navbuttondisabled");
+		get_id("capturestopbutton").classList.remove("navbuttondisabled");
 	}
 
 	if(driver !== null && driver.capture.running) {
 		get_id("capturestopbutton").style.display = "";
 		get_id("capturestartbutton").style.display = "none";
 
-		get_id("removeeverythingbutton").style.filter = "contrast(0)";
-		get_id("openbutton").style.filter = "contrast(0)";
-		get_id("savebutton").style.filter = "contrast(0)";
-		get_id("savegdrivebutton").style.filter = "contrast(0)";
+		get_id("removeeverythingbutton").classList.add("navbuttondisabled");
+		get_id("openbutton").classList.add("navbuttondisabled");
+		get_id("savebutton").classList.add("navbuttondisabled");
+		get_id("savegdrivebutton").classList.add("navbuttondisabled");
 
-		get_id("removecapturebutton").style.filter = "contrast(0)";
-		get_id("capturemgmtbutton").style.filter = "contrast(0)";
-		get_id("fitfunctionbutton").style.filter = "contrast(0)";
+		get_id("removecapturebutton").classList.add("navbuttondisabled");
+		get_id("capturemgmtbutton").classList.add("navbuttondisabled");
+		get_id("fitfunctionbutton").classList.add("navbuttondisabled");
 
-		get_id("viewpreviousbutton").style.filter = "contrast(0)";
-		get_id("viewnextbutton").style.filter = "contrast(0)";
-		get_id("zoominbutton").style.filter = "contrast(0)";
-		get_id("zoomdatabutton").style.filter = "contrast(0)";
-		get_id("zoomresetbutton").style.filter = "contrast(0)";
+		get_id("viewpreviousbutton").classList.add("navbuttondisabled");
+		get_id("viewnextbutton").classList.add("navbuttondisabled");
+		get_id("zoominbutton").classList.add("navbuttondisabled");
+		get_id("zoomdatabutton").classList.add("navbuttondisabled");
+		get_id("zoomresetbutton").classList.add("navbuttondisabled");
 
-		get_id("captureinfobutton").style.filter = "contrast(0)";
+		get_id("captureinfobutton").classList.add("navbuttondisabled");
 	} else {
 		get_id("capturestartbutton").style.display = "";
 		get_id("capturestopbutton").style.display = "none";	
 
-		get_id("openbutton").style.filter = "";
+		get_id("openbutton").classList.remove("navbuttondisabled");
 
 		if(captures.length == 0) {
-			get_id("removeeverythingbutton").style.filter = "contrast(0)";
-			get_id("removecapturebutton").style.filter = "contrast(0)";
-			get_id("capturemgmtbutton").style.filter = "contrast(0)";
-			get_id("fitfunctionbutton").style.filter = "contrast(0)";
-			get_id("savebutton").style.filter = "contrast(0)";
-			get_id("savegdrivebutton").style.filter = "contrast(0)";
-			get_id("viewpreviousbutton").style.filter = "contrast(0)";
-			get_id("viewnextbutton").style.filter = "contrast(0)";
-			get_id("zoominbutton").style.filter = "contrast(0)";
-			get_id("zoomdatabutton").style.filter = "contrast(0)";
-			get_id("zoomresetbutton").style.filter = "contrast(0)";
-			get_id("captureinfobutton").style.filter = "contrast(0)";
+			get_id("removeeverythingbutton").classList.add("navbuttondisabled");
+			get_id("removecapturebutton").classList.add("navbuttondisabled");
+			get_id("capturemgmtbutton").classList.add("navbuttondisabled");
+			get_id("fitfunctionbutton").classList.add("navbuttondisabled");
+			get_id("savebutton").classList.add("navbuttondisabled");
+			get_id("savegdrivebutton").classList.add("navbuttondisabled");
+			get_id("viewpreviousbutton").classList.add("navbuttondisabled");
+			get_id("viewnextbutton").classList.add("navbuttondisabled");
+			get_id("zoominbutton").classList.add("navbuttondisabled");
+			get_id("zoomdatabutton").classList.add("navbuttondisabled");
+			get_id("zoomresetbutton").classList.add("navbuttondisabled");
+			get_id("captureinfobutton").classList.add("navbuttondisabled");
 		} else {
-			get_id("removeeverythingbutton").style.filter = "";
-			get_id("removecapturebutton").style.filter = "";
-			get_id("capturemgmtbutton").style.filter = "";
-			get_id("fitfunctionbutton").style.filter = "";
-			get_id("savebutton").style.filter = "";
-			get_id("savegdrivebutton").style.filter = "";
-			get_id("captureinfobutton").style.filter = "";
+			get_id("removeeverythingbutton").classList.remove("navbuttondisabled");
+			get_id("removecapturebutton").classList.remove("navbuttondisabled");
+			get_id("capturemgmtbutton").classList.remove("navbuttondisabled");
+			get_id("fitfunctionbutton").classList.remove("navbuttondisabled");
+			get_id("savebutton").classList.remove("navbuttondisabled");
+			get_id("savegdrivebutton").classList.remove("navbuttondisabled");
+			get_id("captureinfobutton").classList.remove("navbuttondisabled");
 
 			if(get_class("canvasstack").style.display != "none") {
-				get_id("zoominbutton").style.filter = "";
-				get_id("zoomdatabutton").style.filter = "";
+				get_id("zoominbutton").classList.remove("navbuttondisabled");
+				get_id("zoomdatabutton").classList.remove("navbuttondisabled");
 
 				if(zoomed_in)
-					get_id("zoomresetbutton").style.filter = "";
+					get_id("zoomresetbutton").classList.remove("navbuttondisabled");
 				else
-					get_id("zoomresetbutton").style.filter = "contrast(0)";
+					get_id("zoomresetbutton").classList.add("navbuttondisabled");
 
 			} else {
-				get_id("zoominbutton").style.filter = "contrast(0)";
-				get_id("zoomdatabutton").style.filter = "contrast(0)";
-				get_id("zoomresetbutton").style.filter = "contrast(0)";
+				get_id("zoominbutton").classList.add("navbuttondisabled");
+				get_id("zoomdatabutton").classList.add("navbuttondisabled");
+				get_id("zoomresetbutton").classList.add("navbuttondisabled");
 			}
 
 			if(selected_capture == 0)
-				get_id("viewpreviousbutton").style.filter = "contrast(0)";
+				get_id("viewpreviousbutton").classList.add("navbuttondisabled");
 			else
-				get_id("viewpreviousbutton").style.filter = "";
+				get_id("viewpreviousbutton").classList.remove("navbuttondisabled");
 
 			if(selected_capture >= (captures.length - 1))
-				get_id("viewnextbutton").style.filter = "contrast(0)";
+				get_id("viewnextbutton").classList.add("navbuttondisabled");
 			else
-				get_id("viewnextbutton").style.filter = "";
+				get_id("viewnextbutton").classList.remove("navbuttondisabled");
 		}
 	}
 }
