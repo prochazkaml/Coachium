@@ -1,5 +1,5 @@
 /*
- * Coachium - js/mainwindow.js
+ * Coachium - js/renderer.js
  * - draws the middle bit of the screen where the graph or table is
  * 
  * Copyright (C) 2021-2022 Michal Procházka

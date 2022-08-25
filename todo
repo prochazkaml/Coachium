@@ -1,6 +1,5 @@
 Required for initial testing (current–voltage characteristic of diodes):
 - show value on the graph when hovering over a data point
-- rename mainwindow.js to renderer.js
 - actual window spawning/despawning (to prevent tabbing over to the next window!!!)
 - big windows (privacy policy, about) do not change the location hash on Esc
 - remove unused windows
