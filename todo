@@ -17,7 +17,6 @@ Required for initial testing (current–voltage characteristic of diodes):
 - do not wait for GitHub/Google Drive
 - when an unknown language is loaded, set the cookie to English
 - make the capture progress not use Array.push, as it's way too slow
-- update mail address in the info dialog
 - ui.js button checking: do not use filter param, use a class instead which also has user-select: none and a cursor showing an error
 
 ******************************************************-
