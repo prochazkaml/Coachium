@@ -371,6 +371,7 @@ script.onerror = () => {
 	script_fallback.onload = () => {
 		script.onload();
 		popup_window(WINDOWID_LANGUAGE_ERROR);
+		document.cookie = "lang=en";
 	}
 
 	document.body.appendChild(script_fallback);
