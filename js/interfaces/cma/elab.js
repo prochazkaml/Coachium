@@ -1,6 +1,6 @@
 /*
  * Coachium - js/interfaces/cma/elab.js
- * - driver for the the CMA €Lab interface
+ * - driver for the CMA €Lab interface
  * 
  * Copyright (C) 2021-2022 Michal Procházka
  *

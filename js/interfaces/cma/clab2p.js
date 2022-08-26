@@ -1,6 +1,6 @@
 /*
  * Coachium - js/interfaces/cma/clab2p.js
- * - driver for the the CMA CoachLab II+ interface
+ * - driver for the CMA CoachLab II+ interface
  * 
  * Copyright (C) 2021-2022 Michal Procházka
  *
