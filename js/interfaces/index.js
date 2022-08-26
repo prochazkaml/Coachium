@@ -19,7 +19,9 @@
  */
 
 const lldrivers = {
-	"hid": WebHID
+	"hid": WebHID,
+//	"usb": WebUSB, // TODO
+	"dummy": { init: (driverclass) => { return new driverclass; } }
 }
 
 const driverindex = {
@@ -31,6 +33,12 @@ const driverindex = {
 		"CoachLab II+": {
 			method: "usb",
 			driver: CMA_CoachLabIIP_driver
+		}
+	},
+	"Prochazka Inc.": {
+		"Dummy Device": {
+			method: "dummy",
+			driver: Prochazka_Dummy_driver
 		}
 	}
 };
