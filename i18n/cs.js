@@ -264,7 +264,7 @@ const alt_jslang = {
 	"STATUS_ZOOM_DATA_ERROR": "Chyba přibližování do oblasti s daty.",
 	"STATUS_ZOOM_RESET": "Pohled na graf obnoven.",
 
-	"CONNECT_BUTTON_TEXT": "Připojit se k {0} {1}",
+	"CONNECT_BUTTON_TEXT": "Připojit se k {0}",
 
 	"INFO_WINDOW_CONTENTS":
 		"<p>Celkem naměřeno <b>{0}</b> vzorků<br>" +

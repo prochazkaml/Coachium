@@ -272,7 +272,7 @@ var jslang = {
 	"STATUS_ZOOM_DATA_ERROR": "Error zooming into the data region.",
 	"STATUS_ZOOM_RESET": "The zoom on the chart has been reset.",
 
-	"CONNECT_BUTTON_TEXT": "Connect to {0} {1}",
+	"CONNECT_BUTTON_TEXT": "Connect to {0}",
 
 	"INFO_WINDOW_CONTENTS":
 		"<p><b>{0}</b> total samples captured<br>" +

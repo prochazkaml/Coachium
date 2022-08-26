@@ -860,7 +860,7 @@ function device_select() {
 	}
 
 	devicelist.onchange = () => {
-		connectbutton.innerText = format(jslang.CONNECT_BUTTON_TEXT, vendorlist.value, devicelist.value);
+		connectbutton.innerText = format(jslang.CONNECT_BUTTON_TEXT, devicelist.value);
 	}
 
 	devicelist.ondblclick = () => {
