@@ -37,7 +37,7 @@ nav {
 	flex-direction: row;
 	flex-wrap: wrap;
 	align-items: center;
-    justify-content: center;
+	justify-content: center;
 
 	transition: opacity .3s;
 }

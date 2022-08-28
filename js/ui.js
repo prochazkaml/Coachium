@@ -489,7 +489,8 @@ function capture_setup_check() {
  */
 
 function capture_setup_top_section_change() {
-
+	const freq = get_id("cs_freq").get_tag("input").value;
+	const dur = get_id("cs_duration").get_tag("input").value;
 }
 
 /*
