@@ -445,67 +445,40 @@ function capture_setup_change_mode(mode) {
  */
 
 function capture_setup_check() {
-/*	var string = "";
+	// Clear the sensor source list and update it
 
-	var oldfreq = get_id("capturesetuphz").value;
-	var units = round(10000 / oldfreq);
+	if(driver === null) return;
 
-	var newfreq;
+	var srclist = get_win_el_class(WINDOWID_CAPTURE_SETUP, "capturesetupsensorsrc");
 
-	if(get_id("capturesetupsensors").selectedIndex) {
-		if(units)
-			newfreq = 10000 / units;
-		else
-			newfreq = 40000;
-	} else {
-		if(units < 2) units = 2;
-
-		newfreq = 10000 / units;
-	}
-
-	if(round(oldfreq, 2) != round(newfreq, 2)) string += "<p>" + format(jslang.SETUP_CLOSEST_USABLE_FREQ, round(newfreq, 2)) + "</p>";
-
-	var samples = round(newfreq * get_id("capturesetupsecs").value);
-
-	if(samples > (get_id("capturesetupsensors").selectedIndex ? 16383 : 8191)) {
-		if(get_id("capturesetupsensors").selectedIndex)
-			string += "<p>" + format(jslang.SETUP_REDUCED_RUNTIME, round(16383 / newfreq, 2)) + "</p>";
-		else
-			string += "<p>" + format(jslang.SETUP_REDUCED_RUNTIME, round(8191 / newfreq, 2)) + "</p>";
-	}
-
-	get_id("capturesetuperr").innerHTML = string;
-
-	var sensors_err = false;
-
-	switch(get_id("capturesetupsensors").selectedIndex) {
-		case 0:
-			if(!ports[1].connected)
-				sensors_err = true;
-				
-			// break is missing here on purpose
-
-		case 1:
-			if(!ports[0].connected)
-				sensors_err = true;
-
-			break;
-
-		case 2:
-			if(!ports[1].connected)
-				sensors_err = true;
-
-			break;
-	}
-
-	get_id("capturesetupsensorserr").innerHTML = sensors_err ? ("<p>" + jslang.SETUP_SENSOR_ERR + "</p>") : "";
+	srclist.innerHTML = "";
 	
-	const startbutton = get_win_el_class(WINDOWID_CAPTURE_SETUP, "windowbutton");
+	const ports = Object.keys(driver.ports);
 
-	startbutton.style.backgroundColor = sensors_err ? "rgba(0, 0, 0, .1)" : "";
-	startbutton.onclick = sensors_err ? (() => {}) : (() => { close_window(); request_capture = 1; });
+	for(const port of ports) {
+		const pobj = driver.ports[port];
 
-	return sensors_err;*/
+		if(pobj.connected) {
+			srclist.innerHTML +=
+				"<div class='capturesetupsensorblock' style='background-color: " + pobj.color + "' name='block_" + port + "'>" +
+					"<div>" + port + ": " + pobj.unit + "</div>" +
+					"<div>" + pobj.name + "</div>" +
+					"<div>" + pobj.min + "–" + pobj.max + " " + pobj.unit + "</div>" +
+				"</div>";
+		}
+	}
+
+	// Delete all sensor blocks that are not in the current list
+
+	var blocks = document.querySelectorAll("[name^='block_']");
+
+	for(var i = 0; i < blocks.length; i++) {
+		const port = blocks[i].getAttribute("name").substring(6);
+
+		if(driver.ports[port] === undefined || !driver.ports[port].connected) {
+			blocks[i].remove();
+		}
+	}
 }
 
 /*
