@@ -107,6 +107,10 @@ const alt_htmllang = {
 	"WINDOW2_PERIOD": "Perioda:",
 	"WINDOW2_SAMPLES": "vzorků",
 
+	"CSSATTR_WINDOW2_STD_DROPZONE": "Prosím přetáhněte sem čidla ze seznamu nalevo.",
+	"CSSATTR_WINDOW2_XY_DROPZONE": "Prosím přetáhněte sem čidlo ze seznamu nalevo.",
+	"CSSATTR_WINDOW2_TRIG_DROPZONE": "Pro podmíněný záznam sem přetáhněte čidlo ze seznamu nalevo.",
+
 	"WINDOW3_TITLE": "Sešit uložen!",
 	"WINDOW3_LINK": "Zde je odkaz na uložený soubor sešitu záznamů na Vašem Google Disku.",
 

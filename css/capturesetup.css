@@ -120,7 +120,7 @@
 	text-align: center;
 
 	color: #888;
-	content: "Prosím přetáhněte sem čidla ze seznamu nalevo.";
+	content: attr(css-attr);
 }
 
 .capturesetupmodebodyxyportlist {
@@ -165,11 +165,7 @@
 	text-align: center;
 
 	color: #888;
-	content: "Prosím přetáhněte sem čidlo ze seznamu nalevo.";
-}
-
-.capturesetupmodebodytrigdropzone:empty::after {
-	content: "Pro podmíněný záznam sem přetáhněte čidlo ze seznamu nalevo.";
+	content: attr(css-attr);
 }
 
 .capturesetupsensorcontainer {

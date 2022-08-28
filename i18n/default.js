@@ -110,6 +110,10 @@ var htmllang = {
 	"WINDOW2_PERIOD": "Period:",
 	"WINDOW2_SAMPLES": "samples",
 		
+	"CSSATTR_WINDOW2_STD_DROPZONE": "Please drag any sensors here from the list on the left.",
+	"CSSATTR_WINDOW2_XY_DROPZONE": "Please drag any sensor here from the list on the left.",
+	"CSSATTR_WINDOW2_TRIG_DROPZONE": "For triggering, drag any sensor here from the list on the left.",
+
 	"WINDOW3_TITLE": "Workbook saved!",
 	"WINDOW3_LINK": "Here is the link to your saved workbook on your Google Drive.",
 
@@ -375,6 +379,8 @@ script.onload = () => {
 		for(var el of document.getElementsByClassName("L18N_" + key)) {
 			if(key.startsWith("TITLE_"))
 				el.title = htmllang[key];
+			else if(key.startsWith("CSSATTR_"))
+				el.setAttribute("css-attr", htmllang[key]);
 			else
 				el.innerHTML = htmllang[key];
 		}
