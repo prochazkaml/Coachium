@@ -1208,6 +1208,7 @@ document.addEventListener('keydown', (event) => {
 	if(open_window >= 0) {
 		switch(key) {
 			case "escape":
+				window.location.hash = '';
 				close_window();
 				break;
 	
