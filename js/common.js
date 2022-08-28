@@ -96,34 +96,49 @@ const fresh_capture = {
 };
 
 /*
- * get_id(id)
+ * get_id(id, srcel = document)
  * 
- * Alias for document.getElementById, because I really don't
+ * Alias for document.getElementById (or any other element), because I really don't
  * want to type that function out all the time.
  */
 
-function get_id(id) {
-	return document.getElementById(id);
+function get_id(id, srcel = document) {
+	var el = srcel.getElementById(id);
+
+	if(el.getElementsByTagName) el.get_tag = (tagname, index = 0) => get_tag(tagname, index, el);
+	if(el.getElementsByClassName) el.get_class = (tagname, index = 0) => get_class(tagname, index, el);
+
+	return el;
 }
 
 /*
- * get_class(classname, index = 0)
+ * get_class(classname, index = 0, srcel = document)
  * 
  * Same as get_id(), but for searching by class name.
  */
 
-function get_class(classname, index = 0) {
-	return document.getElementsByClassName(classname)[index];
+function get_class(classname, index = 0, srcel = document) {
+	var el = srcel.getElementsByClassName(classname)[index];
+
+	if(el.getElementsByTagName) el.get_tag = (tagname, index = 0) => get_tag(tagname, index, el);
+	if(el.getElementsByClassName) el.get_class = (tagname, index = 0) => get_class(tagname, index, el);
+
+	return el;
 }
 
 /*
- * get_tag(tagname, index = 0)
+ * get_tag(tagname, index = 0, srcel = document)
  * 
  * Same as get_id(), but for searching by tag name.
  */
 
-function get_tag(tagname, index = 0) {
-	return document.getElementsByTagName(tagname)[index];
+function get_tag(tagname, index = 0, srcel = document) {
+	var el = srcel.getElementsByTagName(tagname)[index];
+
+	if(el.getElementsByTagName) el.get_tag = (tagname, index = 0) => get_tag(tagname, index, el);
+	if(el.getElementsByClassName) el.get_class = (tagname, index = 0) => get_class(tagname, index, el);
+
+	return el;
 }
 
 /*
