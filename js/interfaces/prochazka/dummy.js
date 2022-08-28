@@ -35,6 +35,7 @@ class Prochazka_Dummy_driver {
 			coeff_b: -26.33,
 			mode: 0,
 			zero_offset: null,
+			detected: false
 		},
 		"A2": {
 			autodetect: true,
@@ -49,6 +50,7 @@ class Prochazka_Dummy_driver {
 			coeff_b: -26.33,
 			mode: 0,
 			zero_offset: null,
+			detected: false
 		},
 		"A3": {
 			autodetect: true,
@@ -63,6 +65,7 @@ class Prochazka_Dummy_driver {
 			coeff_b: -26.33,
 			mode: 0,
 			zero_offset: null,
+			detected: false
 		},
 		"A4": {
 			autodetect: true,
@@ -77,6 +80,7 @@ class Prochazka_Dummy_driver {
 			coeff_b: -26.33,
 			mode: 0,
 			zero_offset: null,
+			detected: false
 		}
 	};
 
@@ -85,11 +89,17 @@ class Prochazka_Dummy_driver {
 	};
 
 	autodetect(portname, updatecb) {
-		updatecb({ type: "change" });
+		if(!this.ports[portname].detected) {
+			this.ports[portname].detected = true;
+			updatecb({ type: "change" });
+		}
+		
 		return 0;
 	};
 
 	getval(port) {
 		return (this.ports[port].value = Math.sin(window.performance.now() / 500) * 10) - this.ports[port].zero_offset;
 	}
+
+	deinit() {}
 };
