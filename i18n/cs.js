@@ -86,14 +86,26 @@ const alt_htmllang = {
 	"WINDOW1_PAR1": "Omlouváme se za způsobené nepříjemnosti.",
 
 	"WINDOW2_TITLE": "Nastavení záznamu",
-	"WINDOW2_PAR0": "Název záznamu",
-	"WINDOW2_PAR1": "Parametry záznamu",
-	"WINDOW2_HZ": "Hz",
-	"WINDOW2_SECONDS": "sekund",
-	"WINDOW2_PAR2": "Z čeho zaznamenávat?",
-	"WINDOW2_SETUP_BOTH": "Z obou čidel najednou",
-	"WINDOW2_SETUP_FIRST": "Jen z čidla 1",
-	"WINDOW2_SETUP_SECOND": "Jen z čidla 2",
+	"WINDOW2_CAPTURE_NAME": "Název:",
+	"WINDOW2_AVAILABLE_SENSORS": "Dostupná čidla",
+	"WINDOW2_MODE_STD": "Normální režim",
+	"WINDOW2_MODE_XY": "Režim X-Y",
+	"WINDOW2_MODE_STD_DESC":
+		"V normálním režimu lze vybrat libovolné množství čidel (v rámci schopností hardwaru), " +
+		"které budou zaznamenávány zároveň a budou zobrazeny na ose Y v závislosti na čase. Je však i možné " +
+		"si později zobrazit jen některá čidla, nebo si vygenerovat X-Y graf se dvěma vybranými čidly.",
+	"WINDOW2_MODE_XY_DESC":
+		"V režimu X-Y si můžete vybrat právě 2 čidla, jedno pro každou osu (X, Y). " +
+		"Užitečné pro porovnávání různých veličin, kde není potřeba zobrazovat čas " +
+		"(např. voltampérová charakteristika součástky).",
+	"WINDOW2_X": "X",
+	"WINDOW2_Y": "Y",
+	"WINDOW2_PARAMS": "Parametry záznamu",
+	"WINDOW2_FREQ": "Frekvence:",
+	"WINDOW2_FREQ_UNIT": "Hz",
+	"WINDOW2_LENGTH": "Délka:",
+	"WINDOW2_PERIOD": "Perioda:",
+	"WINDOW2_SAMPLES": "vzorků",
 
 	"WINDOW3_TITLE": "Sešit uložen!",
 	"WINDOW3_LINK": "Zde je odkaz na uložený soubor sešitu záznamů na Vašem Google Disku.",

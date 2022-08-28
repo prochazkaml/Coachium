@@ -88,15 +88,28 @@ var htmllang = {
 	"WINDOW1_PAR1": "We apologize for the inconvenience.",
 
 	"WINDOW2_TITLE": "Capture setup",
-	"WINDOW2_PAR0": "Capture name",
-	"WINDOW2_PAR1": "Capture parameters",
-	"WINDOW2_HZ": "Hz",
-	"WINDOW2_SECONDS": "seconds",
-	"WINDOW2_PAR2": "Capture from...",
-	"WINDOW2_SETUP_BOTH": "Both sensors",
-	"WINDOW2_SETUP_FIRST": "Only the first sensor",
-	"WINDOW2_SETUP_SECOND": "Only the second sensor",
-
+	"WINDOW2_CAPTURE_NAME": "Name:",
+	"WINDOW2_AVAILABLE_SENSORS": "Available sensors",
+	"WINDOW2_MODE_STD": "Standard mode",
+	"WINDOW2_MODE_XY": "X-Y mode",
+	"WINDOW2_MODE_STD_DESC":
+		"In normal mode, you may select any amount of sensors to capture simultaneously " +
+		"(within the restrictions of the hardware). They will be displayed on the Y axis " +
+		"and will be compared to time. You can later hide some sensors, or generate an X-Y graph " +
+		"based on the data of any 2 captured sensors.",
+	"WINDOW2_MODE_XY_DESC":
+		"In X-Y mode, you can select precisely 2 sensors, one for each axis (X, Y). " +
+		"Useful for comparing different quantities, where there is no need to display the time " +
+		"(i.e. volt ampere characteristics).",
+	"WINDOW2_X": "X",
+	"WINDOW2_Y": "Y",
+	"WINDOW2_PARAMS": "Capture parameters",
+	"WINDOW2_FREQ": "Frequency:",
+	"WINDOW2_FREQ_UNIT": "Hz",
+	"WINDOW2_LENGTH": "Length:",
+	"WINDOW2_PERIOD": "Period:",
+	"WINDOW2_SAMPLES": "samples",
+		
 	"WINDOW3_TITLE": "Workbook saved!",
 	"WINDOW3_LINK": "Here is the link to your saved workbook on your Google Drive.",
 
