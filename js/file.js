@@ -98,8 +98,6 @@ function save_file_local(name_chosen) {
 	}
 }
 
-var create_capture_autogenerate = true;
-
 /*
  * create_capture()
  * 
@@ -112,29 +110,13 @@ function create_capture() {
 	if(get_id("capturestartbutton").classList.contains("navbuttondisabled")) return;
 
 	zoom_reset();
+	capture_setup_check();
 	
-	if(create_capture_autogenerate) {
-/*		if(ports[0].connected && ports[1].connected) {
-			// We are going to capture from both sensors
-
-			get_id("capturesetupsensors").selectedIndex = 0;
-		} else if(ports[1].connected) {
-			// From only the first sensor
-
-			get_id("capturesetupsensors").selectedIndex = 2;
-		} else {
-			// From only the second sensor
-
-			get_id("capturesetupsensors").selectedIndex = 1;
-		}*/
-	}
-
 	setTimeout(() => {
-		get_id("capturesetupname").select();
+		get_win_el_class(WINDOWID_CAPTURE_SETUP, "capturesetupname").getElementsByTagName("input")[0].select();
 	}, 100);
 
 	popup_window(WINDOWID_CAPTURE_SETUP);
-	capture_setup_check();
 }
 
 /*

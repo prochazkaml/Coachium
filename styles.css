@@ -466,6 +466,14 @@ a {
 	color: black;
 }
 
+.capturesetupname {
+	margin-top: 16px;
+}
+
+.capturesetupname > input {
+	width: 300px;
+}
+
 .capturesetuptable {
 	margin-top: 16px;
 	display: flex;

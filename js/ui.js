@@ -1137,6 +1137,8 @@ window.onload = () => {
 		removeOnSpill: true
 	});
 
+	drake.on("dragend", capture_setup_check);
+
 	get_win_el_class(WINDOWID_CAPTURE_SETUP, "windowbutton").onclick = () => { close_window() };
 
 	// Initialize all the callbacks on the canvas
