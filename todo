@@ -10,11 +10,10 @@ Required for initial testing (current–voltage characteristic of diodes):
 - break up ui.js and mainwindow.js, they're too big
 - remove trailing spaces/tabs from all source files!!!
 - unify code style (if () → if(), spaces to tabs, etc.)
-- split up the CSS
 - embed everything in a single file (HTML, CSS, JS, images, fonts...) - ideally compress everything, store it in raw binary
 - do not wait for GitHub/Google Drive
 - make the capture progress not use Array.push, as it's way too slow
-- translate the capture setup dialog/CSS (!!!) to English
+- use get_* as much as possible (even in chains), replace getElement(s)ByWhatever
 
 ******************************************************-
 - UNCOMMENT GDRIVE.HTML!

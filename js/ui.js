@@ -283,15 +283,15 @@ function get_win_overlay(win_id) {
 }
 
 function get_win(win_id) {
-	return get_win_overlay(win_id).getElementsByClassName("popupwindow")[0];
+	return get_win_overlay(win_id).get_class("popupwindow");
 }
 
 function get_win_el_class(win_id, el_class, index = 0) {
-	return get_win(win_id).getElementsByClassName(el_class)[index];
+	return get_win(win_id).get_class(el_class, index);
 }
 
 function get_win_el_tag(win_id, el_tag, index = 0) {
-	return get_win(win_id).getElementsByTagName(el_tag)[index];
+	return get_win(win_id).get_tag(el_tag, index);
 }
 
 /*
@@ -479,6 +479,28 @@ function capture_setup_check() {
 			blocks[i].remove();
 		}
 	}
+}
+
+/*
+ * capture_setup_top_section_change()
+ *
+ * Recalculates the period and number of samples based on
+ * the input frequency and duration.
+ */
+
+function capture_setup_top_section_change() {
+
+}
+
+/*
+ * capture_setup_bottom_section_change()
+ *
+ * Recalculates the frequency and duration based on
+ * the input period and number of samples.
+ */
+
+function capture_setup_bottom_section_change() {
+
 }
 
 /*
@@ -1111,6 +1133,8 @@ window.onload = () => {
 	});
 
 	drake.on("dragend", capture_setup_check);
+
+	capture_setup_top_section_change();
 
 	get_win_el_class(WINDOWID_CAPTURE_SETUP, "windowbutton").onclick = () => { close_window() };
 

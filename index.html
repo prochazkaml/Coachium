@@ -201,15 +201,15 @@
 						<b class="L18N_WINDOW2_PARAMS"></b>
 						<div class="capturesetupmodebody" style="padding: 0;">
 							<div class="capturesetupmodebodytext">
-								<div class="capturesetupmodebodyparam">
+								<div id="cs_freq" class="capturesetupmodebodyparam">
 									<div class="L18N_WINDOW2_FREQ"></div>
-									<input type="number">
+									<input type="number" value="50" onchange="capture_setup_top_section_change();">
 									<div class="L18N_WINDOW2_FREQ_UNIT"></div>
 								</div>
-								<div class="capturesetupmodebodyparam" style="padding-bottom: 8px;">
+								<div id="cs_duration" class="capturesetupmodebodyparam" style="padding-bottom: 8px;">
 									<div class="L18N_WINDOW2_LENGTH"></div>
-									<input type="number">
-									<select>
+									<input type="number" value="10" onchange="capture_setup_top_section_change();">
+									<select onchange="capture_setup_top_section_change();">
 										<option value="h">h</option>								
 										<option value="m">min</option>
 										<option value="s" selected="selected">s</option>
@@ -218,10 +218,10 @@
 									</select>
 								</div>
 								<hr>
-								<div class="capturesetupmodebodyparam">
+								<div id="cs_period" class="capturesetupmodebodyparam">
 									<div class="L18N_WINDOW2_PERIOD"></div>
-									<input type="number">
-									<select>
+									<input type="number" onchange="capture_setup_bottom_section_change();">
+									<select onchange="capture_setup_bottom_section_change();">
 										<option value="h">h</option>								
 										<option value="m">min</option>
 										<option value="s" selected="selected">s</option>
@@ -229,8 +229,8 @@
 										<option value="ms">µs</option>
 									</select>
 								</div>
-								<div class="capturesetupmodebodyparam">
-									<input type="number" style="margin-left: 0;">
+								<div id="cs_samples" class="capturesetupmodebodyparam">
+									<input type="number" style="margin-left: 0;" onchange="capture_setup_bottom_section_change();">
 									<div class="L18N_WINDOW2_SAMPLES"></div>
 								</div>
 							</div>

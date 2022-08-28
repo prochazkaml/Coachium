@@ -106,7 +106,7 @@ var htmllang = {
 	"WINDOW2_PARAMS": "Capture parameters",
 	"WINDOW2_FREQ": "Frequency:",
 	"WINDOW2_FREQ_UNIT": "Hz",
-	"WINDOW2_LENGTH": "Length:",
+	"WINDOW2_LENGTH": "Duration:",
 	"WINDOW2_PERIOD": "Period:",
 	"WINDOW2_SAMPLES": "samples",
 		
