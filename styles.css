@@ -472,11 +472,6 @@ a {
 	flex-direction: row;
 }
 
-.capturesetuptable td {
-	margin: 0;
-	padding: 0;
-}
-
 .capturesetupmodeheader {
 	flex-grow: 0;
 
@@ -489,6 +484,7 @@ a {
 	padding: 16px;
 	flex-basis: 0;
 	flex-grow: 1;
+	font-weight: bold;
 }
 
 .capturesetupmodeheader > * > img {
@@ -500,6 +496,7 @@ a {
 .capturesetupmodeheaderinactive {
 	background-color: #BBB;
 	cursor: pointer;
+	font-weight: normal;
 }
 
 .capturesetupmodebody {
@@ -509,6 +506,19 @@ a {
 	padding: 16px;
 	display: flex;
 	flex-direction: column;
+}
+
+.capturesetupmodebodyparam {
+	display: flex;
+	flex-direction: row;
+	padding-top: 8px;
+}
+
+.capturesetupmodebodyparam > input {
+	min-width: 0;
+	flex-grow: 1;
+	text-align: right;
+	margin: 0 4px;
 }
 
 .capturesetupmodebodytext {
@@ -555,11 +565,12 @@ a {
 
 .capturesetupmodebodyxyportlist {
 	flex-grow: 0;
-	padding-bottom: 8px;
+	padding: 8px 0;
 
 	display: flex;
 	flex-direction: row;
 	align-items: center;
+	justify-content: center;
 }
 
 .capturesetupmodebodyxylabel {
@@ -597,8 +608,12 @@ a {
 	content: "Prosím přetáhněte sem čidlo ze seznamu nalevo.";
 }
 
+.capturesetupmodebodytrigdropzone:empty::after {
+	content: "Pro podmíněný záznam sem přetáhněte čidlo ze seznamu nalevo.";
+}
+
 .capturesetupsensorcontainer {
-	height: 375px;
+	height: 400px;
 	overflow-y: scroll;
 	margin-right: 16px;
 }
@@ -609,9 +624,10 @@ a {
 	padding-bottom: 8px;
 	margin-right: 8px;
 	background-color: white;
+	font-weight: bold;
 }
 
-#w2sensorsrc {
+.capturesetupsensorsrc {
 	margin-top: -8px;
 }
 

@@ -158,20 +158,18 @@
 				<h1 class="L18N_WINDOW2_TITLE"></h1>
 
 				<div class="capturesetuptable">
-					<div>
-						<div class="capturesetupsensorcontainer">
-							<div>Dostupná čidla</div>
-							<div id="w2sensorsrc">
-								<div class="capturesetupsensorblock">
-									<div>A1: V</div>
-									<div>Voltage+-10</div>
-									<div>-10–10 V</div>
-								</div>
-								<div class="capturesetupsensorblock">
-									<div>A2: mA</div>
-									<div>Current+-500</div>
-									<div>-500–500 mA</div>
-								</div>
+					<div class="capturesetupsensorcontainer">
+						<div>Dostupná čidla</div>
+						<div class="capturesetupsensorsrc">
+							<div class="capturesetupsensorblock">
+								<div>A1: V</div>
+								<div>Voltage+-10</div>
+								<div>-10–10 V</div>
+							</div>
+							<div class="capturesetupsensorblock">
+								<div>A2: mA</div>
+								<div>Current+-500</div>
+								<div>-500–500 mA</div>
 							</div>
 						</div>
 					</div>
@@ -207,6 +205,63 @@
 								<div class="capturesetupmodebodyxydropzone"></div>
 								<div class="capturesetupmodebodyxylabel">Y</div>
 								<div class="capturesetupmodebodyxydropzone"></div>
+							</div>
+						</div>
+					</div>
+					<div style="width: 200px; margin-left: 16px; display: flex; flex-direction: column; text-align: center;">
+						<b>Parametry záznamu</b>
+						<div class="capturesetupmodebody" style="padding: 0;">
+							<div class="capturesetupmodebodytext">
+								<div class="capturesetupmodebodyparam">
+									<div>Frekvence: </div>
+									<input type="number">
+									<div>Hz</div>
+								</div>
+								<div class="capturesetupmodebodyparam" style="padding-bottom: 8px;">
+									<div>Délka: </div>
+									<input type="number">
+									<select>
+										<option value="h">h</option>								
+										<option value="m">min</option>
+										<option value="s" selected="selected">s</option>
+										<option value="ms">ms</option>
+										<option value="ms">µs</option>
+									</select>
+								</div>
+								<hr>
+								<div class="capturesetupmodebodyparam">
+									<div>Perioda: </div>
+									<input type="number">
+									<select>
+										<option value="h">h</option>								
+										<option value="m">min</option>
+										<option value="s" selected="selected">s</option>
+										<option value="ms">ms</option>
+										<option value="ms">µs</option>
+									</select>
+								</div>
+								<div class="capturesetupmodebodyparam">
+									<input type="number" style="margin-left: 0;">
+									<div>vzorků</div>
+								</div>
+							</div>
+							<div class="capturesetupmodebodyspacer"></div>
+							<div class="capturesetupmodebodyxyportlist" style="background-color: #DDD;">
+								<div class="capturesetupmodebodyxydropzone capturesetupmodebodytrigdropzone"></div>
+							</div>
+							<div id="cs_trigger_setup" class="capturesetupmodebodytext" style="display: none;">
+								<div class="capturesetupmodebodyparam">
+									<select>
+										<option value="eq" selected="selected">=</option>								
+										<option value="ne">≠</option>								
+										<option value="lt">&lt;</option>
+										<option value="gt">&gt;</option>
+									</select>
+									<input type="number" value="6.9">
+									<div>±</div>
+									<input type="number" value="0">
+									<div id="cs_trigger_unit">V</div>
+								</div>
 							</div>
 						</div>
 					</div>

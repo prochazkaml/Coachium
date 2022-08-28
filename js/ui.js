@@ -1112,19 +1112,20 @@ window.onload = () => {
 
 	// Initialize capture setup window (TODO)
 
-	var sensorsrc = get_id("w2sensorsrc");
+	var sensorsrc = get_win_el_class(WINDOWID_CAPTURE_SETUP, "capturesetupsensorsrc");
 	var sensordrop = get_win_el_class(WINDOWID_CAPTURE_SETUP, "capturesetupmodebodydropzone");
 	var sensordropx = get_win_el_class(WINDOWID_CAPTURE_SETUP, "capturesetupmodebodyxydropzone", 0);
 	var sensordropy = get_win_el_class(WINDOWID_CAPTURE_SETUP, "capturesetupmodebodyxydropzone", 1);
+	var sensordroptrig = get_win_el_class(WINDOWID_CAPTURE_SETUP, "capturesetupmodebodyxydropzone", 2);
 
-	dragula([sensorsrc, sensordrop, sensordropx, sensordropy], {
+	var drake = dragula([sensorsrc, sensordrop, sensordropx, sensordropy, sensordroptrig], {
 		copy: (el, source) => {
 			return source === sensorsrc;
 		},
 		accepts: (el, target) => {
 			if(target === sensorsrc) return false;
 
-			if(target === sensordropx || target === sensordropy) {
+			if(target === sensordropx || target === sensordropy || target === sensordroptrig) {
 				return target.querySelector("div.capturesetupsensorblock:not(.gu-transit)") == null;
 			} else {
 				return true;
