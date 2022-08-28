@@ -1,0 +1,217 @@
+/*
+ * Coachium - styles.css
+ * - stylesheet for the capture setup window contents
+ *
+ * Copyright (C) 2021-2022 Michal Procházka
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
+.capturesetupname {
+	margin-top: 16px;
+}
+
+.capturesetupname > input {
+	width: 300px;
+}
+
+.capturesetuptable {
+	margin-top: 16px;
+	display: flex;
+	flex-direction: row;
+}
+
+.capturesetupmodeheader {
+	flex-grow: 0;
+
+	display: flex;
+	flex-direction: row;
+	user-select: none;
+}
+
+.capturesetupmodeheader > * {
+	padding: 16px;
+	flex-basis: 0;
+	flex-grow: 1;
+	font-weight: bold;
+}
+
+.capturesetupmodeheader > * > img {
+	height: 24px;
+	vertical-align: text-top;
+	margin-top: -3px;
+}
+
+.capturesetupmodeheaderinactive {
+	background-color: #BBB;
+	cursor: pointer;
+	font-weight: normal;
+}
+
+.capturesetupmodebody {
+	flex-grow: 1;
+
+	text-align: left;
+	padding: 16px;
+	display: flex;
+	flex-direction: column;
+}
+
+.capturesetupmodebodyparam {
+	display: flex;
+	flex-direction: row;
+	padding-top: 8px;
+}
+
+.capturesetupmodebodyparam > input {
+	min-width: 0;
+	flex-grow: 1;
+	text-align: right;
+	margin: 0 4px;
+}
+
+.capturesetupmodebodytext {
+	flex-grow: 0;
+}
+
+.capturesetupmodebodyspacer {
+	flex-grow: 1;
+}
+
+.capturesetupmodebodyportlist {
+	flex-grow: 0;
+	overflow-x: scroll;
+	background-color: white;
+	padding-bottom: 8px;
+
+	display: flex;
+	flex-direction: row;
+}
+
+.capturesetupmodebodydropzone {
+	flex-shrink: 0;
+
+	padding-left: 8px;
+	min-width: calc(100% - 8px);
+	height: 136px;
+	display: flex;
+	flex-direction: row;
+}
+
+.capturesetupmodebodydropzone:empty::after {
+	width: 100%;
+	height: 100%;
+	padding-right: 8px;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+
+	color: #888;
+	content: "Prosím přetáhněte sem čidla ze seznamu nalevo.";
+}
+
+.capturesetupmodebodyxyportlist {
+	flex-grow: 0;
+	padding: 8px 0;
+
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+}
+
+.capturesetupmodebodyxylabel {
+	font-weight: bold;
+	font-size: 24px;
+
+	text-align: center;
+
+	flex-grow: 1;
+}
+
+.capturesetupmodebodyxydropzone {
+	flex-shrink: 0;
+
+	background-color: #FFF;
+
+	padding-left: 8px;
+	width: 168px;
+	height: 144px;
+	display: flex;
+	flex-direction: row;
+}
+
+.capturesetupmodebodyxydropzone:empty::after {
+	width: 100%;
+	height: 100%;
+	padding-right: 8px;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+
+	color: #888;
+	content: "Prosím přetáhněte sem čidlo ze seznamu nalevo.";
+}
+
+.capturesetupmodebodytrigdropzone:empty::after {
+	content: "Pro podmíněný záznam sem přetáhněte čidlo ze seznamu nalevo.";
+}
+
+.capturesetupsensorcontainer {
+	height: 400px;
+	overflow-y: scroll;
+	margin-right: 16px;
+}
+
+.capturesetupsensorcontainer > *:first-child {
+	position: sticky;
+	top: 0;
+	padding-bottom: 8px;
+	margin-right: 8px;
+	background-color: white;
+	font-weight: bold;
+}
+
+.capturesetupsensorsrc {
+	margin-top: -8px;
+}
+
+.capturesetupsensorblock {
+	flex-shrink: 0;
+
+	display: flex;
+	width: 160px;
+	height: 128px;
+	margin-top: 8px;
+	margin-right: 8px;
+	background-color: rgba(0, 0, 0, 0.2);
+	text-align: center;
+	flex-direction: column;
+	justify-content: center;
+	font-size: 16px;
+	user-select: none;
+}
+
+.capturesetupsensorblock > * {
+	margin: 4px 0;
+}
+
+.capturesetupsensorblock > *:first-child {
+	font-weight: bold;
+	font-size: 32px;
+}
