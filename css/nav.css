@@ -25,7 +25,7 @@ nav {
 	box-shadow: 0 0 5px rgba(0, 0, 0, .3);
 	z-index: 1;
 
-	transition: height .3s, background-color .3s;	
+	transition: height .3s, background-color .3s;
 }
 
 #navcontents {

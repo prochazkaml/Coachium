@@ -77,13 +77,13 @@ const WebHID = {
 	transfer: async (device, packet, timeout) => {
 		return new Promise((resolve) => {
 			var tid;
-			
+
 			if(timeout !== undefined) {
 				tid = setTimeout(() => {
 					resolve(undefined);
 				}, timeout)
 			}
-			
+
 			device.oninputreport = (event) => {
 				if(timeout !== undefined) clearTimeout(tid);
 				resolve(event.data);

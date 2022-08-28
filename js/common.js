@@ -155,7 +155,7 @@ function get_tag(tagname, index = 0, srcel = document) {
 
 const format = function(format) {
 	var args = Array.prototype.slice.call(arguments, 1);
-	return format.replace(/{(\d+)}/g, function(match, number) { 
+	return format.replace(/{(\d+)}/g, function(match, number) {
 		return typeof args[number] != 'undefined' ? args[number] : match;
 	});
 };
@@ -212,7 +212,7 @@ function localize_num(num) {
 
 function convert_12bit_to_real(val, a, b, hv) {
 	var val;
-	
+
 	if(hv)
 		val = a * (val / 4095 * 20 - 10) * 1.013 + b;
 	else
@@ -264,7 +264,7 @@ function read_cookie(key) {
 		while(val.charAt(0) == ' ') {
 			val = val.substring(1);
 		}
-	
+
 		if(val.indexOf(key + "=") == 0) {
 			return val.substring(key.length + 1, val.length);
 		}
@@ -285,7 +285,7 @@ function generate_cache(values, start, end) {
 
 	if(capture.sensorsetup) {
 		// Only one sensor was used
-		
+
 		var sensor = (capture.sensorsetup == 1) ? capture.port_a : capture.port_b;
 
 		if(!sensor.zero_offset) sensor.zero_offset = 0;

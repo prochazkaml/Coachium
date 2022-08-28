@@ -72,7 +72,7 @@ class CMA_ELab_driver {
 	 *   0 = Success
 	 *   1 = Device verification error
 	 */
-	
+
 	async init(device) {
 		this.device = device;
 
@@ -159,13 +159,13 @@ class CMA_ELab_driver {
 			// Perform an immediate port read
 
 			const port = this.ports[portname];
-			
+
 			if(!port.connected) return undefined;
-			
+
 			const response = await WebHID.transfer(this.device, [ 3, port._internal_channel_ids[port.mode], 0, 0, 0, 0, 0, 0 ], 1000);
-			
+
 			if(response === undefined) return undefined;
-			
+
 			return port.value = this._12bit_to_correct_units(((response.getUint8(0) & 0x3F) << 6) | (response.getUint8(1) & 0x3F), port);
 		}
 	}
@@ -278,7 +278,7 @@ class CMA_ELab_driver {
 	 *   "spp": number of samples per packet
 	 * }
 	 */
-	
+
 	_processcapturesetup(setup) {
 		var output = { ports: setup.ports, limited: false };
 
@@ -325,7 +325,7 @@ class CMA_ELab_driver {
 
 		if(len > maxsamples) {
 			len = maxsamples;
-			output.limited = true;	
+			output.limited = true;
 		}
 
 		output.samples = len;
@@ -357,7 +357,7 @@ class CMA_ELab_driver {
 	 * }
 	 * 
 	 * The "length" parameter will only be updated if it was limited.
-	 * If an incompatible amount of capture ports is passed, undefined is returned instead of an object. 
+	 * If an incompatible amount of capture ports is passed, undefined is returned instead of an object.
 	 */
 
 	verifycapture(setup) {
@@ -418,7 +418,7 @@ class CMA_ELab_driver {
 							ports[j]
 						)
 					);
-					
+
 					ptr += 2;
 				}
 
@@ -439,7 +439,7 @@ class CMA_ELab_driver {
 		// Send over the initialization commands
 
 		await WebHID.send(this.device, [ 5, p.spp, 0, 0, 0, 0, 0, 0 ]);
-		await WebHID.send(this.device, [ 0, 
+		await WebHID.send(this.device, [ 0,
 			p.units & 0xFF, (p.units >> 8) & 0xFF, 0,
 			p.samples & 0xFF, (p.samples >> 8) & 0xFF,
 			p.samples & 0xFF, (p.samples >> 8) & 0xFF

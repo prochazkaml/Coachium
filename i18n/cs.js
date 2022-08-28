@@ -116,7 +116,7 @@ const alt_htmllang = {
 
 	"WINDOW4_TITLE": "Něco se pokazilo.",
 	"WINDOW4_PAR0": "Chyba ukládání sešitu záznamu na Google Disk:",
-	
+
 	"WINDOW5_TITLE": "Něco se pokazilo.",
 	"WINDOW5_PAR0": "Chyba připojování ke službám Google:",
 	"WINDOW5_PAR1":
@@ -132,7 +132,7 @@ const alt_htmllang = {
 		"tudíž není možné se k tomuto zařízení připojit.",
 	"WINDOW7_PAR1":
 		"Pokuste se prosím Váš prohlížeč aktualizovat,<br>" +
-		"nebo nainstalovat jiný (Google Chrome má velmi<br>" + 
+		"nebo nainstalovat jiný (Google Chrome má velmi<br>" +
 		"dobrou podporu těchto moderních vymožeností).",
 
 	"WINDOW8_TITLE": "Něco se pokazilo.",
@@ -223,7 +223,7 @@ const alt_htmllang = {
 
 const alt_jslang = {
 	// mainwindow.js
-	
+
 	"MAINWIN_NO_CAPTURES_1": "Zatím nebyl vytvořen žádný záznam.",
 	"MAINWIN_NO_CAPTURES_2": "Buď můžete spustit nový záznam, nebo otevřít jiný sešit záznamu.",
 

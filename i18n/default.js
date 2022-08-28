@@ -109,7 +109,7 @@ var htmllang = {
 	"WINDOW2_LENGTH": "Duration:",
 	"WINDOW2_PERIOD": "Period:",
 	"WINDOW2_SAMPLES": "samples",
-		
+
 	"CSSATTR_WINDOW2_STD_DROPZONE": "Please drag any sensors here from the list on the left.",
 	"CSSATTR_WINDOW2_XY_DROPZONE": "Please drag any sensor here from the list on the left.",
 	"CSSATTR_WINDOW2_TRIG_DROPZONE": "For triggering, drag any sensor here from the list on the left.",
@@ -119,7 +119,7 @@ var htmllang = {
 
 	"WINDOW4_TITLE": "Something went wrong.",
 	"WINDOW4_PAR0": "Error saving the workbook to Google Drive:",
-	
+
 	"WINDOW5_TITLE": "Something went wrong.",
 	"WINDOW5_PAR0": "Error connecting to Google services:",
 	"WINDOW5_PAR1":
@@ -319,7 +319,7 @@ function language_win_anim() {
 	if(get_win(WINDOWID_LANGUAGE_SELECTOR).style.display == "none") return;
 	get_win_el_tag(WINDOWID_LANGUAGE_SELECTOR, "h1").style.opacity = 1;
 	get_win_el_tag(WINDOWID_LANGUAGE_SELECTOR, "h1").innerHTML = languages[language_win_anim_cycle].title;
-	
+
 	language_win_anim_timeout1 = setTimeout(() => {
 		if(get_win(WINDOWID_LANGUAGE_SELECTOR).style.display == "none") return;
 		get_win_el_tag(WINDOWID_LANGUAGE_SELECTOR, "h1").style.opacity = 0;

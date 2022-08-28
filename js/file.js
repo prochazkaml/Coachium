@@ -111,7 +111,7 @@ function create_capture() {
 
 	zoom_reset();
 	capture_setup_check();
-	
+
 	setTimeout(() => {
 		get_win_el_class(WINDOWID_CAPTURE_SETUP, "capturesetupname").getElementsByTagName("input")[0].select();
 	}, 100);

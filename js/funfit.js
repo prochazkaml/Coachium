@@ -38,7 +38,7 @@ function fit_function() {
 	select.selectedIndex = 0;
 
 	// Automatically update the values when the selected function is changed
-	
+
 	select.onchange = () => {
 		const algo_output = fitting_algos[select.selectedIndex](capture_cache.values);
 
@@ -101,17 +101,17 @@ function function_fit_linear(points) {
 		mx += points[i][0];
 		my += points[i][1];
 	}
-	
+
 	mx /= points.length;
 	my /= points.length;
-	
+
 	var k = 0, l = 0;
-	
+
 	for(var i = 0; i < points.length; i++) {
 		k += (points[i][0] - mx) * (points[i][1] - my);
 		l += (points[i][0] - mx) * (points[i][0] - mx);
 	}
-	
+
 	a = k / l;
 	b = my - a * mx;
 

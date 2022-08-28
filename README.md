@@ -2,7 +2,7 @@
 
 # _CURRENTLY IN THE ALPHA STAGE, NOT MEANT FOR REGULAR USE AT THIS TIME!_
 
-Web-based software for interfacing with CMA educational interfaces and sensors. 
+Web-based software for interfacing with CMA educational interfaces and sensors.
 
 Coachium serves as an alternative to the Coach software developed by CMA Amsterdam, which is used to communicate with interfaces and sensors made by the same company, which aid you in measuring different physical quantities and capturing measured data into a graph.
 

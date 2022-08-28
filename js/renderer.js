@@ -39,7 +39,7 @@ function main_window_reset(reset_zoom, reset_layout) {
 		zoom_request_progress = 0;
 
 		if(reset_zoom) zoomed_in = false;
-		
+
 		if(reset_layout)
 			canvas_reset(CANVAS_EVENT_RECALCULATE_STYLES);
 		else
@@ -106,11 +106,11 @@ function get_optimal_unit_steps(level) {
 
 function get_optimal_round_level(maxunits, displaysize, limit) {
 	var level = -9;
-	
+
 	while(displaysize / (maxunits / get_optimal_unit_steps(level)) < limit) {
 		level++;
 	}
-	
+
 	return level;
 }
 
@@ -137,7 +137,7 @@ function canvas_reset(event) {
 	// Redraw again, if necessary
 
 	if((event != CANVAS_EVENT_ZOOM_CROSSHAIR_MOVE && event != CANVAS_EVENT_CURSOR_MOVE) || drawcache == null) {
-		if(event == CANVAS_EVENT_RECALCULATE_STYLES) {			
+		if(event == CANVAS_EVENT_RECALCULATE_STYLES) {
 			// Reset canvas parameters
 
 			overlay.width = canvas.width = 0;
@@ -175,11 +175,11 @@ function canvas_reset(event) {
 		ctx.font = "16px Ubuntu";
 
 		if(captures.length > 0) {
-			const capture = captures[selected_capture];	
+			const capture = captures[selected_capture];
 
 			ctx.lineWidth = 2;
 			ctx.strokeStyle = "black";
-		
+
 			/*
 			 * a_unit_name = axis' unit name (string – e. g. "s" = seconds, "°C" = degrees Celsius etc.)
 			 * a_total_units = total number of units on an axis (e. g. range -20–110 °C = 130 units)
@@ -194,12 +194,12 @@ function canvas_reset(event) {
 			 * a_round_level = value calculated by get_optimal_round_level()
 			 * a_optimal_unit_steps = value calculated by get_optimal_unit_steps()
 			 */
-		
+
 			var x_unit_name, x_total_units, x_min, x_max, x_int_min, x_int_max, x_unit_in_px, x_offset, x_actual_offset, x_round_level, x_optimal_unit_steps, x_legend_reverse = false,
 				y_unit_name, y_total_units, y_min, y_max, y_int_min, y_int_max, y_unit_in_px, y_offset, y_actual_offset, y_round_level, y_optimal_unit_steps, y_legend_reverse = false;
-		
+
 			// Calculate the above described values
-		
+
 			x_unit_name = capture_cache.x.unitname;
 			x_int_min = x_min = capture_cache.x.min;
 			x_int_max = x_max = capture_cache.x.max;
@@ -213,7 +213,7 @@ function canvas_reset(event) {
 			if(zoomed_in) {
 				x_total_units = Math.abs(x_max - x_min);
 
-				x_max = x_min + zoomx2 * x_total_units;		
+				x_max = x_min + zoomx2 * x_total_units;
 				x_min += zoomx1 * x_total_units;
 			}
 
@@ -229,13 +229,13 @@ function canvas_reset(event) {
 			}
 
 			x_actual_offset = graph_margin_left - (canvas.width - graph_margin_left - graph_margin_right) * x_min / x_total_units;
-	
+
 			x_unit_in_px = (canvas.width - graph_margin_left - graph_margin_right) / x_total_units;
 			x_round_level = get_optimal_round_level(x_total_units, canvas.width - graph_margin_left - graph_margin_right, 40);
 			x_optimal_unit_steps = get_optimal_unit_steps(x_round_level);
 
 			// Calculate the rest of the Y axis parameters
-	
+
 			if(zoomed_in) {
 				y_total_units = Math.abs(y_max - y_min);
 
@@ -261,67 +261,67 @@ function canvas_reset(event) {
 			y_optimal_unit_steps = get_optimal_unit_steps(y_round_level);
 
 			// Draw the grid
-		
+
 			ctx.beginPath();
 			ctx.strokeStyle = "rgba(0, 0, 0, 0.1)";
-		
+
 			for(var i = y_optimal_unit_steps; i <= y_max; i = round_to_level(i + y_optimal_unit_steps, y_round_level)) {
 				if(i >= y_min) {
 					ctx.moveTo(graph_margin_left, y_actual_offset - i * y_unit_in_px);
 					ctx.lineTo(canvas.width - graph_margin_right, y_actual_offset - i * y_unit_in_px);
 				}
 			}
-		
+
 			for(var i = -y_optimal_unit_steps; i >= y_min; i = round_to_level(i - y_optimal_unit_steps, y_round_level)) {
 				if(i <= y_max) {
 					ctx.moveTo(graph_margin_left, y_actual_offset - i * y_unit_in_px);
 					ctx.lineTo(canvas.width - graph_margin_right, y_actual_offset - i * y_unit_in_px);
 				}
 			}
-		
+
 			for(var i = x_optimal_unit_steps; i <= x_max; i = round_to_level(i + x_optimal_unit_steps, x_round_level)) {
 				if(i >= x_min) {
 					ctx.moveTo(x_actual_offset + i * x_unit_in_px, graph_margin_top);
 					ctx.lineTo(x_actual_offset + i * x_unit_in_px, canvas.height - graph_margin_bottom);
 				}
 			}
-		
+
 			for(var i = -x_optimal_unit_steps; i >= x_min; i = round_to_level(i - x_optimal_unit_steps, x_round_level)) {
 				if(i <= x_max) {
 					ctx.moveTo(x_actual_offset + i * x_unit_in_px, graph_margin_top);
 					ctx.lineTo(x_actual_offset + i * x_unit_in_px, canvas.height - graph_margin_bottom);
 				}
 			}
-		
+
 			ctx.stroke();
-	
+
 			// Draw the graph data
-		
+
 			ctx.beginPath();
 			ctx.strokeStyle = "red";
-				
+
 			var x, last_x = null, y, last_y = null;
 
 			for(var i = 0; i < capture_cache.values.length; i++) {
 				x = x_actual_offset + capture_cache.values[i][0] * x_unit_in_px;
 				y = y_actual_offset - capture_cache.values[i][1] * y_unit_in_px;
 
-				if(i && 
+				if(i &&
 					(last_x >= 0 || x >= 0) &&
 					(last_x < canvas.width || x < canvas.width) &&
 					(last_y >= 0 || y >= 0) &&
 					(last_y < canvas.height || y < canvas.height)) {
-				
+
 					ctx.moveTo(last_x, last_y);
 					ctx.lineTo(x, y);
 				}
 
 				last_x = x;
 				last_y = y;
-			}			
+			}
 
 			ctx.stroke();
-			
+
 			// Draw any fitted functions that were assigned to the capture
 
 			if(capture.functions) {
@@ -360,29 +360,29 @@ function canvas_reset(event) {
 			ctx.fillRect(0, graph_margin_top, graph_margin_left, canvas.height - graph_margin_top - graph_margin_bottom);
 			ctx.fillRect(canvas.width - graph_margin_right, graph_margin_top, graph_margin_right, canvas.height - graph_margin_top - graph_margin_bottom);
 			ctx.fillRect(0, canvas.height - graph_margin_bottom, canvas.width, graph_margin_bottom);
-	
+
 			ctx.restore();
 
 			// Draw the axes
-		
+
 			ctx.beginPath();
 			ctx.strokeStyle = "rgba(0, 0, 0, 0.3)";
-			
+
 			// Draw the Y axis (based on the X axis offset)
-		
+
 			ctx.moveTo(x_offset, graph_margin_top);
 			ctx.lineTo(x_offset, canvas.height - graph_margin_bottom);
-		
+
 			// Draw the X axis (based on the Y axis offset)
-		
+
 			ctx.moveTo(graph_margin_left, y_offset);
 			ctx.lineTo(canvas.width - graph_margin_right, y_offset);
-		
+
 			// Draw the dashes on the Y axis & add values to them
-		
+
 			ctx.textAlign = x_legend_reverse ? "left" : "right";
 			ctx.textBaseline = "middle";
-		
+
 			for(var i = y_optimal_unit_steps; i <= y_max; i = round_to_level(i + y_optimal_unit_steps, y_round_level)) {
 				if(i >= y_min) {
 					ctx.moveTo(x_offset - 4, y_actual_offset - i * y_unit_in_px);
@@ -390,7 +390,7 @@ function canvas_reset(event) {
 					ctx.fillText(localize_num(fixed_to_level(i, y_round_level)), x_offset + (x_legend_reverse ? 8 : (-8)), y_actual_offset - i * y_unit_in_px);
 				}
 			}
-		
+
 			for(var i = -y_optimal_unit_steps; i >= y_min; i = round_to_level(i - y_optimal_unit_steps, y_round_level)) {
 				if(i <= y_max) {
 					ctx.moveTo(x_offset - 4, y_actual_offset - i * y_unit_in_px);
@@ -398,12 +398,12 @@ function canvas_reset(event) {
 					ctx.fillText(localize_num(fixed_to_level(i, y_round_level)), x_offset + (x_legend_reverse ? 8 : (-8)), y_actual_offset - i * y_unit_in_px);
 				}
 			}
-		
+
 			// Draw the dashes on the X axis & add values to them
-		
+
 			ctx.textAlign = "center";
 			ctx.textBaseline = y_legend_reverse ? "bottom" : "top";
-		
+
 			for(var i = x_optimal_unit_steps; i <= x_max; i = round_to_level(i + x_optimal_unit_steps, x_round_level)) {
 				if(i >= x_min) {
 					ctx.moveTo(x_actual_offset + i * x_unit_in_px, y_offset - 4);
@@ -411,7 +411,7 @@ function canvas_reset(event) {
 					ctx.fillText(localize_num(fixed_to_level(i, x_round_level)), x_actual_offset + i * x_unit_in_px, y_offset + (y_legend_reverse ? (-12) : 12));
 				}
 			}
-		
+
 			for(var i = -x_optimal_unit_steps; i >= x_min; i = round_to_level(i - x_optimal_unit_steps, x_round_level)) {
 				if(i <= x_max) {
 					ctx.moveTo(x_actual_offset + i * x_unit_in_px, y_offset - 4);
@@ -419,40 +419,40 @@ function canvas_reset(event) {
 					ctx.fillText(localize_num(fixed_to_level(i, x_round_level)), x_actual_offset + i * x_unit_in_px, y_offset + (y_legend_reverse ? (-12) : 12));
 				}
 			}
-		
+
 			// Add the axes' units
-		
+
 			ctx.textBaseline = y_legend_reverse ? "top" : "bottom";
 			ctx.textAlign = "center";
 			ctx.fillText(y_unit_name, x_offset, y_legend_reverse ? (canvas.height - graph_margin_bottom + 8) : (graph_margin_top - 8));
-		
+
 			ctx.textBaseline = "middle";
 			ctx.textAlign = x_legend_reverse ? "right" : "left";
 			ctx.fillText(x_unit_name, x_legend_reverse ? (graph_margin_left - 8) : (canvas.width - graph_margin_right + 8), y_offset);
-		
+
 			// Done drawing! Hooray!
-		
+
 			ctx.stroke();
-	
+
 			// Capture name
-	
+
 			ctx.textBaseline = "middle";
 			ctx.textAlign = "left";
 			ctx.font = "bold 16px Ubuntu";
 			ctx.fillText(format(jslang.CAPTURE_FMT, selected_capture + 1, captures.length, capture.title), graph_margin_left, graph_margin_top / 2);
-	
+
 			// If the capture is currently running, display a "crosshair"
-	
+
 			if(driver !== null && driver.capture.running && selected_capture == (captures.length - 1) && x != null && y != null) {
 				ctx.beginPath();
 				ctx.strokeStyle = "rgba(0, 0, 255, 0.3)";
-				
+
 				ctx.moveTo(x, graph_margin_top);
 				ctx.lineTo(x, canvas.height - graph_margin_bottom);
-			
+
 				ctx.moveTo(graph_margin_left, y);
 				ctx.lineTo(canvas.width - graph_margin_right, y);
-			
+
 				ctx.stroke();
 			}
 		} else {
@@ -472,7 +472,7 @@ function canvas_reset(event) {
 			case 1:
 				ovctx.fillStyle = "rgba(0, 0, 0, 0.5)";
 				ovctx.fillRect(0, 0, overlay.width, overlay.height);
-	
+
 				draw_crosshair(x, y, "#0000FF");
 				break;
 
@@ -486,7 +486,7 @@ function canvas_reset(event) {
 					ovctx.fillRect(0, 0, overlay.width, y);
 					ovctx.fillRect(0, mousepositions[1][1], overlay.width, overlay.height);
 				}
-	
+
 				if(mousepositions[1][0] < x) {
 					ovctx.fillRect(0, 0, mousepositions[1][0], overlay.height);
 					ovctx.fillRect(x, 0, overlay.width, overlay.height);
@@ -494,7 +494,7 @@ function canvas_reset(event) {
 					ovctx.fillRect(0, 0, x, overlay.height);
 					ovctx.fillRect(mousepositions[1][0], 0, overlay.width, overlay.height);
 				}
-	
+
 				draw_crosshair(mousepositions[1][0], mousepositions[1][1], "#0000FF");
 				draw_crosshair(x, y, "#0000FF");
 				break;
@@ -522,7 +522,7 @@ function canvas_reset(event) {
 				overlay.width - graph_margin_right, graph_margin_top / 2 - 10);
 
 			ovctx.fillText(
-				"Y = " + localize_num(ideal_round_fixed(uh, capture_cache.y.max)) + " " + capture_cache.y.unitname, 
+				"Y = " + localize_num(ideal_round_fixed(uh, capture_cache.y.max)) + " " + capture_cache.y.unitname,
 				overlay.width - graph_margin_right, graph_margin_top / 2 + 10);
 		}
 	}
@@ -549,7 +549,7 @@ function draw_crosshair(x, y, color) {
 
 function table_reset() {
 	var out = document.createElement("div");
-	const capture = captures[selected_capture];	
+	const capture = captures[selected_capture];
 
 	if(captures.length > 0) {
 		out.style.marginLeft = graph_margin_left + "px";
@@ -600,7 +600,7 @@ function table_reset() {
 
 			for(var i = 0; i < capture_cache.values.length; i++) {
 				tr = document.createElement("tr");
-				
+
 				td = document.createElement("td");
 				td.innerText = localize_num(i * capture.interval / 10000);
 				tr.appendChild(td);
@@ -616,7 +616,7 @@ function table_reset() {
 
 			for(var i = 0; i < capture_cache.values.length; i++) {
 				tr = document.createElement("tr");
-				
+
 				td = document.createElement("td");
 				td.innerText = localize_num(i * capture.interval / 10000);
 				tr.appendChild(td);
@@ -630,9 +630,9 @@ function table_reset() {
 				tr.appendChild(td);
 
 				tbl.appendChild(tr);
-			}				
+			}
 		}
-		
+
 		out.appendChild(tbl);
 	} else {
 		out.className = "infomsg";
@@ -725,7 +725,7 @@ function canvasmousemovehandler(e) {
 
 function canvasmouseleavehandler() {
 	mouse_over_canvas = false;
-	
+
 	if(!zoom_request_progress) ovctx.clearRect(0, 0, overlay.width, overlay.height);	;
 }
 
@@ -755,7 +755,7 @@ function canvasmousechangehandler(status) {
 			}
 
 			break;
-		
+
 		case 1:
 			mousepositions[1][0] = mousepositions[0][0];
 			mousepositions[1][1] = mousepositions[0][1];
@@ -806,7 +806,7 @@ function canvasmousechangehandler(status) {
 
 			break;
 	}
-	
+
 	lock = false;
 }
 
@@ -855,7 +855,7 @@ function canvasmousewheelhandler(event) {
 		zoomy1 += yb * scale;
 
 		zoomx2 -= xr * scale;
-		zoomy2 -= yt * scale;		
+		zoomy2 -= yt * scale;
 
 		// Handling for when the zoomed out region is temporarily off-screen
 

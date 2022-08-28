@@ -93,7 +93,7 @@ class Prochazka_Dummy_driver {
 			this.ports[portname].detected = true;
 			updatecb({ type: "change" });
 		}
-		
+
 		return 0;
 	};
 

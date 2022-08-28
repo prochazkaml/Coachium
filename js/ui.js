@@ -68,7 +68,7 @@ function popup_window(id) {
 function close_window(id = undefined) {
 	if(open_window >= 0) {
 		var win;
-		
+
 		if(id == undefined) {
 			win = window_stack[open_window];
 		} else {
@@ -313,13 +313,13 @@ function ui_connect(actually_connect) {
 
 		header.style.height = "48px";
 		header.style.padding = "8px 16px";
-		
+
 		get_id("navcontents").style.display = "flex";
 
 		get_id("introerrmsg").remove();
-	
+
 		get_id("headercontents").style.opacity = 0;
-	
+
 		nav.style.height = "40px";
 		footer.style.height = "96px";
 
@@ -383,7 +383,7 @@ function ui_connect(actually_connect) {
 		}
 	} else {
 		// No ports available
-		
+
 		plist.innerHTML = "<b>" + jslang.SENSOR_NONE_PRESENT + "</b>";
 	}
 
@@ -452,7 +452,7 @@ function capture_setup_check() {
 	var srclist = get_win_el_class(WINDOWID_CAPTURE_SETUP, "capturesetupsensorsrc");
 
 	srclist.innerHTML = "";
-	
+
 	const ports = Object.keys(driver.ports);
 
 	for(const port of ports) {
@@ -511,8 +511,8 @@ function capture_setup_bottom_section_change() {
  */
 
 function change_selected_capture(interval, absolute = undefined) {
-	if(interval < 0 && get_id("viewpreviousbutton").classList.contains("navbuttondisabled")) return; 
-	if(interval > 0 && get_id("viewnextbutton").classList.contains("navbuttondisabled")) return; 
+	if(interval < 0 && get_id("viewpreviousbutton").classList.contains("navbuttondisabled")) return;
+	if(interval > 0 && get_id("viewnextbutton").classList.contains("navbuttondisabled")) return;
 
 	if(captures.length > 0) {
 		if(absolute != undefined && absolute != Infinity)
@@ -528,12 +528,12 @@ function change_selected_capture(interval, absolute = undefined) {
 			selected_capture = captures.length - 1;
 
 		const capture = captures[selected_capture];
-	
+
 		capture_cache.values = [];
 
 		if(capture.sensorsetup) {
 			// Only one sensor was used
-			
+
 			const sensor = (capture.sensorsetup == 1) ? capture.port_a : capture.port_b;
 
 			// X axis parameters
@@ -656,21 +656,21 @@ function zoom_to_data() {
 
 		min_x -= w * .1; min_y -= h * .1;
 		max_x += w * .1; max_y += h * .1;
-	
+
 		if(min_x < 0) min_x = 0;
 		if(min_y < 0) min_y = 0;
 		if(max_x > 1) max_x = 1;
 		if(max_y > 1) max_y = 1;
-	
+
 		get_id("statusmsg").innerHTML = jslang.STATUS_ZOOM_DATA;
 		zoom_request_progress = 0;
 		zoomed_in = true;
 
 		zoomx1 = min_x; zoomy1 = min_y;
 		zoomx2 = max_x; zoomy2 = max_y;
-	
+
 		update_button_validity();
-		main_window_reset(false, false); // Not needed, since we've done it already	
+		main_window_reset(false, false); // Not needed, since we've done it already
 	}
 }
 
@@ -707,7 +707,7 @@ function info_generate_sensor(sensor) {
 		localize_num(round(sensor.max_value, 2)),
 		sensor.unit
 	);
-	
+
 	out += "</div>";
 
 	return out;
@@ -736,7 +736,7 @@ function show_capture_info() {
 		case 0:
 			str += info_generate_sensor(capture.port_a);
 			// break is, again, missing here on purpose
-		
+
 		case 2:
 			str += info_generate_sensor(capture.port_b);
 			break;
@@ -769,7 +769,7 @@ function capture_management() {
 	for(var i = 0; i < captures.length; i++) {
 		var option = document.createElement("option");
 		option.innerHTML = (i + 1) + ") " + captures[i].title;
-	
+
 		select.appendChild(option);
 	}
 
@@ -779,7 +779,7 @@ function capture_management() {
 		change_selected_capture(0, select.selectedIndex);
 		main_window_reset(true, false);
 	}
-	
+
 	input.oninput = () => {
 		get_win_el_class(w, "windowbutton").style.backgroundColor =
 			(input.value == captures[selected_capture].title) ? "rgba(0, 0, 0, .1)" : "";
@@ -837,7 +837,7 @@ function device_select() {
 	for(const vendor in driverindex) {
 		var option = document.createElement("option");
 		option.innerText = vendor;
-	
+
 		vendorlist.appendChild(option);
 	}
 
@@ -847,8 +847,8 @@ function device_select() {
 		for(const device in driverindex[vendorlist.value]) {
 			var option = document.createElement("option");
 			option.innerText = device;
-		
-			devicelist.appendChild(option);	
+
+			devicelist.appendChild(option);
 		}
 
 		devicelist.selectedIndex = 0;
@@ -914,7 +914,7 @@ async function driver_start() {
 
 		default:
 			// Success, save the driver for later use
-		
+
 			driver = response;
 
 			// Update the UI to reflect the fact that we are connected
@@ -922,14 +922,14 @@ async function driver_start() {
 			ui_connect(true);
 
 			// Main application thread (lol)
-			
+
 			while(driver !== null) {
 				// Iterate over each input port and wait 200 ms until disconnection
 
 				try {
 					for(const port in driver.ports) {
 						// TODO - handle errors on autodetect
-						
+
 						// Run auto-detection
 
 						await driver.autodetect(port, (status) => {
@@ -937,7 +937,7 @@ async function driver_start() {
 								case "load":
 									get_id("port" + port + "status").innerHTML =
 										jslang.SENSOR_LOADING + "<br><progress value=\"" + round(status.progress * 1000) + "\" max=\"1000\"></progress>";
-		
+
 									get_id("port" + port + "value").innerText = round(status.progress * 100) + " %";
 									break;
 
@@ -949,10 +949,10 @@ async function driver_start() {
 											(pobj.autodetect ? (jslang.SENSOR_INTELLIGENT + ": ") : "") +
 											pobj.name + " (" + pobj.min + "–" + pobj.max + " " + pobj.unit + ")";
 
-										get_id("port" + port).style.backgroundColor = pobj.color;		
+										get_id("port" + port).style.backgroundColor = pobj.color;
 									} else {
 										get_id("port" + port + "status").innerHTML = jslang.SENSOR_DISCONNECTED;
-										get_id("port" + port).style.backgroundColor = "";			
+										get_id("port" + port).style.backgroundColor = "";
 									}
 
 									ui_hardware_change_trigger();
@@ -1022,7 +1022,7 @@ function update_button_validity() {
 		get_id("captureinfobutton").classList.add("navbuttondisabled");
 	} else {
 		get_id("capturestartbutton").style.display = "";
-		get_id("capturestopbutton").style.display = "none";	
+		get_id("capturestopbutton").style.display = "none";
 
 		get_id("openbutton").classList.remove("navbuttondisabled");
 
@@ -1094,7 +1094,7 @@ window.onload = () => {
 	overlay = get_id("overlaycanvas");
 	ovctx = overlay.getContext("2d");
 	table = get_id("table");
-	
+
 	// Initialize the connect button
 
 	get_id("connectbutton").onclick = () => {
@@ -1152,7 +1152,7 @@ window.onload = () => {
 
 		var github_request = new XMLHttpRequest();
 
-		github_request.onreadystatechange = function() { 
+		github_request.onreadystatechange = () => {
 			if(github_request.readyState == 4) {
 				if(github_request.status == 200) {
 					var sha1 = JSON.parse(github_request.responseText)["sha"];
@@ -1162,36 +1162,36 @@ window.onload = () => {
 							get_class("L18N_HOMEPAGE_COMMIT_CHECKING").innerHTML = jslang.HOMEPAGE_COMMIT_ERR;
 					} else {
 						var local_request = new XMLHttpRequest();
-			
-						local_request.onreadystatechange = function() { 
+
+						local_request.onreadystatechange = () => {
 							if(local_request.readyState == 4) {
 								if(local_request.status == 200) {
 									var sha2 = local_request.responseText;
 
 									if(sha1.substring(0, 7) == sha2.substring(0, 7)) {
 										if(get_class("L18N_HOMEPAGE_COMMIT_CHECKING"))
-											get_class("L18N_HOMEPAGE_COMMIT_CHECKING").innerHTML = 
+											get_class("L18N_HOMEPAGE_COMMIT_CHECKING").innerHTML =
 												format(jslang.HOMEPAGE_COMMIT_OK, sha1.substring(0, 7));
 									} else {
 										if(get_class("L18N_HOMEPAGE_COMMIT_CHECKING"))
-											get_class("L18N_HOMEPAGE_COMMIT_CHECKING").innerHTML = 
+											get_class("L18N_HOMEPAGE_COMMIT_CHECKING").innerHTML =
 												format(jslang.HOMEPAGE_COMMIT_OLD, sha2.substring(0, 7), sha1.substring(0, 7));
 									}
 								} else {
 									if(get_class("L18N_HOMEPAGE_COMMIT_CHECKING"))
 										get_class("L18N_HOMEPAGE_COMMIT_CHECKING").innerHTML = jslang.HOMEPAGE_COMMIT_ERR;
 								}
-							} 
+							}
 						}
-			
-						local_request.open("GET", "./.git/refs/heads/master", true); // true for asynchronous 
+
+						local_request.open("GET", "./.git/refs/heads/master", true); // true for asynchronous
 						local_request.send(null);
 					}
 				} else {
 					if(get_class("L18N_HOMEPAGE_COMMIT_CHECKING"))
 						get_class("L18N_HOMEPAGE_COMMIT_CHECKING").innerHTML = jslang.HOMEPAGE_COMMIT_ERR;
 				}
-			} 
+			}
 		}
 
 		github_request.open("GET", "https://api.github.com/repos/prochazkaml/Coachium/commits/master", true);
@@ -1212,7 +1212,7 @@ document.addEventListener('keydown', (event) => {
 				window.location.hash = '';
 				close_window();
 				break;
-	
+
 			case "enter":
 				confirm_window();
 				break;
@@ -1239,7 +1239,7 @@ document.addEventListener('keydown', (event) => {
 		} else switch(key) {
 			case " ":
 				event.preventDefault();
-				
+
 				if(driver !== null) {
 					if(!driver.capture.running)
 						create_capture();

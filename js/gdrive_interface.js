@@ -78,7 +78,7 @@ window.addEventListener('message', (response) => {
 				var str = d.getDate() + ". " + (d.getMonth() + 1) + ". " + d.getFullYear();
 				inputfield.value = format(jslang.DEFAULT_FILENAME, jslang.DEFAULT_USERNAME, str);
 			}
-			
+
 			setTimeout(() => {
 				inputfield.select();
 				inputfield.selectionStart = 0;

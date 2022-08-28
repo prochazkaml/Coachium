@@ -62,7 +62,7 @@
 					console.log("Attempt to communicate from origin " + response.origin);
 					msg("error: attempt to communicate from unregistered origin " + response.origin);
 				}
-			}); 
+			});
 
 			function gapiStart() {
 				gapi.client.init({}).then(function() {
@@ -141,7 +141,7 @@
 				var callback = function(file) {
 					msg(file.id);
 				};
-				
+
 				request.execute(callback);
 			}
 		</script>
