@@ -1,0 +1,80 @@
+/*
+ * Coachium - css/nav.css
+ * - stylesheet for the program's nav bar + iconized buttons
+ *
+ * Copyright (C) 2021-2022 Michal Procházka
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
+nav {
+	height: 0;
+
+	background-color: #CCF;
+	box-shadow: 0 0 5px rgba(0, 0, 0, .3);
+	z-index: 1;
+
+	transition: height .3s, background-color .3s;	
+}
+
+#navcontents {
+	height: 100%;
+
+	opacity: 0;
+
+	display: none;
+	flex-direction: row;
+	flex-wrap: wrap;
+	align-items: center;
+    justify-content: center;
+
+	transition: opacity .3s;
+}
+
+.navbutton {
+	height: 24px;
+	margin: 8px 4px;
+
+	cursor: pointer;
+
+	transition: filter .3s;
+}
+
+.navbutton:hover {
+	filter: contrast(.3);
+}
+
+.navbutton img {
+	height: 24px;
+	user-select: none;
+}
+
+.navbuttondisabled {
+	cursor: default;
+	filter: contrast(0);
+}
+
+.navbuttondisabled:hover {
+	filter: contrast(0);
+}
+
+.mainpagebutton img {
+	height: 16px;
+	vertical-align: text-bottom;
+	user-select: none;
+}
+
+.navspacer {
+	width: 16px;
+}

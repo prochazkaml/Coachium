@@ -1,0 +1,124 @@
+/*
+ * Coachium - css/windows.css
+ * - stylesheet for the program's windows
+ *
+ * Copyright (C) 2021-2022 Michal Procházka
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
+ .windowoverlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	opacity: 0;
+	z-index: -1;
+	pointer-events: none;
+
+	display: flex;
+	flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+	transition: opacity .3s;
+
+	background-color: rgba(0, 0, 0, .5);
+}
+
+.windowcloselayer {
+	position: absolute;
+
+	width: 100%;
+	height: 100%;
+}
+
+.popupwindow {
+	background-color: #FFF;
+	padding: 16px;
+	box-shadow: 0 0 8px rgba(0, 0, 0, .3);
+	text-align: center;
+	border-radius: 8px;
+
+	transform: scale(.9);
+	transition: transform .3s;
+}
+
+.bigwindow {
+	padding: 0;
+	border-radius: 0;
+
+	position: relative;
+
+	transform: scale(.9);
+	transition: transform .3s;
+	
+	width: 100%;
+	height: 100%;
+	overflow-y: scroll;
+}
+
+.bigwindowbuttonlist {
+	position: absolute;
+	top: 0;
+	right: 0;
+	margin: 16px;
+}
+
+.bigwindowbody {
+	max-width: 640px;
+	line-height: 1.8;
+	text-align: justify;
+	margin: 16px auto;
+}
+
+.popupwindow h1 {
+	margin: 0;
+}
+
+.inlineshilllink {
+	padding: 0 5px;
+	text-decoration: none;
+	display: inline;
+}
+
+.windowbutton {
+	flex: 1;
+	height: 16px;
+	background-color: rgba(0, 0, 0, .2);
+	padding: 8px;
+	margin: 8px;
+	border-radius: 9999px;
+/*	box-shadow: 0 0 8px rgba(0, 0, 0, .6); The shadow looks really weird here... 😕 */
+
+	cursor: pointer;
+	user-select: none;
+	transition: background-color .2s;
+}
+
+.windowbutton:hover {
+	background-color: rgba(0, 0, 0, .3);
+}
+
+.windowbuttonlist {
+	width: calc(100% + 16px);
+	margin-top: 16px;
+	margin-left: -8px;
+	margin-right: -8px;
+	margin-bottom: -8px;
+
+	display: flex;
+	flex-direction: row;
+}

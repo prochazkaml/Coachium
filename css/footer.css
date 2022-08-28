@@ -1,0 +1,165 @@
+/*
+ * Coachium - css/footer.css
+ * - stylesheet for the program's footer + any port (popup) related stuff
+ *
+ * Copyright (C) 2021-2022 Michal Procházka
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
+footer {
+	height: 0;
+	background-color: #88F;
+	box-shadow: 0 0 5px rgba(0, 0, 0, .3);
+	z-index: 1;
+
+	transition: height .3s, background-color .3s;
+}
+
+#footercontents {
+	opacity: 0;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: center;  
+
+	padding: 8px;
+	height: calc(100% - 16px);
+
+	transition: opacity .3s;
+	color: white;
+}
+
+.port {
+	flex: 1;
+	margin: 8px;
+	box-shadow: 0 0 8px rgba(0, 0, 0, .3);
+	padding: 8px;
+	background-color: rgba(255, 255, 255, .8);
+	height: 48px;
+	color: black;
+
+	transition: background-color .3s, filter .3s;
+
+	user-select: none;
+
+	display: flex;
+	flex-direction: row;	
+	align-items: center;
+}
+
+.port:hover {
+	cursor: pointer;
+	filter: brightness(85%);
+}
+
+.portlabel {
+	font-size: 32px;
+	margin: 0 4px;
+}
+
+.portstatus {
+	margin: 0 8px;
+	flex: 1;
+}
+
+.portvalue {
+	font-size: 32px;
+	margin: 0 4px;
+}
+
+.portdivider {
+	flex: 1;
+	margin-left: 8px;
+
+	display: flex;
+	flex-direction: column;
+}
+
+.portpopup {
+	position: absolute;
+	top: 0;
+	margin-top: 0;
+	left: 0;
+	z-index: 2;
+	display: none;
+
+	padding: calc(18.4px - 4px);
+
+	pointer-events: none;
+
+	background-color: white;
+	box-shadow: 0 0 5px rgba(0, 0, 0, 1);
+	border-radius: 8px;
+
+	opacity: 0;
+	transition: opacity .2s, margin-top .2s;
+}
+
+.portpopup:before {
+    transform: rotate(45deg);
+
+	box-shadow: 0 0 5px rgba(0, 0, 0, 1);
+
+	content: "";
+    position: absolute;
+    bottom: -12.8px;
+    left: calc(50% - 12.8px);
+	width: 25.6px;
+	height: 25.6px;
+	background-color: white;
+
+	clip: rect(0, 32px, 32px, 0);
+}
+
+.portpopup:after {
+	content: "";
+    position: absolute;
+    bottom: 0;
+    left: calc(50% - 18.4px);
+	width: 36.8px;
+	height: 18.4px;
+	background-color: white;
+}
+
+.portpopupitem {
+	margin: 4px;
+	padding: 8px;
+	background-color: rgba(0, 0, 0, 0);
+	border-radius: 8px;
+	
+	text-align: left;
+
+	user-select: none;
+	cursor: pointer;
+
+	transition: background-color .3s;
+}
+
+.portpopupitem:hover {
+	background-color: rgba(0, 0, 0, .1);
+}
+
+.portpopupitemdisabled {
+	margin: 4px;
+	padding: 8px;
+	background-color: rgba(0, 0, 0, 0);
+	color: #606060;
+	border-radius: 8px;
+		
+	text-align: left;
+
+	user-select: none;
+}
