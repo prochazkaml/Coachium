@@ -1152,7 +1152,7 @@ window.onload = () => {
 		var github_request = new XMLHttpRequest();
 
 		github_request.onreadystatechange = function() { 
-			if (github_request.readyState == 4) {
+			if(github_request.readyState == 4) {
 				if(github_request.status == 200) {
 					var sha1 = JSON.parse(github_request.responseText)["sha"];
 
@@ -1163,7 +1163,7 @@ window.onload = () => {
 						var local_request = new XMLHttpRequest();
 			
 						local_request.onreadystatechange = function() { 
-							if (local_request.readyState == 4) {
+							if(local_request.readyState == 4) {
 								if(local_request.status == 200) {
 									var sha2 = local_request.responseText;
 

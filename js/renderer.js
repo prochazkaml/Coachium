@@ -330,7 +330,7 @@ function canvas_reset(event) {
 
 				ctx.beginPath();
 
-				for (const [type, output] of Object.entries(capture.functions)) {
+				for(const [type, output] of Object.entries(capture.functions)) {
 					switch(type) {
 						case "linear":
 							ctx.moveTo(

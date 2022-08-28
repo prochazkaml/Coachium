@@ -265,7 +265,7 @@ function read_cookie(key) {
 			val = val.substring(1);
 		}
 	
-		if (val.indexOf(key + "=") == 0) {
+		if(val.indexOf(key + "=") == 0) {
 			return val.substring(key.length + 1, val.length);
 		}
 	}

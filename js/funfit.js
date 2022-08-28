@@ -46,7 +46,7 @@ function fit_function() {
 
 		var string = "";
 
-		for (const [key, value] of Object.entries(algo_output.output)) {
+		for(const [key, value] of Object.entries(algo_output.output)) {
 			string += "<b>" + key + "</b>: " + localize_num(value) + "<br>";
 		}
 
