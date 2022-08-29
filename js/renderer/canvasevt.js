@@ -81,7 +81,7 @@ function canvasmousemovehandler(e) {
 			mousepositions[1][0] = mouseX;
 			mousepositions[1][1] = mouseY;
 
-			canvas_reset(CANVAS_EVENT_GRAPH_MOVE);
+			canvas_reset(CANVAS_EVENT_REDRAW_ENTIRE);
 		} else if(zoom_request_progress) {
 			canvas_reset(CANVAS_EVENT_ZOOM_CROSSHAIR_MOVE);
 		} else if(captures.length > 0) {

@@ -20,9 +20,8 @@
 
 const CANVAS_EVENT_REDRAW_ENTIRE = 0;
 const CANVAS_EVENT_ZOOM_CROSSHAIR_MOVE = 1;
-const CANVAS_EVENT_GRAPH_MOVE = 2;
-const CANVAS_EVENT_RECALCULATE_STYLES = 3;
-const CANVAS_EVENT_CURSOR_MOVE = 4;
+const CANVAS_EVENT_RECALCULATE_STYLES = 2;
+const CANVAS_EVENT_CURSOR_MOVE = 3;
 
 // These variables control the zoomed in region. All of them range from 0 to 1.
 
@@ -113,7 +112,7 @@ const graph_margin_right  = 64;
 var drawcache = null;
 
 function canvas_reset(event) {
-	console.log(event);
+//	console.log(event);
 
 	// Redraw again, if necessary
 
