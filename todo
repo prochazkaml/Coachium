@@ -9,7 +9,7 @@ Required for initial testing (current–voltage characteristic of diodes):
 - make the windows JS-generated (make some sort of toolkit)
 - embed everything in a single file (HTML, CSS, JS, images, fonts...) - ideally compress everything, store it in raw binary
 - do not wait for GitHub/Google Drive
-- handle capture errors
+- handle capture/autodetect errors
 
 ******************************************************-
 - UNCOMMENT GDRIVE.HTML!

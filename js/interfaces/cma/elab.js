@@ -154,7 +154,13 @@ class CMA_ELab_driver {
 		if(this.capture.running) {
 			// TODO: read the latest capture data
 
-			return undefined;
+			const pindex = this.capture.ports.indexOf(portname)
+
+			if(pindex >= 0 && this.capture.received > 0) {
+				return port.value = this.capture.data[this.capture.received - 1][pindex];
+			} else {
+				return undefined;
+			}
 		} else {
 			// Perform an immediate port read
 
@@ -433,7 +439,7 @@ class CMA_ELab_driver {
 		this.capture.running = true;
 		this.capture.data = new Array(p.samples);
 		this.capture.received = 0;
-		this.capture.ports = ports;
+		this.capture.ports = p.ports;
 
 		for(var i = 0; i < p.samples; i++) {
 			this.capture.data[i] = new Array(ports.length);
