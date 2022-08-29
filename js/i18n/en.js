@@ -254,11 +254,6 @@ const jslang = {
 
 	"UNTITLED_CAPTURE": "Untitled capture",
 
-	// elab.js
-
-	"STATUS_CAPTURE_RUNNING": "Capture in progress... ({0} samples, {1} seconds)",
-	"STATUS_CAPTURE_FINISHED": "Capture finished.",
-
 	// ui.js
 
 	"HOMEPAGE_COMMIT_OK": "👍 Latest version ({0})",
@@ -284,7 +279,9 @@ const jslang = {
 	"SETUP_TRIG_TOO_LOW": "The sensor which is used as the trigger condition cannot reach a value below {0}. Please increase the target value.",
 	"SETUP_TRIG_TOO_HIGH": "The sensor which is used as the trigger condition cannot reach a value above {0}. Please decrease the target value.",
 
-	"SETUP_SENSOR_ERR": "These sensors are not connected.",
+	"STATUS_WAITING_FOR_TRIGGER": "Conditional capture is ready, waiting for the condition to fulfil...",
+	"STATUS_CAPTURE_RUNNING": "Capture in progress... ({0} samples, {1} seconds)",
+	"STATUS_CAPTURE_FINISHED": "Capture finished.",
 
 	"STATUS_ZOOM_IN_REQUEST": "Select the zoom region.",
 	"STATUS_ZOOM_IN_CONFIRM": "The selected region was zoomed in.",

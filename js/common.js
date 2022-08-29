@@ -32,8 +32,10 @@ var header, nav, main, footer, canvas, ctx, overlay, ovctx, table;
 function get_id(id, srcel = document) {
 	var el = srcel.getElementById(id);
 
-	if(el.getElementsByTagName) el.get_tag = (tagname, index = 0) => get_tag(tagname, index, el);
-	if(el.getElementsByClassName) el.get_class = (tagname, index = 0) => get_class(tagname, index, el);
+	if(el) {
+		if(el.getElementsByTagName) el.get_tag = (tagname, index = 0) => get_tag(tagname, index, el);
+		if(el.getElementsByClassName) el.get_class = (tagname, index = 0) => get_class(tagname, index, el);
+	}
 
 	return el;
 }
@@ -53,8 +55,10 @@ function get_class(classname, index = 0, srcel = document) {
 	} else {
 		var el = srcel.getElementsByClassName(classname)[index];
 
-		if(el.getElementsByTagName) el.get_tag = (tagname, index = 0) => get_tag(tagname, index, el);
-		if(el.getElementsByClassName) el.get_class = (tagname, index = 0) => get_class(tagname, index, el);
+		if(el) {
+			if(el.getElementsByTagName) el.get_tag = (tagname, index = 0) => get_tag(tagname, index, el);
+			if(el.getElementsByClassName) el.get_class = (tagname, index = 0) => get_class(tagname, index, el);
+		}
 
 		return el;
 	}
@@ -75,8 +79,10 @@ function get_tag(tagname, index = 0, srcel = document) {
 	} else {
 		var el = srcel.getElementsByTagName(tagname)[index];
 
-		if(el.getElementsByTagName) el.get_tag = (tagname, index = 0) => get_tag(tagname, index, el);
-		if(el.getElementsByClassName) el.get_class = (tagname, index = 0) => get_class(tagname, index, el);
+		if(el) {
+			if(el.getElementsByTagName) el.get_tag = (tagname, index = 0) => get_tag(tagname, index, el);
+			if(el.getElementsByClassName) el.get_class = (tagname, index = 0) => get_class(tagname, index, el);
+		}
 
 		return el;
 	}
@@ -160,20 +166,6 @@ function convert_12bit_to_real(val, a, b, hv) {
 		val = a * (val / 4095 * 5) * 1.0114 + b;
 
 	return val;
-}
-
-/*
- * prettyprint_value(id)
- *'
- * Converts the sensor's current value to a human-readable string.
- */
-
-function prettyprint_value(id) {
-	if(ports[id].connected) {
-		return localize_num(ideal_round_fixed(ports[id].value, ports[id].max_value)) + " " + ports[id].unit;
-	} else {
-		return "–";
-	}
 }
 
 /*

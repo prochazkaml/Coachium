@@ -423,7 +423,7 @@ function canvas_reset(event) {
 
 			// If the capture is currently running, display a "crosshair"
 
-			if(driver !== null && driver.capture.running && selected_capture == (captures.length - 1) && x != null && y != null) {
+			if(driver !== null && capture_running && selected_capture == (captures.length - 1) && x != null && y != null) {
 				ctx.beginPath();
 				ctx.strokeStyle = "rgba(0, 0, 255, 0.3)";
 

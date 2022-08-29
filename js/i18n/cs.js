@@ -247,11 +247,6 @@ const jslang = {
 
 	"UNTITLED_CAPTURE": "Záznam bez názvu",
 
-	// elab.js
-
-	"STATUS_CAPTURE_RUNNING": "Záznam právě běží... ({0} vzorků, {1} sekund)",
-	"STATUS_CAPTURE_FINISHED": "Záznam skončil.",
-
 	// ui.js
 
 	"HOMEPAGE_COMMIT_OK": "👍 Nejnovější verze ({0})",
@@ -276,6 +271,10 @@ const jslang = {
 	"SETUP_SENSOR_TOO_MUCH": "Je přiřazeno příliš mnoho čidel. Prosím nějaká odstraňte.",
 	"SETUP_TRIG_TOO_LOW": "Čidlo používané jako podmínka nemůže nabýt hodnoty pod {0}. Prosím zvyšte požadovanou hodnotu.",
 	"SETUP_TRIG_TOO_HIGH": "Čidlo používané jako podmínka nemůže nabýt hodnoty nad {0}. Prosím snižte požadovanou hodnotu.",
+
+	"STATUS_WAITING_FOR_TRIGGER": "Podmíněný záznam je připraven, čeká na splnění podmínky...",
+	"STATUS_CAPTURE_RUNNING": "Záznam právě běží... ({0} vzorků, {1} sekund)",
+	"STATUS_CAPTURE_FINISHED": "Záznam skončil.",
 
 	"STATUS_ZOOM_IN_REQUEST": "Vyberte oblast, kterou chcete přiblížit.",
 	"STATUS_ZOOM_IN_CONFIRM": "Vybraná oblast přiblížena.",

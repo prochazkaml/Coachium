@@ -140,10 +140,6 @@ function capture_setup_get_params() {
  */
 
 function capture_setup_check() {
-	const params = capture_setup_get_params();
-
-	if(params === undefined) return;
-
 	var startbutt = get_win_el_class(WINDOWID_CAPTURE_SETUP, "windowbutton");
 
 	startbutt.classList.add("windowbuttondisabled");
@@ -184,6 +180,12 @@ function capture_setup_check() {
 			blocks[i].remove();
 		}
 	}
+
+	// Load the parameters given
+
+	const params = capture_setup_get_params();
+
+	if(params === undefined) return;
 
 	// Check if there was a trigger sensor assigned
 
@@ -587,7 +589,7 @@ function update_button_validity() {
 		get_id("capturestopbutton").classList.remove("navbuttondisabled");
 	}
 
-	if(driver !== null && driver.capture.running) {
+	if(capture_running) {
 		get_id("capturestopbutton").style.display = "";
 		get_id("capturestartbutton").style.display = "none";
 

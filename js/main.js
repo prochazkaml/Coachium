@@ -20,7 +20,9 @@
 
 var driver = null;
 
-var request_capture = false;
+// Separate capture_running variable here, which also tracks of waiting for trigger
+
+var request_capture = false, capture_running = false;
 
 /*
  * ui_hardware_change_trigger()
@@ -148,6 +150,8 @@ function ui_connect(actually_connect) {
 
 function ui_disconnect(forceful) {
 	driver = null;
+	capture_running = false;
+	request_capture = false;
 
 	get_id("connectbutton").innerHTML = htmllang.BUTTON_CONNECT;
 
@@ -322,10 +326,117 @@ async function driver_start() {
 					return;
 				}
 
+				// Check for capture requests
+
+				if(request_capture) {
+					if(capture_running) {
+						// Capture stop requested
+
+						if(driver.capture.running) await driver.stopcapture();
+
+						capture_running = false;
+
+						ui_hardware_change_trigger();
+					} else {
+						// Capture start requested, verify the parameters
+
+						const params = capture_setup_get_params();
+
+						const parsed = driver.verifycapture({
+							freq: params.freq,
+							length: params.length,
+							ports: params.ports
+						});
+
+						if(parsed !== undefined) {
+							// Clear the ports' displayed values
+
+							for(const port in driver.ports) {
+								get_id("port" + port + "value").innerText = "–";
+							}
+
+							// TODO: create a new GUI capture
+
+							capture_running = true;
+							ui_hardware_change_trigger();
+
+							// All good, check if there is a trigger condition
+
+							if(params.trigger !== undefined) {
+								const trig = params.trigger;
+
+								get_id("statusmsg").innerText = jslang.STATUS_WAITING_FOR_TRIGGER;
+
+								const pobj = driver.ports[trig.port];
+
+								trigger_wait_loop: while(1) {
+									const val = await driver.getval(trig.port);
+
+									if(val === undefined) break trigger_wait_loop;
+
+									get_id("port" + trig.port + "value").innerText = localize_num(ideal_round_fixed(val, pobj.max)) + " " + pobj.unit;
+
+									switch(trig.cond) {
+										case "eq":
+											if(val >= (trig.target - trig.tol) && val <= (trig.target + trig.tol))
+												break trigger_wait_loop;
+
+											break;
+
+										case "ne":
+											if(val < (trig.target - trig.tol) && val > (trig.target + trig.tol))
+												break trigger_wait_loop;
+
+											break;
+
+										case "lt":
+											if(val < trig.target) break trigger_wait_loop;
+											break;
+
+										case "gt":
+											if(val > trig.target) break trigger_wait_loop;
+											break;
+									}
+								}
+							}
+
+							// Trigger condition finished (if there even was one), start the capture
+
+							if(await driver.startcapture({
+								freq: params.freq,
+								length: params.length,
+								ports: params.ports
+							}) == 0) {
+								capture_display_thread(params.freq);
+							} else {
+								// TODO: error
+							}
+						}
+					}
+					
+					request_capture = false;
+				}
+
 				await delay_ms(200);
 			}
 
 			break;
+	}
+}
+
+/*
+ * capture_display_thread(freq)
+ * 
+ * Displays info about the currently running capture. Automatically calls itself repeatedly, until the capture is stopped.
+ */
+
+function capture_display_thread(freq) {
+	if(capture_running && driver !== null && driver.capture.running) {
+		get_id("statusmsg").innerText = format(jslang.STATUS_CAPTURE_RUNNING, driver.capture.data.length, localize_num((driver.capture.data.length / freq).toFixed(2)));
+
+		setTimeout(capture_display_thread, 16, freq); // Close enough to 60 Hz
+	} else {
+		get_id("statusmsg").innerText = jslang.STATUS_CAPTURE_FINISHED;
 	}
 }
 
@@ -388,7 +499,14 @@ window.onload = () => {
 
 	drake.on("dragend", capture_setup_check);
 
-	get_win_el_class(WINDOWID_CAPTURE_SETUP, "windowbutton").onclick = () => { close_window() };
+	var startbutt = get_win_el_class(WINDOWID_CAPTURE_SETUP, "windowbutton");
+
+	startbutt.onclick = () => {
+		if(!startbutt.classList.contains("windowbuttondisabled")) {
+			request_capture = true;
+			close_window();
+		}
+	};
 
 	// Initialize all the callbacks on the canvas
 

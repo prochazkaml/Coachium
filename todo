@@ -10,6 +10,7 @@ Required for initial testing (current–voltage characteristic of diodes):
 - embed everything in a single file (HTML, CSS, JS, images, fonts...) - ideally compress everything, store it in raw binary
 - do not wait for GitHub/Google Drive
 - make the capture progress not use Array.push, as it's way too slow
+- handle capture errors
 
 ******************************************************-
 - UNCOMMENT GDRIVE.HTML!
