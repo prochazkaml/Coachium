@@ -87,7 +87,7 @@ var script = document.createElement("script");
 script.src = "js/i18n/" + lang + ".js";
 script.onload = () => {
 	for(var key of Object.keys(htmllang)) {
-		for(var el of document.getElementsByClassName("L18N_" + key)) {
+		for(var el of get_class("L18N_" + key, null)) {
 			if(key.startsWith("TITLE_"))
 				el.title = htmllang[key];
 			else if(key.startsWith("CSSATTR_"))

@@ -31,7 +31,7 @@ function capture_setup_change_mode(mode) {
 	hdr[mode].classList.remove("capturesetupmodeheaderinactive");
 	hdr[mode ^ 1].classList.add("capturesetupmodeheaderinactive");
 
-	var bodies = get_win(WINDOWID_CAPTURE_SETUP).getElementsByClassName("capturesetupmodebody");
+	var bodies = get_win_el_class(WINDOWID_CAPTURE_SETUP, "capturesetupmodebody", null);
 
 	bodies[mode].style.display = "";
 	bodies[mode ^ 1].style.display = "none";

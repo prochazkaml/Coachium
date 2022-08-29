@@ -113,7 +113,7 @@ function create_capture() {
 	capture_setup_check();
 
 	setTimeout(() => {
-		get_win_el_class(WINDOWID_CAPTURE_SETUP, "capturesetupname").getElementsByTagName("input")[0].select();
+		get_win_el_class(WINDOWID_CAPTURE_SETUP, "capturesetupname").get_tag("input").select();
 	}, 100);
 
 	popup_window(WINDOWID_CAPTURE_SETUP);

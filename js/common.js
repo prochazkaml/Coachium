@@ -77,30 +77,44 @@ function get_id(id, srcel = document) {
  * get_class(classname, index = 0, srcel = document)
  * 
  * Same as get_id(), but for searching by class name.
+ * 
+ * If index is null, then all elements will be returned,
+ * without the ability to chain more get_* calls.
  */
 
 function get_class(classname, index = 0, srcel = document) {
-	var el = srcel.getElementsByClassName(classname)[index];
+	if(index === null) {
+		return srcel.getElementsByClassName(classname);
+	} else {
+		var el = srcel.getElementsByClassName(classname)[index];
 
-	if(el.getElementsByTagName) el.get_tag = (tagname, index = 0) => get_tag(tagname, index, el);
-	if(el.getElementsByClassName) el.get_class = (tagname, index = 0) => get_class(tagname, index, el);
+		if(el.getElementsByTagName) el.get_tag = (tagname, index = 0) => get_tag(tagname, index, el);
+		if(el.getElementsByClassName) el.get_class = (tagname, index = 0) => get_class(tagname, index, el);
 
-	return el;
+		return el;
+	}
 }
 
 /*
  * get_tag(tagname, index = 0, srcel = document)
  * 
  * Same as get_id(), but for searching by tag name.
+ * 
+ * If index is null, then all elements will be returned,
+ * without the ability to chain more get_* calls.
  */
 
 function get_tag(tagname, index = 0, srcel = document) {
-	var el = srcel.getElementsByTagName(tagname)[index];
+	if(index === null) {
+		return srcel.getElementsByTagName(tagname);
+	} else {
+		var el = srcel.getElementsByTagName(tagname)[index];
 
-	if(el.getElementsByTagName) el.get_tag = (tagname, index = 0) => get_tag(tagname, index, el);
-	if(el.getElementsByClassName) el.get_class = (tagname, index = 0) => get_class(tagname, index, el);
+		if(el.getElementsByTagName) el.get_tag = (tagname, index = 0) => get_tag(tagname, index, el);
+		if(el.getElementsByClassName) el.get_class = (tagname, index = 0) => get_class(tagname, index, el);
 
-	return el;
+		return el;
+	}
 }
 
 /*
