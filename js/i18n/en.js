@@ -1,5 +1,5 @@
 /*
- * Coachium - i18n/en.js
+ * Coachium - js/i18n/en.js
  * - kind of a dummy file, since the default English text is in default.js
  * 
  * Copyright (C) 2021-2022 Michal Procházka

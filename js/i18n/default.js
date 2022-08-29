@@ -1,5 +1,5 @@
 /*
- * Coachium - i18n/default.js
+ * Coachium - js/i18n/default.js
  * - applies the translation on startup & contains the default English strings
  * 
  * Copyright (C) 2021-2022 Michal Procházka
@@ -373,7 +373,7 @@ if(lang == "") {
 
 var script = document.createElement("script");
 
-script.src = "i18n/" + lang + ".js";
+script.src = "js/i18n/" + lang + ".js";
 script.onload = () => {
 	for(var key of Object.keys(alt_htmllang))
 		htmllang[key] = alt_htmllang[key];
@@ -395,7 +395,7 @@ script.onload = () => {
 
 script.onerror = () => {
 	var script_fallback = document.createElement("script");
-	script_fallback.src = "i18n/en.js";
+	script_fallback.src = "js/i18n/en.js";
 	script_fallback.onload = () => {
 		script.onload();
 		popup_window(WINDOWID_LANGUAGE_ERROR);

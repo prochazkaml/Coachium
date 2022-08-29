@@ -66,13 +66,13 @@ cd /var/www/html # Or any other directory where your server root is!
 git clone https://github.com/prochazkaml/Coachium coachium # Make the downloaded repo lower-case
 ```
 
-Then, open the file `i18n/default.js`, where you will see the following as the first line of actual code:
+Then, open the file `js/i18n/default.js`, where you will see the following as the first line of actual code:
 
 ```js
 const DEFAULT_LANGUAGE = "cs";
 ```
 
-There, replace `cs` by your preferred language (i.e. `en` – see the `i18n` directory for all supported languages). Save the changes, and Coachium should be ready to use on your server!
+There, replace `cs` by your preferred language (i.e. `en` – see the `js/i18n` directory for all supported languages). Save the changes, and Coachium should be ready to use on your server!
 
 To update your existing instance of Coachium to the latest version, run the following:
 
