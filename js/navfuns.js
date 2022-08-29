@@ -192,6 +192,14 @@ function capture_setup_check() {
 	if(params.trigger !== undefined) {		
 		ts.style.display = "";
 
+		if(params.trigger.cond == "eq" || params.trigger.cond == "ne") {
+			get_id("cs_trigger_tol_sign").style.display = "";
+			ts.get_tag("input", 1).style.display = "";
+		} else {
+			get_id("cs_trigger_tol_sign").style.display = "none";
+			ts.get_tag("input", 1).style.display = "none";
+		}
+
 		const trigport = driver.ports[params.trigger.port];
 
 		if(params.trigger.target < trigport.min) {
