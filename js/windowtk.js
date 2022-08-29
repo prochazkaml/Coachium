@@ -148,12 +148,14 @@ function close_window(id = undefined) {
  * confirm_window()
  *
  * Presses the first button in the window, which always means
- * to confirm something.
+ * to confirm something (if it is not disabled).
  */
 
 function confirm_window() {
 	if(open_window >= 0) {
-		get_win_el_class(window_stack[open_window], "windowbutton").click();
+		const butt = get_win_el_class(window_stack[open_window], "windowbutton")
+
+		if(!butt.classList.contains("windowbuttondisabled")) butt.click();
 	}
 }
 
