@@ -436,6 +436,8 @@ function capture_setup_change_mode(mode) {
 
 	bodies[mode].style.display = "";
 	bodies[mode ^ 1].style.display = "none";
+
+	capture_setup_check();
 }
 
 /*
@@ -445,6 +447,11 @@ function capture_setup_change_mode(mode) {
  */
 
 function capture_setup_check() {
+	const freq = Number(get_id("cs_freq").get_tag("input").value);
+	const dur = Number(get_id("cs_duration").get_tag("input").value);
+
+	var err = get_win_el_class(WINDOWID_CAPTURE_SETUP, "capturesetuperror");
+
 	// Clear the sensor source list and update it
 
 	if(driver === null) return;
@@ -479,29 +486,93 @@ function capture_setup_check() {
 			blocks[i].remove();
 		}
 	}
-}
 
-/*
- * capture_setup_top_section_change()
- *
- * Recalculates the period and number of samples based on
- * the input frequency and duration.
- */
+	// Check if there was a trigger sensor assigned
 
-function capture_setup_top_section_change() {
-	const freq = get_id("cs_freq").get_tag("input").value;
-	const dur = get_id("cs_duration").get_tag("input").value;
-}
+	const trig = get_win_el_class(WINDOWID_CAPTURE_SETUP, "capturesetupmodebodyxydropzone", 2);
+	const ts = get_id("cs_trigger_setup");
 
-/*
- * capture_setup_bottom_section_change()
- *
- * Recalculates the frequency and duration based on
- * the input period and number of samples.
- */
+	if(trig.children.length != 0) {		
+		ts.style.display = "";
 
-function capture_setup_bottom_section_change() {
+		const trigport = driver.ports[trig.children[0].getAttribute("name").substring(6)];
+		const target = Number(ts.get_tag("input").value);
 
+		if(target < trigport.min) {
+			err.innerHTML = format(jslang.SETUP_TRIG_TOO_LOW, trigport.min);
+			return;
+		}
+
+		if(target > trigport.max) {
+			err.innerHTML = format(jslang.SETUP_TRIG_TOO_HIGH, trigport.max);
+			return;
+		}
+
+		get_id("cs_trigger_unit").innerText = trigport.unit;
+
+		
+	} else {
+		ts.style.display = "none";
+	}
+	
+	// Check the capture mode and the assigned sensors
+
+	const xy_mode = get_win_el_class(WINDOWID_CAPTURE_SETUP, "capturesetupmodeheader").children[0].classList.contains("capturesetupmodeheaderinactive");
+
+	var portlist = [];
+
+	if(xy_mode) {
+		// X-Y mode, check if both sensors have been assigned
+
+		const x = get_win_el_class(WINDOWID_CAPTURE_SETUP, "capturesetupmodebodyxydropzone", 0);
+		const y = get_win_el_class(WINDOWID_CAPTURE_SETUP, "capturesetupmodebodyxydropzone", 1);
+
+		if(x.children.length == 0 || y.children.length == 0) {
+			err.innerHTML = jslang.SETUP_SENSOR_ERR_XY;
+			return;
+		}
+
+		portlist = [
+			x.children[0].getAttribute("name").substring(6),
+			y.children[0].getAttribute("name").substring(6)
+		];
+	} else {
+		// Standard mode, check if at least one sensor has been assigned
+
+		const list = get_win_el_class(WINDOWID_CAPTURE_SETUP, "capturesetupmodebodydropzone");
+
+		if(list.children.length == 0) {
+			err.innerHTML = jslang.SETUP_SENSOR_ERR_STD;
+			return;
+		}
+
+		for(const port of list.children) {
+			portlist.push(port.getAttribute("name").substring(6));
+		}
+	}
+
+	// Parse info through the driver
+
+	const parsed = driver.verifycapture({
+		ports: portlist,
+		freq: freq,
+		length: dur
+	});
+
+	if(parsed === undefined) {
+		err.innerHTML = jslang.SETUP_SENSOR_TOO_MUCH;
+		return;
+	}
+
+	err.innerHTML = "";
+
+	if(parsed.freq != freq) {
+		err.innerHTML += format(jslang.SETUP_CLOSEST_USABLE_FREQ, localize_num(parsed.freq)) + " ";
+	}
+
+	if(parsed.length != dur) {
+		err.innerHTML += format(jslang.SETUP_REDUCED_RUNTIME, localize_num(round(parsed.length, 3))) + " ";
+	}
 }
 
 /*
@@ -1134,8 +1205,6 @@ window.onload = () => {
 	});
 
 	drake.on("dragend", capture_setup_check);
-
-	capture_setup_top_section_change();
 
 	get_win_el_class(WINDOWID_CAPTURE_SETUP, "windowbutton").onclick = () => { close_window() };
 

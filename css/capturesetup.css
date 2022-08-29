@@ -169,7 +169,7 @@
 }
 
 .capturesetupsensorcontainer {
-	height: 400px;
+	height: 375px;
 	overflow-y: scroll;
 	margin-right: 16px;
 }
@@ -211,4 +211,12 @@
 .capturesetupsensorblock > *:first-child {
 	font-weight: bold;
 	font-size: 32px;
+}
+
+.capturesetuperror {
+	text-align: center;
+	font-weight: bold;
+	color: red;
+	margin: 16px auto 0 auto;
+	max-width: 800px;
 }

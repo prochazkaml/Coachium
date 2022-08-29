@@ -278,8 +278,14 @@ var jslang = {
 	"SENSOR_DISCONNECTED": "Sensor not connected",
 	"SENSOR_INTELLIGENT": "Intelligent sensor",
 
-	"SETUP_CLOSEST_USABLE_FREQ": "The closest usable frequency<br>is {0} Hz.",
-	"SETUP_REDUCED_RUNTIME": "The capture will run for only<br>{0} seconds.",
+	"SETUP_CLOSEST_USABLE_FREQ": "The closest usable frequency is {0} Hz.",
+	"SETUP_REDUCED_RUNTIME": "The capture will run for only {0} seconds.",
+	"SETUP_SENSOR_ERR_STD": "Please assign at least one sensor.",
+	"SETUP_SENSOR_ERR_XY": "In X-Y mode, you must assign two sensors, no more, no less.",
+	"SETUP_SENSOR_TOO_MUCH": "There are too many sensors assigned. Please remove some.",
+	"SETUP_TRIG_TOO_LOW": "The sensor which is used as the trigger condition cannot reach a value below {0}. Please increase the target value.",
+	"SETUP_TRIG_TOO_HIGH": "The sensor which is used as the trigger condition cannot reach a value above {0}. Please decrease the target value.",
+
 	"SETUP_SENSOR_ERR": "These sensors are not connected.",
 
 	"STATUS_ZOOM_IN_REQUEST": "Select the zoom region.",

@@ -269,9 +269,13 @@ const alt_jslang = {
 	"SENSOR_DISCONNECTED": "Čidlo nepřipojeno",
 	"SENSOR_INTELLIGENT": "Inteligentní čidlo",
 
-	"SETUP_CLOSEST_USABLE_FREQ": "Nejbližší použitelná frekvence je<br>{0} Hz.",
+	"SETUP_CLOSEST_USABLE_FREQ": "Nejbližší použitelná frekvence je {0} Hz.",
 	"SETUP_REDUCED_RUNTIME": "Záznam poběží pouze {0} sekund.",
-	"SETUP_SENSOR_ERR": "Vybraná čidla nejsou připojena.",
+	"SETUP_SENSOR_ERR_STD": "Prosím přiřaďte alespoň jedno čidlo.",
+	"SETUP_SENSOR_ERR_XY": "V režimu X-Y musíte přiřadit právě dvě čidla.",
+	"SETUP_SENSOR_TOO_MUCH": "Je přiřazeno příliš mnoho čidel. Prosím nějaká odstraňte.",
+	"SETUP_TRIG_TOO_LOW": "Čidlo používané jako podmínka nemůže nabýt hodnoty pod {0}. Prosím zvyšte požadovanou hodnotu.",
+	"SETUP_TRIG_TOO_HIGH": "Čidlo používané jako podmínka nemůže nabýt hodnoty nad {0}. Prosím snižte požadovanou hodnotu.",
 
 	"STATUS_ZOOM_IN_REQUEST": "Vyberte oblast, kterou chcete přiblížit.",
 	"STATUS_ZOOM_IN_CONFIRM": "Vybraná oblast přiblížena.",
