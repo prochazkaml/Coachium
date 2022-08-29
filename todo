@@ -1,7 +1,7 @@
 Required for initial testing (current–voltage characteristic of diodes):
 - show value on the graph when hovering over a data point
 - actual window spawning/despawning (to prevent tabbing over to the next window!!!)
-- re-implement the watchdog
+- re-implement the watchdog (handle autodetect errors)
 - make the capture actually work
 - update output file format
 - put the port panel on the right side
@@ -9,7 +9,7 @@ Required for initial testing (current–voltage characteristic of diodes):
 - make the windows JS-generated (make some sort of toolkit)
 - embed everything in a single file (HTML, CSS, JS, images, fonts...) - ideally compress everything, store it in raw binary
 - do not wait for GitHub/Google Drive
-- handle capture/autodetect errors
+- handle colors in main.js rathen than in the drivers
 
 ******************************************************-
 - UNCOMMENT GDRIVE.HTML!

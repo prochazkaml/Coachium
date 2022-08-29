@@ -152,12 +152,10 @@ class CMA_ELab_driver {
 
 	async getval(portname) {
 		if(this.capture.running) {
-			// TODO: read the latest capture data
-
 			const pindex = this.capture.ports.indexOf(portname)
 
 			if(pindex >= 0 && this.capture.received > 0) {
-				return port.value = this.capture.data[this.capture.received - 1][pindex];
+				return this.ports[portname].value = this.capture.data[this.capture.received - 1][pindex];
 			} else {
 				return undefined;
 			}

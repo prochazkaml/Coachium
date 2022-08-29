@@ -204,6 +204,11 @@ const htmllang = {
 	"WINDOW21_PAR0": "An error has occured while communicating with the interface.",
 	"WINDOW21_PAR1": "Do you want to restart the interface?",
 
+	"WINDOW22_TITLE": "Capture start error",
+	"WINDOW22_PAR0":
+		"Please try unplugging and replugging all used<br>" +
+		"sensors and start the capture again.",
+
 	// "About" window text
 
 	"ABOUT_TITLE": "What is Coachium?",

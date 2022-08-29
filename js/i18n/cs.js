@@ -197,6 +197,11 @@ const htmllang = {
 	"WINDOW21_PAR0": "Došlo k chybě při komunikaci s rozhraním.",
 	"WINDOW21_PAR1": "Přejete si rozhraní restartovat?",
 
+	"WINDOW22_TITLE": "Chyba spouštění záznamu",
+	"WINDOW22_PAR0":
+		"Zkuste prosím odpojit a opět zapojit všechna<br>" +
+		"použitá čidla a spustit záznam znovu.",
+
 	// "About" window text
 
 	"ABOUT_TITLE": "Co je to Coachium?",

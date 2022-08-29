@@ -411,14 +411,18 @@ async function driver_start() {
 							// Trigger condition finished (if there even was one), start the capture
 
 							if(capture_running) {
-								if(await driver.startcapture({
+								if((await driver.startcapture({
 									freq: params.freq,
 									length: params.length,
 									ports: params.ports
-								}) == 0) {
+								})) == 0) {
 									capture_display_thread(parsed.freq);
 								} else {
-									// TODO: error
+									capture_running = false;
+									popup_window(WINDOWID_CAPTURE_START_ERROR);
+
+									get_id("statusmsg").innerText = jslang.STATUS_CAPTURE_FINISHED;
+									ui_hardware_change_trigger();
 								}
 							} else {
 								// Capture was cancelled during the trigger waiting phase
@@ -486,7 +490,7 @@ window.onload = () => {
 		}
 	};
 
-	// Initialize capture setup window (TODO)
+	// Initialize capture setup window
 
 	var sensorsrc = get_win_el_class(WINDOWID_CAPTURE_SETUP, "capturesetupsensorsrc");
 	var sensordrop = get_win_el_class(WINDOWID_CAPTURE_SETUP, "capturesetupmodebodydropzone");

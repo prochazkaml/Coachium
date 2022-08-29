@@ -52,6 +52,7 @@ const WINDOWID_LLAPI_UNAVAILABLE = 7;
 const WINDOWID_DEVICE_VERIFY_ERROR = 8;
 const WINDOWID_DEVICE_OPEN_ERROR = 20;
 const WINDOWID_WATCHDOG_ERROR = 21;
+const WINDOWID_CAPTURE_START_ERROR = 22;
 
 // Language windows
 
@@ -68,6 +69,9 @@ const WINDOWID_LANGUAGE_ERROR = 15;
  * 
  * If the function accepts the parameter "index" and it is not explicitly
  * stated, the function will assume 0 as the default.
+ * 
+ * With get_win_el_*, if the index is null, then an array is returned
+ * with all of the matching elements.
  */
 
 function get_win_overlay(win_id) {
