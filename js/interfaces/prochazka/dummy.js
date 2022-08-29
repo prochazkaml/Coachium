@@ -108,8 +108,8 @@ class Prochazka_Dummy_driver {
 
 		setup.freq = round(setup.freq);
 		
-		if(setup.length * setup.freq > 10000) setup.length = 10000 / setup.freq;
-		if(setup.length * setup.freq < 2) setup.length = 2 / setup.freq;
+		if(setup.length / 1000 * setup.freq > 10000) setup.length = (10000 / setup.freq) * 1000;
+		if(setup.length / 1000 * setup.freq < 2) setup.length = (2 / setup.freq) * 1000;
 
 		return setup;
 	}

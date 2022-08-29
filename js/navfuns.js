@@ -40,18 +40,113 @@ function capture_setup_change_mode(mode) {
 }
 
 /*
+ * capture_setup_get_params()
+ *
+ * Reads the parameters from the capture setup dialog. Returns:
+ * 
+ * {
+ *   freq: number in Hz
+ *   length: number of seconds
+ *   ports: string array (["A1", ...])
+ *   xy_mode: bool
+ *   trigger: null if no trigger, otherwise {
+ *     port: port name ("A1")
+ *     cond: "eq", "ne", "lt", "gt"
+ *     target: number (target value)
+ *     tol: number (target value tolerance, only valid if cond = "eq" or "ne")
+ *   }
+ * }
+ */
+
+function capture_setup_get_params() {
+	if(driver === null) return undefined;
+
+	// Check the capture mode and the assigned sensors
+
+	const xy_mode = get_win_el_class(WINDOWID_CAPTURE_SETUP, "capturesetupmodeheader").children[0].classList.contains("capturesetupmodeheaderinactive");
+
+	var portlist = [];
+
+	if(xy_mode) {
+		// X-Y mode, check if both sensors have been assigned
+
+		const x = get_win_el_class(WINDOWID_CAPTURE_SETUP, "capturesetupmodebodyxydropzone", 0).children;
+		const y = get_win_el_class(WINDOWID_CAPTURE_SETUP, "capturesetupmodebodyxydropzone", 1).children;
+
+		if(x.length != 0) portlist.push(x[0].getAttribute("name").substring(6));
+		if(y.length != 0) portlist.push(y[0].getAttribute("name").substring(6));
+	} else {
+		// Standard mode, check if at least one sensor has been assigned
+
+		const list = get_win_el_class(WINDOWID_CAPTURE_SETUP, "capturesetupmodebodydropzone").children;
+
+		for(const port of list) {
+			portlist.push(port.getAttribute("name").substring(6));
+		}
+	}
+
+	// Check if there was a trigger sensor assigned
+
+	var trigger = undefined;
+
+	const trig = get_win_el_class(WINDOWID_CAPTURE_SETUP, "capturesetupmodebodyxydropzone", 2).children;
+	const ts = get_id("cs_trigger_setup");
+
+	if(trig.length != 0) {
+		trigger = {
+			port: trig[0].getAttribute("name").substring(6),
+			cond: ts.get_tag("select").value,
+			target: Number(ts.get_tag("input", 0).value),
+			tol: Number(ts.get_tag("input", 1).value)
+		}
+	}
+
+	// Get the length multiplier
+
+	var multiplier = 1;
+
+	switch(get_id("cs_duration").get_tag("select").value) {
+		case "h":
+			multiplier *= 60;
+
+		case "m":
+			multiplier *= 60;
+
+		case "s":
+			multiplier *= 1000;
+
+		case "ms":
+			break;
+
+		default:
+			return undefined;
+	}
+
+	// Generate the output object
+
+	return {
+		freq: Number(get_id("cs_freq").get_tag("input").value),
+		length: Number(get_id("cs_duration").get_tag("input").value) * multiplier,
+		ports: portlist,
+		xy_mode: xy_mode,
+		trigger: trigger
+	};
+}
+
+/*
  * capture_setup_check()
  *
  * Check the validity of all input parameters for initializing the capture.
  */
 
 function capture_setup_check() {
+	const params = capture_setup_get_params();
+
+	if(params === undefined) return;
+
 	var startbutt = get_win_el_class(WINDOWID_CAPTURE_SETUP, "windowbutton");
 
 	startbutt.classList.add("windowbuttondisabled");
-
-	const freq = Number(get_id("cs_freq").get_tag("input").value);
-	const dur = Number(get_id("cs_duration").get_tag("input").value);
 
 	var err = get_win_el_class(WINDOWID_CAPTURE_SETUP, "capturesetuperror");
 
@@ -92,74 +187,48 @@ function capture_setup_check() {
 
 	// Check if there was a trigger sensor assigned
 
-	const trig = get_win_el_class(WINDOWID_CAPTURE_SETUP, "capturesetupmodebodyxydropzone", 2);
 	const ts = get_id("cs_trigger_setup");
 
-	if(trig.children.length != 0) {		
+	if(params.trigger !== undefined) {		
 		ts.style.display = "";
 
-		const trigport = driver.ports[trig.children[0].getAttribute("name").substring(6)];
-		const target = Number(ts.get_tag("input").value);
+		const trigport = driver.ports[params.trigger.port];
 
-		if(target < trigport.min) {
+		if(params.trigger.target < trigport.min) {
 			err.innerHTML = format(jslang.SETUP_TRIG_TOO_LOW, trigport.min);
 			return;
 		}
 
-		if(target > trigport.max) {
+		if(params.trigger.target > trigport.max) {
 			err.innerHTML = format(jslang.SETUP_TRIG_TOO_HIGH, trigport.max);
 			return;
 		}
 
 		get_id("cs_trigger_unit").innerText = trigport.unit;
-
-		
 	} else {
 		ts.style.display = "none";
 	}
 	
 	// Check the capture mode and the assigned sensors
 
-	const xy_mode = get_win_el_class(WINDOWID_CAPTURE_SETUP, "capturesetupmodeheader").children[0].classList.contains("capturesetupmodeheaderinactive");
-
-	var portlist = [];
-
-	if(xy_mode) {
-		// X-Y mode, check if both sensors have been assigned
-
-		const x = get_win_el_class(WINDOWID_CAPTURE_SETUP, "capturesetupmodebodyxydropzone", 0);
-		const y = get_win_el_class(WINDOWID_CAPTURE_SETUP, "capturesetupmodebodyxydropzone", 1);
-
-		if(x.children.length == 0 || y.children.length == 0) {
+	if(params.xy_mode) {
+		if(params.ports.length != 2) {
 			err.innerHTML = jslang.SETUP_SENSOR_ERR_XY;
 			return;
 		}
-
-		portlist = [
-			x.children[0].getAttribute("name").substring(6),
-			y.children[0].getAttribute("name").substring(6)
-		];
 	} else {
-		// Standard mode, check if at least one sensor has been assigned
-
-		const list = get_win_el_class(WINDOWID_CAPTURE_SETUP, "capturesetupmodebodydropzone");
-
-		if(list.children.length == 0) {
+		if(params.ports.length == 0) {
 			err.innerHTML = jslang.SETUP_SENSOR_ERR_STD;
 			return;
-		}
-
-		for(const port of list.children) {
-			portlist.push(port.getAttribute("name").substring(6));
 		}
 	}
 
 	// Parse info through the driver
 
 	const parsed = driver.verifycapture({
-		ports: portlist,
-		freq: freq,
-		length: dur
+		freq: params.freq,
+		length: params.length,
+		ports: params.ports
 	});
 
 	if(parsed === undefined) {
@@ -170,12 +239,12 @@ function capture_setup_check() {
 	err.innerHTML = "";
 	startbutt.classList.remove("windowbuttondisabled");
 
-	if(parsed.freq != freq) {
+	if(parsed.freq != params.freq) {
 		err.innerHTML += format(jslang.SETUP_CLOSEST_USABLE_FREQ, localize_num(parsed.freq)) + " ";
 	}
 
-	if(parsed.length != dur) {
-		err.innerHTML += format(jslang.SETUP_REDUCED_RUNTIME, localize_num(round(parsed.length, 3))) + " ";
+	if(parsed.length != params.length) {
+		err.innerHTML += format(jslang.SETUP_REDUCED_RUNTIME, localize_num(round(parsed.length / 1000, 3))) + " ";
 	}
 }
 
