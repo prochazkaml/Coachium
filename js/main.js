@@ -18,6 +18,10 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+var driver = null;
+
+var request_capture = false;
+
 /*
  * ui_hardware_change_trigger()
  * 

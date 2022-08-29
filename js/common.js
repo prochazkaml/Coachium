@@ -20,42 +20,7 @@
 
 // Common variables
 
-var open_window = -1, window_stack = [], zindex = 10;
-
 var header, nav, main, footer, canvas, ctx, overlay, ovctx, table;
-
-var driver = null;
-
-var zoom_request_progress = 0, zoom_move_request = false, zoomed_in = false;
-
-var request_capture = false;
-
-var captures = [], selected_capture = 0;
-
-var capture_cache = {
-	"x": {
-		"min": null,
-		"max": null,
-		"unitname": null,
-	},
-	"y": {
-		"min": null,
-		"max": null,
-		"unitname": null,
-	},
-	"values": []
-};
-
-const fresh_capture = {
-	"title": null,
-	"seconds": null,
-	"samples": null,
-	"interval": null,
-	"sensorsetup": null,
-	"port_a": null,
-	"port_b": null,
-	"captureddata": null
-};
 
 /*
  * get_id(id, srcel = document)

@@ -7,7 +7,6 @@ Required for initial testing (current–voltage characteristic of diodes):
 - put the port panel on the right side
 - make the capture system tabbed
 - make the windows JS-generated (make some sort of toolkit)
-- break up ui.js and mainwindow.js, they're too big
 - embed everything in a single file (HTML, CSS, JS, images, fonts...) - ideally compress everything, store it in raw binary
 - do not wait for GitHub/Google Drive
 - make the capture progress not use Array.push, as it's way too slow

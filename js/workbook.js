@@ -18,6 +18,33 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+var captures = [], selected_capture = 0;
+
+var capture_cache = {
+	"x": {
+		"min": null,
+		"max": null,
+		"unitname": null,
+	},
+	"y": {
+		"min": null,
+		"max": null,
+		"unitname": null,
+	},
+	"values": []
+};
+
+const fresh_capture = {
+	"title": null,
+	"seconds": null,
+	"samples": null,
+	"interval": null,
+	"sensorsetup": null,
+	"port_a": null,
+	"port_b": null,
+	"captureddata": null
+};
+
 /*
  * load_file_local(are_you_sure)
  * 

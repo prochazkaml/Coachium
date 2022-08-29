@@ -18,7 +18,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-var closetimeoutids = [];
+var open_window = -1, window_stack = [], zindex = 10, closetimeoutids = [];
 
 // General windows
 
