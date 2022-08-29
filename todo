@@ -1,7 +1,8 @@
 Required for initial testing (current–voltage characteristic of diodes):
 - show value on the graph when hovering over a data point
 - actual window spawning/despawning (to prevent tabbing over to the next window!!!)
-- remove unused windows
+- re-implement the watchdog
+- make the capture actually work
 - update output file format
 - put the port panel on the right side
 - make the capture system tabbed
