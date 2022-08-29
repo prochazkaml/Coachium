@@ -18,7 +18,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-const alt_htmllang = {
+const htmllang = {
 	// Homepage text
 
 	"HOMEPAGE_ABOUT_LINK": "Co je to Coachium?",
@@ -221,7 +221,7 @@ const alt_htmllang = {
 		"</b>",
 };
 
-const alt_jslang = {
+const jslang = {
 	// mainwindow.js
 
 	"MAINWIN_NO_CAPTURES_1": "Zatím nebyl vytvořen žádný záznam.",
