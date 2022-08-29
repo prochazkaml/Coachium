@@ -1,5 +1,5 @@
 /*
- * Coachium - js/file.js
+ * Coachium - js/workbook.js
  * - handles all workbook related stuff and file loading/saving
  * 
  * Copyright (C) 2021-2022 Michal Procházka

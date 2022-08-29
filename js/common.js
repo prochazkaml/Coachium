@@ -1,6 +1,6 @@
 /*
  * Coachium - js/common.js
- * - contains common constants, variables and functions for the program
+ * - contains common variables and functions for the program
  * 
  * Copyright (C) 2021-2022 Michal Procházka
  *
@@ -17,44 +17,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
-// General windows
-
-const WINDOWID_ABOUT = 0;
-const WINDOWID_JS_ERR = 1;
-
-// Capture/file management windows
-
-const WINDOWID_CAPTURE_SETUP = 2;
-const WINDOWID_FILE_IMPORT_ERR = 9;
-const WINDOWID_IMPORT_OVERWRITE_WARN = 10;
-const WINDOWID_REMOVE_CAPTURE_WARN = 11;
-const WINDOWID_NUKE_EVERYTHING_WARN = 12;
-const WINDOWID_CAPTURE_MANAGEMENT = 13;
-const WINDOWID_LOCAL_SAVE_NAME = 16;
-const WINDOWID_CAPTURE_INFO = 17;
-const WINDOWID_FIT_FUNCTION = 19;
-
-// Google Drive windows
-
-const WINDOWID_GDRIVE_SAVE_OK = 3;
-const WINDOWID_GDRIVE_SAVE_ERR = 4;
-const WINDOWID_GDRIVE_GENERIC_ERR = 5;
-const WINDOWID_GDRIVE_NAME = 6;
-
-// Driver/hardware windows
-
-const WINDOWID_DRIVER_SELECTOR = 18;
-
-const WINDOWID_LLAPI_UNAVAILABLE = 7;
-const WINDOWID_DEVICE_VERIFY_ERROR = 8;
-const WINDOWID_DEVICE_OPEN_ERROR = 20;
-const WINDOWID_WATCHDOG_ERROR = 21;
-
-// Language windows
-
-const WINDOWID_LANGUAGE_SELECTOR = 14;
-const WINDOWID_LANGUAGE_ERROR = 15;
 
 // Common variables
 
