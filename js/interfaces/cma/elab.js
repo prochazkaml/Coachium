@@ -155,7 +155,7 @@ class CMA_ELab_driver {
 			const pindex = this.capture.ports.indexOf(portname)
 
 			if(pindex >= 0 && this.capture.received > 0) {
-				return this.ports[portname].value = this.capture.data[this.capture.received - 1][pindex];
+				return this.ports[portname].value = this.capture.data[(Math.floor(this.capture.received / this.capture.ports.length) - 1) * this.capture.ports.length + pindex];
 			} else {
 				return undefined;
 			}
@@ -408,6 +408,8 @@ class CMA_ELab_driver {
 
 		// Get ready for receiving data
 
+		const samples = p.samples * ports.length;
+
 		this.device.oninputreport = (event) => {
 			// Process the captured data
 
@@ -415,7 +417,7 @@ class CMA_ELab_driver {
 
 			for(var i = 0; i < p.spp; i++) {
 				for(var j = 0; j < ports.length; j++) {
-					this.capture.data[this.capture.received][j] = this._12bit_to_correct_units(
+					this.capture.data[this.capture.received++] = this._12bit_to_correct_units(
 						((event.data.getUint8(ptr) & 0x3F) << 6) | (event.data.getUint8(ptr + 1) & 0x3F),
 						ports[j]
 					);
@@ -425,7 +427,7 @@ class CMA_ELab_driver {
 
 				// Check if we've finished
 
-				if(++this.capture.received >= p.samples) {
+				if(this.capture.received >= samples) {
 					this.stopcapture();
 					break;
 				}
@@ -435,13 +437,9 @@ class CMA_ELab_driver {
 		// Initialize the capture data
 
 		this.capture.running = true;
-		this.capture.data = new Array(p.samples);
+		this.capture.data = new Array(p.samples * ports.length);
 		this.capture.received = 0;
 		this.capture.ports = p.ports;
-
-		for(var i = 0; i < p.samples; i++) {
-			this.capture.data[i] = new Array(ports.length);
-		}
 
 		// Send over the initialization commands
 

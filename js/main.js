@@ -416,6 +416,8 @@ async function driver_start() {
 									length: params.length,
 									ports: params.ports
 								})) == 0) {
+									// Start rendering the incoming data
+
 									capture_display_thread(parsed.freq);
 								} else {
 									capture_running = false;
@@ -449,7 +451,9 @@ async function driver_start() {
 
 function capture_display_thread(freq) {
 	if(capture_running && driver !== null && driver.capture.running) {
-		get_id("statusmsg").innerText = format(jslang.STATUS_CAPTURE_RUNNING, driver.capture.received, localize_num((driver.capture.received / freq).toFixed(2)));
+		const samples = Math.floor(driver.capture.received / driver.capture.ports.length);
+
+		get_id("statusmsg").innerText = format(jslang.STATUS_CAPTURE_RUNNING, samples, localize_num((samples / freq).toFixed(2)));
 
 		setTimeout(capture_display_thread, 16, freq); // Close enough to 60 Hz
 	} else {
