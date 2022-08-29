@@ -378,7 +378,6 @@ class CMA_ELab_driver {
 	 * async driver.startcapture(setup)
 	 * 
 	 * Starts a capture on this device based on the desired settings.
-	 * Returns corrected settings.
 	 * 
 	 * Returns 0 on success, 1 on invalid settings (selected ports are not connected).
 	 */
@@ -412,19 +411,17 @@ class CMA_ELab_driver {
 
 			for(var i = 0; i < p.spp; i++) {
 				for(var j = 0; j < ports.length; j++) {
-					this.capture.data.push(
-						this._12bit_to_correct_units(
-							((event.data.getUint8(ptr) & 0x3F) << 6) | (event.data.getUint8(ptr + 1) & 0x3F),
-							ports[j]
-						)
+					this.capture.data[this.capture.received][j] = this._12bit_to_correct_units(
+						((event.data.getUint8(ptr) & 0x3F) << 6) | (event.data.getUint8(ptr + 1) & 0x3F),
+						ports[j]
 					);
 
 					ptr += 2;
 				}
 
-				// Check if we've run out of samples
+				// Check if we've finished
 
-				if(--p.samples <= 0) {
+				if(++this.capture.received >= p.samples) {
 					this.stopcapture();
 					break;
 				}
@@ -434,7 +431,13 @@ class CMA_ELab_driver {
 		// Initialize the capture data
 
 		this.capture.running = true;
-		this.capture.data = [];
+		this.capture.data = new Array(p.samples);
+		this.capture.received = 0;
+		this.capture.ports = ports;
+
+		for(var i = 0; i < p.samples; i++) {
+			this.capture.data[i] = new Array(ports.length);
+		}
 
 		// Send over the initialization commands
 

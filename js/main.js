@@ -329,10 +329,12 @@ async function driver_start() {
 				// Check for capture requests
 
 				if(request_capture) {
+					request_capture = false;
+
 					if(capture_running) {
 						// Capture stop requested
 
-						if(driver.capture.running) await driver.stopcapture();
+						await driver.stopcapture();
 
 						capture_running = false;
 
@@ -370,6 +372,12 @@ async function driver_start() {
 								const pobj = driver.ports[trig.port];
 
 								trigger_wait_loop: while(1) {
+									if(request_capture) {
+										capture_running = false;
+										request_capture = false;
+										break trigger_wait_loop;
+									}
+
 									const val = await driver.getval(trig.port);
 
 									if(val === undefined) break trigger_wait_loop;
@@ -384,7 +392,7 @@ async function driver_start() {
 											break;
 
 										case "ne":
-											if(val < (trig.target - trig.tol) && val > (trig.target + trig.tol))
+											if(val < (trig.target - trig.tol) || val > (trig.target + trig.tol))
 												break trigger_wait_loop;
 
 											break;
@@ -402,19 +410,24 @@ async function driver_start() {
 
 							// Trigger condition finished (if there even was one), start the capture
 
-							if(await driver.startcapture({
-								freq: params.freq,
-								length: params.length,
-								ports: params.ports
-							}) == 0) {
-								capture_display_thread(params.freq);
+							if(capture_running) {
+								if(await driver.startcapture({
+									freq: params.freq,
+									length: params.length,
+									ports: params.ports
+								}) == 0) {
+									capture_display_thread(parsed.freq);
+								} else {
+									// TODO: error
+								}
 							} else {
-								// TODO: error
+								// Capture was cancelled during the trigger waiting phase
+
+								get_id("statusmsg").innerText = jslang.STATUS_CAPTURE_FINISHED;
+								ui_hardware_change_trigger();
 							}
 						}
 					}
-					
-					request_capture = false;
 				}
 
 				await delay_ms(200);
@@ -432,11 +445,14 @@ async function driver_start() {
 
 function capture_display_thread(freq) {
 	if(capture_running && driver !== null && driver.capture.running) {
-		get_id("statusmsg").innerText = format(jslang.STATUS_CAPTURE_RUNNING, driver.capture.data.length, localize_num((driver.capture.data.length / freq).toFixed(2)));
+		get_id("statusmsg").innerText = format(jslang.STATUS_CAPTURE_RUNNING, driver.capture.received, localize_num((driver.capture.received / freq).toFixed(2)));
 
 		setTimeout(capture_display_thread, 16, freq); // Close enough to 60 Hz
 	} else {
 		get_id("statusmsg").innerText = jslang.STATUS_CAPTURE_FINISHED;
+
+		capture_running = false;
+		ui_hardware_change_trigger();
 	}
 }
 
