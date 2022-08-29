@@ -98,7 +98,7 @@ const htmllang = {
 	"WINDOW2_MODE_XY_DESC":
 		"In X-Y mode, you can select precisely 2 sensors, one for each axis (X, Y). " +
 		"Useful for comparing different quantities, where there is no need to display the time " +
-		"(i.e. volt ampere characteristics).",
+		"(i.e. current-voltage characteristics).",
 	"WINDOW2_X": "X",
 	"WINDOW2_Y": "Y",
 	"WINDOW2_PARAMS": "Capture parameters",
