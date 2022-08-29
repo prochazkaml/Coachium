@@ -447,6 +447,10 @@ function capture_setup_change_mode(mode) {
  */
 
 function capture_setup_check() {
+	var startbutt = get_win_el_class(WINDOWID_CAPTURE_SETUP, "windowbutton");
+
+	startbutt.classList.add("windowbuttondisabled");
+
 	const freq = Number(get_id("cs_freq").get_tag("input").value);
 	const dur = Number(get_id("cs_duration").get_tag("input").value);
 
@@ -565,6 +569,7 @@ function capture_setup_check() {
 	}
 
 	err.innerHTML = "";
+	startbutt.classList.remove("windowbuttondisabled");
 
 	if(parsed.freq != freq) {
 		err.innerHTML += format(jslang.SETUP_CLOSEST_USABLE_FREQ, localize_num(parsed.freq)) + " ";
