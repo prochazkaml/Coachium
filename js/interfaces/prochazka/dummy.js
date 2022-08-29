@@ -102,4 +102,15 @@ class Prochazka_Dummy_driver {
 	}
 
 	deinit() {}
+
+	verifycapture(setup) {
+		if(setup.ports.length < 1 || setup.ports.length > 2) return undefined;
+
+		setup.freq = round(setup.freq);
+		
+		if(setup.length * setup.freq > 10000) setup.length = 10000 / setup.freq;
+		if(setup.length * setup.freq < 2) setup.length = 2 / setup.freq;
+
+		return setup;
+	}
 };
