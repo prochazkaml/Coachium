@@ -218,15 +218,18 @@ function generate_cache(start, end) {
 	const capture = captures[selected_capture];
 	const portnames = Object.keys(capture.ports);
 
-	console.log(start, end);
+	// Parse the input data
 
 	for(var i = start; i < end; i++) {
 		var entry = [];
 
-		if(portnames.length == 1) entry.push(i * capture.interval / 1000000);
+		entry.push(i * capture.interval / 1000000);
 		
 		for(var j = 0; j < portnames.length; j++) {
-			entry.push(capture.data[i * portnames.length + j]);
+			const data = capture.data[i * portnames.length + j];
+			if(data === null) return;
+
+			entry.push(data);
 		}
 
 		capture_cache.values[i] = entry;
