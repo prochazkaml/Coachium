@@ -287,37 +287,48 @@ function change_selected_capture(interval, absolute = undefined) {
 
 		const keys = Object.keys(capture.ports);
 
-		switch(keys.length) {
-			case 1:
-				// X axis parameters
+		// Time "sensor"
 
-				capture_cache.x.unitname = "s";
-				capture_cache.x.min = 0;
-				capture_cache.x.max = capture.length / 1000;
+		capture_cache.ports[0] = {
+			unit: "s",
+			min: 0,
+			max: capture.length / 1000
+		};
+		
+		// Copy the actual sensors over
 
-				// Y axis parameters
-
-				capture_cache.y.unitname = capture.ports[keys[0]].unit;
-				capture_cache.y.min = capture.ports[keys[0]].min;
-				capture_cache.y.max = capture.ports[keys[0]].max;
-
-				break;
-
-			case 2:
-				// X axis parameters
-
-				capture_cache.x.unitname = capture.ports[keys[0]].unit;
-				capture_cache.x.min = capture.ports[keys[0]].min;
-				capture_cache.x.max = capture.ports[keys[0]].max;
-
-				// Y axis parameters
-
-				capture_cache.y.unitname = capture.ports[keys[1]].unit;
-				capture_cache.y.min = capture.ports[keys[1]].min;
-				capture_cache.y.max = capture.ports[keys[1]].max;
-
-				break;
+		for(var i = 0; i < keys.length; i++) {
+			capture_cache.ports[i + 1] = {
+				unit: capture.ports[keys[i]].unit,
+				min: capture.ports[keys[i]].min,
+				max: capture.ports[keys[i]].max,
+			}
 		}
+
+		// Figure out the absolute possible max/min of each axis
+
+		if(capture.xy_mode) {
+			capture_cache.x1 = capture_cache.ports[1].min;
+			capture_cache.x2 = capture_cache.ports[1].max;
+
+			capture_cache.y1 = capture_cache.ports[2].min;
+			capture_cache.y2 = capture_cache.ports[2].max;
+		} else {
+			capture_cache.x1 = capture_cache.ports[0].min;
+			capture_cache.x2 = capture_cache.ports[0].max;
+
+			var min = Infinity, max = -Infinity;
+
+			for(var i = 1; i < capture_cache.ports.length; i++) {
+				if(capture_cache.ports[i].min < min) min = capture_cache.ports[i].min;
+				if(capture_cache.ports[i].max > max) max = capture_cache.ports[i].max;
+			}
+
+			capture_cache.y1 = min;
+			capture_cache.y2 = max;
+		}
+
+		// Generate the cache data
 
 		generate_cache(0, Math.floor(capture.data.length / keys.length));
 	} else {
@@ -392,17 +403,38 @@ function zoom_to_data() {
 
 	canvas.style.cursor = "auto";
 
+	const capture = captures[selected_capture];
+
 	var min_x = 1, min_y = 1, max_x = 0, max_y = 0;
 
 	for(var i = 0; i < capture_cache.values.length; i++) {
-		var x = (capture_cache.values[i][0] - capture_cache.x.min) / (capture_cache.x.max - capture_cache.x.min);
-		var y = (capture_cache.values[i][1] - capture_cache.y.min) / (capture_cache.y.max - capture_cache.y.min);
+		var x, y, y2;
+
+		if(capture.xy_mode) {
+			x = (capture_cache.values[i][1] - capture_cache.x1) / (capture_cache.x2 - capture_cache.x1);
+			y = (capture_cache.values[i][2] - capture_cache.y1) / (capture_cache.y2 - capture_cache.y1);
+
+			if(y > max_y) max_y = y;
+			if(y < min_y) min_y = y;
+		} else {
+			x = (capture_cache.values[i][0] - capture_cache.x1) / (capture_cache.x2 - capture_cache.x1);
+			y = Infinity;
+			y2 = -Infinity;
+
+			for(var j = 1; j < capture_cache.ports.length; j++) {
+				if(capture_cache.values[i][j] < y) y = capture_cache.values[i][j];
+				if(capture_cache.values[i][j] > y2) y2 = capture_cache.values[i][j];
+			}
+
+			y = (y - capture_cache.y1) / (capture_cache.y2 - capture_cache.y1);
+			y2 = (y2 - capture_cache.y1) / (capture_cache.y2 - capture_cache.y1);
+
+			if(y2 > max_y) max_y = y2;
+			if(y < min_y) min_y = y;
+		}
 
 		if(x > max_x) max_x = x;
 		if(x < min_x) min_x = x;
-
-		if(y > max_y) max_y = y;
-		if(y < min_y) min_y = y;
 	}
 
 	if(min_x < max_x && min_y < max_y) {

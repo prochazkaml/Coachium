@@ -21,17 +21,12 @@
 var captures = [], selected_capture = 0;
 
 var capture_cache = {
-	"x": {
-		"min": null,
-		"max": null,
-		"unitname": null,
-	},
-	"y": {
-		"min": null,
-		"max": null,
-		"unitname": null,
-	},
-	"values": []
+	"ports": [], // first one is always { min: 0, max: set capture length, unit: "s"/"ms"/whatever you want }
+	"values": [],
+	"x1": 0, // Min x value
+	"y1": 0, // Min y value
+	"x2": 1, // Max x value
+	"y2": 1, // Max y value
 };
 
 /*
