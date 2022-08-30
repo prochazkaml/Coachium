@@ -55,10 +55,14 @@ function load_file_local(are_you_sure) {
 			reader = new FileReader();
 
 			reader.onload = (x) => {
-				captures = JSON.parse(LZString.decompressFromUint8Array(new Uint8Array(x.target.result)));
-				change_selected_capture(0, 0);
+				try {
+					captures = JSON.parse(LZString.decompressFromUint8Array(new Uint8Array(x.target.result)));
+					change_selected_capture(0, 0);
 
-				get_id("statusmsg").innerHTML = jslang.STATUS_FILE_LOADED;
+					get_id("statusmsg").innerHTML = jslang.STATUS_FILE_LOADED;
+				} catch(e) {
+					popup_window(WINDOWID_FILE_IMPORT_ERR);
+				}
 			};
 
 			reader.readAsArrayBuffer(element.files[0]);
