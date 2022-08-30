@@ -55,13 +55,13 @@ function load_file_local(are_you_sure) {
 			reader = new FileReader();
 
 			reader.onload = (x) => {
-				captures = JSON.parse(x.target.result);
+				captures = JSON.parse(LZString.decompressFromUint8Array(new Uint8Array(x.target.result)));
 				change_selected_capture(0, 0);
 
 				get_id("statusmsg").innerHTML = jslang.STATUS_FILE_LOADED;
 			};
 
-			reader.readAsText(element.files[0]);
+			reader.readAsArrayBuffer(element.files[0]);
 		};
 
 		element.click();
@@ -83,7 +83,7 @@ function save_file_local(name_chosen) {
 		// Generate a fictional "a" element for saving the file
 
 		var element = document.createElement("a");
-		element.setAttribute("href", "data:text/plain;charset=utf-8," + encodeURIComponent(JSON.stringify(captures)));
+		element.setAttribute("href", window.URL.createObjectURL(new Blob([ LZString.compressToUint8Array(JSON.stringify(captures)) ], { type: "application/octet-stream" })));
 		element.setAttribute("download", inputfield.value + ".coachium");
 		element.click();
 
