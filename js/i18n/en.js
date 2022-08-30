@@ -241,9 +241,8 @@ const jslang = {
 
 	"CAPTURE_FMT": "Capture {0} out of {1}: {2}",
 
-	"INTERVAL": "Interval (s)",
-	"SENSOR_1": "Sensor 1 ({0})",
-	"SENSOR_2": "Sensor 2 ({0})",
+	"TABLE_INTERVAL": "Interval ({0})",
+	"TABLE_SENSOR": "Sensor {0} ({1})",
 
 	// gdrive_interface.js
 

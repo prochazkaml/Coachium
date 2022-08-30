@@ -41,73 +41,31 @@ function table_reset() {
 		var tr = document.createElement("tr");
 
 		var th = document.createElement("th");
-		th.innerText = jslang.INTERVAL;
+		th.innerText = format(jslang.TABLE_INTERVAL, capture_cache.ports[0].unit);
 		tr.appendChild(th);
 
-		switch(capture.sensorsetup) {
-			case 0:
-				th = document.createElement("th");
-				th.innerText = format(jslang.SENSOR_1, capture.port_a.unit);
-				tr.appendChild(th);
+		const keys = Object.keys(capture.ports);
 
-				th = document.createElement("th");
-				th.innerText = format(jslang.SENSOR_2, capture.port_b.unit);
-				tr.appendChild(th);
-				break;
-
-			case 1:
-				th = document.createElement("th");
-				th.innerText = format(jslang.SENSOR_1, capture.port_a.unit);
-				tr.appendChild(th);
-				break;
-
-			case 2:
-				th = document.createElement("th");
-				th.innerText = format(jslang.SENSOR_2, capture.port_b.unit);
-				tr.appendChild(th);
-				break;
+		for(var i = 0; i < keys.length; i++) {
+			th = document.createElement("th");
+			th.innerText = format(jslang.TABLE_SENSOR, keys[i], capture_cache.ports[i].unit);
+			tr.appendChild(th);
 		}
 
 		tbl.appendChild(tr);
 
 		var td;
 
-		if(capture.sensorsetup) {
-			// Single sensor
+		for(var i = 0; i < capture_cache.values.length; i++) {
+			tr = document.createElement("tr");
 
-			for(var i = 0; i < capture_cache.values.length; i++) {
-				tr = document.createElement("tr");
-
+			for(var j = 0; j < capture_cache.ports.length; j++) {
 				td = document.createElement("td");
-				td.innerText = localize_num(i * capture.interval / 10000);
-				tr.appendChild(td);
-
-				td = document.createElement("td");
-				td.innerText = localize_num(capture_cache.values[i][1]);
-				tr.appendChild(td);
-
-				tbl.appendChild(tr);
+				td.innerText = localize_num(capture_cache.values[i][j]);
+				tr.appendChild(td);	
 			}
-		} else {
-			// Both sensors
 
-			for(var i = 0; i < capture_cache.values.length; i++) {
-				tr = document.createElement("tr");
-
-				td = document.createElement("td");
-				td.innerText = localize_num(i * capture.interval / 10000);
-				tr.appendChild(td);
-
-				td = document.createElement("td");
-				td.innerText = localize_num(capture_cache.values[i][0]);
-				tr.appendChild(td);
-
-				td = document.createElement("td");
-				td.innerText = localize_num(capture_cache.values[i][1]);
-				tr.appendChild(td);
-
-				tbl.appendChild(tr);
-			}
+			tbl.appendChild(tr);
 		}
 
 		out.appendChild(tbl);
