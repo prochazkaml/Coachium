@@ -411,14 +411,42 @@ async function driver_start() {
 							// Trigger condition finished (if there even was one), start the capture
 
 							if(capture_running) {
-								if((await driver.startcapture({
+								const capstatus = await driver.startcapture({
 									freq: params.freq,
 									length: params.length,
 									ports: params.ports
-								})) == 0) {
+								});
+
+								if(capstatus !== undefined) {
+									// Create a new capture in the GUI
+
+									var title = get_win_el_class(WINDOWID_CAPTURE_SETUP, "capturesetupname").get_tag("input").value;
+
+									if(!title) title = jslang.UNTITLED_CAPTURE;
+
+									var ports = {};
+
+									console.log(capstatus);
+
+									for(var i = 0; i < params.ports.length; i++) {
+										ports[params.ports[i]] = JSON.parse(JSON.stringify(capstatus.ports[i])); // Holy shit
+									}
+									
+									var capture = {
+										title: title,
+										length: params.length,
+										ports: ports,
+										interval: capstatus.interval,
+										xy_mode: params.xy_mode,
+										data: []
+									};
+
+									captures.push(capture);
+
 									// Start rendering the incoming data
 
-									capture_display_thread(parsed.freq);
+									change_selected_capture(0, Infinity);
+									capture_display_thread(parsed.freq, 0);
 								} else {
 									capture_running = false;
 									popup_window(WINDOWID_CAPTURE_START_ERROR);
@@ -449,19 +477,31 @@ async function driver_start() {
  * Displays info about the currently running capture. Automatically calls itself repeatedly, until the capture is stopped.
  */
 
-function capture_display_thread(freq) {
-	if(capture_running && driver !== null && driver.capture.running) {
+function capture_display_thread(freq, processed) {
+	if(driver !== null) {
 		const samples = Math.floor(driver.capture.received / driver.capture.ports.length);
 
-		get_id("statusmsg").innerText = format(jslang.STATUS_CAPTURE_RUNNING, samples, localize_num((samples / freq).toFixed(2)));
+		if(capture_running && driver.capture.running) {
+			get_id("statusmsg").innerText = format(jslang.STATUS_CAPTURE_RUNNING, samples, localize_num((samples / freq).toFixed(2)));
 
-		setTimeout(capture_display_thread, 16, freq); // Close enough to 60 Hz
+			setTimeout(capture_display_thread, 16, freq, samples); // Close enough to 60 Hz
+		} else {
+			get_id("statusmsg").innerText = jslang.STATUS_CAPTURE_FINISHED;
+
+			capture_running = false;
+			ui_hardware_change_trigger();
+		}
+
+		captures[captures.length - 1].data = driver.capture.data;
+		generate_cache(processed, samples);
 	} else {
 		get_id("statusmsg").innerText = jslang.STATUS_CAPTURE_FINISHED;
 
 		capture_running = false;
 		ui_hardware_change_trigger();
 	}
+
+	main_window_reset(false, false);
 }
 
 /*

@@ -383,13 +383,24 @@ class CMA_ELab_driver {
 	 * 
 	 * Starts a capture on this device based on the desired settings.
 	 * 
-	 * Returns 0 on success, 1 on invalid settings (selected ports are not connected).
+	 * Returns undefined on invalid settings (selected ports are not connected),
+	 * object on success:
+	 * 
+	 * {
+	 *   ports: {
+	 *     "A1": {
+	 *       name: "Thermocouple",
+	 *       min, max, unit, ...
+	 *     }, ...
+	 *   },
+	 *   interval: number of us
+	 * }
 	 */
 
 	async startcapture(setup) {
 		var p = this._processcapturesetup(setup);
 
-		if(p == undefined) return 1;
+		if(p == undefined) return undefined;
 
 		// Initialize the last init packet
 
@@ -399,7 +410,7 @@ class CMA_ELab_driver {
 		for(var i = 0; i < p.ports.length; i++) {
 			const port = this.ports[p.ports[i]];
 
-			if(!port.connected) return 1;
+			if(!port || !port.connected) return undefined;
 
 			ports.push(port);
 
@@ -451,7 +462,10 @@ class CMA_ELab_driver {
 		]);
 		await WebHID.send(this.device, startpacket);
 
-		return 0;
+		return {
+			interval: p.units * 100, // us
+			ports: ports
+		};
 	}
 
 	/*

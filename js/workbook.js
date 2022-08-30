@@ -34,17 +34,6 @@ var capture_cache = {
 	"values": []
 };
 
-const fresh_capture = {
-	"title": null,
-	"seconds": null,
-	"samples": null,
-	"interval": null,
-	"sensorsetup": null,
-	"port_a": null,
-	"port_b": null,
-	"captureddata": null
-};
-
 /*
  * load_file_local(are_you_sure)
  * 

@@ -285,41 +285,41 @@ function change_selected_capture(interval, absolute = undefined) {
 
 		capture_cache.values = [];
 
-		if(capture.sensorsetup) {
-			// Only one sensor was used
+		const keys = Object.keys(capture.ports);
 
-			const sensor = (capture.sensorsetup == 1) ? capture.port_a : capture.port_b;
+		switch(keys.length) {
+			case 1:
+				// X axis parameters
 
-			// X axis parameters
+				capture_cache.x.unitname = "s";
+				capture_cache.x.min = 0;
+				capture_cache.x.max = capture.length / 1000;
 
-			capture_cache.x.unitname = "s";
-			capture_cache.x.min  = 0;
-			capture_cache.x.max = capture.seconds;
+				// Y axis parameters
 
-			// Y axis parameters
+				capture_cache.y.unitname = capture.ports[keys[0]].unit;
+				capture_cache.y.min = capture.ports[keys[0]].min;
+				capture_cache.y.max = capture.ports[keys[0]].max;
 
-			capture_cache.y.unitname = sensor.unit;
-			capture_cache.y.min = sensor.min_value;
-			capture_cache.y.max = sensor.max_value;
-		} else {
-			// Both sensors were used
+				break;
 
-			const sensor_a = capture.port_a, sensor_b = capture.port_b;
+			case 2:
+				// X axis parameters
 
-			// X axis parameters
+				capture_cache.x.unitname = capture.ports[keys[0]].unit;
+				capture_cache.x.min = capture.ports[keys[0]].min;
+				capture_cache.x.max = capture.ports[keys[0]].max;
 
-			capture_cache.x.unitname = sensor_b.unit;
-			capture_cache.x.min = sensor_b.min_value;
-			capture_cache.x.max = sensor_b.max_value;
+				// Y axis parameters
 
-			// Y axis parameters
+				capture_cache.y.unitname = capture.ports[keys[1]].unit;
+				capture_cache.y.min = capture.ports[keys[1]].min;
+				capture_cache.y.max = capture.ports[keys[1]].max;
 
-			capture_cache.y.unitname = sensor_a.unit;
-			capture_cache.y.min = sensor_a.min_value;
-			capture_cache.y.max = sensor_a.max_value;
+				break;
 		}
 
-		generate_cache(capture.captureddata, 0, capture.samples);
+		generate_cache(0, Math.floor(capture.data.length / keys.length));
 	} else {
 		capture_cache.values = [];
 
@@ -474,6 +474,8 @@ function info_generate_sensor(sensor) {
  */
 
 function show_capture_info() {
+	// TODO
+
 	if(get_id("captureinfobutton").classList.contains("navbuttondisabled")) return;
 
 	const capture = captures[selected_capture];

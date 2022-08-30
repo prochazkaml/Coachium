@@ -207,50 +207,29 @@ function read_cookie(key) {
 }
 
 /*
- * generate_cache(values, start, end)
+ * generate_cache(start)
  * 
  * Generates the cache data required for rendering the main window
- * from the currently selected capture.
+ * from the currently selected capture. The start parameter is used
+ * for skipping sections which have already been processed.
  */
 
-function generate_cache(values, start, end) {
+function generate_cache(start, end) {
 	const capture = captures[selected_capture];
+	const portnames = Object.keys(capture.ports);
 
-	if(capture.sensorsetup) {
-		// Only one sensor was used
+	console.log(start, end);
 
-		var sensor = (capture.sensorsetup == 1) ? capture.port_a : capture.port_b;
+	for(var i = start; i < end; i++) {
+		var entry = [];
 
-		if(!sensor.zero_offset) sensor.zero_offset = 0;
-
-		for(var i = start; i < end; i++) {
-			if(values[i] == null) break;
-
-			capture_cache.values[i] = [
-				capture.interval / 10000 * i,
-				convert_12bit_to_real(values[i], sensor.coeff_a,
-					sensor.coeff_b, sensor.high_voltage) - sensor.zero_offset
-			];
+		if(portnames.length == 1) entry.push(i * capture.interval / 1000000);
+		
+		for(var j = 0; j < portnames.length; j++) {
+			entry.push(capture.data[i * portnames.length + j]);
 		}
-	} else {
-		// Both sensors were used
 
-		var sensor_a = capture.port_a, sensor_b = capture.port_b;
-
-		if(!sensor_a.zero_offset) sensor_a.zero_offset = 0;
-		if(!sensor_b.zero_offset) sensor_b.zero_offset = 0;
-
-		for(var i = start / 2; i < end / 2; i++) {
-			if(values[i * 2] == null) break;
-			if(values[i * 2 + 1] == null) break;
-
-			capture_cache.values[i] = [
-				convert_12bit_to_real(values[i * 2 + 1], sensor_b.coeff_a,
-					sensor_b.coeff_b, sensor_b.high_voltage) - sensor_b.zero_offset,
-				convert_12bit_to_real(values[i * 2], sensor_a.coeff_a,
-					sensor_a.coeff_b, sensor_a.high_voltage) - sensor_a.zero_offset
-			];
-		}
+		capture_cache.values[i] = entry;
 	}
 }
 
