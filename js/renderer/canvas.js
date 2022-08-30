@@ -180,13 +180,15 @@ function canvas_reset(event) {
 
 			// Calculate the above described values
 
-			x_unit_name = capture_cache.x.unitname;
-			x_int_min = x_min = capture_cache.x.min;
-			x_int_max = x_max = capture_cache.x.max;
+			// TODO: NOOOO!!!
 
-			y_unit_name = capture_cache.y.unitname;
-			y_int_min = y_min = capture_cache.y.min;
-			y_int_max = y_max = capture_cache.y.max;
+			x_unit_name = capture_cache.ports[0].unit;
+			x_int_min = x_min = capture_cache.ports[0].min;
+			x_int_max = x_max = capture_cache.ports[0].max;
+
+			y_unit_name = capture_cache.ports[1].unit;
+			y_int_min = y_min = capture_cache.ports[1].min;
+			y_int_max = y_max = capture_cache.ports[1].max;
 
 			// Calculate the rest of the X axis parameters
 
@@ -485,24 +487,26 @@ function canvas_reset(event) {
 		if(mouse_over_canvas) {
 			draw_crosshair(mouseX, mouseY, "rgba(0, 0, 255, .5)");
 
+			// TODO: THIS IS TEMPORARY!!!
+
 			var mx = (mouseX - graph_margin_left) / (canvas.width - graph_margin_left - graph_margin_right),
 				my = (mouseY - graph_margin_top) / (canvas.height - graph_margin_top - graph_margin_bottom),
-				uw = Math.abs(capture_cache.x.max - capture_cache.x.min),
-				uh = Math.abs(capture_cache.y.max - capture_cache.y.min);
+				uw = Math.abs(capture_cache.ports[0].max - capture_cache.ports[0].min),
+				uh = Math.abs(capture_cache.ports[1].max - capture_cache.ports[1].min);
 
-			uw = uw * (zoomx1 + mx * (zoomx2 - zoomx1)) + capture_cache.x.min;
-			uh = uh * (zoomy2 + my * (zoomy1 - zoomy2)) + capture_cache.y.min;
+			uw = uw * (zoomx1 + mx * (zoomx2 - zoomx1)) + capture_cache.ports[0].min;
+			uh = uh * (zoomy2 + my * (zoomy1 - zoomy2)) + capture_cache.ports[1].min;
 
 			ovctx.textBaseline = "middle";
 			ovctx.textAlign = "right";
 			ovctx.font = "16px Ubuntu";
 			ovctx.fillStyle = "black";
 			ovctx.fillText(
-				"X = " + localize_num(ideal_round_fixed(uw, capture_cache.x.max)) + " " + capture_cache.x.unitname,
+				"X = " + localize_num(ideal_round_fixed(uw, capture_cache.ports[0].max)) + " " + capture_cache.ports[0].unit,
 				overlay.width - graph_margin_right, graph_margin_top / 2 - 10);
 
 			ovctx.fillText(
-				"Y = " + localize_num(ideal_round_fixed(uh, capture_cache.y.max)) + " " + capture_cache.y.unitname,
+				"Y = " + localize_num(ideal_round_fixed(uh, capture_cache.ports[1].max)) + " " + capture_cache.ports[1].unit,
 				overlay.width - graph_margin_right, graph_margin_top / 2 + 10);
 		}
 	}
