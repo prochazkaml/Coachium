@@ -4,6 +4,7 @@ Required for initial testing (current–voltage characteristic of diodes):
 - put the port panel on the right side
 - make the capture system tabbed
 - embed everything in a single file (HTML, CSS, JS, images, fonts...) - ideally compress everything, store it in raw binary
+- add support for student "post-it" notes
 
 ******************************************************-
 - ADD A WORKING EXAMPLE!

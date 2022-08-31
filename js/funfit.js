@@ -40,7 +40,21 @@ function fit_function() {
 	// Automatically update the values when the selected function is changed
 
 	select.onchange = () => {
-		const algo_output = fitting_algos[select.selectedIndex](capture_cache.values);
+		var data = [];
+
+		for(var i = 0; i < capture_cache.values.length; i++) {
+			const sample = capture_cache.values[i];
+
+			if(capture_cache.xy_mode) {
+				data[i] = [ sample[1], sample[2] ];
+			} else {
+				// TODO
+
+				data[i] = [ sample[0], sample[1] ];
+			}
+		}
+
+		const algo_output = fitting_algos[select.selectedIndex](data);
 
 		// Update the info dialog
 
