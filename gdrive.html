@@ -117,32 +117,24 @@
 
 				var metadata = {
 					'name': name + ".coachium",
-					'mimeType': 'text/json'
+					'mimeType': 'application/octet-stream'
 				};
 
-				var multipartRequestBody =
-						delimiter +
-						'Content-Type: application/json\r\n\r\n' +
-						JSON.stringify(metadata) +
-						delimiter +
-						'Content-Type: text/json\r\n\r\n' +
-						data +
-						close_delim;
+				var payload = new FormData();
+				payload.append('metadata', new Blob([JSON.stringify(metadata)], {type: 'application/json'}));
+				payload.append('file', new Blob([new Uint8Array(data)]));
 
-				var request = gapi.client.request({
-						'path': '/upload/drive/v3/files',
-						'method': 'POST',
-						'params': {'uploadType': 'multipart'},
-						'headers': {
-							'Content-Type': 'multipart/related; boundary="' + boundary + '"'
-						},
-						'body': multipartRequestBody});
-
-				var callback = function(file) {
-					msg(file.id);
+				xhr = new XMLHttpRequest();
+				xhr.responseType = 'json';
+				xhr.open('post', 'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart');
+				xhr.setRequestHeader('Authorization', 'Bearer ' + access_token);
+				xhr.onload = () => {
+					if(!xhr.response.id)
+						msg("error: response is not JSON");
+					else
+						msg(xhr.response.id);
 				};
-
-				request.execute(callback);
+				xhr.send(payload);
 			}
 		</script>
 	</body>

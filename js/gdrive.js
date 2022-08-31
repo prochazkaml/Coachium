@@ -56,7 +56,7 @@ function gdrive_save() {
 	get_id("gdrive_iframe").contentWindow.postMessage("_gdriveinterface" + JSON.stringify({
 		"cmd": "save_file_to_Drive",
 		"name": filename,
-		"data": JSON.stringify(captures),
+		"data": Array.from(LZString.compressToUint8Array(JSON.stringify(captures)))
 	}), "*");
 }
 
@@ -87,7 +87,7 @@ window.addEventListener('message', (response) => {
 
 			popup_window(WINDOWID_GDRIVE_NAME);
 		} else {
-			if(gdrive_response.includes("error")) {
+			if(gdrive_response && gdrive_response.includes("error")) {
 				if(gdrive_requested) {
 					get_win_el_tag(WINDOWID_GDRIVE_SAVE_ERR, "textarea").value = gdrive_response;
 					popup_window(WINDOWID_GDRIVE_SAVE_ERR);
@@ -97,7 +97,7 @@ window.addEventListener('message', (response) => {
 					popup_window(WINDOWID_GDRIVE_GENERIC_ERR);
 				}
 			} else {
-				if(gdrive_requested) {
+				if(gdrive_requested && typeof(gdrive_response) == "string") {
 					get_win_el_tag(WINDOWID_GDRIVE_SAVE_OK, "a").href = "https://drive.google.com/file/d/" + gdrive_response;
 					popup_window(WINDOWID_GDRIVE_SAVE_OK);
 					gdrive_requested = false;
