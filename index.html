@@ -84,6 +84,7 @@
 				<div class="navbutton" id="removecapturebutton"><img src="assets/icons/graphremove.svg" class="L18N_TITLE_REMOVE_CAPTURE" onclick="remove_capture(false);"></div>
 				<div class="navbutton" id="capturemgmtbutton"><img src="assets/icons/capturemgmt.svg" class="L18N_TITLE_CAPTURE_MGMT" onclick="capture_management();"></div>
 				<div class="navbutton" id="fitfunctionbutton"><img src="assets/icons/function.svg" class="L18N_TITLE_FIT_FUNCTION" onclick="fit_function();"></div>
+				<div class="navbutton" id="notemgrbutton"><img src="assets/icons/note.svg" class="L18N_TITLE_NOTE_MANAGER" onclick="note_manager();"></div>
 				<div class="navspacer"></div>
 				<div class="navbutton" id="viewpreviousbutton"><img src="assets/icons/graphprevious.svg" class="L18N_TITLE_PREVIOUS_CAPTURE" onclick="change_selected_capture(-1);"></div>
 				<div class="navbutton" id="viewastablebutton"><img src="assets/icons/graphtableview.svg" class="L18N_TITLE_SHOW_AS_TABLE" onclick="change_capture_view();"></div>
@@ -579,6 +580,33 @@
 			</div>
 		</div>
 
+		<div id="window23overlay" class="windowoverlay">
+			<div class="windowcloselayer" onclick="close_window();"></div>
+			<div class="popupwindow">
+				<h1 class="L18N_WINDOW23_TITLE"></h1>
+
+				<div style="display: flex; flex-direction: row; margin-top: 16px;">
+					<select size="2" style="width: 320px; height: 240px; font-size: 18px; font-family: Ubuntu; margin-right: 16px;"></select>
+					<div style="display: flex; flex-direction: column;">
+						<textarea style="width: 320px; flex-grow: 1;"></textarea>
+						<div class="windowbuttonlist" style="flex-grow: 0; flex-direction: column;">
+							<div class="windowbutton" style="display: none" onclick=""></div> <!-- prevents confirm_window() from breaking shit -->
+							<div class="windowbutton L18N_WINDOW23_BUTTON_ADD" onclick="add_note();"></div>
+							<div class="windowbutton L18N_WINDOW23_BUTTON_EDIT"></div> <!-- onclick automatically generated -->
+							<div class="windowbutton L18N_WINDOW23_BUTTON_MOVE"></div> <!-- onclick automatically generated -->
+							<div class="windowbutton L18N_WINDOW23_BUTTON_REMOVE"></div> <!-- onclick automatically generated -->
+						</div>
+					</div>
+				</div>
+
+				<hr style="margin-top: 24px;">
+
+				<div class="windowbuttonlist">
+					<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();"></div>
+				</div>
+			</div>
+		</div>
+		
 		<div id="windowaboutoverlay" class="windowoverlay">
 			<div class="windowcloselayer" onclick="window.location.hash = '';"></div>
 			<div class="popupwindow bigwindow">

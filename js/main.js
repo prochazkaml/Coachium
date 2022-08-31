@@ -704,6 +704,10 @@ document.addEventListener('keydown', (event) => {
 				capture_management();
 				break;
 
+			case "n":
+				note_manager();
+				break;
+
 			case "arrowleft":
 			case "pageup":
 				event.preventDefault();

@@ -48,6 +48,7 @@ const htmllang = {
 	"TITLE_NEW_CAPTURE": "Přidat nový záznam do sešitu [Mezerník]",
 	"TITLE_STOP_CAPTURE": "Zastavit záznam [Mezerník]",
 	"TITLE_FIT_FUNCTION": "Fitovat funkci na naměřená data [F]",
+	"TITLE_NOTE_MANAGER": "Správce poznámek [N]",
 	"TITLE_REMOVE_CAPTURE": "Odstranit tento záznam ze sešitu [Delete]",
 	"TITLE_PREVIOUS_CAPTURE": "Zobrazit předchozí záznam v sešitě [← nebo PageUp]",
 	"TITLE_SHOW_AS_TABLE": "Zobrazit záznam jako tabulku [T]",
@@ -202,6 +203,12 @@ const htmllang = {
 		"Zkuste prosím odpojit a opět zapojit všechna<br>" +
 		"použitá čidla a spustit záznam znovu.",
 
+	"WINDOW23_TITLE": "Správce poznámek",
+	"WINDOW23_BUTTON_ADD": "Vytvořit poznámku",
+	"WINDOW23_BUTTON_EDIT": "Uložit změny",
+	"WINDOW23_BUTTON_MOVE": "Přesunout poznámku...",
+	"WINDOW23_BUTTON_REMOVE": "Odstranit poznámku",
+
 	// "About" window text
 
 	"ABOUT_TITLE": "Co je to Coachium?",
@@ -280,6 +287,8 @@ const jslang = {
 	"STATUS_WAITING_FOR_TRIGGER": "Podmíněný záznam je připraven, čeká na splnění podmínky...",
 	"STATUS_CAPTURE_RUNNING": "Záznam právě běží... ({0} vzorků, {1} sekund)",
 	"STATUS_CAPTURE_FINISHED": "Záznam skončil.",
+
+	"NOTE_MANAGER_ADD": "+ Přidat novou poznámku",
 
 	"STATUS_ZOOM_IN_REQUEST": "Vyberte oblast, kterou chcete přiblížit.",
 	"STATUS_ZOOM_IN_CONFIRM": "Vybraná oblast přiblížena.",

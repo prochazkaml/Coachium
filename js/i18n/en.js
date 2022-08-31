@@ -48,6 +48,7 @@ const htmllang = {
 	"TITLE_NEW_CAPTURE": "Add a new capture to your workbook [Space]",
 	"TITLE_STOP_CAPTURE": "Stop the current capture [Space]",
 	"TITLE_FIT_FUNCTION": "Fit function to captured data [F]",
+	"TITLE_NOTE_MANAGER": "Note manager [N]",
 	"TITLE_REMOVE_CAPTURE": "Delete this capture [Delete]",
 	"TITLE_PREVIOUS_CAPTURE": "Show the previous capture [← or PageUp]",
 	"TITLE_SHOW_AS_TABLE": "Display capture data as a table [T]",
@@ -209,6 +210,12 @@ const htmllang = {
 		"Please try unplugging and replugging all used<br>" +
 		"sensors and start the capture again.",
 
+	"WINDOW23_TITLE": "Note manager",
+	"WINDOW23_BUTTON_ADD": "Create new note",
+	"WINDOW23_BUTTON_EDIT": "Save changes",
+	"WINDOW23_BUTTON_MOVE": "Move note...",
+	"WINDOW23_BUTTON_REMOVE": "Remove note",
+
 	// "About" window text
 
 	"ABOUT_TITLE": "What is Coachium?",
@@ -287,6 +294,8 @@ const jslang = {
 	"STATUS_WAITING_FOR_TRIGGER": "Conditional capture is ready, waiting for the condition to fulfil...",
 	"STATUS_CAPTURE_RUNNING": "Capture in progress... ({0} samples, {1} seconds)",
 	"STATUS_CAPTURE_FINISHED": "Capture finished.",
+
+	"NOTE_MANAGER_ADD": "+ Add new note",
 
 	"STATUS_ZOOM_IN_REQUEST": "Select the zoom region.",
 	"STATUS_ZOOM_IN_CONFIRM": "The selected region was zoomed in.",

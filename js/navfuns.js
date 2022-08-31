@@ -569,6 +569,131 @@ function capture_management() {
 }
 
 /*
+ * note_manager()
+ * 
+ * Initializes the data for the note manager and opens it.
+ */
+
+function note_manager() {
+	if(get_id("notemgrbutton").classList.contains("navbuttondisabled")) return;
+
+	const w = WINDOWID_NOTE_MANAGER;
+	const select = get_win_el_tag(w, "select");
+	const textarea = get_win_el_tag(w, "textarea");
+	const capture = captures[selected_capture];
+
+	const addbutton = get_win_el_class(w, "windowbutton", 1);
+	const editbutton = get_win_el_class(w, "windowbutton", 2);
+	const movebutton = get_win_el_class(w, "windowbutton", 3);
+	const removebutton = get_win_el_class(w, "windowbutton", 4);
+
+	select.innerHTML = "";
+
+	// Initialize notes list, if it is present
+
+	if(!capture.notes) capture.notes = [];
+
+	// Add a "create note" button
+
+	var option = document.createElement("option");
+	option.innerHTML = jslang.NOTE_MANAGER_ADD;
+
+	select.appendChild(option);
+
+	for(var i = 0; i < capture.notes.length; i++) {
+		option = document.createElement("option");
+		option.innerHTML = (i + 1) + ") " + capture.notes[i].text;
+
+		select.appendChild(option);
+	}
+
+	// Disable the add button by default, only enable it if there is content
+
+	textarea.oninput = () => {
+		if(textarea.value.length != 0)
+			addbutton.classList.remove("windowbuttondisabled");
+		else
+			addbutton.classList.add("windowbuttondisabled");
+	}
+
+	addbutton.classList.add("windowbuttondisabled");
+
+	// Auto-generate the UI based on the selection
+
+	select.onchange = () => {
+		if(select.selectedIndex == 0) {
+			// "Add note" button selected
+
+			addbutton.style.display = "";
+			editbutton.style.display = "none";
+			movebutton.style.display = "none";
+			removebutton.style.display = "none";
+
+			textarea.value = "";
+		} else {
+			// Existing note selected
+
+			addbutton.style.display = "none";
+			editbutton.style.display = "";
+			movebutton.style.display = "";
+			removebutton.style.display = "";
+
+			// Update the actions on the buttons
+
+			((id) => {
+				editbutton.onclick = () => {
+					capture.notes[id].text = textarea.value;
+					note_manager();
+				}
+
+				// TODO: edit location
+
+				removebutton.onclick = () => {
+					capture.notes.splice(id, 1);
+					note_manager();
+				}
+			})(select.selectedIndex - 1);
+
+			// Update the textarea
+
+			textarea.value = capture.notes[select.selectedIndex - 1].text;
+		}
+	}
+
+	// Set the default selected button to "add note" and update the UI
+
+	get_win_el_tag(w, "option", 0).selected = true;
+	select.onchange();
+
+	popup_window(w);
+
+	setTimeout(() => {
+		textarea.select();
+	}, 100);
+}
+
+/*
+ * add_note()
+ * 
+ * Requests to add a note to a particular location and saves it.
+ */
+
+function add_note() {
+	// TODO: ask for position
+
+	const textarea = get_win_el_tag(WINDOWID_NOTE_MANAGER, "textarea");
+	const capture = captures[selected_capture];
+
+	capture.notes.push({
+		text: textarea.value,
+		x: .5,
+		y: .5
+	});
+
+	close_window();
+}
+
+/*
  * update_button_validity()
  * 
  * Checks each (influenceble) button on the top bar if it is currently valid or not.
@@ -595,6 +720,7 @@ function update_button_validity() {
 		get_id("removecapturebutton").classList.add("navbuttondisabled");
 		get_id("capturemgmtbutton").classList.add("navbuttondisabled");
 		get_id("fitfunctionbutton").classList.add("navbuttondisabled");
+		get_id("notemgrbutton").classList.add("navbuttondisabled");
 
 		get_id("viewpreviousbutton").classList.add("navbuttondisabled");
 		get_id("viewnextbutton").classList.add("navbuttondisabled");
@@ -614,6 +740,7 @@ function update_button_validity() {
 			get_id("removecapturebutton").classList.add("navbuttondisabled");
 			get_id("capturemgmtbutton").classList.add("navbuttondisabled");
 			get_id("fitfunctionbutton").classList.add("navbuttondisabled");
+			get_id("notemgrbutton").classList.add("navbuttondisabled");
 			get_id("savebutton").classList.add("navbuttondisabled");
 			get_id("savegdrivebutton").classList.add("navbuttondisabled");
 			get_id("viewpreviousbutton").classList.add("navbuttondisabled");
@@ -627,6 +754,7 @@ function update_button_validity() {
 			get_id("removecapturebutton").classList.remove("navbuttondisabled");
 			get_id("capturemgmtbutton").classList.remove("navbuttondisabled");
 			get_id("fitfunctionbutton").classList.remove("navbuttondisabled");
+			get_id("notemgrbutton").classList.remove("navbuttondisabled");
 			get_id("savebutton").classList.remove("navbuttondisabled");
 			get_id("savegdrivebutton").classList.remove("navbuttondisabled");
 			get_id("captureinfobutton").classList.remove("navbuttondisabled");
