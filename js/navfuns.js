@@ -305,28 +305,7 @@ function change_selected_capture(interval, absolute = undefined) {
 			}
 		}
 
-		// Figure out the absolute possible max/min of each axis
-
-		if(capture_cache.xy_mode = capture.xy_mode) { // This is an assign operation, not a comparison
-			capture_cache.x1 = capture_cache.ports[1].min;
-			capture_cache.x2 = capture_cache.ports[1].max;
-
-			capture_cache.y1 = capture_cache.ports[2].min;
-			capture_cache.y2 = capture_cache.ports[2].max;
-		} else {
-			capture_cache.x1 = capture_cache.ports[0].min;
-			capture_cache.x2 = capture_cache.ports[0].max;
-
-			var min = Infinity, max = -Infinity;
-
-			for(var i = 1; i < capture_cache.ports.length; i++) {
-				if(capture_cache.ports[i].min < min) min = capture_cache.ports[i].min;
-				if(capture_cache.ports[i].max > max) max = capture_cache.ports[i].max;
-			}
-
-			capture_cache.y1 = min;
-			capture_cache.y2 = max;
-		}
+		capture_cache.xy_mode = capture.xy_mode;
 
 		// Generate the cache data
 
@@ -406,29 +385,23 @@ function zoom_to_data() {
 	var min_x = 1, min_y = 1, max_x = 0, max_y = 0;
 
 	for(var i = 0; i < capture_cache.values.length; i++) {
-		var x, y, y2;
+		var x, y;
 
 		if(capture_cache.xy_mode) {
-			x = (capture_cache.values[i][1] - capture_cache.x1) / (capture_cache.x2 - capture_cache.x1);
-			y = (capture_cache.values[i][2] - capture_cache.y1) / (capture_cache.y2 - capture_cache.y1);
+			x = (capture_cache.values[i][1] - capture_cache.ports[1].min) / (capture_cache.ports[1].max - capture_cache.ports[1].min);
+			y = (capture_cache.values[i][2] - capture_cache.ports[2].min) / (capture_cache.ports[2].max - capture_cache.ports[2].min);
 
 			if(y > max_y) max_y = y;
 			if(y < min_y) min_y = y;
 		} else {
-			x = (capture_cache.values[i][0] - capture_cache.x1) / (capture_cache.x2 - capture_cache.x1);
-			y = Infinity;
-			y2 = -Infinity;
+			x = (capture_cache.values[i][0] - capture_cache.ports[0].min) / (capture_cache.ports[0].max - capture_cache.ports[0].min);
 
 			for(var j = 1; j < capture_cache.ports.length; j++) {
-				if(capture_cache.values[i][j] < y) y = capture_cache.values[i][j];
-				if(capture_cache.values[i][j] > y2) y2 = capture_cache.values[i][j];
+				y = (capture_cache.values[i][j] - capture_cache.ports[j].min) / (capture_cache.ports[j].max - capture_cache.ports[j].min)
+
+				if(y > max_y) max_y = y;
+				if(y < min_y) min_y = y;
 			}
-
-			y = (y - capture_cache.y1) / (capture_cache.y2 - capture_cache.y1);
-			y2 = (y2 - capture_cache.y1) / (capture_cache.y2 - capture_cache.y1);
-
-			if(y2 > max_y) max_y = y2;
-			if(y < min_y) min_y = y;
 		}
 
 		if(x > max_x) max_x = x;

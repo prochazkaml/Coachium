@@ -23,10 +23,6 @@ var captures = [], selected_capture = 0;
 var capture_cache = {
 	"ports": [], // first one is always { min: 0, max: set capture length, unit: "s"/"ms"/whatever you want }
 	"values": [],
-	"x1": 0, // Min x value
-	"y1": 0, // Min y value
-	"x2": 1, // Max x value
-	"y2": 1, // Max y value
 	"xy_mode": false
 };
 
