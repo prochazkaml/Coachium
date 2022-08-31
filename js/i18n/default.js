@@ -23,10 +23,6 @@ const DEFAULT_LANGUAGE = "cs";
 const languages = [
 	{ "id": "en", "name": "🇬🇧 English", "title": "Select a language" },
 	{ "id": "cs", "name": "🇨🇿 Čeština (Czech)", "title": "Vyberte jazyk" },
-	{ "id": "de", "name": "🇩🇪 Deutsch (German)", "title": "Sprache auswählen" },
-	{ "id": "fr", "name": "🇫🇷 Français (French)", "title": "Choisissez une langue" },
-	{ "id": "pl", "name": "🇵🇱 Polski (Polish)", "title": "Wybierz język" },
-	{ "id": "sk", "name": "🇸🇰 Slovenčina (Slovak)", "title": "Vyberte jazyk" },
 ];
 
 var language_win_anim_cycle = 0;
