@@ -180,15 +180,25 @@ function canvas_reset(event) {
 
 			// Calculate the above described values
 
-			// TODO: NOOOO!!!
+			if(capture_cache.xy_mode) {
+				x_unit_name = capture_cache.ports[1].unit;
+				x_int_min = x_min = capture_cache.ports[1].min;
+				x_int_max = x_max = capture_cache.ports[1].max;
 
-			x_unit_name = capture_cache.ports[0].unit;
-			x_int_min = x_min = capture_cache.ports[0].min;
-			x_int_max = x_max = capture_cache.ports[0].max;
+				y_unit_name = capture_cache.ports[2].unit;
+				y_int_min = y_min = capture_cache.ports[2].min;
+				y_int_max = y_max = capture_cache.ports[2].max;
+			} else {
+				// TODO
 
-			y_unit_name = capture_cache.ports[1].unit;
-			y_int_min = y_min = capture_cache.ports[1].min;
-			y_int_max = y_max = capture_cache.ports[1].max;
+				x_unit_name = capture_cache.ports[0].unit;
+				x_int_min = x_min = capture_cache.ports[0].min;
+				x_int_max = x_max = capture_cache.ports[0].max;
+
+				y_unit_name = capture_cache.ports[1].unit;
+				y_int_min = y_min = capture_cache.ports[1].min;
+				y_int_max = y_max = capture_cache.ports[1].max;
+			}
 
 			// Calculate the rest of the X axis parameters
 
@@ -285,8 +295,15 @@ function canvas_reset(event) {
 			var x, last_x = null, y, last_y = null;
 
 			for(var i = 0; i < capture_cache.values.length; i++) {
-				x = x_actual_offset + capture_cache.values[i][0] * x_unit_in_px;
-				y = y_actual_offset - capture_cache.values[i][1] * y_unit_in_px;
+				if(capture_cache.xy_mode) {
+					x = x_actual_offset + capture_cache.values[i][1] * x_unit_in_px;
+					y = y_actual_offset - capture_cache.values[i][2] * y_unit_in_px;
+				} else {
+					// TODO
+
+					x = x_actual_offset + capture_cache.values[i][0] * x_unit_in_px;
+					y = y_actual_offset - capture_cache.values[i][1] * y_unit_in_px;
+				}
 
 				if(i &&
 					(last_x >= 0 || x >= 0) &&
@@ -485,28 +502,47 @@ function canvas_reset(event) {
 		ovctx.clearRect(0, 0, overlay.width, overlay.height);
 
 		if(mouse_over_canvas) {
-			draw_crosshair(mouseX, mouseY, "rgba(0, 0, 255, .5)");
+			var max = [], min = [], unit = [];
 
-			// TODO: THIS IS TEMPORARY!!!
+			if(capture_cache.xy_mode) {
+				max[0] = capture_cache.ports[1].max;
+				max[1] = capture_cache.ports[2].max;
+				min[0] = capture_cache.ports[1].min;
+				min[1] = capture_cache.ports[2].min;
+				unit[0] = capture_cache.ports[1].unit;
+				unit[1] = capture_cache.ports[2].unit;
+			} else {
+				// TODO
+
+				max[0] = capture_cache.ports[0].max;
+				max[1] = capture_cache.ports[1].max;
+				min[0] = capture_cache.ports[0].min;
+				min[1] = capture_cache.ports[1].min;
+				unit[0] = capture_cache.ports[0].unit;
+				unit[1] = capture_cache.ports[1].unit;
+			}
+
+			draw_crosshair(mouseX, mouseY, "rgba(0, 0, 255, .5)");
 
 			var mx = (mouseX - graph_margin_left) / (canvas.width - graph_margin_left - graph_margin_right),
 				my = (mouseY - graph_margin_top) / (canvas.height - graph_margin_top - graph_margin_bottom),
-				uw = Math.abs(capture_cache.ports[0].max - capture_cache.ports[0].min),
-				uh = Math.abs(capture_cache.ports[1].max - capture_cache.ports[1].min);
+				uw = Math.abs(max[0] - min[0]),
+				uh = Math.abs(max[1] - min[1]);
 
-			uw = uw * (zoomx1 + mx * (zoomx2 - zoomx1)) + capture_cache.ports[0].min;
-			uh = uh * (zoomy2 + my * (zoomy1 - zoomy2)) + capture_cache.ports[1].min;
+			uw = uw * (zoomx1 + mx * (zoomx2 - zoomx1)) + min[0];
+			uh = uh * (zoomy2 + my * (zoomy1 - zoomy2)) + min[1];
 
 			ovctx.textBaseline = "middle";
 			ovctx.textAlign = "right";
 			ovctx.font = "16px Ubuntu";
 			ovctx.fillStyle = "black";
+
 			ovctx.fillText(
-				"X = " + localize_num(ideal_round_fixed(uw, capture_cache.ports[0].max)) + " " + capture_cache.ports[0].unit,
+				"X = " + localize_num(ideal_round_fixed(uw, max[0])) + " " + unit[0],
 				overlay.width - graph_margin_right, graph_margin_top / 2 - 10);
 
 			ovctx.fillText(
-				"Y = " + localize_num(ideal_round_fixed(uh, capture_cache.ports[1].max)) + " " + capture_cache.ports[1].unit,
+				"Y = " + localize_num(ideal_round_fixed(uh, max[1])) + " " + unit[1],
 				overlay.width - graph_margin_right, graph_margin_top / 2 + 10);
 		}
 	}
