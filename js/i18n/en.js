@@ -300,8 +300,7 @@ const jslang = {
 		"<p><b>{0}</b> total samples captured<br>" +
 		"({1} captured by each sensor)</p>" +
 		"<p>Capture frequency: <b>{2} Hz</b></p>" +
-		"<p>Set capture duration: <b>{3} second(s)</b></p>" +
-		"<p>Actual capture duration: <b>{4} second(s)</b></p>",
+		"<p>Capture duration: <b>{3} second(s)</b></p>",
 
 	"INFO_WINDOW_SENSOR":
 		"<p><b>Sensor {0} – {1}</b></p>" +

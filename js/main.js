@@ -276,8 +276,6 @@ async function driver_start() {
 
 				try {
 					for(const port in driver.ports) {
-						// TODO - handle errors on autodetect
-
 						// Run auto-detection
 
 						const status = await driver.autodetect(port, (status) => {
@@ -358,8 +356,6 @@ async function driver_start() {
 							for(const port in driver.ports) {
 								get_id("port" + port + "value").innerText = "–";
 							}
-
-							// TODO: create a new GUI capture
 
 							capture_running = true;
 							ui_hardware_change_trigger();

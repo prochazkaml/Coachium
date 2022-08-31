@@ -478,19 +478,19 @@ function zoom_reset() {
 }
 
 /*
- * info_generate_sensor(sensor)
+ * info_generate_sensor(name, sensor)
  * 
  * Generates a HTML description for a sensor object.
  */
 
-function info_generate_sensor(sensor) {
+function info_generate_sensor(name, sensor) {
 	var out = "<div style=\"padding:8px;margin:16px 0;background-color:" + sensor.color + "\">";
 
 	out += format(jslang.INFO_WINDOW_SENSOR,
-		sensor.id,
+		name,
 		sensor.name,
-		localize_num(round(sensor.min_value, 2)),
-		localize_num(round(sensor.max_value, 2)),
+		localize_num(round(sensor.min, 2)),
+		localize_num(round(sensor.max, 2)),
 		sensor.unit
 	);
 
@@ -506,32 +506,21 @@ function info_generate_sensor(sensor) {
  */
 
 function show_capture_info() {
-	// TODO
-
 	if(get_id("captureinfobutton").classList.contains("navbuttondisabled")) return;
 
 	const capture = captures[selected_capture];
+	const keys = Object.keys(capture.ports);
 
 	var str = format(jslang.INFO_WINDOW_CONTENTS,
-		capture.samples,
-		capture.samples / (capture.sensorsetup ? 1 : 2),
-		localize_num(round(10000 / capture.interval, 2)),
-		capture.seconds,
+		capture_cache.values.length,
+		capture_cache.values.length * keys.length,
+		localize_num(round(1000000 / capture.interval, 2)),
+		capture.length / 1000,
 		(capture_cache.values.length - 1) * capture.interval / 10000
 	);
 
-	switch(capture.sensorsetup) {
-		case 0:
-			str += info_generate_sensor(capture.port_a);
-			// break is, again, missing here on purpose
-
-		case 2:
-			str += info_generate_sensor(capture.port_b);
-			break;
-
-		case 1:
-			str += info_generate_sensor(capture.port_a);
-			break;
+	for(const key of keys) {
+		str += info_generate_sensor(key, capture.ports[key]);
 	}
 
 	get_win_el_tag(WINDOWID_CAPTURE_INFO, "div").innerHTML = str;

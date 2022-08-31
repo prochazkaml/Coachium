@@ -293,8 +293,7 @@ const jslang = {
 		"<p>Celkem naměřeno <b>{0}</b> vzorků<br>" +
 		"({1} každým čidlem)</p>" +
 		"<p>Rychlost záznamu: <b>{2} Hz</b></p>" +
-		"<p>Nastavená doba záznamu: <b>{3} s</b></p>" +
-		"<p>Skutečná doba záznamu: <b>{4} s</b></p>",
+		"<p>Doba záznamu: <b>{3} s</b></p>",
 
 	"INFO_WINDOW_SENSOR":
 		"<p><b>Čidlo {0} – {1}</b></p>" +
