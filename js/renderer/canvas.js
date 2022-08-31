@@ -349,6 +349,55 @@ function canvas_reset(event) {
 				ctx.restore();
 			}
 
+			// Draw any notes, if there are any
+
+			ctx.save();
+
+			ctx.strokeStyle = "black";
+			ctx.lineWidth = 2;
+
+			if(capture.notes) for(const note of capture.notes) {
+				var lines = note.text.split("\n");
+				var w = 32; // At least, for the triangle
+
+				for(const line of lines) {
+					const wl = ctx.measureText(line).width;
+
+					if(wl > w) w = wl;
+				}
+				
+				const x = graph_margin_left + (note.x - zoomx1) / (zoomx2 - zoomx1) * (canvas.width - graph_margin_left - graph_margin_right);
+				const y = canvas.height - graph_margin_bottom - (note.y - zoomy1) / (zoomy2 - zoomy1) * (canvas.height - graph_margin_top - graph_margin_bottom) - 16; // Triangle headroom
+				const h = lines.length * 16 + 16; // Y margin
+
+				w += 16; // X margin
+
+				// Draw the message box
+			
+				ctx.fillStyle = "rgba(255, 255, 255, .5)";
+
+				ctx.beginPath();
+				ctx.moveTo(x, y + 16);
+				ctx.lineTo(x + 16, y);
+				ctx.lineTo(x + w / 2, y);
+				ctx.lineTo(x + w / 2, y - h);
+				ctx.lineTo(x - w / 2, y - h);
+				ctx.lineTo(x - w / 2, y);
+				ctx.lineTo(x - 16, y);
+				ctx.closePath();
+				ctx.fill();
+				ctx.stroke();				
+
+				ctx.fillStyle = "black";
+				ctx.textBaseline = "top";
+
+				for(var i = 0; i < lines.length; i++) {
+					ctx.fillText(lines[i], x, y - h + 8 + i * 16);
+				}
+			}
+			
+			ctx.restore();
+
 			// Slightly hide the parts of the graph which are not in the middle
 
 			ctx.save();

@@ -643,6 +643,7 @@ function note_manager() {
 			((id) => {
 				editbutton.onclick = () => {
 					capture.notes[id].text = textarea.value;
+					main_window_reset(false, false);
 					note_manager();
 				}
 
@@ -650,6 +651,7 @@ function note_manager() {
 
 				removebutton.onclick = () => {
 					capture.notes.splice(id, 1);
+					main_window_reset(false, false);
 					note_manager();
 				}
 			})(select.selectedIndex - 1);
