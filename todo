@@ -1,10 +1,8 @@
 Required for initial testing (current–voltage characteristic of diodes):
 - show value on the graph when hovering over a data point
-- actual window spawning/despawning (to prevent tabbing over to the next window!!!)
 - make the chart display more than 1 sensor
 - put the port panel on the right side
 - make the capture system tabbed
-- make the windows JS-generated (make some sort of toolkit)
 - embed everything in a single file (HTML, CSS, JS, images, fonts...) - ideally compress everything, store it in raw binary
 
 ******************************************************-
