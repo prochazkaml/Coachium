@@ -27,6 +27,7 @@ var capture_cache = {
 	"y1": 0, // Min y value
 	"x2": 1, // Max x value
 	"y2": 1, // Max y value
+	"xy_mode": false
 };
 
 /*

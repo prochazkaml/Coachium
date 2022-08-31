@@ -307,7 +307,7 @@ function change_selected_capture(interval, absolute = undefined) {
 
 		// Figure out the absolute possible max/min of each axis
 
-		if(capture.xy_mode) {
+		if(capture_cache.xy_mode = capture.xy_mode) { // This is an assign operation, not a comparison
 			capture_cache.x1 = capture_cache.ports[1].min;
 			capture_cache.x2 = capture_cache.ports[1].max;
 
