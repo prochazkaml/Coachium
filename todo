@@ -1,17 +1,11 @@
-Required for initial testing (current–voltage characteristic of diodes):
 - show value on the graph when hovering over a data point
 - make the chart display more than 1 sensor
 - put the port panel on the right side
 - make the capture system tabbed
 - embed everything in a single file (HTML, CSS, JS, images, fonts...) - ideally compress everything, store it in raw binary
-- add support for student "post-it" notes
-
-******************************************************-
-- ADD A WORKING EXAMPLE!
-******************************************************-
+- make some kind of interface for placing/moving notes
 
 Future stuff:
-- drawing XY as double X
 - ability to manually attach sensors
 - moving the windows around
 - add more functions to the fit function dialog (quadratic, sine etc.)
