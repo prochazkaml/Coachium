@@ -403,14 +403,12 @@ function zoom_to_data() {
 
 	canvas.style.cursor = "auto";
 
-	const capture = captures[selected_capture];
-
 	var min_x = 1, min_y = 1, max_x = 0, max_y = 0;
 
 	for(var i = 0; i < capture_cache.values.length; i++) {
 		var x, y, y2;
 
-		if(capture.xy_mode) {
+		if(capture_cache.xy_mode) {
 			x = (capture_cache.values[i][1] - capture_cache.x1) / (capture_cache.x2 - capture_cache.x1);
 			y = (capture_cache.values[i][2] - capture_cache.y1) / (capture_cache.y2 - capture_cache.y1);
 
