@@ -280,7 +280,7 @@ async function driver_start() {
 
 						// Run auto-detection
 
-						await driver.autodetect(port, (status) => {
+						const status = await driver.autodetect(port, (status) => {
 							switch(status.type) {
 								case "load":
 									get_id("port" + port + "status").innerHTML =
@@ -307,6 +307,8 @@ async function driver_start() {
 									break;
 							}
 						});
+
+						if(status == 1) popup_window(WINDOWID_WATCHDOG_ERROR);
 
 						// Read the port's value
 

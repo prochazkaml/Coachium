@@ -193,6 +193,8 @@ class CMA_ELab_driver {
 
 		const port = this.ports[portname];
 
+		if(!port) return 1;
+
 		if(!port.autodetect) return 0;
 
 		// Initiate an EEPROM read
