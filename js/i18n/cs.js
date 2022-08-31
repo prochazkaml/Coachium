@@ -256,6 +256,7 @@ const jslang = {
 	"HOMEPAGE_COMMIT_OK": "👍 Nejnovější verze ({0})",
 	"HOMEPAGE_COMMIT_OLD": "👎 Zastaralá verze, prosím aktualizujte! ({0} nainstalovaná, {1} dostupná)",
 	"HOMEPAGE_COMMIT_ERR": "😕 Chyba ověřování nejnovější verze",
+	"HOMEPAGE_COMMIT_LOCALHOST": "Na localhostu je kontrola verze zakázána.",
 
 	"BUTTON_DISCONNECT": "Odpojit se od zařízení",
 	"STATUS_WELCOME": "Vítejte v aplikaci Coachium!",

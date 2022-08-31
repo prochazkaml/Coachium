@@ -263,6 +263,7 @@ const jslang = {
 	"HOMEPAGE_COMMIT_OK": "👍 Latest version ({0})",
 	"HOMEPAGE_COMMIT_OLD": "👎 Outdated version, please update! ({0} installed, {1} available)",
 	"HOMEPAGE_COMMIT_ERR": "😕 Error verifying the latest version",
+	"HOMEPAGE_COMMIT_LOCALHOST": "On localhost, version checking is disabled.",
 
 	"BUTTON_DISCONNECT": "Disconnect from device",
 	"STATUS_WELCOME": "Welcome to Coachium!",
