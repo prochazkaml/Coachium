@@ -48,7 +48,7 @@ function table_reset() {
 
 		for(var i = 0; i < keys.length; i++) {
 			th = document.createElement("th");
-			th.innerText = format(jslang.TABLE_SENSOR, keys[i], capture_cache.ports[i].unit);
+			th.innerText = format(jslang.TABLE_SENSOR, keys[i], capture_cache.ports[i + 1].unit);
 			tr.appendChild(th);
 		}
 
