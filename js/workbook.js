@@ -58,6 +58,7 @@ function load_file_local(are_you_sure) {
 
 					get_id("statusmsg").innerHTML = jslang.STATUS_FILE_LOADED;
 				} catch(e) {
+					console.log(e);
 					popup_window(WINDOWID_FILE_IMPORT_ERR);
 				}
 			};
