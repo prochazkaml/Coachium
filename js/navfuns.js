@@ -649,7 +649,12 @@ function note_manager() {
 					note_manager();
 				}
 
-				// TODO: edit location
+				movebutton.onclick = () => {
+					capture.notes[id].x = -1; // Essentially hide it
+					note_id = id;
+					initialize_note_placement();
+					close_window();
+				}
 
 				removebutton.onclick = () => {
 					capture.notes.splice(id, 1);
@@ -694,18 +699,27 @@ function add_note() {
 		y: 0
 	});
 
+	note_id = capture.notes.length - 1;
+	initialize_note_placement();
+	close_window();
+}
+
+/*
+ * initialize_note_placement()
+ * 
+ * Initializes the UI for note placement on the canvas.
+ */
+
+function initialize_note_placement() {
 	zoom_request_progress = 0;
 	zoom_move_request = false;
 	note_placement_progress = 1;
-	note_id = capture.notes.length - 1;
 
 	canvas.style.cursor = "crosshair";
 	canvas_reset(CANVAS_EVENT_CROSSHAIR_MOVE);
 	update_button_validity();
 
 	get_id("statusmsg").innerHTML = jslang.STATUS_PLACE_NOTE;
-
-	close_window();
 }
 
 /*
@@ -769,12 +783,13 @@ function update_button_validity() {
 			get_id("removecapturebutton").classList.remove("navbuttondisabled");
 			get_id("capturemgmtbutton").classList.remove("navbuttondisabled");
 			get_id("fitfunctionbutton").classList.remove("navbuttondisabled");
-			get_id("notemgrbutton").classList.remove("navbuttondisabled");
 			get_id("savebutton").classList.remove("navbuttondisabled");
 			get_id("savegdrivebutton").classList.remove("navbuttondisabled");
 			get_id("captureinfobutton").classList.remove("navbuttondisabled");
 
 			if(get_class("canvasstack").style.display != "none") {
+				get_id("notemgrbutton").classList.remove("navbuttondisabled");
+
 				if(note_placement_progress)
 					get_id("zoominbutton").classList.add("navbuttondisabled");
 				else
@@ -791,6 +806,7 @@ function update_button_validity() {
 				get_id("zoominbutton").classList.add("navbuttondisabled");
 				get_id("zoomdatabutton").classList.add("navbuttondisabled");
 				get_id("zoomresetbutton").classList.add("navbuttondisabled");
+				get_id("notemgrbutton").classList.add("navbuttondisabled");
 			}
 
 			if(selected_capture == 0)

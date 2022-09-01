@@ -483,7 +483,7 @@ function canvas_reset(event) {
 		drawcache = null;
 	}
 
-	if(event == CANVAS_EVENT_CROSSHAIR_MOVE) {
+	if(note_placement_progress || zoom_request_progress) {
 		ovctx.clearRect(0, 0, overlay.width, overlay.height);
 
 		var x = mouseX, y = mouseY;
@@ -591,6 +591,7 @@ function draw_crosshair(x, y, color) {
 function draw_note(ctx, x, y, id) {
 	const note = captures[selected_capture].notes[id];
 
+	ctx.font = "16px Ubuntu";
 	ctx.strokeStyle = "black";
 	ctx.lineWidth = 2;
 

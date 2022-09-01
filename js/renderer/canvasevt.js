@@ -101,7 +101,8 @@ function canvasmousemovehandler(e) {
 function canvasmouseleavehandler() {
 	mouse_over_canvas = false;
 
-	if(!zoom_request_progress) ovctx.clearRect(0, 0, overlay.width, overlay.height);	;
+	if(!zoom_request_progress && !note_placement_progress)
+		ovctx.clearRect(0, 0, overlay.width, overlay.height);
 }
 
 /*
