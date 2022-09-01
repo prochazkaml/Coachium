@@ -289,6 +289,8 @@ const jslang = {
 	"STATUS_CAPTURE_FINISHED": "Záznam skončil.",
 
 	"NOTE_MANAGER_ADD": "+ Přidat novou poznámku",
+	"STATUS_PLACE_NOTE": "Vyberte bod, kde bude umístěna tato poznámka.",
+	"STATUS_PLACE_NOTE_DONE": "Poznámka umístěna.",
 
 	"STATUS_ZOOM_IN_REQUEST": "Vyberte oblast, kterou chcete přiblížit.",
 	"STATUS_ZOOM_IN_CONFIRM": "Vybraná oblast přiblížena.",

@@ -356,18 +356,20 @@ function change_capture_view() {
 function request_zoom_in() {
 	if(get_id("zoominbutton").classList.contains("navbuttondisabled")) return;
 
-	if(!zoom_request_progress) {
-		get_id("statusmsg").innerHTML = jslang.STATUS_ZOOM_IN_REQUEST;
-		zoom_request_progress = 1;
-		zoom_move_request = false;
-		canvas.style.cursor = "crosshair";
-		canvas_reset(CANVAS_EVENT_ZOOM_CROSSHAIR_MOVE);
-	} else {
-		get_id("statusmsg").innerHTML = jslang.STATUS_ZOOM_IN_CANCEL;
-		zoom_request_progress = 0;
-		zoom_move_request = false;
-		canvas.style.cursor = "auto";
-		canvas_reset(CANVAS_EVENT_REDRAW_ENTIRE);
+	if(!note_placement_progress) {
+		if(!zoom_request_progress) {
+			get_id("statusmsg").innerHTML = jslang.STATUS_ZOOM_IN_REQUEST;
+			zoom_request_progress = 1;
+			zoom_move_request = false;
+			canvas.style.cursor = "crosshair";
+			canvas_reset(CANVAS_EVENT_CROSSHAIR_MOVE);
+		} else {
+			get_id("statusmsg").innerHTML = jslang.STATUS_ZOOM_IN_CANCEL;
+			zoom_request_progress = 0;
+			zoom_move_request = false;
+			canvas.style.cursor = "auto";
+			canvas_reset(CANVAS_EVENT_REDRAW_ENTIRE);
+		}
 	}
 }
 
@@ -688,9 +690,20 @@ function add_note() {
 
 	capture.notes.push({
 		text: textarea.value,
-		x: .5,
-		y: .5
+		x: -1, // I.e. do not render
+		y: 0
 	});
+
+	zoom_request_progress = 0;
+	zoom_move_request = false;
+	note_placement_progress = 1;
+	note_id = capture.notes.length - 1;
+
+	canvas.style.cursor = "crosshair";
+	canvas_reset(CANVAS_EVENT_CROSSHAIR_MOVE);
+	update_button_validity();
+
+	get_id("statusmsg").innerHTML = jslang.STATUS_PLACE_NOTE;
 
 	close_window();
 }
@@ -762,7 +775,11 @@ function update_button_validity() {
 			get_id("captureinfobutton").classList.remove("navbuttondisabled");
 
 			if(get_class("canvasstack").style.display != "none") {
-				get_id("zoominbutton").classList.remove("navbuttondisabled");
+				if(note_placement_progress)
+					get_id("zoominbutton").classList.add("navbuttondisabled");
+				else
+					get_id("zoominbutton").classList.remove("navbuttondisabled");
+
 				get_id("zoomdatabutton").classList.remove("navbuttondisabled");
 
 				if(zoomed_in)

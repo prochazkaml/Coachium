@@ -19,7 +19,7 @@
  */
 
 const CANVAS_EVENT_REDRAW_ENTIRE = 0;
-const CANVAS_EVENT_ZOOM_CROSSHAIR_MOVE = 1;
+const CANVAS_EVENT_CROSSHAIR_MOVE = 1;
 const CANVAS_EVENT_RECALCULATE_STYLES = 2;
 const CANVAS_EVENT_CURSOR_MOVE = 3;
 
@@ -30,6 +30,10 @@ var zoomx1 = 0, zoomy1 = 0, zoomx2 = 1, zoomy2 = 1;
 // Zoom control variables
 
 var zoom_request_progress = 0, zoom_move_request = false, zoomed_in = false;
+
+// Note placement variables
+
+var note_placement_progress = 0, note_id;
 
 /*
  * round_to_level(num, level)
@@ -116,7 +120,7 @@ function canvas_reset(event) {
 
 	// Redraw again, if necessary
 
-	if((event != CANVAS_EVENT_ZOOM_CROSSHAIR_MOVE && event != CANVAS_EVENT_CURSOR_MOVE) || drawcache == null) {
+	if((event != CANVAS_EVENT_CROSSHAIR_MOVE && event != CANVAS_EVENT_CURSOR_MOVE) || drawcache == null) {
 		if(event == CANVAS_EVENT_RECALCULATE_STYLES) {
 			// Reset canvas parameters
 
@@ -353,47 +357,15 @@ function canvas_reset(event) {
 
 			ctx.save();
 
-			ctx.strokeStyle = "black";
-			ctx.lineWidth = 2;
+			if(capture.notes) for(var i = 0; i < capture.notes.length; i++) {
+				const note = capture.notes[i];
 
-			if(capture.notes) for(const note of capture.notes) {
-				var lines = note.text.split("\n");
-				var w = 32; // At least, for the triangle
-
-				for(const line of lines) {
-					const wl = ctx.measureText(line).width;
-
-					if(wl > w) w = wl;
-				}
-				
-				const x = graph_margin_left + (note.x - zoomx1) / (zoomx2 - zoomx1) * (canvas.width - graph_margin_left - graph_margin_right);
-				const y = canvas.height - graph_margin_bottom - (note.y - zoomy1) / (zoomy2 - zoomy1) * (canvas.height - graph_margin_top - graph_margin_bottom) - 16; // Triangle headroom
-				const h = lines.length * 16 + 16; // Y margin
-
-				w += 16; // X margin
-
-				// Draw the message box
-			
-				ctx.fillStyle = "rgba(255, 255, 255, .5)";
-
-				ctx.beginPath();
-				ctx.moveTo(x, y + 16);
-				ctx.lineTo(x + 16, y);
-				ctx.lineTo(x + w / 2, y);
-				ctx.lineTo(x + w / 2, y - h);
-				ctx.lineTo(x - w / 2, y - h);
-				ctx.lineTo(x - w / 2, y);
-				ctx.lineTo(x - 16, y);
-				ctx.closePath();
-				ctx.fill();
-				ctx.stroke();				
-
-				ctx.fillStyle = "black";
-				ctx.textBaseline = "top";
-
-				for(var i = 0; i < lines.length; i++) {
-					ctx.fillText(lines[i], x, y - h + 8 + i * 16);
-				}
+				draw_note(
+					ctx,
+					graph_margin_left + (note.x - zoomx1) / (zoomx2 - zoomx1) * (canvas.width - graph_margin_left - graph_margin_right),
+					canvas.height - graph_margin_bottom - (note.y - zoomy1) / (zoomy2 - zoomy1) * (canvas.height - graph_margin_top - graph_margin_bottom),
+					i
+				);
 			}
 			
 			ctx.restore();
@@ -511,12 +483,18 @@ function canvas_reset(event) {
 		drawcache = null;
 	}
 
-	if(event == CANVAS_EVENT_ZOOM_CROSSHAIR_MOVE) {
+	if(event == CANVAS_EVENT_CROSSHAIR_MOVE) {
 		ovctx.clearRect(0, 0, overlay.width, overlay.height);
 
 		var x = mouseX, y = mouseY;
 
-		switch(zoom_request_progress) {
+		if(note_placement_progress) {
+			ovctx.fillStyle = "rgba(0, 0, 0, 0.5)";
+			ovctx.fillRect(0, 0, overlay.width, overlay.height);
+
+			draw_crosshair(x, y, "#0000FF");
+			draw_note(ovctx, x, y, note_id);
+		} else switch(zoom_request_progress) {
 			case 1:
 				ovctx.fillStyle = "rgba(0, 0, 0, 0.5)";
 				ovctx.fillRect(0, 0, overlay.width, overlay.height);
@@ -608,4 +586,49 @@ function draw_crosshair(x, y, color) {
 	ovctx.lineTo(canvas.width - graph_margin_right, y);
 
 	ovctx.stroke();
+}
+
+function draw_note(ctx, x, y, id) {
+	const note = captures[selected_capture].notes[id];
+
+	ctx.strokeStyle = "black";
+	ctx.lineWidth = 2;
+
+	var lines = note.text.split("\n");
+	var w = 32; // At least, for the triangle
+
+	for(const line of lines) {
+		const wl = ctx.measureText(line).width;
+
+		if(wl > w) w = wl;
+	}
+	
+	y -= 16; // Triangle headroom
+	const h = lines.length * 16 + 16; // Y margin
+
+	w += 16; // X margin
+
+	// Draw the message box
+
+	ctx.fillStyle = "rgba(255, 255, 255, .5)";
+
+	ctx.beginPath();
+	ctx.moveTo(x, y + 16);
+	ctx.lineTo(x + 16, y);
+	ctx.lineTo(x + w / 2, y);
+	ctx.lineTo(x + w / 2, y - h);
+	ctx.lineTo(x - w / 2, y - h);
+	ctx.lineTo(x - w / 2, y);
+	ctx.lineTo(x - 16, y);
+	ctx.closePath();
+	ctx.fill();
+	ctx.stroke();				
+
+	ctx.fillStyle = "black";
+	ctx.textBaseline = "top";
+	ctx.textAlign = "center";
+
+	for(var i = 0; i < lines.length; i++) {
+		ctx.fillText(lines[i], x, y - h + 8 + i * 16);
+	}
 }
