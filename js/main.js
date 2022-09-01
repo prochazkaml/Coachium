@@ -628,12 +628,7 @@ window.onload = () => {
 
 	// Load the Google Drive subsystem
 
-	var iframe = document.createElement("iframe");
-	iframe.style.display = "none";
-	iframe.id = "gdrive_iframe";
-	iframe.src = "https://coachium.prochazka.ml/gdrive.html";
-
-	document.body.append(iframe);
+	gdrive_reload();
 }
 
 /*

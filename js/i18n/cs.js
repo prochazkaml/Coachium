@@ -207,6 +207,15 @@ const htmllang = {
 	"WINDOW23_BUTTON_MOVE": "Přesunout poznámku...",
 	"WINDOW23_BUTTON_REMOVE": "Odstranit poznámku",
 
+	"WINDOW24_TITLE": "Chyba služeb Google",
+	"WINDOW24_PAR0": "Chyba načítání podsystému řídící služby Google.",
+	"WINDOW24_PAR1": "Přejete si ho znovu načíst?",
+	"WINDOW24_PAR2":
+		"(Kliknutím na \"Pokračovat\" se toto okno zavře<br>" +
+		"a Coachium se pokusí znovu podsystém načíst.<br>" +
+		"Pokud uspěje, objeví se zanedlouho přihlašovací<br>" +
+		"okno Google.)",
+
 	// "About" window text
 
 	"ABOUT_TITLE": "Co je to Coachium?",

@@ -214,6 +214,15 @@ const htmllang = {
 	"WINDOW23_BUTTON_MOVE": "Move note...",
 	"WINDOW23_BUTTON_REMOVE": "Remove note",
 
+	"WINDOW24_TITLE": "Google Services error",
+	"WINDOW24_PAR0": "The Google Drive subsystem failed to load.",
+	"WINDOW24_PAR1": "Do you want to reload it?",
+	"WINDOW24_PAR2":
+		"(By clicking on \"Go ahead\", this window will close<br>" +
+		"and Coachium will try to reload the subsystem.<br>" +
+		"If it is successful, you will see the Google login<br>" +
+		"screen shortly.)",
+		
 	// "About" window text
 
 	"ABOUT_TITLE": "What is Coachium?",

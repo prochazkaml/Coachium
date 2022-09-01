@@ -21,7 +21,6 @@
 <html>
 	<head>
 		<meta charset="utf-8" />
-		<script src="https://apis.google.com/js/api.js" onload="gapiLoad()" async defer></script>
 		<script src="https://accounts.google.com/gsi/client" onload="gisInit()" async defer></script>
 	</head>
 	<body>
@@ -64,18 +63,6 @@
 				}
 			});
 
-			function gapiStart() {
-				gapi.client.init({}).then(function() {
-					gapi.client.load('drive', 'v3');
-				}).then((response) => {}, (reason) => {
-					msg('error ' + reason.result.error.message);
-				});
-			}
-
-			function gapiLoad() {
-				gapi.load('client', gapiStart);
-			}
-
 			function get_name() {
 				fetch("https://www.googleapis.com/oauth2/v1/userinfo?access_token=" + access_token).then((resp) => {
 					resp.json().then((json) => {
@@ -85,6 +72,8 @@
 			}
 
 			function gisInit() {
+				msg("loaded");
+
 				tokenClient = google.accounts.oauth2.initTokenClient({
 					client_id: '883835263732-tlmcuubn46btmrprh474vtqsfls1ccg9.apps.googleusercontent.com',
 					scope: 'https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/userinfo.profile',
