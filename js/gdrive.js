@@ -70,19 +70,19 @@ window.addEventListener('message', (response) => {
 
 		console.log(gdrive_response);
 
-		if(gdrive_response == "login ok") {
+		if(gdrive_response && gdrive_response.startsWith("name:")) {
 			inputfield = get_win_el_tag(WINDOWID_GDRIVE_NAME, "input");
 
 			if(inputfield.value == "񂁩MISSING") {
 				var d = new Date();
 				var str = d.getDate() + ". " + (d.getMonth() + 1) + ". " + d.getFullYear();
-				inputfield.value = format(jslang.DEFAULT_FILENAME, jslang.DEFAULT_USERNAME, str);
+				inputfield.value = format(jslang.DEFAULT_FILENAME, gdrive_response.substring(5), str);
 			}
 
 			setTimeout(() => {
 				inputfield.select();
 				inputfield.selectionStart = 0;
-				inputfield.selectionEnd = jslang.DEFAULT_USERNAME.length;
+				inputfield.selectionEnd = gdrive_response.substring(5).length;
 			}, 100);
 
 			popup_window(WINDOWID_GDRIVE_NAME);

@@ -76,13 +76,21 @@
 				gapi.load('client', gapiStart);
 			}
 
+			function get_name() {
+				fetch("https://www.googleapis.com/oauth2/v1/userinfo?access_token=" + access_token).then((resp) => {
+					resp.json().then((json) => {
+						msg("name:" + json.name);
+					});
+				});
+			}
+
 			function gisInit() {
 				tokenClient = google.accounts.oauth2.initTokenClient({
 					client_id: '883835263732-tlmcuubn46btmrprh474vtqsfls1ccg9.apps.googleusercontent.com',
-					scope: 'https://www.googleapis.com/auth/drive.file',
+					scope: 'https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/userinfo.profile',
 					callback: (tokenResponse) => {
 						access_token = tokenResponse.access_token;
-						msg("login ok");
+						get_name();
 					},
 				});
 			}
@@ -91,10 +99,9 @@
 				if(!access_token) {
 					tokenClient.requestAccessToken();
 				} else {
-					msg("login ok");
+					get_name();
 				}
 			}
-
 
 			function save_file_to_Drive(name, data) {
 				if(!access_token) {
