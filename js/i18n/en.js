@@ -140,15 +140,13 @@ const htmllang = {
 	"WINDOW8_TITLE": "Something went wrong.",
 	"WINDOW8_PAR0": "Error verifying the device.",
 	"WINDOW8_PAR1":
-		"The device's checksum does not match the expected value.",
-	"WINDOW8_PAR2":
 		"We recommend restarting Coachium<br>" +
 		"and trying again.",
-	"WINDOW8_PAR3":
+	"WINDOW8_PAR2":
 		"If that fails, try unplugging all of<br>" +
 		"the connected sensors, then unplug the<br>" +
 		"device, plug it back in again and try again.",
-	"WINDOW8_PAR4":
+	"WINDOW8_PAR3":
 		"In the worst case, replace the device.",
 
 	"WINDOW9_TITLE": "Error loading the file",

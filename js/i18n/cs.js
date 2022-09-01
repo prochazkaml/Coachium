@@ -139,15 +139,13 @@ const htmllang = {
 	"WINDOW8_TITLE": "Něco se pokazilo.",
 	"WINDOW8_PAR0": "Chyba ověřování zařízení.",
 	"WINDOW8_PAR1":
-		"Kontrolní suma zařízení nesouhlasí s očekávanou hodnotou.",
-	"WINDOW8_PAR2":
 		"Doporučujeme restartovat aplikaci<br>" +
 		"a zkusit znovu.",
-	"WINDOW8_PAR3":
+	"WINDOW8_PAR2":
 		"Dále doporučujeme vypojit veškerá čidla,<br>" +
 		"odpojit a znovu připojit samotné zařízení<br>" +
 		"a zkusit znovu.",
-	"WINDOW8_PAR4":
+	"WINDOW8_PAR3":
 		"Případně vyměňte zařízení za jiné.",
 
 	"WINDOW9_TITLE": "Chyba otevírání souboru",
