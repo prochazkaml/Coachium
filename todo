@@ -3,7 +3,6 @@
 - put the port panel on the right side
 - make the capture system tabbed
 - embed everything in a single file (HTML, CSS, JS, images, fonts...) - ideally compress everything, store it in raw binary
-- GDrive interface: read the username (somehow)
 
 Future stuff:
 - ability to manually attach sensors
