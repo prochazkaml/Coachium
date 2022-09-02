@@ -35,16 +35,10 @@ function popup_gdrive_window() {
 		// Google Drive subsystem failed to load (in time, or at all)
 
 		popup_window(WINDOWID_GDRIVE_SUBSYS_ERR);
-	} else if(get_win_el_tag(WINDOWID_GDRIVE_NAME, "input").value == "񂁩MISSING") {
-		// First attempt to communicate with the GDrive subsystem, generate an access token and get the username
+	} else {
+		// Make the  GDrive subsystem generate a fresh access token
 
 		get_id("gdrive_iframe").contentWindow.postMessage("_gdriveinterface{\"cmd\":\"get_token\"}", "*");
-	} else {
-		setTimeout(() => {
-			get_win_el_tag(WINDOWID_GDRIVE_NAME, "input").select();
-		}, 100);
-
-		popup_window(WINDOWID_GDRIVE_NAME);
 	}
 }
 
@@ -106,13 +100,17 @@ window.addEventListener('message', (response) => {
 				var d = new Date();
 				var str = d.getDate() + ". " + (d.getMonth() + 1) + ". " + d.getFullYear();
 				inputfield.value = format(jslang.DEFAULT_FILENAME, jslang.DEFAULT_USERNAME, str);
-			}
 
-			setTimeout(() => {
-				inputfield.select();
-				inputfield.selectionStart = 0;
-				inputfield.selectionEnd = jslang.DEFAULT_USERNAME.length;
-			}, 100);
+				setTimeout(() => {
+					inputfield.select();
+					inputfield.selectionStart = 0;
+					inputfield.selectionEnd = jslang.DEFAULT_USERNAME.length;
+				}, 100);
+			} else {
+				setTimeout(() => {
+					inputfield.select();
+				}, 100);
+			}
 
 			popup_window(WINDOWID_GDRIVE_NAME);
 		} else {
