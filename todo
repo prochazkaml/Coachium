@@ -4,6 +4,7 @@
 - make the capture system tabbed
 - embed everything in a single file (HTML, CSS, JS, images, fonts...) - ideally compress everything, store it in raw binary
 - the readout on the top right sometimes interferes with the axis
+- enable "finish" trigger (use one of the sensors for stopping the capture)
 
 Future stuff:
 - ability to manually attach sensors

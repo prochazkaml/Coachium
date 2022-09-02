@@ -289,11 +289,13 @@ function change_selected_capture(interval, absolute = undefined) {
 
 		// Time "sensor"
 
-		capture_cache.ports[0] = {
-			unit: "s",
-			min: 0,
-			max: capture.length / 1000
-		};
+		capture_cache.ports = [
+			{
+				unit: "s",
+				min: 0,
+				max: capture.length / 1000
+			}
+		];
 		
 		// Copy the actual sensors over
 
