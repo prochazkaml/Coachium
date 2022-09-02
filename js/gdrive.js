@@ -99,19 +99,19 @@ window.addEventListener('message', (response) => {
 			gdrive_loaded = true;
 
 			if(gdrive_load_cb) gdrive_load_cb();
-		} else if(gdrive_response && gdrive_response.startsWith("name:")) {
+		} else if(gdrive_response == "login ok") {
 			inputfield = get_win_el_tag(WINDOWID_GDRIVE_NAME, "input");
 
 			if(inputfield.value == "񂁩MISSING") {
 				var d = new Date();
 				var str = d.getDate() + ". " + (d.getMonth() + 1) + ". " + d.getFullYear();
-				inputfield.value = format(jslang.DEFAULT_FILENAME, gdrive_response.substring(5), str);
+				inputfield.value = format(jslang.DEFAULT_FILENAME, jslang.DEFAULT_USERNAME, str);
 			}
 
 			setTimeout(() => {
 				inputfield.select();
 				inputfield.selectionStart = 0;
-				inputfield.selectionEnd = gdrive_response.substring(5).length;
+				inputfield.selectionEnd = jslang.DEFAULT_USERNAME.length;
 			}, 100);
 
 			popup_window(WINDOWID_GDRIVE_NAME);

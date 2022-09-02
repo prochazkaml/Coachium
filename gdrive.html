@@ -63,23 +63,15 @@
 				}
 			});
 
-			function get_name() {
-				fetch("https://www.googleapis.com/oauth2/v1/userinfo?access_token=" + access_token).then((resp) => {
-					resp.json().then((json) => {
-						msg("name:" + json.name);
-					});
-				});
-			}
-
 			function gisInit() {
 				msg("loaded");
 
 				tokenClient = google.accounts.oauth2.initTokenClient({
 					client_id: '883835263732-tlmcuubn46btmrprh474vtqsfls1ccg9.apps.googleusercontent.com',
-					scope: 'https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/userinfo.profile',
+					scope: 'https://www.googleapis.com/auth/drive.file',
 					callback: (tokenResponse) => {
 						access_token = tokenResponse.access_token;
-						get_name();
+						msg("login ok");
 					},
 				});
 			}
@@ -88,7 +80,7 @@
 				if(!access_token) {
 					tokenClient.requestAccessToken();
 				} else {
-					get_name();
+					msg("login ok");
 				}
 			}
 
@@ -126,7 +118,7 @@
 				xhr.setRequestHeader('Authorization', 'Bearer ' + access_token);
 				xhr.onload = () => {
 					if(!xhr.response.id)
-						msg("error: response is not JSON");
+						msg("error: response is not JSON\n\nPlease remove Coachium from your third-party apps list and try logging in again.\n\nhttps://myaccount.google.com/permissions\n\nMake sure you check the checkbox which grants Coachium write access to your Google Drive.");
 					else
 						msg(xhr.response.id);
 				};
