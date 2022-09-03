@@ -239,7 +239,7 @@ const htmllang = {
 	"PP_TITLE": "Privacy policy",
 	"PP_BODY":
 		"<p>When the \"Save the capture workbook to Google Drive\" on the top panel is pressed, this application will contact Google Services in order to save the capture workbook file to your Google Account's Google Drive.</p>" +
-		"<p>This is the only reason why this app might need access to your Google Account. We do not read <i>any</i> data from your account (other than your public full name for naming the saved file), we do not store any information about you on our server, we do not log any activity, we are only saving your capture file to your account, but only if you press said button.</p>" +
+		"<p>This is the only reason why this app might need access to your Google Account. We do not read <i>any</i> data from your account, we do not store any information about you on our server, we do not log any activity, we are only saving your capture file to your account, but only if you press said button.</p>" +
 		"<p>If you do not wish to allow us to access your Google Account, you always have the option to download the capture workbook file directly to your computer and then manually upload it to Google Drive. We only provide the feature for your convenience.</p>" +
 		"<b>" +
 			"<p>We do not access any of your Google user data.</p>" +

@@ -232,7 +232,7 @@ const htmllang = {
 	"PP_TITLE": "Zásady ochrany osobních údajů",
 	"PP_BODY":
 		"<p>Tato aplikace, při kliknutí na tlačítko „Uložit sešit záznamů na Google Disk“ na horním panelu, kontaktuje služby Google, aby mohla uložit soubor sešitu záznamů na Google Disk Vašeho Google účtu.</p>" +
-		"<p>To je vše, kvůli čemu bychom potřebovali přístup k Vašemu Google účtu. Nečteme z Vašeho účtu <i>žádná</i> data (kromě vašeho jména pro správné pojmenování uloženého souboru), nic si o vás neukládáme na náš server, nezaznamenáváme žádnou aktivitu, pouze ukládáme Váš soubor záznamu, a to pouze tehdy, když stisknete dané tlačítko.</p>" +
+		"<p>To je vše, kvůli čemu bychom potřebovali přístup k Vašemu Google účtu. Nečteme z Vašeho účtu <i>žádná</i> data, nic si o vás neukládáme na náš server, nezaznamenáváme žádnou aktivitu, pouze ukládáme Váš soubor záznamu, a to pouze tehdy, když stisknete dané tlačítko.</p>" +
 		"<p>Pokud si nepřejete, abychom měli přístup k Vašemu Google Účtu, máte vždy možnost si soubor sešit záznamů stáhnout jako soubor přímo do Vašeho počítače a poté ho ručně nahrát na Google Disk. Tuto funkci Vám poskytujeme jen pro Vaše pohodlí.</p>" +
 		"<b>" +
 			"<p>Nepoužíváme žádná data z Vašeho Google účtu.</p>" +
