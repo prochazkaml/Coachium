@@ -20,9 +20,11 @@
 
 const DEFAULT_LANGUAGE = "cs";
 
+var htmllang = undefined, jslang = undefined, decimal_separator = undefined;
+
 const languages = [
-	{ "id": "en", "name": "🇬🇧 English", "title": "Select a language" },
-	{ "id": "cs", "name": "🇨🇿 Čeština (Czech)", "title": "Vyberte jazyk" },
+	{ "id": "en", "obj": en, "name": "🇬🇧 English", "title": "Select a language" },
+	{ "id": "cs", "obj": cs, "name": "🇨🇿 Čeština (Czech)", "title": "Vyberte jazyk" },
 ];
 
 var language_win_anim_cycle = 0;
@@ -78,10 +80,11 @@ if(lang == "") {
 	document.cookie = "lang=" + lang;
 }
 
-var script = document.createElement("script");
+function parse_lang(lobj) {
+	htmllang = lobj.html;
+	jslang = lobj.js;
+	decimal_separator = lobj.ds;
 
-script.src = "js/i18n/" + lang + ".js";
-script.onload = () => {
 	for(var key of Object.keys(htmllang)) {
 		for(var el of get_class("L18N_" + key, null)) {
 			if(key.startsWith("TITLE_"))
@@ -92,18 +95,18 @@ script.onload = () => {
 				el.innerHTML = htmllang[key];
 		}
 	}
-};
 
-script.onerror = () => {
-	var script_fallback = document.createElement("script");
-	script_fallback.src = "js/i18n/en.js";
-	script_fallback.onload = () => {
-		script.onload();
-		popup_window(WINDOWID_LANGUAGE_ERROR);
-		document.cookie = "lang=en";
-	}
-
-	document.body.appendChild(script_fallback);
 }
 
-document.body.appendChild(script);
+for(const i of languages) {
+	if(i.id == lang) {
+		parse_lang(i.obj);
+	}
+}
+
+if(htmllang === undefined || jslang === undefined) {
+	popup_window(WINDOWID_LANGUAGE_ERROR);
+	document.cookie = "lang=" + languages[0].id;
+
+	parse_lang(languages[0].obj);
+}
