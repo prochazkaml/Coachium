@@ -1,6 +1,5 @@
 - show value on the graph when hovering over a data point
 - make the chart display more than 1 sensor
-- put the port panel on the right side
 - make the capture system tabbed
 - the readout on the top right sometimes interferes with the axis
 - enable "finish" trigger (use one of the sensors for stopping the capture)

@@ -43,13 +43,13 @@ function port_popup(id) {
 
 	const portrect = port.getBoundingClientRect(), winrect = win.getBoundingClientRect();
 
-	win.style.left = (portrect.x + (portrect.width - winrect.width) / 2) + "px";
-	win.style.top = (portrect.y - winrect.height) + "px";
+	win.style.left = (portrect.x - winrect.width - 16 - 8) + "px";
+	win.style.top = (portrect.y + (portrect.height - winrect.height) / 2) + "px";
 
 	win.style.opacity = 1;
 	win.style.pointerEvents = "auto";
 
-	win.style.marginTop = (portrect.height / 4) + "px";
+	win.style.marginLeft = "16px";
 
 	window.addEventListener("mousedown", close_port_popup_listener);
 }
@@ -131,7 +131,7 @@ function close_port_popup() {
 	win.style.transform = "";
 	win.style.pointerEvents = "none";
 
-	win.style.marginTop = "0px";
+	win.style.marginLeft = "0px";
 
 	port_popup_timeout = setTimeout(() => {
 		win.style.display = "";
