@@ -59,6 +59,8 @@ If you do not own a compatible device for connecting, you can still experience s
 
 ## How to set it up on a server
 
+**FOR NORMAL USE, PLEASE INSTALL THE [CACHED VERSION](https://github.com/prochazkaml/CoachiumCached) INSTEAD! It's smaller in size, faster to load and able to run offline in case of disaster! The following procedure is for development purposes only!**
+
 Since it is a simple static webpage, it is incredibly simple to set up. If you have a Linux server, do the following:
 
 ```bash
