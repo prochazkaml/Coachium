@@ -506,7 +506,7 @@ function capture_display_thread(freq, processed) {
  * The page has loaded, hooray!
  */
 
-window.onload = () => {
+function window_onload() {
 	get_tag("html").style.opacity = 1;
 
 	// Initialize constants for making the code simpler
@@ -630,6 +630,8 @@ window.onload = () => {
 
 	gdrive_reload();
 }
+
+window.onload = window_onload;
 
 /*
  * Keyboard callback for handling keyboard shortcuts.

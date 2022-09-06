@@ -56,6 +56,23 @@ function start_language_win() {
 	language_win_anim();
 }
 
+function parse_lang(lobj) {
+	htmllang = lobj.html;
+	jslang = lobj.js;
+	decimal_separator = lobj.ds;
+
+	for(var key of Object.keys(htmllang)) {
+		for(var el of get_class("L18N_" + key, null)) {
+			if(key.startsWith("TITLE_"))
+				el.title = htmllang[key];
+			else if(key.startsWith("CSSATTR_"))
+				el.setAttribute("css-attr", htmllang[key]);
+			else
+				el.innerHTML = htmllang[key];
+		}
+	}
+}
+
 for(var language of languages) {
 	var option = document.createElement("option");
 
@@ -78,24 +95,6 @@ var lang = read_cookie("lang");
 if(lang == "") {
 	lang = DEFAULT_LANGUAGE;
 	document.cookie = "lang=" + lang;
-}
-
-function parse_lang(lobj) {
-	htmllang = lobj.html;
-	jslang = lobj.js;
-	decimal_separator = lobj.ds;
-
-	for(var key of Object.keys(htmllang)) {
-		for(var el of get_class("L18N_" + key, null)) {
-			if(key.startsWith("TITLE_"))
-				el.title = htmllang[key];
-			else if(key.startsWith("CSSATTR_"))
-				el.setAttribute("css-attr", htmllang[key]);
-			else
-				el.innerHTML = htmllang[key];
-		}
-	}
-
 }
 
 for(const i of languages) {

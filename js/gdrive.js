@@ -87,7 +87,7 @@ window.addEventListener('message', (response) => {
 	if(response.data && response.data.source === 'gdrive_iframe') {
 		gdrive_response = response.data.message[0];
 
-		console.log(gdrive_response);
+		console.log("GDrive subsystem: " + gdrive_response);
 
 		if(gdrive_response == "loaded") {
 			gdrive_loaded = true;
