@@ -620,7 +620,7 @@ function window_onload() {
 			}
 		}
 
-		if(DEFAULT_LANGUAGE_OVERRIDE)
+		if(typeof DEFAULT_LANGUAGE_OVERRIDE != "undefined")
 			github_request.open("GET", "https://api.github.com/repos/prochazkaml/CoachiumCached/commits/master", true);
 		else
 			github_request.open("GET", "https://api.github.com/repos/prochazkaml/Coachium/commits/master", true);

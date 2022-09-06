@@ -93,7 +93,7 @@ const params = new URLSearchParams(window.location.search);
 var lang = read_cookie("lang");
 
 if(lang == "") {
-	lang = DEFAULT_LANGUAGE_OVERRIDE ? DEFAULT_LANGUAGE_OVERRIDE : DEFAULT_LANGUAGE;
+	lang = (typeof DEFAULT_LANGUAGE_OVERRIDE != "undefined") ? DEFAULT_LANGUAGE_OVERRIDE : DEFAULT_LANGUAGE;
 	document.cookie = "lang=" + lang;
 }
 
