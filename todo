@@ -5,6 +5,7 @@
 - the readout on the top right sometimes interferes with the axis
 - enable "finish" trigger (use one of the sensors for stopping the capture)
 - add scrot to homepage
+- add shadows to the capture setup sensors
 
 Future stuff:
 - ability to manually attach sensors

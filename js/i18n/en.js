@@ -285,10 +285,10 @@ const en = {
 		"STATUS_NO_DEVICE_SELECTED": "No device was selected!",
 		"STATUS_FORCE_DISCONNECTED": "Device was forcefully disconnected!",
 
-		"SENSOR_NONE_PRESENT": "There are no capture ports available. Please connect a compatible device.",
-		"SENSOR_LOADING": "Loading intelligent sensor data...",
+		"SENSOR_LOADING": "Loading...",
 		"SENSOR_DISCONNECTED": "Sensor not connected",
-		"SENSOR_INTELLIGENT": "Intelligent sensor",
+		"SENSOR_INTELLIGENT": "Intelligent sensor, its properties were fetched automatically",
+		"SENSOR_PORT_CONNECTED": "This sensor is connected to port {0}",
 
 		"SETUP_CLOSEST_USABLE_FREQ": "The closest usable frequency is {0} Hz.",
 		"SETUP_REDUCED_RUNTIME": "The capture will run for only {0} seconds.",

@@ -143,7 +143,14 @@ main {
 	background-color: #FFF;
 	opacity: 0;
 
+	display: flex;
+	flex-direction: row;
+
 	transition: opacity .3s;
+}
+
+.maindisplay {
+	flex-grow: 1;
 }
 
 progress {

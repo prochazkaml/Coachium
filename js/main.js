@@ -53,7 +53,11 @@ function ui_connect(actually_connect) {
 
 	launched = 1;
 
-	if(get_id("introerrmsg")) {
+	const first_run = !!get_id("introerrmsg");
+
+	const plist = get_id("footercontents");
+
+	if(first_run) {
 		get_id("initialheader").style.flex = "0";
 		get_id("initialheader").innerHTML = "";
 
@@ -67,7 +71,6 @@ function ui_connect(actually_connect) {
 		get_id("headercontents").style.opacity = 0;
 
 		nav.style.height = "40px";
-		footer.style.height = "96px";
 
 		setTimeout(() => {
 			get_id("connectbuttonguest").remove();
@@ -102,6 +105,8 @@ function ui_connect(actually_connect) {
 				close_port_popup_listener({"force": true});
 			}, false);
 
+			plist.style.display = "";
+
 			main_window_reset(true, true);
 		}, 350);
 	} else {
@@ -112,27 +117,33 @@ function ui_connect(actually_connect) {
 		footer.style.backgroundColor = "";
 	}
 
-	const plist = get_id("footercontents");
+	// Update footer
+
+	plist.innerHTML = "";
 
 	if(driver !== null && Object.keys(driver.ports).length > 0) {
 		// Create port <div>s
 
-		plist.innerHTML = "";
-
 		for(const port in driver.ports) {
 			plist.innerHTML +=
-				"<div id='port" + port + "' class='port' onclick='port_popup(\"" + port + "\");'>" +
-					"<div class='portlabel'>" + port + "</div>" +
+				"<div id='port" + port + "' class='sensorblock port' onclick='port_popup(\"" + port + "\");'>" +
+					"<div id='port" + port + "value'></div>" +
 					"<div class='portstatus' id='port" + port + "status'>" + jslang.SENSOR_DISCONNECTED + "</div>" +
-					"<div class='portvalue' id='port" + port + "value'>–</div>" +
+					"<div id='port" + port + "unit'></div>" +
+					"<div class='portcorner'>" + 
+						"<span id='port" + port + "cornername' title='" + format(jslang.SENSOR_PORT_CONNECTED, port) + "'>" + port + "</span> " +
+						"<span class='portintelligenticon' id='port" + port + "intelligenticon' style='display: none;' title='" + jslang.SENSOR_INTELLIGENT + "'></span>" +
+					"</div>" +
 				"</div>";
 		}
-	} else {
-		// No ports available
 
-		plist.innerHTML = "<b>" + jslang.SENSOR_NONE_PRESENT + "</b>";
+		footer.style.width = "";
+	} else {
+		footer.style.width = "0";
 	}
 
+	if(!first_run) main_window_reset(true, true);
+	
 	// Show that popup dialog when the user tries to leave the size
 
 	if(location.hostname != "localhost") window.onbeforeunload = () => {
@@ -281,23 +292,26 @@ async function driver_start() {
 						const status = await driver.autodetect(port, (status) => {
 							switch(status.type) {
 								case "load":
-									get_id("port" + port + "status").innerHTML =
-										jslang.SENSOR_LOADING + "<br><progress value=\"" + round(status.progress * 1000) + "\" max=\"1000\"></progress>";
-
+									get_id("port" + port + "status").innerHTML = jslang.SENSOR_LOADING;
 									get_id("port" + port + "value").innerText = round(status.progress * 100) + " %";
+									get_id("port" + port + "unit").innerHTML = "<progress value='" + round(status.progress * 1000) + "' max='1000'></progress>";
 									break;
 
 								case "change":
 									const pobj = driver.ports[port];
 
 									if(pobj.connected) {
-										get_id("port" + port + "status").innerHTML =
-											(pobj.autodetect ? (jslang.SENSOR_INTELLIGENT + ": ") : "") +
-											pobj.name + " (" + pobj.min + "–" + pobj.max + " " + pobj.unit + ")";
+										get_id("port" + port + "intelligenticon").style.display = pobj.autodetect ? "" : "none";
+
+										get_id("port" + port + "status").innerHTML = pobj.name
+										get_id("port" + port + "unit").innerHTML = pobj.min + "–" + pobj.max + " " + pobj.unit;
 
 										get_id("port" + port).style.backgroundColor = pobj.color;
 									} else {
+										get_id("port" + port + "intelligenticon").style.display = "none";
+
 										get_id("port" + port + "status").innerHTML = jslang.SENSOR_DISCONNECTED;
+										get_id("port" + port + "unit").innerHTML = "";
 										get_id("port" + port).style.backgroundColor = "";
 									}
 
@@ -315,8 +329,10 @@ async function driver_start() {
 
 						if(val !== undefined) {
 							get_id("port" + port + "value").innerText = localize_num(ideal_round_fixed(val, pobj.max)) + " " + pobj.unit;
+							get_id("port" + port + "cornername").style.display = "";
 						} else {
-							get_id("port" + port + "value").innerText = "–";
+							get_id("port" + port + "value").innerText = port;
+							get_id("port" + port + "cornername").style.display = "none";
 						}
 					}
 				} catch(e) {
@@ -354,7 +370,8 @@ async function driver_start() {
 							// Clear the ports' displayed values
 
 							for(const port in driver.ports) {
-								get_id("port" + port + "value").innerText = "–";
+								get_id("port" + port + "value").innerText = port;
+								get_id("port" + port + "cornername").style.display = "none";
 							}
 
 							capture_running = true;
@@ -380,6 +397,7 @@ async function driver_start() {
 
 									if(val === undefined) break trigger_wait_loop;
 
+									get_id("port" + port + "cornername").style.display = "none";
 									get_id("port" + trig.port + "value").innerText = localize_num(ideal_round_fixed(val, pobj.max)) + " " + pobj.unit;
 
 									switch(trig.cond) {
@@ -548,7 +566,7 @@ function window_onload() {
 			if(target === sensorsrc) return false;
 
 			if(target === sensordropx || target === sensordropy || target === sensordroptrig) {
-				return target.querySelector("div.capturesetupsensorblock:not(.gu-transit)") == null;
+				return target.querySelector("div.sensorblock:not(.gu-transit)") == null;
 			} else {
 				return true;
 			}

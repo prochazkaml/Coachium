@@ -188,31 +188,6 @@
 	width: 168px;
 }
 
-.capturesetupsensorblock {
-	flex-shrink: 0;
-
-	display: flex;
-	width: 160px;
-	height: 128px;
-	margin-top: 8px;
-	margin-right: 8px;
-	background-color: rgba(0, 0, 0, 0.2);
-	text-align: center;
-	flex-direction: column;
-	justify-content: center;
-	font-size: 16px;
-	user-select: none;
-}
-
-.capturesetupsensorblock > * {
-	margin: 4px 0;
-}
-
-.capturesetupsensorblock > *:first-child {
-	font-weight: bold;
-	font-size: 32px;
-}
-
 .capturesetuperror {
 	text-align: center;
 	font-weight: bold;

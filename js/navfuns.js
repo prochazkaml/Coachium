@@ -161,7 +161,7 @@ function capture_setup_check() {
 
 		if(pobj.connected) {
 			srclist.innerHTML +=
-				"<div class='capturesetupsensorblock' style='background-color: " + pobj.color + "' name='block_" + port + "'>" +
+				"<div class='sensorblock' style='background-color: " + pobj.color + "' name='block_" + port + "'>" +
 					"<div>" + port + ": " + pobj.unit + "</div>" +
 					"<div>" + pobj.name + "</div>" +
 					"<div>" + pobj.min + "–" + pobj.max + " " + pobj.unit + "</div>" +

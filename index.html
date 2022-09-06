@@ -101,21 +101,22 @@
 		</nav>
 
 		<main>
-			<div class="canvasstack">
-				<canvas id="maincanvas" style="z-index: 0"></canvas>
-				<canvas id="overlaycanvas" style="pointer-events: none; z-index: 1"></canvas>
+			<div class="maindisplay">
+				<div class="canvasstack">
+					<canvas id="maincanvas" style="z-index: 0"></canvas>
+					<canvas id="overlaycanvas" style="pointer-events: none; z-index: 1"></canvas>
+				</div>
+				<div id="table" style="display: none"></div>
 			</div>
-			<div id="table" style="display: none"></div>
+			<footer style="width: 0">
+				<div id="footercontents" style="display: none;"></div>
+
+				<div class="portpopup" id="portpopupwindow">
+					<div class="portpopupitem L18N_PORT_ZERO_OUT" onclick="zero_out_sensor();"></div>
+					<div class="portpopupitem L18N_PORT_RESET" onclick="reset_sensor_zero_point();"></div>
+				</div>
+			</footer>
 		</main>
-
-		<footer>
-			<div id="footercontents"></div>
-
-			<div class="portpopup" id="portpopupwindow">
-				<div class="portpopupitem L18N_PORT_ZERO_OUT" onclick="zero_out_sensor();"></div>
-				<div class="portpopupitem L18N_PORT_RESET" onclick="reset_sensor_zero_point();"></div>
-			</div>
-		</footer>
 
 		<div id="window0overlay" class="windowoverlay">
 			<div class="windowcloselayer" onclick="close_window();"></div>

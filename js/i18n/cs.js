@@ -278,10 +278,10 @@ const cs = {
 		"STATUS_NO_DEVICE_SELECTED": "Nebylo vybráno žádné zařízení!",
 		"STATUS_FORCE_DISCONNECTED": "Zařízení násilně odpojeno!",
 
-		"SENSOR_NONE_PRESENT": "Nenalezeny žádné vstupy. Prosím připojte kompatibilní zařízení.",
-		"SENSOR_LOADING": "Načítání inteligentního čidla...",
+		"SENSOR_LOADING": "Načítání...",
 		"SENSOR_DISCONNECTED": "Čidlo nepřipojeno",
-		"SENSOR_INTELLIGENT": "Inteligentní čidlo",
+		"SENSOR_INTELLIGENT": "Inteligentní čidlo, jeho vlastnosti byly načteny automaticky",
+		"SENSOR_PORT_CONNECTED": "Toto čidlo je připojeno do portu {0}",
 
 		"SETUP_CLOSEST_USABLE_FREQ": "Nejbližší použitelná frekvence je {0} Hz.",
 		"SETUP_REDUCED_RUNTIME": "Záznam poběží pouze {0} sekund.",
