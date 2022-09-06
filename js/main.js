@@ -620,7 +620,11 @@ function window_onload() {
 			}
 		}
 
-		github_request.open("GET", "https://api.github.com/repos/prochazkaml/Coachium/commits/master", true);
+		if(DEFAULT_LANGUAGE_OVERRIDE)
+			github_request.open("GET", "https://api.github.com/repos/prochazkaml/CoachiumCached/commits/master", true);
+		else
+			github_request.open("GET", "https://api.github.com/repos/prochazkaml/Coachium/commits/master", true);
+	
 		github_request.send(null);
 	} else {
 		get_class("L18N_HOMEPAGE_COMMIT_CHECKING").innerHTML = jslang.HOMEPAGE_COMMIT_LOCALHOST;
