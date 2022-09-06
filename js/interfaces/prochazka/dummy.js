@@ -101,7 +101,7 @@ class Prochazka_Dummy_driver {
 		const keys = Object.keys(driver.ports);
 
 		if(this.ports[port].connected)
-			return (this.ports[port].value = Math.sin(window.performance.now() / 500 + 2 * Math.PI / keys.length * keys.indexOf(port)) * 10) - this.ports[port].zero_offset;
+			return this.ports[port].value = Math.sin(window.performance.now() / 500 + 2 * Math.PI / keys.length * keys.indexOf(port)) * 10 - this.ports[port].zero_offset;
 		else
 			return undefined;
 	}
