@@ -108,6 +108,10 @@ function run(lines) {
 							output += "url(data:image/webp;base64," + file + ");\n";
 							break;
 
+						case "svg":
+							output += "url(\"data:image/svg+xml," + encodeURIComponent(Buffer.from(file, 'base64')) + "\");\n";
+							break;
+
 						default:
 							console.log("ERROR: Unhandled data format: " + ext);
 							process.exit(1);
