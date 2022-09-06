@@ -28,8 +28,9 @@ We strongly hope that we have introduced to you what Coachium actually is, and w
 - Ability to communicate with CMA interfaces and sensors using a web browser
 - Modern easy-to-use user interface
 - Multiple language support (currently only English and Czech are implemented)
-- Capturing data in real time into charts
+- Capturing data in real time into charts or tables (interchangable)
 - Save a near infinite number of captures to a single workbook file (as opposed to Coach, which can only save a single capture per file), which can be then saved locally or to Google Drive (for submitting directly to Google Classroom, for example)
+- Can be loaded offline (thanks to the caching system) after first launch, as it installs itself into the browser's cache (only available in the [cached version](https://github.com/prochazkaml/CoachiumCached))
 
 ## Project roadmap
 
