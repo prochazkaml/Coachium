@@ -1,6 +1,6 @@
 # Coachium
 
-# _CURRENTLY IN THE ALPHA STAGE, NOT MEANT FOR REGULAR USE AT THIS TIME!_
+# _CURRENTLY IN THE BETA STAGE, NOT MEANT FOR REGULAR USE AT THIS TIME!_
 
 Web-based software for interfacing with CMA educational interfaces and sensors.
 
@@ -38,19 +38,15 @@ We strongly hope that we have introduced to you what Coachium actually is, and w
 
 Please [click here](https://github.com/prochazkaml/Coachium/blob/master/todo) to view the current status of the Coachium to-do list.
 
-**Coachium is currently in the alpha stage.** This means that not all of the features which I have originally planned have been implemented, and it still may be riddled with bugs.
-
-### Alpha stage
-
-Coachium will reach the alpha stage when it is ready to be used in lessons for basic tasks (current-voltage characteristics, figuring out the resistance of a resistor etc.), the bugs that I will notice during development are fixed and all of the basic features that are in the "Does not require hardware" and "Requires hardware" categories in the to-do list are implemented.
+**Coachium is currently in the beta stage.** This means that most (not all!) of the features which I have originally planned have been implemented, and all encontered bugs during development have been resolved.
 
 ### Beta stage
 
-Next will follow the beta stage, as expected. That will occur when I request from the teachers at our school to actually use Coachium instead of CMA Coach with students for a couple of classes, and all of the reported bugs/suggested features by the students as well as the teachers are fixed/implemented.
+The teachers at our school (and possibly other schools?) will be requested to actually use Coachium instead of CMA Coach with students for most required classes. All of the reported bugs/suggested features by the students as well as the teachers will be fixed/implemented.
 
 ### Full release
 
-Coachium will get the first full release when the software is stress-tested for a full school year. New features will be added (from the "Future stuff" category in the to-do list – will very likely be renamed at some point), bugs will be fixed and Coachium will receive a simple version numbering system for the users and server maintainers to easily keep track of the changes.
+Coachium will reach full release when the software is stress-tested for an entire school year. New features will be added (from the "Future stuff" category in the to-do list – will very likely be renamed at some point), bugs will be fixed and Coachium will receive a simple version numbering system for the users and server maintainers to easily keep track of the changes.
 
 ## How can I try it out?
 
@@ -86,6 +82,8 @@ cd /var/www/html/coachium # Or wherever you installed Coachium
 git pull
 ```
 
+**PRO TIP: Set up a Cron job to do this automatically for you.**
+
 ## How does Google Drive functionality work?
 
 By default, on your own instance, all Google Drive-related functionality will not be accessible, because your origin is not on the list of the [allowed domains](https://github.com/prochazkaml/Coachium/blob/master/gdrive.html#L8).
@@ -98,8 +96,10 @@ Instructions for applying for a request to enable your domain name in the centra
 
 ## My language is not supported!
 
-_TODO_
+I _might_ translate the program to French at a later date (as I have been stundying it for the last 7 years), but all other languages would have to be outsourced (or in the worst case done through a machine translator, although the results from this method are often laughable).
+
+If you would be interested in translating Coachium to your language, feel free to make a copy of the `js/i18n/en.js` localization file (i.e. copy it to `js/i18n/fr.js`) and translate it to your preferred language. Any pull requests with new translations are of course always welcome.
 
 ## My hardware is not supported!
 
-_TODO_
+[Contact me](mailto:michal@prochazka.ml) and hook me up with said hardware.

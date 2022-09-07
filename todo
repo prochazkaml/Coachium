@@ -3,7 +3,6 @@
 - make the capture system tabbed
 - the readout on the top right sometimes interferes with the axis
 - enable "finish" trigger (use one of the sensors for stopping the capture)
-- add scrot to homepage
 
 Future stuff:
 - ability to manually attach sensors
