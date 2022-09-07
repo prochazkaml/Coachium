@@ -332,15 +332,15 @@ function change_capture_view() {
 
 	if(c_visible) {
 		get_class("canvasstack").style.display = "none";
-		table.style.display  = "";
-		main.style.overflowY = "scroll";
+		table.style.display = "";
+		get_class("maindisplay").style.overflowY = "scroll";
 
 		get_id("viewastablebutton").style.display = "none";
 		get_id("viewasgraphbutton").style.display = "";
 	} else {
 		get_class("canvasstack").style.display = "";
-		table.style.display  = "none";
-		main.style.overflowY = "hidden";
+		table.style.display = "none";
+		get_class("maindisplay").style.overflowY = "hidden";
 
 		get_id("viewastablebutton").style.display = "";
 		get_id("viewasgraphbutton").style.display = "none";
