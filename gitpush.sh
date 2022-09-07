@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 if [ ! -d cache ]; then
 	echo ">>> Fresh working directory, fetching cache repo..."
 	git clone https://github.com/prochazkaml/CoachiumCached cache
