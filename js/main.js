@@ -397,7 +397,7 @@ async function driver_start() {
 
 									if(val === undefined) break trigger_wait_loop;
 
-									get_id("port" + port + "cornername").style.display = "none";
+									get_id("port" + trig.port + "cornername").style.display = "none";
 									get_id("port" + trig.port + "value").innerText = localize_num(ideal_round_fixed(val, pobj.max)) + " " + pobj.unit;
 
 									switch(trig.cond) {

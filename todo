@@ -6,9 +6,6 @@
 - add scrot to homepage
 - add shadows to the capture setup sensors
 
-BUGS:
-- trigger capture is fucked
-
 Future stuff:
 - ability to manually attach sensors
 - moving the windows around
