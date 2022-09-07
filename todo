@@ -9,7 +9,6 @@
 BUGS:
 - when showing the table and scrolling, the sensor bar scrolls off
 - trigger capture is fucked
-- GDrive subsystem is banned on coachiumcached.prochazka.ml
 
 Future stuff:
 - ability to manually attach sensors
