@@ -303,6 +303,8 @@ const en = {
 		"STATUS_CAPTURE_FINISHED": "Capture finished.",
 
 		"NOTE_MANAGER_ADD": "+ Add new note",
+		"STATUS_PLACE_NOTE": "Choose a point where the note will be placed.",
+		"STATUS_PLACE_NOTE_DONE": "Note placed.",
 
 		"STATUS_ZOOM_IN_REQUEST": "Select the zoom region.",
 		"STATUS_ZOOM_IN_CONFIRM": "The selected region was zoomed in.",
