@@ -4,6 +4,8 @@
 
 Web-based software for interfacing with CMA educational interfaces and sensors.
 
+![2022-09-07-190840_1920x1080_scrot](https://user-images.githubusercontent.com/41787099/188938656-32e9887d-f4c1-43f7-8c7e-41070e07d3a0.png)
+
 Coachium serves as an alternative to the Coach software developed by CMA Amsterdam, which is used to communicate with interfaces and sensors made by the same company, which aid you in measuring different physical quantities and capturing measured data into a graph.
 
 Since this application is web-based (using WebHID technology, which is currently only implemented in Chromium-based browsers), it is not limited to computers only running MS Windows. Even Chromebooks are now capable of using these devices.
