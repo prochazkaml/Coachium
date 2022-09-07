@@ -100,7 +100,6 @@ footer {
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: cover;
-
 }
 
 .port progress {
@@ -121,7 +120,6 @@ footer {
 	pointer-events: none;
 
 	background-color: white;
-	box-shadow: 0 0 5px rgba(0, 0, 0, 1);
 	border-radius: 8px;
 
 	opacity: 0;
