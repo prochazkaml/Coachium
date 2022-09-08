@@ -566,11 +566,15 @@ function canvas_reset(event) {
 
 			ovctx.fillText(
 				"X = " + localize_num(ideal_round_fixed(uw, max[0])) + " " + unit[0],
-				overlay.width - graph_margin_right, graph_margin_top / 2 - 10);
+				overlay.width - graph_margin_right - 150,
+				graph_margin_top / 2
+			);
 
 			ovctx.fillText(
 				"Y = " + localize_num(ideal_round_fixed(uh, max[1])) + " " + unit[1],
-				overlay.width - graph_margin_right, graph_margin_top / 2 + 10);
+				overlay.width - graph_margin_right,
+				graph_margin_top / 2
+			);
 		}
 	}
 }
