@@ -654,6 +654,8 @@ function window_onload() {
 	// Load the Google Drive subsystem
 
 	gdrive_reload();
+
+	window.onhashchange();
 }
 
 window.onload = window_onload;
