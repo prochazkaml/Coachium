@@ -50,7 +50,7 @@ Coachium will reach full release when the software is stress-tested for an entir
 
 ## How can I try it out?
 
-If you are interested in trying this software out, visit our [central instance](https://coachium.prochazka.ml/). Beware that the default language of this instance is Czech, however, you can change that by clicking on the button in the top right corner.
+If you are interested in trying this software out, visit our [central instance](https://coachium.prochazka.ml/) (uses the [pre-cached variant](https://github.com/prochazkaml/CoachiumCached)). Beware that the default language of this instance is Czech, however, you can change that by clicking on the button in the top right corner.
 
 If you do not own a compatible device for connecting, you can still experience some parts of Coachium by downloading and opening the [example file](https://github.com/prochazkaml/Coachium/blob/master/test.coachium) (in JSON format).
 
