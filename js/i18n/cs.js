@@ -48,7 +48,7 @@ const cs = {
 		"TITLE_SAVE_GDRIVE": "Uložit sešit záznamů na Google Disk [Ctrl+Shift+S]",
 		"TITLE_NEW_CAPTURE": "Přidat nový záznam do sešitu [Mezerník]",
 		"TITLE_STOP_CAPTURE": "Zastavit záznam [Mezerník]",
-		"TITLE_FIT_FUNCTION": "Fitovat funkci na naměřená data [F]",
+		"TITLE_FIT_FUNCTION": "Proložit funkci na naměřená data [F]",
 		"TITLE_NOTE_MANAGER": "Správce poznámek [N]",
 		"TITLE_REMOVE_CAPTURE": "Odstranit tento záznam ze sešitu [Delete]",
 		"TITLE_PREVIOUS_CAPTURE": "Zobrazit předchozí záznam v sešitě [← nebo PageUp]",
@@ -182,7 +182,7 @@ const cs = {
 
 		"WINDOW18_TITLE": "Výběr zařízení",
 
-		"WINDOW19_TITLE": "Fit funkce",
+		"WINDOW19_TITLE": "Proložení funkce",
 		"WINDOW19_FUN_LINEAR": "Lineární (y = ax + b)",
 		"WINDOW19_FUN_QUADRATIC": "Kvadratická (y = ax² + bx + c)",
 		"WINDOW19_CHECKBOX": "Zobrazit tuto funkci na grafu",
