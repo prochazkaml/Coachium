@@ -3,7 +3,6 @@
 - make the capture system tabbed
 - enable "finish" trigger (use one of the sensors for stopping the capture)
 - everything that is going to end up in a tutorial
-- block the screen until the interface initializes
 
 Future stuff:
 - ability to manually attach sensors

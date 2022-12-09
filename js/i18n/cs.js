@@ -217,6 +217,8 @@ const cs = {
 			"Pokud uspěje, objeví se zanedlouho přihlašovací<br>" +
 			"okno Google.)",
 
+		"WINDOW25_MSG": "Prosím vyčkejte, připravuji zařízení...",
+
 		// "About" window text
 
 		"ABOUT_TITLE": "Co je to Coachium?",

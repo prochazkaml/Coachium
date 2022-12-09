@@ -224,6 +224,8 @@ const en = {
 			"If it is successful, you will see the Google login<br>" +
 			"screen shortly.)",
 			
+		"WINDOW25_MSG": "Please wait, initializing device...",
+
 		// "About" window text
 
 		"ABOUT_TITLE": "What is Coachium?",

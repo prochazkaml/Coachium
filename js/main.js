@@ -244,7 +244,10 @@ async function driver_start() {
 	const device = driverindex[vendorlist.value][devicelist.value];
 
 	const lldriver = lldrivers[device.method];
+
+	popup_window(WINDOWID_DRIVER_INITIALIZING);
 	const response = await lldriver.init(device.driver, () => { ui_disconnect(true) });
+	close_window(WINDOWID_DRIVER_INITIALIZING);
 
 	switch(response) {
 		case 1:
