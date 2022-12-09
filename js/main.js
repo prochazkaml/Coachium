@@ -629,7 +629,7 @@ function window_onload() {
 							}
 						}
 
-						local_request.open("GET", "./.git/refs/heads/master", true); // true for asynchronous
+						local_request.open("GET", "./.git/refs/heads/master?t=" + new Date().getTime(), true); // true for asynchronous
 						local_request.send(null);
 					}
 				} else {
