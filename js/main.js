@@ -320,7 +320,7 @@ async function driver_start() {
 							}
 						});
 
-						if(status == 1) popup_window(WINDOWID_WATCHDOG_ERROR);
+						if(status == 1 && driver !== null) popup_window(WINDOWID_WATCHDOG_ERROR);
 
 						// Read the port's value
 
