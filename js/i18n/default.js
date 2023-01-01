@@ -92,10 +92,17 @@ const params = new URLSearchParams(window.location.search);
 
 var lang = read_cookie("lang");
 
+for(const param of params) {
+	if(param[0] && param[0] == "lang" && param[1]) {
+		lang = param[1];
+	}
+}
+
 if(lang == "") {
 	lang = (typeof DEFAULT_LANGUAGE_OVERRIDE != "undefined") ? DEFAULT_LANGUAGE_OVERRIDE : DEFAULT_LANGUAGE;
-	document.cookie = "lang=" + lang;
 }
+
+document.cookie = "lang=" + lang;
 
 for(const i of languages) {
 	if(i.id == lang) {
