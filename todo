@@ -3,6 +3,7 @@
 - make the capture system tabbed
 - enable "finish" trigger (use one of the sensors for stopping the capture)
 - everything that is going to end up in a tutorial
+- make the dummy device driver do something when capturing
 
 Future stuff:
 - ability to manually attach sensors

@@ -81,7 +81,7 @@ for(var language of languages) {
 	((id) => {
 		option.onclick = () => {
 			document.cookie = "lang=" + id;
-			location.reload();
+			window.location = window.location.pathname + window.location.hash;
 		};
 	})(language.id);
 
