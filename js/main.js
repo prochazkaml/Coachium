@@ -243,9 +243,12 @@ async function driver_start() {
 
 	const lldriver = lldrivers[device.method];
 
-	popup_window(WINDOWID_DRIVER_INITIALIZING);
-	const response = await lldriver.init(device.driver, () => { ui_disconnect(true) });
-	close_window(WINDOWID_DRIVER_INITIALIZING);
+	const response = await lldriver.init(
+		device.driver,
+		() => { ui_disconnect(true); },
+		() => { popup_window(WINDOWID_DRIVER_INITIALIZING); },
+		() => { close_window(WINDOWID_DRIVER_INITIALIZING); }
+	);
 
 	switch(response) {
 		case 1:
@@ -340,6 +343,16 @@ async function driver_start() {
 					// Stop in case the device gets disconnected
 
 					console.log(e);
+
+					// Wait for a bit, if a non-disconnection issue occured, pop up the appropriate error window
+
+					await delay_ms(1000);
+					if(driver !== null) {
+						driver.deinit();
+						ui_disconnect(false);
+						get_win_el_tag(WINDOWID_JS_ERR, "textarea").value = e;
+						popup_window(WINDOWID_JS_ERR);
+					}
 					return;
 				}
 

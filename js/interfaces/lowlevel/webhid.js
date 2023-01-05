@@ -36,7 +36,7 @@ const WebHID = {
 	 *   4 = Device selected, but did not verify properly
 	 */
 
-	init: async (driverclass, disconnectcallback) => {
+	init: async (driverclass, disconnectcallback, initcallback, initdonecallback) => {
 		if(!('hid' in navigator)) return 1;
 
 		var instance = new driverclass;
@@ -52,9 +52,13 @@ const WebHID = {
 
 		var device = devices[0];
 
+		initcallback();
+
 		try {
 			await device.open();
+			initdonecallback();
 		} catch(e) {
+			initdonecallback();
 			return 3;
 		}
 

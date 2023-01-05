@@ -20,7 +20,7 @@
 
 const lldrivers = {
 	"hid": WebHID,
-	"dummy": { init: async (driverclass) => { await delay_ms(1000); return new driverclass; } }
+	"dummy": { init: async (driverclass, disconnectcallback, initcallback, initdonecallback) => { initcallback(); await delay_ms(1000); initdonecallback(); return new driverclass; } }
 }
 
 const driverindex = {
