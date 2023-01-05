@@ -61,8 +61,8 @@ function ui_connect(actually_connect) {
 		get_id("initialheader").style.flex = "0";
 		get_id("initialheader").innerHTML = "";
 
-		header.style.height = "48px";
-		header.style.padding = "8px 16px";
+		header.style.height = "";
+		header.style.padding = "";
 
 		get_id("navcontents").style.display = "flex";
 
@@ -70,7 +70,7 @@ function ui_connect(actually_connect) {
 
 		get_id("headercontents").style.opacity = 0;
 
-		nav.style.height = "40px";
+		nav.style.height = "";
 
 		setTimeout(() => {
 			get_id("connectbuttonguest").remove();
@@ -80,8 +80,6 @@ function ui_connect(actually_connect) {
 			get_id("connectbutton").style.width = "calc(907 / 200 * 48px - 16px)";
 			if(actually_connect) get_id("connectbutton").innerHTML = jslang.BUTTON_DISCONNECT;
 
-			header.style.height = "auto";
-			nav.style.height = "auto";
 			main.style.opacity = 1;
 //			footer.style.height = "auto";
 
