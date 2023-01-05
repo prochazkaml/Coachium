@@ -127,7 +127,9 @@ function round(num, digits = 0) {
  */
 
 function ideal_round_fixed(num, max) {
-	const digits = 3 - Math.floor(Math.log10(max));
+	var digits = 3 - Math.floor(Math.log10(max));
+
+	if(digits < 0) digits = 0;
 
 	return round(num, digits).toFixed(digits);
 }
