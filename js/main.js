@@ -339,6 +339,144 @@ async function driver_start() {
 							get_id("port" + port + "cornername").style.display = "none";
 						}
 					}
+
+					// Check for capture requests
+
+					if(request_capture) {
+						request_capture = false;
+
+						if(capture_running) {
+							// Capture stop requested
+
+							await driver.stopcapture();
+
+							capture_running = false;
+
+							ui_hardware_change_trigger();
+						} else {
+							// Capture start requested, verify the parameters
+
+							const params = capture_setup_get_params();
+
+							const parsed = driver.verifycapture({
+								freq: params.freq,
+								length: params.length,
+								ports: params.ports
+							});
+
+							if(parsed !== undefined) {
+								// Clear the ports' displayed values
+
+								for(const port in driver.ports) {
+									get_id("port" + port + "value").innerText = port;
+									get_id("port" + port + "cornername").style.display = "none";
+								}
+
+								capture_running = true;
+								ui_hardware_change_trigger();
+
+								// All good, check if there is a trigger condition
+
+								if(params.trigger !== undefined) {
+									const trig = params.trigger;
+
+									get_id("statusmsg").innerText = jslang.STATUS_WAITING_FOR_TRIGGER;
+
+									const pobj = driver.ports[trig.port];
+
+									trigger_wait_loop: while(1) {
+										if(request_capture) {
+											capture_running = false;
+											request_capture = false;
+											break trigger_wait_loop;
+										}
+
+										const val = await driver.getval(trig.port);
+
+										if(val === undefined) break trigger_wait_loop;
+
+										get_id("port" + trig.port + "cornername").style.display = "none";
+										get_id("port" + trig.port + "value").innerText = localize_num(ideal_round_fixed(val, pobj.max)) + " " + pobj.unit;
+
+										switch(trig.cond) {
+											case "eq":
+												if(val >= (trig.target - trig.tol) && val <= (trig.target + trig.tol))
+													break trigger_wait_loop;
+
+												break;
+
+											case "ne":
+												if(val < (trig.target - trig.tol) || val > (trig.target + trig.tol))
+													break trigger_wait_loop;
+
+												break;
+
+											case "lt":
+												if(val < trig.target) break trigger_wait_loop;
+												break;
+
+											case "gt":
+												if(val > trig.target) break trigger_wait_loop;
+												break;
+										}
+									}
+								}
+
+								// Trigger condition finished (if there even was one), start the capture
+
+								if(capture_running) {
+									const capstatus = await driver.startcapture({
+										freq: params.freq,
+										length: params.length,
+										ports: params.ports
+									});
+
+									if(capstatus !== undefined) {
+										// Create a new capture in the GUI
+
+										var title = get_win_el_class(WINDOWID_CAPTURE_SETUP, "capturesetupname").get_tag("input").value;
+
+										if(!title) title = jslang.UNTITLED_CAPTURE;
+
+										var ports = {};
+
+										console.log(capstatus);
+
+										for(var i = 0; i < params.ports.length; i++) {
+											ports[params.ports[i]] = JSON.parse(JSON.stringify(capstatus.ports[i])); // Holy shit
+										}
+										
+										var capture = {
+											title: title,
+											length: params.length,
+											ports: ports,
+											interval: capstatus.interval,
+											xy_mode: params.xy_mode,
+											data: []
+										};
+
+										captures.push(capture);
+
+										// Start rendering the incoming data
+
+										change_selected_capture(0, Infinity);
+										capture_display_thread(parsed.freq, 0);
+									} else {
+										capture_running = false;
+										popup_window(WINDOWID_CAPTURE_START_ERROR);
+
+										get_id("statusmsg").innerText = jslang.STATUS_CAPTURE_FINISHED;
+										ui_hardware_change_trigger();
+									}
+								} else {
+									// Capture was cancelled during the trigger waiting phase
+
+									get_id("statusmsg").innerText = jslang.STATUS_CAPTURE_FINISHED;
+									ui_hardware_change_trigger();
+								}
+							}
+						}
+					}
 				} catch(e) {
 					// Stop in case the device gets disconnected
 
@@ -354,144 +492,6 @@ async function driver_start() {
 						popup_window(WINDOWID_JS_ERR);
 					}
 					return;
-				}
-
-				// Check for capture requests
-
-				if(request_capture) {
-					request_capture = false;
-
-					if(capture_running) {
-						// Capture stop requested
-
-						await driver.stopcapture();
-
-						capture_running = false;
-
-						ui_hardware_change_trigger();
-					} else {
-						// Capture start requested, verify the parameters
-
-						const params = capture_setup_get_params();
-
-						const parsed = driver.verifycapture({
-							freq: params.freq,
-							length: params.length,
-							ports: params.ports
-						});
-
-						if(parsed !== undefined) {
-							// Clear the ports' displayed values
-
-							for(const port in driver.ports) {
-								get_id("port" + port + "value").innerText = port;
-								get_id("port" + port + "cornername").style.display = "none";
-							}
-
-							capture_running = true;
-							ui_hardware_change_trigger();
-
-							// All good, check if there is a trigger condition
-
-							if(params.trigger !== undefined) {
-								const trig = params.trigger;
-
-								get_id("statusmsg").innerText = jslang.STATUS_WAITING_FOR_TRIGGER;
-
-								const pobj = driver.ports[trig.port];
-
-								trigger_wait_loop: while(1) {
-									if(request_capture) {
-										capture_running = false;
-										request_capture = false;
-										break trigger_wait_loop;
-									}
-
-									const val = await driver.getval(trig.port);
-
-									if(val === undefined) break trigger_wait_loop;
-
-									get_id("port" + trig.port + "cornername").style.display = "none";
-									get_id("port" + trig.port + "value").innerText = localize_num(ideal_round_fixed(val, pobj.max)) + " " + pobj.unit;
-
-									switch(trig.cond) {
-										case "eq":
-											if(val >= (trig.target - trig.tol) && val <= (trig.target + trig.tol))
-												break trigger_wait_loop;
-
-											break;
-
-										case "ne":
-											if(val < (trig.target - trig.tol) || val > (trig.target + trig.tol))
-												break trigger_wait_loop;
-
-											break;
-
-										case "lt":
-											if(val < trig.target) break trigger_wait_loop;
-											break;
-
-										case "gt":
-											if(val > trig.target) break trigger_wait_loop;
-											break;
-									}
-								}
-							}
-
-							// Trigger condition finished (if there even was one), start the capture
-
-							if(capture_running) {
-								const capstatus = await driver.startcapture({
-									freq: params.freq,
-									length: params.length,
-									ports: params.ports
-								});
-
-								if(capstatus !== undefined) {
-									// Create a new capture in the GUI
-
-									var title = get_win_el_class(WINDOWID_CAPTURE_SETUP, "capturesetupname").get_tag("input").value;
-
-									if(!title) title = jslang.UNTITLED_CAPTURE;
-
-									var ports = {};
-
-									console.log(capstatus);
-
-									for(var i = 0; i < params.ports.length; i++) {
-										ports[params.ports[i]] = JSON.parse(JSON.stringify(capstatus.ports[i])); // Holy shit
-									}
-									
-									var capture = {
-										title: title,
-										length: params.length,
-										ports: ports,
-										interval: capstatus.interval,
-										xy_mode: params.xy_mode,
-										data: []
-									};
-
-									captures.push(capture);
-
-									// Start rendering the incoming data
-
-									change_selected_capture(0, Infinity);
-									capture_display_thread(parsed.freq, 0);
-								} else {
-									capture_running = false;
-									popup_window(WINDOWID_CAPTURE_START_ERROR);
-
-									get_id("statusmsg").innerText = jslang.STATUS_CAPTURE_FINISHED;
-									ui_hardware_change_trigger();
-								}
-							} else {
-								// Capture was cancelled during the trigger waiting phase
-
-								get_id("statusmsg").innerText = jslang.STATUS_CAPTURE_FINISHED;
-								ui_hardware_change_trigger();
-							}
-						}
-					}
 				}
 
 				await delay_ms(200);
