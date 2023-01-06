@@ -29,13 +29,13 @@ class CMA_ELab_driver {
 		"A1": {
 			autodetect: true,
 			connected: false,
-			color: "#8F8",
+			color: get_port_color(0),
 			_internal_channel_ids: [ 1, 2, 3, 0 ] // Low voltage (0..5 V), High voltage (-10..10 V), Auto-ID, EEPROM channel
 		},
 		"A2": {
 			autodetect: true,
 			connected: false,
-			color: "#FF6",
+			color: get_port_color(1),
 			_internal_channel_ids: [ 4, 5, 6, 1 ]
 		}
 

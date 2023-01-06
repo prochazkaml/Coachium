@@ -25,7 +25,7 @@ class Prochazka_Dummy_driver {
 		"A1": {
 			autodetect: true,
 			connected: true,
-			color: "#8F8",
+			color: get_port_color(0),
 			name: "Thermocouple 110",
 			unit: "°C",
 			value: 29.48483243242,
@@ -40,7 +40,7 @@ class Prochazka_Dummy_driver {
 		"A2": {
 			autodetect: true,
 			connected: true,
-			color: "#FF8",
+			color: get_port_color(1),
 			name: "Thermocouple 110",
 			unit: "°C",
 			value: 29.48483243242,
@@ -55,7 +55,7 @@ class Prochazka_Dummy_driver {
 		"A3": {
 			autodetect: true,
 			connected: true,
-			color: "#FB8",
+			color: get_port_color(2),
 			name: "Thermocouple 110",
 			unit: "°C",
 			value: 29.48483243242,
@@ -70,7 +70,7 @@ class Prochazka_Dummy_driver {
 		"A4": {
 			autodetect: true,
 			connected: true,
-			color: "#BBF",
+			color: get_port_color(3),
 			name: "Thermocouple 110",
 			unit: "°C",
 			value: 29.48483243242,
