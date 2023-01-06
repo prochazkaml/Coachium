@@ -39,7 +39,7 @@ nav {
 	flex-direction: row;
 	flex-wrap: wrap;
 	align-items: center;
-	justify-content: center;
+	justify-content: left;
 
 	transition: opacity .3s;
 }
