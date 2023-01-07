@@ -29,7 +29,7 @@ var header, nav, main, footer, canvas, ctx, overlay, ovctx, table;
  */
 
 function get_port_color(port_id) {
-	const colors = [ "#4F4", "#FF4", "#F56", "#77F", "#F83" ];
+	const colors = [ "#4F4", "#FF4", "#F56", "#99F", "#F83" ];
 
 	return colors[port_id % colors.length];
 }
