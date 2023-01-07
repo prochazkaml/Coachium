@@ -62,7 +62,7 @@
 			</div>
 		</div>
 
-		<header style="height: 192px; padding: 32px;">
+		<header>
 			<div id="headercontents">
 				<img src="assets/logo.svg" id="introimg">
 				<div id="statusmsg"></div>
@@ -72,42 +72,41 @@
 			</div>
 		</header>
 
+		<nav>
+			<div id="navcontents">
+				<div class="navbutton" id="removeeverythingbutton"><img src="assets/icons/filenew.svg" class="L18N_TITLE_NEW_FILE" onclick="remove_all_captures(false)"></div>
+				<div class="navbutton" id="openbutton"><img src="assets/icons/fileopen.svg" class="L18N_TITLE_OPEN_FILE" onclick="load_file_local(false)"></div>
+				<div class="navbutton" id="savebutton"><img src="assets/icons/filesave.svg" class="L18N_TITLE_SAVE_FILE" onclick="save_file_local(false)"></div>
+				<div class="navbutton" id="savegdrivebutton"><img src="assets/icons/filesavegdrive.svg" class="L18N_TITLE_SAVE_GDRIVE" onclick="popup_gdrive_window();"></div>
+				<div class="navspacer"></div>
+				<div class="navbutton" id="capturestartbutton"><img src="assets/icons/graphstart.svg" class="L18N_TITLE_NEW_CAPTURE" onclick="create_capture();"></div>
+				<div class="navbutton" id="capturestopbutton" style="display: none"><img src="assets/icons/graphstop.svg" class="L18N_TITLE_STOP_CAPTURE" onclick="request_capture=1;"></div>
+				<div class="navspacer"></div>
+				<div class="navbutton" id="removecapturebutton"><img src="assets/icons/graphremove.svg" class="L18N_TITLE_REMOVE_CAPTURE" onclick="remove_capture(false);"></div>
+				<div class="navbutton" id="capturemgmtbutton"><img src="assets/icons/capturemgmt.svg" class="L18N_TITLE_CAPTURE_MGMT" onclick="capture_management();"></div>
+				<div class="navbutton" id="fitfunctionbutton"><img src="assets/icons/function.svg" class="L18N_TITLE_FIT_FUNCTION" onclick="fit_function();"></div>
+				<div class="navbutton" id="notemgrbutton"><img src="assets/icons/note.svg" class="L18N_TITLE_NOTE_MANAGER" onclick="note_manager();"></div>
+				<div class="navspacer"></div>
+				<div class="navbutton" id="viewpreviousbutton"><img src="assets/icons/graphprevious.svg" class="L18N_TITLE_PREVIOUS_CAPTURE" onclick="change_selected_capture(-1);"></div>
+				<div class="navbutton" id="viewastablebutton"><img src="assets/icons/graphtableview.svg" class="L18N_TITLE_SHOW_AS_TABLE" onclick="change_capture_view();"></div>
+				<div class="navbutton" id="viewasgraphbutton" style="display: none"><img src="assets/icons/graphchartview.svg" class="L18N_TITLE_SHOW_AS_CHART" onclick="change_capture_view();"></div>
+				<div class="navbutton" id="viewnextbutton"><img src="assets/icons/graphnext.svg" class="L18N_TITLE_NEXT_CAPTURE" onclick="change_selected_capture(1);"></div>
+				<div class="navspacer"></div>
+				<div class="navbutton" id="zoominbutton"><img src="assets/icons/zoomin.svg" class="L18N_TITLE_CHART_ZOOM_IN" onclick="request_zoom_in();"></div>
+				<div class="navbutton" id="zoomdatabutton"><img src="assets/icons/zoomdata.svg" class="L18N_TITLE_CHART_ZOOM_DATA" onclick="zoom_to_data();"></div>
+				<div class="navbutton" id="zoomresetbutton"><img src="assets/icons/zoomout.svg" class="L18N_TITLE_CHART_ZOOM_RESET" onclick="zoom_reset();"></div>
+				<div class="navspacer"></div>
+				<div class="navbutton" id="captureinfobutton"><img src="assets/icons/info.svg" class="L18N_TITLE_CAPTURE_INFO" onclick="show_capture_info();"></div>
+			</div>
+		</nav>
+
 		<main>
-			<div class="leftpane">
-				<div class="maindisplay">
-					<div class="canvasstack">
-						<canvas id="maincanvas" style="z-index: 0"></canvas>
-						<canvas id="overlaycanvas" style="pointer-events: none; z-index: 1"></canvas>
-					</div>
-					<div id="table" style="display: none"></div>
-				</div>	
-				<nav style="height: 0;">
-					<div id="navcontents">
-						<div class="navbutton" id="removeeverythingbutton"><img src="assets/icons/filenew.svg" class="L18N_TITLE_NEW_FILE" onclick="remove_all_captures(false)"></div>
-						<div class="navbutton" id="openbutton"><img src="assets/icons/fileopen.svg" class="L18N_TITLE_OPEN_FILE" onclick="load_file_local(false)"></div>
-						<div class="navbutton" id="savebutton"><img src="assets/icons/filesave.svg" class="L18N_TITLE_SAVE_FILE" onclick="save_file_local(false)"></div>
-						<div class="navbutton" id="savegdrivebutton"><img src="assets/icons/filesavegdrive.svg" class="L18N_TITLE_SAVE_GDRIVE" onclick="popup_gdrive_window();"></div>
-						<div class="navspacer"></div>
-						<div class="navbutton" id="capturestartbutton"><img src="assets/icons/graphstart.svg" class="L18N_TITLE_NEW_CAPTURE" onclick="create_capture();"></div>
-						<div class="navbutton" id="capturestopbutton" style="display: none"><img src="assets/icons/graphstop.svg" class="L18N_TITLE_STOP_CAPTURE" onclick="request_capture=1;"></div>
-						<div class="navspacer"></div>
-						<div class="navbutton" id="removecapturebutton"><img src="assets/icons/graphremove.svg" class="L18N_TITLE_REMOVE_CAPTURE" onclick="remove_capture(false);"></div>
-						<div class="navbutton" id="capturemgmtbutton"><img src="assets/icons/capturemgmt.svg" class="L18N_TITLE_CAPTURE_MGMT" onclick="capture_management();"></div>
-						<div class="navbutton" id="fitfunctionbutton"><img src="assets/icons/function.svg" class="L18N_TITLE_FIT_FUNCTION" onclick="fit_function();"></div>
-						<div class="navbutton" id="notemgrbutton"><img src="assets/icons/note.svg" class="L18N_TITLE_NOTE_MANAGER" onclick="note_manager();"></div>
-						<div class="navspacer"></div>
-						<div class="navbutton" id="viewpreviousbutton"><img src="assets/icons/graphprevious.svg" class="L18N_TITLE_PREVIOUS_CAPTURE" onclick="change_selected_capture(-1);"></div>
-						<div class="navbutton" id="viewastablebutton"><img src="assets/icons/graphtableview.svg" class="L18N_TITLE_SHOW_AS_TABLE" onclick="change_capture_view();"></div>
-						<div class="navbutton" id="viewasgraphbutton" style="display: none"><img src="assets/icons/graphchartview.svg" class="L18N_TITLE_SHOW_AS_CHART" onclick="change_capture_view();"></div>
-						<div class="navbutton" id="viewnextbutton"><img src="assets/icons/graphnext.svg" class="L18N_TITLE_NEXT_CAPTURE" onclick="change_selected_capture(1);"></div>
-						<div class="navspacer"></div>
-						<div class="navbutton" id="zoominbutton"><img src="assets/icons/zoomin.svg" class="L18N_TITLE_CHART_ZOOM_IN" onclick="request_zoom_in();"></div>
-						<div class="navbutton" id="zoomdatabutton"><img src="assets/icons/zoomdata.svg" class="L18N_TITLE_CHART_ZOOM_DATA" onclick="zoom_to_data();"></div>
-						<div class="navbutton" id="zoomresetbutton"><img src="assets/icons/zoomout.svg" class="L18N_TITLE_CHART_ZOOM_RESET" onclick="zoom_reset();"></div>
-						<div class="navspacer"></div>
-						<div class="navbutton" id="captureinfobutton"><img src="assets/icons/info.svg" class="L18N_TITLE_CAPTURE_INFO" onclick="show_capture_info();"></div>
-					</div>
-				</nav>
+			<div class="maindisplay">
+				<div class="canvasstack">
+					<canvas id="maincanvas" style="z-index: 0"></canvas>
+					<canvas id="overlaycanvas" style="pointer-events: none; z-index: 1"></canvas>
+				</div>
+				<div id="table" style="display: none"></div>
 			</div>
 			<footer style="width: 0">
 				<div id="footercontents" style="display: none;"></div>

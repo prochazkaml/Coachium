@@ -19,9 +19,9 @@
  */
 
 nav {
-	height: 64px;
+	height: 0;
 
-	background-color: #6666ff;
+	background-color: #AAAAFF;
 	box-shadow: 0 0 5px rgba(0, 0, 0, .3);
 	z-index: 1;
 
@@ -48,11 +48,11 @@ nav {
 
 	cursor: pointer;
 
-	transition: filter .3s, opacity .3s;
+	transition: filter .3s;
 }
 
 .navbutton:hover {
-	filter: contrast(.3141592); /* Nothing better than Pi */
+	filter: contrast(.3);
 }
 
 .navbutton img {
@@ -62,12 +62,11 @@ nav {
 
 .navbuttondisabled {
 	cursor: default;
-	opacity: .3141592; /* Same here */
-	filter: contrast(1);
+	filter: contrast(0);
 }
 
 .navbuttondisabled:hover {
-	filter: contrast(1);
+	filter: contrast(0);
 }
 
 .mainpagebutton img {
