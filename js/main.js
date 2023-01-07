@@ -97,12 +97,12 @@ function ui_connect(actually_connect) {
 
 			window.addEventListener('resize', () => {
 				main_window_reset(false, true);
-				close_port_popup_listener({"force": true});
+				close_popup_listener({"force": true});
 			}, false);
 
 			window.addEventListener('deviceorientation', () => {
 				main_window_reset(false, true);
-				close_port_popup_listener({"force": true});
+				close_popup_listener({"force": true});
 			}, false);
 
 			plist.style.display = "";
