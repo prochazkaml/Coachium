@@ -169,9 +169,9 @@ function ui_disconnect(forceful) {
 	} else {
 		get_id("statusmsg").innerHTML = jslang.STATUS_FORCE_DISCONNECTED;
 
-		footer.style.backgroundColor = "#FAA";
+		nav.style.backgroundColor = "#FAA";
 		header.style.backgroundColor = "#F00";
-		nav.style.backgroundColor = "#F00";
+		footer.style.backgroundColor = "#F00";
 	}
 
 	ui_hardware_change_trigger();
