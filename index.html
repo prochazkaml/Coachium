@@ -29,6 +29,7 @@
 		<link rel="stylesheet" href="css/windows.css" />
 		<link rel="stylesheet" href="css/nav.css" />
 		<link rel="stylesheet" href="css/footer.css" />
+		<link rel="stylesheet" href="css/popup.css" />
 		<link rel="icon" href="favicon.ico" />
 	</head>
 	<body>
@@ -37,7 +38,7 @@
 		<script src="js/common.js"></script>
 		<script src="js/main.js"></script>
 		<script src="js/navfuns.js"></script>
-		<script src="js/portpopup.js"></script>
+		<script src="js/popup.js"></script>
 		<script src="js/windowtk.js"></script>
 		<script src="js/renderer.js"></script>
 		<script src="js/renderer/canvas.js"></script>
@@ -111,10 +112,10 @@
 			<footer style="width: 0">
 				<div id="footercontents" style="display: none;"></div>
 
-				<div class="portpopup" id="portpopupwindow">
-					<div class="portpopupitem L18N_PORT_ZERO_OUT" onclick="zero_out_sensor();"></div>
-					<div class="portpopupitem L18N_PORT_RESET" onclick="reset_sensor_zero_point();"></div>
-				</div>
+				<div class="popupwitharrow" id="portpopup">
+					<div class="popupitem L18N_PORT_ZERO_OUT" onclick="zero_out_sensor();"></div>
+					<div class="popupitem L18N_PORT_RESET" onclick="reset_sensor_zero_point();"></div>
+				</div>	
 			</footer>
 		</main>
 

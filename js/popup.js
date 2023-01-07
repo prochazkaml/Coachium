@@ -1,5 +1,5 @@
 /*
- * Coachium - js/portpopup.js
+ * Coachium - js/popup.js
  * - manages popups & their functions
  * 
  * Copyright (C) 2021-2022 Michal Procházka

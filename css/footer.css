@@ -1,6 +1,6 @@
 /*
  * Coachium - css/footer.css
- * - stylesheet for the program's footer + any port (popup) related stuff
+ * - stylesheet for the program's footer
  *
  * Copyright (C) 2021-2022 Michal Procházka
  *
@@ -105,80 +105,4 @@ footer {
 .port progress {
 	margin: 0 8px;
 	width: calc(100% - 16px);
-}
-
-.portpopup {
-	position: absolute;
-	top: 0;
-	margin-left: 0;
-	left: 0;
-	z-index: 2;
-	display: none;
-
-	padding: calc(18.4px - 4px);
-	box-shadow: 0 0 5px rgba(0, 0, 0, 1);
-
-	pointer-events: none;
-
-	background-color: white;
-	border-radius: 8px;
-
-	opacity: 0;
-	transition: opacity .2s, margin-left .2s;
-}
-
-.portpopup:before {
-	transform: rotate(-45deg);
-
-	box-shadow: 0 0 5px rgba(0, 0, 0, 1);
-
-	content: "";
-	position: absolute;
-	right: -12.8px;
-	top: calc(50% - 12.8px);
-	width: 25.6px;
-	height: 25.6px;
-	background-color: white;
-
-	clip: rect(0, 32px, 32px, 0);
-}
-
-.portpopup:after {
-	content: "";
-	position: absolute;
-	right: 0;
-	top: calc(50% - 18.4px);
-	height: 36.8px;
-	width: 18.4px;
-	background-color: white;
-}
-
-.portpopupitem {
-	margin: 4px;
-	padding: 8px;
-	background-color: rgba(0, 0, 0, 0);
-	border-radius: 8px;
-
-	text-align: left;
-
-	user-select: none;
-	cursor: pointer;
-
-	transition: background-color .3s;
-}
-
-.portpopupitem:hover {
-	background-color: rgba(0, 0, 0, .1);
-}
-
-.portpopupitemdisabled {
-	margin: 4px;
-	padding: 8px;
-	background-color: rgba(0, 0, 0, 0);
-	color: #606060;
-	border-radius: 8px;
-
-	text-align: left;
-
-	user-select: none;
 }

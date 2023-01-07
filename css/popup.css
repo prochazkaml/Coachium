@@ -1,0 +1,95 @@
+/*
+ * Coachium - css/popup.css
+ * - stylesheet for the popups
+ *
+ * Copyright (C) 2021-2022 Michal Procházka
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
+.popupwitharrow {
+	position: absolute;
+	top: 0;
+	margin-left: 0;
+	left: 0;
+	z-index: 2;
+	display: none;
+
+	padding: calc(18.4px - 4px);
+	box-shadow: 0 0 5px rgba(0, 0, 0, 1);
+
+	pointer-events: none;
+
+	background-color: white;
+	border-radius: 8px;
+
+	opacity: 0;
+	transition: opacity .2s, margin-left .2s;
+}
+
+.popupwitharrow:before {
+	transform: rotate(-45deg);
+
+	box-shadow: 0 0 5px rgba(0, 0, 0, 1);
+
+	content: "";
+	position: absolute;
+	right: -12.8px;
+	top: calc(50% - 12.8px);
+	width: 25.6px;
+	height: 25.6px;
+	background-color: white;
+
+	clip: rect(0, 32px, 32px, 0);
+}
+
+.popupwitharrow:after {
+	content: "";
+	position: absolute;
+	right: 0;
+	top: calc(50% - 18.4px);
+	height: 36.8px;
+	width: 18.4px;
+	background-color: white;
+}
+
+.popupitem {
+	margin: 4px;
+	padding: 8px;
+	background-color: rgba(0, 0, 0, 0);
+	border-radius: 8px;
+
+	text-align: left;
+
+	user-select: none;
+	cursor: pointer;
+
+	transition: background-color .3s;
+}
+
+.popupitem:hover {
+	background-color: rgba(0, 0, 0, .1);
+}
+
+.popupitemdisabled {
+	margin: 4px;
+	padding: 8px;
+	background-color: rgba(0, 0, 0, 0);
+	color: #606060;
+	border-radius: 8px;
+
+	text-align: left;
+
+	user-select: none;
+}
