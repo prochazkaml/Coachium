@@ -26,8 +26,6 @@ nav {
 	z-index: 1;
 
 	transition: height .3s, background-color .3s;
-
-	flex-shrink: 0;
 }
 
 #navcontents {
