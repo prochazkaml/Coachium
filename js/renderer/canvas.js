@@ -171,10 +171,11 @@ function canvas_reset(event) {
 			 * a_max = maximal value of an axis (e. g. 110)
 			 * a_int_min, a_int_max = same as a_min/a_max, but don't have zoom applied to them
 			 * a_unit_in_px = 1 unit converted to screen pixels
+			 * a_units_per_px = number of units per screen pixel
 			 * a_actual_offset = the point where the axis meets with the other axis
 			 * a_offset = same as a_actual_offset, but restricted to the screen dimensions
 			 *   e. g. x_offset = 20 → Y axis will be drawn 20 px from the left
-			 *         y_offset = 50 → Y axis will be drawn 20 px from the top
+			 *         y_offset = 50 → X axis will be drawn 50 px from the top
 			 * a_round_level = value calculated by get_optimal_round_level()
 			 * a_optimal_unit_steps = value calculated by get_optimal_unit_steps()
 			 */
@@ -227,6 +228,7 @@ function canvas_reset(event) {
 			x_actual_offset = graph_margin_left - (canvas.width - graph_margin_left - graph_margin_right) * x_min / x_total_units;
 
 			x_unit_in_px = (canvas.width - graph_margin_left - graph_margin_right) / x_total_units;
+			x_units_per_px = 1 / x_unit_in_px;
 			x_round_level = get_optimal_round_level(x_total_units, canvas.width - graph_margin_left - graph_margin_right, 40);
 			x_optimal_unit_steps = get_optimal_unit_steps(x_round_level);
 
@@ -253,6 +255,7 @@ function canvas_reset(event) {
 			y_actual_offset = canvas.height - graph_margin_bottom + (canvas.height - graph_margin_bottom - graph_margin_top) * y_min / y_total_units;
 
 			y_unit_in_px = (canvas.height - graph_margin_bottom - graph_margin_top) / y_total_units;
+			y_units_per_px = 1 / y_unit_in_px;
 			y_round_level = get_optimal_round_level(y_total_units, canvas.height - graph_margin_bottom - graph_margin_top, 24);
 			y_optimal_unit_steps = get_optimal_unit_steps(y_round_level);
 
@@ -331,25 +334,48 @@ function canvas_reset(event) {
 				ctx.save();
 				ctx.strokeStyle = "rgba(0, 0, 255, 1)";
 
-				ctx.beginPath();
-
 				for(const [type, output] of Object.entries(capture.functions)) {
+					var fun = null;
+
 					switch(type) {
 						case "linear":
-							ctx.moveTo(
-								x_actual_offset + x_int_min * x_unit_in_px,
-								y_actual_offset - (output.a * x_int_min + output.b) * y_unit_in_px
-							);
-
-							ctx.lineTo(
-								x_actual_offset + x_int_max * x_unit_in_px,
-								y_actual_offset - (output.a * x_int_max + output.b) * y_unit_in_px
-							);
+							fun = (x) => output.a * x + output.b;
 							break;
+
+						case "quadratic":
+							fun = (x) => output.a * (x ** 2) + output.b * x + output.c;
+							break;
+
+						case "cubic":
+							fun = (x) => output.a * (x ** 3) + output.b * (x ** 2) + output.c * x + output.d;
+							break;
+
+						case "exponential":
+							fun = (x) => output.a * (Math.E ** (output.b * x));
+							break;
+
+						case "logarithmic":
+							fun = (x) => output.a + output.b * Math.log(x);
+							break;
+
+						case "power":
+							fun = (x) => output.a * (x ** output.b);
+							break;
+					}
+
+					if(fun !== null) {
+						ctx.beginPath();
+
+						ctx.moveTo(graph_margin_left, y_actual_offset - fun(x_min) * y_unit_in_px);
+
+						for(var x = 1; x <= canvas.width - graph_margin_right - graph_margin_left; x++) {
+							ctx.lineTo(x + graph_margin_left, y_actual_offset - fun(x_min + x * x_units_per_px) * y_unit_in_px);
+						}
+
+						ctx.stroke();
 					}
 				}
 
-				ctx.stroke();
 				ctx.restore();
 			}
 
