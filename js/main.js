@@ -708,6 +708,8 @@ document.addEventListener('keydown', (event) => {
 	} else {
 		if(!launched) return;
 
+		close_popup();
+
 		if(event.ctrlKey) switch(key) {
 			case "o":
 				event.preventDefault();

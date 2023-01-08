@@ -48,8 +48,6 @@ const cs = {
 		"TITLE_SAVE_GDRIVE": "Uložit sešit záznamů na Google Disk [Ctrl+Shift+S]",
 		"TITLE_NEW_CAPTURE": "Přidat nový záznam do sešitu [Mezerník]",
 		"TITLE_STOP_CAPTURE": "Zastavit záznam [Mezerník]",
-		"TITLE_FIT_FUNCTION": "Proložit funkci na naměřená data [F]",
-		"TITLE_NOTE_MANAGER": "Správce poznámek [N]",
 		"TITLE_REMOVE_CAPTURE": "Odstranit tento záznam ze sešitu [Delete]",
 		"TITLE_PREVIOUS_CAPTURE": "Zobrazit předchozí záznam v sešitě [← nebo PageUp]",
 		"TITLE_SHOW_AS_TABLE": "Zobrazit záznam jako tabulku [T]",
@@ -60,13 +58,17 @@ const cs = {
 		"TITLE_CHART_ZOOM_RESET": "Obnovit pohled na graf [-]",
 		"TITLE_CAPTURE_MGMT": "Spravovat záznamy [M]",
 		"TITLE_CAPTURE_INFO": "Zobrazit podrobnosti tohoto záznamu [I]",
+		"TITLE_ADVANCED_FEATURES": "Pokročilé možnosti",
 
-		// Port popup window buttons
+		// Popup window buttons
 
 		"PORT_CONNECT": "Připojit čidlo",
 		"PORT_DISCONNECT": "Odpojit toto čidlo",
 		"PORT_ZERO_OUT": "Vynulovat hodnotu",
 		"PORT_RESET": "Obnovit původní nulovou hodnotu",
+
+		"ADVANCED_FIT_FUNCTION": "Proložit funkci",
+		"ADVANCED_NOTE_MANAGER": "Správce poznámek",
 
 		// Window contents
 

@@ -19,7 +19,7 @@
  */
 
 @font-face {
-	font-family: "Ubuntu";
+	font-family: "CoachiumDefaultFont"; /* If I put "Ubuntu" in here, some browsers will try to be smart and load their own version of the font */
 	font-style: normal;
 	font-weight: normal;
 	src:
@@ -28,7 +28,7 @@
 }
 
 @font-face {
-	font-family: "Ubuntu";
+	font-family: "CoachiumDefaultFont";
 	font-style: normal;
 	font-weight: bold;
 	src:
@@ -50,7 +50,7 @@ html,body {
 }
 
 body {
-	font-family: "Ubuntu", sans-serif;
+	font-family: "CoachiumDefaultFont", sans-serif;
 	font-size: 16px;
 	background:
 		url("../assets/wallpaper.webp");

@@ -18,7 +18,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-var curr_popup = null, allowed_region = null, popup_timeout = null;
+var curr_popup = null, popup_mode = null, allowed_region = null, popup_timeout = null;
 
 /*
  * init_popup(id, tx, ty, mode)
@@ -39,17 +39,24 @@ function init_popup(id, tx, ty, mode) {
 
 	const winrect = win.getBoundingClientRect();
 
+	popup_mode = mode;
+
 	switch(mode) {
 		case 0:
-			win.style.left = (tx - winrect.width - 32) + "px";
+			win.style.left = (tx - winrect.width - 29) + "px";
 			win.style.top = (ty - winrect.height / 2) + "px";
+			win.style.marginLeft = "16px";
 			break;
+		
+		case 1:
+			win.style.left = (tx - winrect.width / 2) + "px";
+			win.style.top = (ty + 19) + "px";
+			win.style.marginTop = "0px";
+			break;	
 	}
 
 	win.style.opacity = 1;
 	win.style.pointerEvents = "auto";
-
-	win.style.marginLeft = "16px";
 
 	curr_popup = win;
 
@@ -57,14 +64,16 @@ function init_popup(id, tx, ty, mode) {
 }
 
 /*
- * enable_popup_button(htmlclass, active)
+ * enable_popup_button(htmlid, active)
  * 
  * Sets a particular button in any popup as active/inactive.
  */
 
-function enable_popup_button(htmlclass, active) {
-	get_class(htmlclass).classList.remove(active ? "popupitemdisabled" : "popupitem");
-	get_class(htmlclass).classList.add(active ? "popupitem" : "popupitemdisabled");
+function enable_popup_button(htmlid, active) {
+	if(active)
+		get_id(htmlid).classList.remove("popupitemdisabled");
+	else
+		get_id(htmlid).classList.add("popupitemdisabled");
 }
 
 /*
@@ -101,16 +110,27 @@ function close_popup_listener(event) {
  */
 
 function close_popup() {
+	if(curr_popup === null) return;
+
 	curr_popup.style.opacity = "";
 	curr_popup.style.transform = "";
 	curr_popup.style.pointerEvents = "none";
 
-	curr_popup.style.marginLeft = "0px";
+	switch(popup_mode) {
+		case 0:
+			curr_popup.style.marginLeft = "";
+			break;
+
+		case 1:
+			curr_popup.style.marginTop = "";
+			break;
+	}
 
 	popup_timeout = setTimeout(() => {
 		curr_popup.style.display = "";
 		popup_timeout = null;
 		curr_popup = null;
+		popup_mode = null;
 		allowed_region = null;
 	}, 500);
 
@@ -160,11 +180,11 @@ function update_port_popup() {
 	if(id == null) return;
 
 	if(!driver.ports[id].connected || driver.capture.running) {
-		enable_popup_button("L18N_PORT_ZERO_OUT", false);
-		enable_popup_button("L18N_PORT_RESET", false);
+		enable_popup_button("portpopup_zeroout", false);
+		enable_popup_button("portpopup_reset", false);
 	} else {
-		enable_popup_button("L18N_PORT_ZERO_OUT", true);
-		enable_popup_button("L18N_PORT_RESET", driver.ports[id].zero_offset != null);
+		enable_popup_button("portpopup_zeroout", true);
+		enable_popup_button("portpopup_reset", driver.ports[id].zero_offset != null);
 	}
 }
 
@@ -179,7 +199,7 @@ function zero_out_sensor() {
 
 	const id = port_popup_port_id;
 
-	if(get_class("L18N_PORT_ZERO_OUT").classList.contains("popupitemdisabled")) return;
+	if(get_id("portpopup_zeroout").classList.contains("popupitemdisabled")) return;
 
 	close_popup();
 
@@ -197,9 +217,39 @@ function zero_out_sensor() {
 function reset_sensor_zero_point() {
 	if(driver === null) return;
 
-	if(get_class("L18N_PORT_RESET").classList.contains("popupitemdisabled")) return;
+	if(get_id("portpopup_reset").classList.contains("popupitemdisabled")) return;
 
 	close_popup();
 
 	driver.ports[port_popup_port_id].zero_offset = null;
+}
+
+/*
+ * =============================================================================
+ * ADVANCED FEATURES POPUP EXCLUSIVE FUNCTIONS FOLLOW
+ * =============================================================================
+ */
+
+/*
+ * initialize_note_placement()
+ * 
+ * Pops up the popup containing extra advanced features.
+ */
+
+function show_advanced_stuff() {
+	if(get_id("advancedbutton").classList.contains("navbuttondisabled")) return;
+
+	const buttonrect = get_id("advancedbutton").getBoundingClientRect();
+
+	if(capture_running || captures.length == 0) {
+		enable_popup_button("advancedpopup_fitfunction", false);
+		enable_popup_button("advancedpopup_notemgr", false);
+	} else {
+		enable_popup_button("advancedpopup_fitfunction", true);
+		enable_popup_button("advancedpopup_notemgr", get_class("canvasstack").style.display != "none");
+	}
+
+	init_popup("advancedpopup", buttonrect.x + buttonrect.width / 2, buttonrect.y + buttonrect.height, 1);
+
+	allowed_region = buttonrect;
 }

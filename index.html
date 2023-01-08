@@ -85,8 +85,7 @@
 				<div class="navspacer"></div>
 				<div class="navbutton" id="removecapturebutton"><img src="assets/icons/graphremove.svg" class="L18N_TITLE_REMOVE_CAPTURE" onclick="remove_capture(false);"></div>
 				<div class="navbutton" id="capturemgmtbutton"><img src="assets/icons/capturemgmt.svg" class="L18N_TITLE_CAPTURE_MGMT" onclick="capture_management();"></div>
-				<div class="navbutton" id="fitfunctionbutton"><img src="assets/icons/function.svg" class="L18N_TITLE_FIT_FUNCTION" onclick="fit_function();"></div>
-				<div class="navbutton" id="notemgrbutton"><img src="assets/icons/note.svg" class="L18N_TITLE_NOTE_MANAGER" onclick="note_manager();"></div>
+				<div class="navbutton" id="advancedbutton"><img src="assets/icons/advanced.svg" class="L18N_TITLE_ADVANCED_FEATURES" onclick="show_advanced_stuff();"></div>
 				<div class="navspacer"></div>
 				<div class="navbutton" id="viewpreviousbutton"><img src="assets/icons/graphprevious.svg" class="L18N_TITLE_PREVIOUS_CAPTURE" onclick="change_selected_capture(-1);"></div>
 				<div class="navbutton" id="viewastablebutton"><img src="assets/icons/graphtableview.svg" class="L18N_TITLE_SHOW_AS_TABLE" onclick="change_capture_view();"></div>
@@ -101,6 +100,21 @@
 			</div>
 		</nav>
 
+		<div class="popupwitharrow popupwithupperarrow" id="advancedpopup">
+			<div class="popupitem" id="advancedpopup_notemgr" onclick="note_manager();">
+				<img src="assets/icons/note.svg">
+				<span class="L18N_ADVANCED_NOTE_MANAGER"></span>
+			</div>
+			<div class="popupitem" id="advancedpopup_fitfunction" onclick="fit_function();">
+				<img src="assets/icons/function.svg">
+				<span class="L18N_ADVANCED_FIT_FUNCTION"></span>
+			</div>
+		</div>
+		<div class="popupwitharrow popupwithrightarrow" id="portpopup">
+			<div class="popupitem L18N_PORT_ZERO_OUT" id="portpopup_zeroout" onclick="zero_out_sensor();"></div>
+			<div class="popupitem L18N_PORT_RESET" id="portpopup_reset" onclick="reset_sensor_zero_point();"></div>
+		</div>
+
 		<main>
 			<div class="maindisplay">
 				<div class="canvasstack">
@@ -111,11 +125,6 @@
 			</div>
 			<footer style="width: 0">
 				<div id="footercontents" style="display: none;"></div>
-
-				<div class="popupwitharrow" id="portpopup">
-					<div class="popupitem L18N_PORT_ZERO_OUT" onclick="zero_out_sensor();"></div>
-					<div class="popupitem L18N_PORT_RESET" onclick="reset_sensor_zero_point();"></div>
-				</div>	
 			</footer>
 		</main>
 

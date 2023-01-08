@@ -579,7 +579,9 @@ function capture_management() {
  */
 
 function note_manager() {
-	if(get_id("notemgrbutton").classList.contains("navbuttondisabled")) return;
+	if(get_id("advancedpopup_notemgr").classList.contains("popupitemdisabled")) return;
+
+	close_popup();
 
 	const w = WINDOWID_NOTE_MANAGER;
 	const select = get_win_el_tag(w, "select");
@@ -690,8 +692,6 @@ function note_manager() {
  */
 
 function add_note() {
-	// TODO: ask for position
-
 	const textarea = get_win_el_tag(WINDOWID_NOTE_MANAGER, "textarea");
 	const capture = captures[selected_capture];
 
@@ -750,8 +750,7 @@ function update_button_validity() {
 
 		get_id("removecapturebutton").classList.add("navbuttondisabled");
 		get_id("capturemgmtbutton").classList.add("navbuttondisabled");
-		get_id("fitfunctionbutton").classList.add("navbuttondisabled");
-		get_id("notemgrbutton").classList.add("navbuttondisabled");
+		get_id("advancedbutton").classList.add("navbuttondisabled");
 
 		get_id("viewpreviousbutton").classList.add("navbuttondisabled");
 		get_id("viewnextbutton").classList.add("navbuttondisabled");
@@ -770,8 +769,7 @@ function update_button_validity() {
 			get_id("removeeverythingbutton").classList.add("navbuttondisabled");
 			get_id("removecapturebutton").classList.add("navbuttondisabled");
 			get_id("capturemgmtbutton").classList.add("navbuttondisabled");
-			get_id("fitfunctionbutton").classList.add("navbuttondisabled");
-			get_id("notemgrbutton").classList.add("navbuttondisabled");
+			get_id("advancedbutton").classList.add("navbuttondisabled");
 			get_id("savebutton").classList.add("navbuttondisabled");
 			get_id("savegdrivebutton").classList.add("navbuttondisabled");
 			get_id("viewpreviousbutton").classList.add("navbuttondisabled");
@@ -784,14 +782,12 @@ function update_button_validity() {
 			get_id("removeeverythingbutton").classList.remove("navbuttondisabled");
 			get_id("removecapturebutton").classList.remove("navbuttondisabled");
 			get_id("capturemgmtbutton").classList.remove("navbuttondisabled");
-			get_id("fitfunctionbutton").classList.remove("navbuttondisabled");
+			get_id("advancedbutton").classList.remove("navbuttondisabled");
 			get_id("savebutton").classList.remove("navbuttondisabled");
 			get_id("savegdrivebutton").classList.remove("navbuttondisabled");
 			get_id("captureinfobutton").classList.remove("navbuttondisabled");
 
 			if(get_class("canvasstack").style.display != "none") {
-				get_id("notemgrbutton").classList.remove("navbuttondisabled");
-
 				if(note_placement_progress)
 					get_id("zoominbutton").classList.add("navbuttondisabled");
 				else
@@ -808,7 +804,6 @@ function update_button_validity() {
 				get_id("zoominbutton").classList.add("navbuttondisabled");
 				get_id("zoomdatabutton").classList.add("navbuttondisabled");
 				get_id("zoomresetbutton").classList.add("navbuttondisabled");
-				get_id("notemgrbutton").classList.add("navbuttondisabled");
 			}
 
 			if(selected_capture == 0)

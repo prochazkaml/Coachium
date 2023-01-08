@@ -31,7 +31,9 @@ const fitting_algos = [
  */
 
 function fit_function() {
-	if(get_id("fitfunctionbutton").classList.contains("navbuttondisabled")) return;
+	if(get_id("advancedpopup_fitfunction").classList.contains("popupitemdisabled")) return;
+
+	close_popup();
 
 	const select = get_win_el_tag(WINDOWID_FIT_FUNCTION, "select");
 	const checkbox = get_win_el_tag(WINDOWID_FIT_FUNCTION, "input");

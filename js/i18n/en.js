@@ -48,8 +48,6 @@ const en = {
 		"TITLE_SAVE_GDRIVE": "Save this workbook to your Google Drive [Ctrl+Shift+S]",
 		"TITLE_NEW_CAPTURE": "Add a new capture to your workbook [Space]",
 		"TITLE_STOP_CAPTURE": "Stop the current capture [Space]",
-		"TITLE_FIT_FUNCTION": "Fit function to captured data [F]",
-		"TITLE_NOTE_MANAGER": "Note manager [N]",
 		"TITLE_REMOVE_CAPTURE": "Delete this capture [Delete]",
 		"TITLE_PREVIOUS_CAPTURE": "Show the previous capture [← or PageUp]",
 		"TITLE_SHOW_AS_TABLE": "Display capture data as a table [T]",
@@ -60,13 +58,17 @@ const en = {
 		"TITLE_CHART_ZOOM_RESET": "Reset the zoom on the chart [-]",
 		"TITLE_CAPTURE_MGMT": "Manage captures [M]",
 		"TITLE_CAPTURE_INFO": "Display this capture's details [I]",
+		"TITLE_ADVANCED_FEATURES": "Advanced features",
 
-		// Port popup window buttons
+		// Popup window buttons
 
 		"PORT_CONNECT": "Connect a sensor",
 		"PORT_DISCONNECT": "Disconnect this sensor",
 		"PORT_ZERO_OUT": "Zero out the value",
 		"PORT_RESET": "Reset the original zero value",
+
+		"ADVANCED_FIT_FUNCTION": "Fit function",
+		"ADVANCED_NOTE_MANAGER": "Note manager",
 
 		// Window contents
 
