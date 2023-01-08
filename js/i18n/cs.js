@@ -222,6 +222,8 @@ const cs = {
 
 		"WINDOW25_MSG": "Prosím vyčkejte, připravuji zařízení...",
 
+		"WINDOW26_TITLE": "Jak se bude tento záznam jmenovat?",
+
 		// "About" window text
 
 		"ABOUT_TITLE": "Co je to Coachium?",

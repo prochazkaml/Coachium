@@ -110,7 +110,7 @@ function close_popup_listener(event) {
  */
 
 function close_popup() {
-	if(curr_popup === null) return;
+	if(curr_popup === null || popup_timeout !== null) return;
 
 	curr_popup.style.opacity = "";
 	curr_popup.style.transform = "";

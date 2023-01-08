@@ -229,6 +229,8 @@ const en = {
 			
 		"WINDOW25_MSG": "Please wait, initializing device...",
 
+		"WINDOW26_TITLE": "How will this capture be called?",
+
 		// "About" window text
 
 		"ABOUT_TITLE": "What is Coachium?",

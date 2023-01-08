@@ -34,20 +34,22 @@ function update_button_validity() {
 	}
 
 	if(capture_running) {
-		get_id("capturestopbutton").style.display = "";
-		get_id("capturestartbutton").style.display = "none";
-
 		get_id("removeeverythingbutton").classList.add("navbuttondisabled");
 		get_id("openbutton").classList.add("navbuttondisabled");
 		get_id("savebutton").classList.add("navbuttondisabled");
 		get_id("savegdrivebutton").classList.add("navbuttondisabled");
 
+		get_id("capturestopbutton").style.display = "";
+		get_id("capturestartbutton").style.display = "none";
+
 		get_id("removecapturebutton").classList.add("navbuttondisabled");
+		get_id("renamecapturebutton").classList.add("navbuttondisabled");
 		get_id("capturemgmtbutton").classList.add("navbuttondisabled");
 		get_id("advancedbutton").classList.add("navbuttondisabled");
 
 		get_id("viewpreviousbutton").classList.add("navbuttondisabled");
 		get_id("viewnextbutton").classList.add("navbuttondisabled");
+
 		get_id("zoominbutton").classList.add("navbuttondisabled");
 		get_id("zoomdatabutton").classList.add("navbuttondisabled");
 		get_id("zoomresetbutton").classList.add("navbuttondisabled");
@@ -61,24 +63,32 @@ function update_button_validity() {
 
 		if(captures.length == 0) {
 			get_id("removeeverythingbutton").classList.add("navbuttondisabled");
-			get_id("removecapturebutton").classList.add("navbuttondisabled");
-			get_id("capturemgmtbutton").classList.add("navbuttondisabled");
-			get_id("advancedbutton").classList.add("navbuttondisabled");
 			get_id("savebutton").classList.add("navbuttondisabled");
 			get_id("savegdrivebutton").classList.add("navbuttondisabled");
+
+			get_id("removecapturebutton").classList.add("navbuttondisabled");
+			get_id("renamecapturebutton").classList.add("navbuttondisabled");
+			get_id("capturemgmtbutton").classList.add("navbuttondisabled");
+			get_id("advancedbutton").classList.add("navbuttondisabled");
+
 			get_id("viewpreviousbutton").classList.add("navbuttondisabled");
 			get_id("viewnextbutton").classList.add("navbuttondisabled");
+
 			get_id("zoominbutton").classList.add("navbuttondisabled");
 			get_id("zoomdatabutton").classList.add("navbuttondisabled");
 			get_id("zoomresetbutton").classList.add("navbuttondisabled");
+
 			get_id("captureinfobutton").classList.add("navbuttondisabled");
 		} else {
 			get_id("removeeverythingbutton").classList.remove("navbuttondisabled");
-			get_id("removecapturebutton").classList.remove("navbuttondisabled");
-			get_id("capturemgmtbutton").classList.remove("navbuttondisabled");
-			get_id("advancedbutton").classList.remove("navbuttondisabled");
 			get_id("savebutton").classList.remove("navbuttondisabled");
 			get_id("savegdrivebutton").classList.remove("navbuttondisabled");
+
+			get_id("removecapturebutton").classList.remove("navbuttondisabled");
+			get_id("renamecapturebutton").classList.remove("navbuttondisabled");
+			get_id("capturemgmtbutton").classList.remove("navbuttondisabled");
+			get_id("advancedbutton").classList.remove("navbuttondisabled");
+
 			get_id("captureinfobutton").classList.remove("navbuttondisabled");
 
 			if(get_class("canvasstack").style.display != "none") {

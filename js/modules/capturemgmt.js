@@ -159,6 +159,35 @@ function remove_capture(are_you_sure) {
 }
 
 /*
+ * rename_capture(name_decided)
+ * 
+ * Pops up a dialog for renaming the current capture, if possible.
+ */
+
+function rename_capture(name_decided) {
+	if(get_id("renamecapturebutton").classList.contains("navbuttondisabled")) return;
+
+	if(!name_decided) {
+		get_win_el_tag(WINDOWID_RENAME_CAPTURE, "input").value = captures[selected_capture].title;
+
+		popup_window(WINDOWID_RENAME_CAPTURE);
+
+		setTimeout(() => {
+			get_win_el_tag(WINDOWID_RENAME_CAPTURE, "input").select();
+		}, 100);
+	} else {
+		const newtitle = get_win_el_tag(WINDOWID_RENAME_CAPTURE, "input").value
+
+		if(newtitle != "")
+			captures[selected_capture].title = newtitle;
+		else
+			captures[selected_capture].title = jslang.UNTITLED_CAPTURE;
+
+		main_window_reset();
+	}
+}
+
+/*
  * capture_management()
  * 
  * Initializes the data for the capture manager and opens it.

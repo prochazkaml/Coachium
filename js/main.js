@@ -759,6 +759,10 @@ document.addEventListener('keydown', (event) => {
 				note_manager();
 				break;
 
+			case "r":
+				rename_capture(false);
+				break;
+
 			case "arrowleft":
 			case "pageup":
 				event.preventDefault();
