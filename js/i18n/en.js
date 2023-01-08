@@ -82,10 +82,14 @@ const en = {
 		"WINDOW0_PAR3":
 			"This program is free software, distributed under<br>" +
 			"the <a href=\"https://www.gnu.org/licenses/gpl-3.0.en.html\" target=\"_blank\">GNU General Public License version 3</a>.",
-		"WINDOW0_PAR4":
-			"Most of the used icons come from the <a href=\"https://fontawesome.com/\">FontAwesome</a> project.<br>" +
-			"Some parts of this application use the <a href=\"https://github.com/bevacqua/dragula\">Dragula</a> library.",
-
+		"WINDOW0_PAR4": "Most of the used icons come from the <a href=\"https://fontawesome.com/\">FontAwesome</a> project.<br>",
+		"WINDOW0_PAR5":
+			"This application uses the following open source software:",
+		"WINDOW0_PAR_LIST":
+			"<li><a href=\"https://github.com/bevacqua/dragula\">Dragula - Drag and drop so simple it hurts</a></li>" +
+			"<li><a href=\"https://github.com/pieroxy/lz-string\">lz-string - LZ-based compression algorithm for JavaScript</a></li>" +
+			"<li><a href=\"https://github.com/Tom-Alexander/regression-js\">regression-js - Curve Fitting in JavaScript</a></li>",
+	
 		"WINDOW1_TITLE": "Internal error",
 		"WINDOW1_PAR0": "An unexpected error has occured.",
 		"WINDOW1_PAR1": "We apologize for the inconvenience.",
