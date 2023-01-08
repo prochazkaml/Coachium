@@ -1,6 +1,6 @@
 /*
- * Coachium - js/workbook.js
- * - handles all workbook related stuff and file loading/saving
+ * Coachium - js/modules/filemgmt.js
+ * - handles file loading/saving
  * 
  * Copyright (C) 2021-2023 Michal Procházka
  *
@@ -17,14 +17,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
-var captures = [], selected_capture = 0;
-
-var capture_cache = {
-	"ports": [], // first one is always { min: 0, max: set capture length, unit: "s"/"ms"/whatever you want }
-	"values": [],
-	"xy_mode": false
-};
 
 /*
  * load_file_local(are_you_sure)
@@ -108,77 +100,5 @@ function save_file_local(name_chosen) {
 		}
 
 		popup_window(WINDOWID_LOCAL_SAVE_NAME);
-	}
-}
-
-/*
- * create_capture()
- * 
- * Pops up the dialog for initializing a new capture.
- * 
- * Automatically selects the most ideal configuration based on connected sensors.
- */
-
-function create_capture() {
-	if(get_id("capturestartbutton").classList.contains("navbuttondisabled")) return;
-
-	zoom_reset();
-	capture_setup_check();
-
-	setTimeout(() => {
-		get_win_el_class(WINDOWID_CAPTURE_SETUP, "capturesetupname").get_tag("input").select();
-	}, 100);
-
-	popup_window(WINDOWID_CAPTURE_SETUP);
-}
-
-/*
- * remove_capture(are_you_sure)
- * 
- * Deletes the currently selected capture from the workbook.
- */
-
-function remove_capture(are_you_sure) {
-	if(get_id("removecapturebutton").classList.contains("navbuttondisabled")) return;
-
-	if(!are_you_sure) {
-		// Better ask the user if they are sure to delete the current capture
-
-		popup_window(WINDOWID_REMOVE_CAPTURE_WARN);
-	} else {
-		// Well, it's on you.
-
-		var oldselected = selected_capture;
-
-		captures.splice(selected_capture, 1);
-
-		change_selected_capture(0);
-
-		get_id("statusmsg").innerHTML = format(jslang.STATUS_CAPTURE_REMOVED, oldselected + 1);
-
-		main_window_reset(true, false);
-	}
-}
-
-/*
- * remove_all_captures(are_you_sure)
- * 
- * Removes all captures from the current workbook.
- */
-
-function remove_all_captures(are_you_sure) {
-	if(get_id("removeeverythingbutton").classList.contains("navbuttondisabled")) return;
-
-	if(!are_you_sure) {
-		// Better ask the user if they are sure to nuke literally everything
-
-		popup_window(WINDOWID_NUKE_EVERYTHING_WARN);
-	} else {
-		// Well, it's on you.
-
-		captures = [];
-		change_selected_capture(0, 0);
-
-		get_id("statusmsg").innerHTML = jslang.STATUS_ALL_REMOVED;
 	}
 }

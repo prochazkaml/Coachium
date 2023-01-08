@@ -1,5 +1,5 @@
 /*
- * Coachium - js/gdrive.js
+ * Coachium - js/modules/gdrive.js
  * - handles communication with gdrive.html
  * 
  * Copyright (C) 2021-2023 Michal Procházka

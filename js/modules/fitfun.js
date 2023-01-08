@@ -1,5 +1,5 @@
 /*
- * Coachium - js/funfit.js
+ * Coachium - js/modules/fitfun.js
  * - contains functions for fitting input points onto various functions
  * 
  * Copyright (C) 2021-2023 Michal Procházka
