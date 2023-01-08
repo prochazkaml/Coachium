@@ -21,7 +21,12 @@
 // List of all available fitting algorithms
 
 const fitting_algos = [
-	function_fit_linear
+	function_fit_linear,
+	function_fit_quadratic,
+	function_fit_cubic,
+	function_fit_exponential,
+	function_fit_logarithmic,
+	function_fit_power
 ];
 
 /*
@@ -60,13 +65,16 @@ function fit_function() {
 
 		// Update the info dialog
 
-		var string = "";
+		var string = "", invalid_val = false;
 
 		for(const [key, value] of Object.entries(algo_output.output)) {
+			if(isNaN(value)) invalid_val = true;
 			string += "<b>" + key + "</b>: " + localize_num(value) + "<br>";
 		}
 
-		get_win_el_tag(WINDOWID_FIT_FUNCTION, "p", 1).innerHTML = string;
+		get_win_el_tag(WINDOWID_FIT_FUNCTION, "p", 1).innerHTML = invalid_val ? jslang.INVALID_FIT : string;
+
+		get_id("fitfunctioncheckbox").style.display = invalid_val ? "none" : "";
 
 		// Handle the check box
 
@@ -102,40 +110,82 @@ function fit_function() {
 }
 
 /*
- * function_fit_linear(points)
+ * function_fit_xxx(points)
  * 
- * Fits all input points onto a linear function (y = ax + b),
- * returning the 2 coefficients.
+ * Fits an array of points to a given function.
  */
 
 function function_fit_linear(points) {
-	// Taken from here: https://www.varsitytutors.com/hotmath/hotmath_help/topics/line-of-best-fit
-
-	var mx = 0, my = 0;
-
-	for(var i = 0; i < points.length; i++) {
-		mx += points[i][0];
-		my += points[i][1];
-	}
-
-	mx /= points.length;
-	my /= points.length;
-
-	var k = 0, l = 0;
-
-	for(var i = 0; i < points.length; i++) {
-		k += (points[i][0] - mx) * (points[i][1] - my);
-		l += (points[i][0] - mx) * (points[i][0] - mx);
-	}
-
-	a = k / l;
-	b = my - a * mx;
+	var retval = libregression.methods.linear(points, { precision: 10 });
 
 	return {
 		"type": "linear",
 		"output": {
-			"a": a,
-			"b": b
+			"a": retval.equation[0],
+			"b": retval.equation[1]
+		}
+	};
+}
+
+function function_fit_quadratic(points) {
+	var retval = libregression.methods.polynomial(points, { precision: 10, order: 2 });
+
+	return {
+		"type": "quadratic",
+		"output": {
+			"a": retval.equation[0],
+			"b": retval.equation[1],
+			"c": retval.equation[2]
+		}
+	};
+}
+
+function function_fit_cubic(points) {
+	var retval = libregression.methods.polynomial(points, { precision: 10, order: 3 });
+
+	return {
+		"type": "cubic",
+		"output": {
+			"a": retval.equation[0],
+			"b": retval.equation[1],
+			"c": retval.equation[2],
+			"d": retval.equation[3]
+		}
+	};
+}
+
+function function_fit_exponential(points) {
+	var retval = libregression.methods.exponential(points, { precision: 10 });
+
+	return {
+		"type": "exponential",
+		"output": {
+			"a": retval.equation[0],
+			"b": retval.equation[1]
+		}
+	};
+}
+
+function function_fit_logarithmic(points) {
+	var retval = libregression.methods.logarithmic(points, { precision: 10 });
+
+	return {
+		"type": "logarithmic",
+		"output": {
+			"a": retval.equation[0],
+			"b": retval.equation[1]
+		}
+	};
+}
+
+function function_fit_power(points) {
+	var retval = libregression.methods.power(points, { precision: 10 });
+
+	return {
+		"type": "power",
+		"output": {
+			"a": retval.equation[0],
+			"b": retval.equation[1]
 		}
 	};
 }

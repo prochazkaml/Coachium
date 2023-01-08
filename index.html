@@ -35,6 +35,7 @@
 	<body>
 		<script src="js/lib/dragula.min.js"></script>
 		<script src="js/lib/lz-string.min.js"></script>
+		<script src="js/lib/regression.js"></script>
 		<script src="js/common.js"></script>
 		<script src="js/main.js"></script>
 		<script src="js/ui.js"></script>
@@ -533,19 +534,23 @@
 
 		<div id="window19overlay" class="windowoverlay">
 			<div class="windowcloselayer" onclick="close_window();"></div>
-			<div class="popupwindow">
+			<div class="popupwindow" style="width: 300px;">
 				<h1 class="L18N_WINDOW19_TITLE"></h1>
 
 				<p>
 					<select style="width: 100%;">
 						<option class="L18N_WINDOW19_FUN_LINEAR"></option>
-						<!--<option class="L18N_WINDOW19_FUN_QUADRATIC"></option>-->
+						<option class="L18N_WINDOW19_FUN_QUADRATIC"></option>
+						<option class="L18N_WINDOW19_FUN_CUBIC"></option>
+						<option class="L18N_WINDOW19_FUN_EXPONENTIAL"></option>
+						<option class="L18N_WINDOW19_FUN_LOGARITHMIC"></option>
+						<option class="L18N_WINDOW19_FUN_POWER"></option>
 					</select>
 				</p>
 
 				<p></p>
 
-				<p>
+				<p id="fitfunctioncheckbox">
 					<input style="margin-left: 0" type="checkbox" id="displayfunctioncheckbox">
 					<label for="displayfunctioncheckbox" class="L18N_WINDOW19_CHECKBOX" style="user-select: none;"></label>
 				</p>

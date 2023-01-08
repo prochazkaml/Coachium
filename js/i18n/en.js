@@ -193,8 +193,12 @@ const en = {
 		"WINDOW18_TITLE": "Device selection",
 
 		"WINDOW19_TITLE": "Fit function",
-		"WINDOW19_FUN_LINEAR": "Linear (y = ax + b)",
-		"WINDOW19_FUN_QUADRATIC": "Quadratic (y = ax² + bx + c)",
+		"WINDOW19_FUN_LINEAR": "Linear: y = ax + b",
+		"WINDOW19_FUN_QUADRATIC": "Quadratic: y = ax² + bx + c",
+		"WINDOW19_FUN_CUBIC": "Cubic: y = ax³ + bx² + cx + d",
+		"WINDOW19_FUN_EXPONENTIAL": "Exponential: y = a * e^(bx)",
+		"WINDOW19_FUN_LOGARITHMIC": "Logarithmic: y = a + b * ln(x)",
+		"WINDOW19_FUN_POWER": "Power: y = ax^b",
 		"WINDOW19_CHECKBOX": "Show this function on the graph",
 
 		"WINDOW20_TITLE": "Device open error",
@@ -321,6 +325,8 @@ const en = {
 		"STATUS_ZOOM_RESET": "The zoom on the chart has been reset.",
 
 		"CONNECT_BUTTON_TEXT": "Connect to {0}",
+
+		"INVALID_FIT": "It is not possible to fit this<br>function onto the input data.",
 
 		"INFO_WINDOW_CONTENTS":
 			"<p><b>{0}</b> total samples captured<br>" +

@@ -185,9 +185,13 @@ const cs = {
 
 		"WINDOW18_TITLE": "Výběr zařízení",
 
-		"WINDOW19_TITLE": "Proložení funkce",
-		"WINDOW19_FUN_LINEAR": "Lineární (y = ax + b)",
-		"WINDOW19_FUN_QUADRATIC": "Kvadratická (y = ax² + bx + c)",
+		"WINDOW19_TITLE": "Proložit funkci",
+		"WINDOW19_FUN_LINEAR": "Lineární: y = ax + b",
+		"WINDOW19_FUN_QUADRATIC": "Kvadratická: y = ax² + bx + c",
+		"WINDOW19_FUN_CUBIC": "Kubická: y = ax³ + bx² + cx + d",
+		"WINDOW19_FUN_EXPONENTIAL": "Exponenciální: y = a * e^(bx)",
+		"WINDOW19_FUN_LOGARITHMIC": "Logaritmická: y = a + b * ln(x)",
+		"WINDOW19_FUN_POWER": "Mocninná: y = ax^b",
 		"WINDOW19_CHECKBOX": "Zobrazit tuto funkci na grafu",
 
 		"WINDOW20_TITLE": "Chyba připojování zařízení",
@@ -314,6 +318,8 @@ const cs = {
 		"STATUS_ZOOM_RESET": "Pohled na graf obnoven.",
 
 		"CONNECT_BUTTON_TEXT": "Připojit se k {0}",
+
+		"INVALID_FIT": "Ze vstupních dat nelze proložit<br>danou funkci.",
 
 		"INFO_WINDOW_CONTENTS":
 			"<p>Celkem naměřeno <b>{0}</b> vzorků<br>" +
