@@ -68,8 +68,8 @@ const cs = {
 		"PORT_ZERO_OUT": "Vynulovat hodnotu",
 		"PORT_RESET": "Obnovit původní nulovou hodnotu",
 
-		"ADVANCED_FIT_FUNCTION": "Proložit funkci",
-		"ADVANCED_NOTE_MANAGER": "Správce poznámek",
+		"ADVANCED_FIT_FUNCTION": "Proložit funkci [F]",
+		"ADVANCED_NOTE_MANAGER": "Správce poznámek [N]",
 
 		// Window contents
 

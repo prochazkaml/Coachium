@@ -68,8 +68,8 @@ const en = {
 		"PORT_ZERO_OUT": "Zero out the value",
 		"PORT_RESET": "Reset the original zero value",
 
-		"ADVANCED_FIT_FUNCTION": "Fit function",
-		"ADVANCED_NOTE_MANAGER": "Note manager",
+		"ADVANCED_FIT_FUNCTION": "Fit function [F]",
+		"ADVANCED_NOTE_MANAGER": "Note manager [N]",
 
 		// Window contents
 
