@@ -3,7 +3,7 @@
  * - handles stuff related to the nav bar + reacts to all capture-related buttons
  *   and manages their dialogs
  * 
- * Copyright (C) 2021-2022 Michal Procházka
+ * Copyright (C) 2021-2023 Michal Procházka
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
