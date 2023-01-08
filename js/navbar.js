@@ -1,5 +1,5 @@
 /*
- * Coachium - js/navfuns.js
+ * Coachium - js/navbar.js
  * - updates the nav bar button status whenever necessary
  * 
  * Copyright (C) 2021-2023 Michal Procházka
