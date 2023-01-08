@@ -49,6 +49,7 @@ const cs = {
 		"TITLE_NEW_CAPTURE": "Přidat nový záznam do sešitu [Mezerník]",
 		"TITLE_STOP_CAPTURE": "Zastavit záznam [Mezerník]",
 		"TITLE_REMOVE_CAPTURE": "Odstranit tento záznam ze sešitu [Delete]",
+		"TITLE_RENAME_CAPTURE": "Přejmenovat tento záznam [R]",
 		"TITLE_PREVIOUS_CAPTURE": "Zobrazit předchozí záznam v sešitě [← nebo PageUp]",
 		"TITLE_SHOW_AS_TABLE": "Zobrazit záznam jako tabulku [T]",
 		"TITLE_SHOW_AS_CHART": "Zobrazit záznam jako graf [T]",

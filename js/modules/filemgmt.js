@@ -19,6 +19,29 @@
  */
 
 /*
+ * new_file(are_you_sure)
+ * 
+ * Removes all captures from the current workbook.
+ */
+
+function new_file(are_you_sure) {
+	if(get_id("removeeverythingbutton").classList.contains("navbuttondisabled")) return;
+
+	if(!are_you_sure) {
+		// Better ask the user if they are sure to nuke literally everything
+
+		popup_window(WINDOWID_NUKE_EVERYTHING_WARN);
+	} else {
+		// Well, it's on you.
+
+		captures = [];
+		change_selected_capture(0, 0);
+
+		get_id("statusmsg").innerHTML = jslang.STATUS_ALL_REMOVED;
+	}
+}
+
+/*
  * load_file_local(are_you_sure)
  * 
  * Loads a JSON file from local storage and processes it.

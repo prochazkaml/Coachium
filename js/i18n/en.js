@@ -49,6 +49,7 @@ const en = {
 		"TITLE_NEW_CAPTURE": "Add a new capture to your workbook [Space]",
 		"TITLE_STOP_CAPTURE": "Stop the current capture [Space]",
 		"TITLE_REMOVE_CAPTURE": "Delete this capture [Delete]",
+		"TITLE_RENAME_CAPTURE": "Rename this capture [R]",
 		"TITLE_PREVIOUS_CAPTURE": "Show the previous capture [← or PageUp]",
 		"TITLE_SHOW_AS_TABLE": "Display capture data as a table [T]",
 		"TITLE_SHOW_AS_CHART": "Display capture data as a chart [T]",

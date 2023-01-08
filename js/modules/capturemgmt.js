@@ -159,29 +159,6 @@ function remove_capture(are_you_sure) {
 }
 
 /*
- * remove_all_captures(are_you_sure)
- * 
- * Removes all captures from the current workbook.
- */
-
-function remove_all_captures(are_you_sure) {
-	if(get_id("removeeverythingbutton").classList.contains("navbuttondisabled")) return;
-
-	if(!are_you_sure) {
-		// Better ask the user if they are sure to nuke literally everything
-
-		popup_window(WINDOWID_NUKE_EVERYTHING_WARN);
-	} else {
-		// Well, it's on you.
-
-		captures = [];
-		change_selected_capture(0, 0);
-
-		get_id("statusmsg").innerHTML = jslang.STATUS_ALL_REMOVED;
-	}
-}
-
-/*
  * capture_management()
  * 
  * Initializes the data for the capture manager and opens it.

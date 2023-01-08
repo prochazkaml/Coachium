@@ -80,9 +80,9 @@
 
 		<nav>
 			<div id="navcontents">
-				<div class="navbutton" id="removeeverythingbutton"><img src="assets/icons/filenew.svg" class="L18N_TITLE_NEW_FILE" onclick="remove_all_captures(false)"></div>
-				<div class="navbutton" id="openbutton"><img src="assets/icons/fileopen.svg" class="L18N_TITLE_OPEN_FILE" onclick="load_file_local(false)"></div>
-				<div class="navbutton" id="savebutton"><img src="assets/icons/filesave.svg" class="L18N_TITLE_SAVE_FILE" onclick="save_file_local(false)"></div>
+				<div class="navbutton" id="removeeverythingbutton"><img src="assets/icons/filenew.svg" class="L18N_TITLE_NEW_FILE" onclick="new_file(false);"></div>
+				<div class="navbutton" id="openbutton"><img src="assets/icons/fileopen.svg" class="L18N_TITLE_OPEN_FILE" onclick="load_file_local(false);"></div>
+				<div class="navbutton" id="savebutton"><img src="assets/icons/filesave.svg" class="L18N_TITLE_SAVE_FILE" onclick="save_file_local(false);"></div>
 				<div class="navbutton" id="savegdrivebutton"><img src="assets/icons/filesavegdrive.svg" class="L18N_TITLE_SAVE_GDRIVE" onclick="popup_gdrive_window();"></div>
 				<div class="navspacer"></div>
 				<div class="navbutton" id="capturestartbutton"><img src="assets/icons/graphstart.svg" class="L18N_TITLE_NEW_CAPTURE" onclick="create_capture();"></div>
@@ -432,7 +432,7 @@
 				<p class="L18N_WINDOW12_PAR2"></p>
 
 				<div class="windowbuttonlist">
-					<div class="windowbutton L18N_BUTTON_GOAHEAD" onclick="close_window();remove_all_captures(true);"></div>
+					<div class="windowbutton L18N_BUTTON_GOAHEAD" onclick="close_window();new_file(true);"></div>
 					<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();"></div>
 				</div>
 			</div>
