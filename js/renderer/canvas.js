@@ -156,7 +156,7 @@ function canvas_reset(event) {
 		ctx.fillStyle = "black";
 		ctx.textBaseline = "middle";
 		ctx.textAlign = "center";
-		ctx.font = "16px Ubuntu";
+		ctx.font = "16px CoachiumDefaultFont";
 
 		if(captures.length > 0) {
 			const capture = captures[selected_capture];
@@ -458,7 +458,7 @@ function canvas_reset(event) {
 
 			ctx.textBaseline = "middle";
 			ctx.textAlign = "left";
-			ctx.font = "bold 16px Ubuntu";
+			ctx.font = "bold 16px CoachiumDefaultFont";
 			ctx.fillText(format(jslang.CAPTURE_FMT, selected_capture + 1, captures.length, capture.title), graph_margin_left, graph_margin_top / 2);
 
 			// If the capture is currently running, display a "crosshair"
@@ -561,7 +561,7 @@ function canvas_reset(event) {
 
 			ovctx.textBaseline = "middle";
 			ovctx.textAlign = "right";
-			ovctx.font = "16px Ubuntu";
+			ovctx.font = "16px CoachiumDefaultFont";
 			ovctx.fillStyle = "black";
 
 			ovctx.fillText(
@@ -595,7 +595,7 @@ function draw_crosshair(x, y, color) {
 function draw_note(ctx, x, y, id) {
 	const note = captures[selected_capture].notes[id];
 
-	ctx.font = "16px Ubuntu";
+	ctx.font = "16px CoachiumDefaultFont";
 	ctx.strokeStyle = "black";
 	ctx.lineWidth = 2;
 

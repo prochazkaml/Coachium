@@ -2,8 +2,6 @@
 - make the chart display more than 1 sensor
 - enable "finish" trigger (use one of the sensors for stopping the capture)
 - make the dummy device driver do something when capturing
-- replace Ubuntu with CoachiumDefaultFont everywhere!
-- rename portpopup.js to popup.js!
 
 Future stuff:
 - ability to manually attach sensors
