@@ -50,7 +50,7 @@ Coachium will reach full release when the software is stress-tested for an entir
 
 ## How can I try it out?
 
-If you are interested in trying this software out, visit our [central instance](https://coachium.prochazka.ml/) (uses the [pre-cached variant](https://github.com/prochazkaml/CoachiumCached)). Beware that the default language of this instance is Czech, however, you can change that by clicking on the button in the top right corner.
+If you are interested in trying this software out, visit our [central instance](https://coachium.prochazkaml.eu/) (uses the [pre-cached variant](https://github.com/prochazkaml/CoachiumCached)). Beware that the default language of this instance is Czech, however, you can change that by clicking on the button in the top right corner.
 
 If you do not own a compatible device for connecting, you can still experience some parts of Coachium by downloading and opening the [example file](https://github.com/prochazkaml/Coachium/blob/master/test.coachium) (in JSON format).
 
@@ -88,7 +88,7 @@ git pull
 
 By default, on your own instance, all Google Drive-related functionality will not be accessible, because your origin is not on the list of the [allowed domains](https://github.com/prochazkaml/Coachium/blob/master/gdrive.html#L8).
 
-Simply modifying your gdrive.html file will not work, since the app does not fetch this particular file from your instance, but from the [central instance](https://coachium.prochazka.ml/), because the Google client ID used in gdrive.html is tied to that particular domain.
+Simply modifying your gdrive.html file will not work, since the app does not fetch this particular file from your instance, but from the [central instance](https://coachium.prochazkaml.eu/), because the Google client ID used in gdrive.html is tied to that particular domain.
 
 Restricting access from unknown origins was done to prevent API abuse by applications other than Coachium and to pass the Google verification process.
 
@@ -102,4 +102,4 @@ If you would be interested in translating Coachium to your language, feel free t
 
 ## My hardware is not supported!
 
-[Contact me](mailto:michal@prochazka.ml) and hook me up with said hardware.
+[Contact me](mailto:prochazka2003@gmail.com) and hook me up with said hardware.

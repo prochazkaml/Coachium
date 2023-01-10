@@ -54,7 +54,7 @@ function gdrive_reload() {
 	var iframe = document.createElement("iframe");
 	iframe.style.display = "none";
 	iframe.id = "gdrive_iframe";
-	iframe.src = "https://coachium.prochazka.ml/gdrive.html";
+	iframe.src = "https://coachium.prochazkaml.eu/gdrive.html";
 
 	document.body.append(iframe);
 }
