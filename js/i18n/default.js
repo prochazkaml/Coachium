@@ -73,21 +73,6 @@ function parse_lang(lobj) {
 	}
 }
 
-for(var language of languages) {
-	var option = document.createElement("option");
-
-	option.innerHTML = language.name;
-
-	((id) => {
-		option.onclick = () => {
-			document.cookie = "lang=" + id;
-			window.location = window.location.pathname + window.location.hash;
-		};
-	})(language.id);
-
-	get_win_el_tag(WINDOWID_LANGUAGE_SELECTOR, "select").appendChild(option);
-}
-
 const params = new URLSearchParams(window.location.search);
 
 var lang = read_cookie("lang");
@@ -115,4 +100,35 @@ if(htmllang === undefined || jslang === undefined) {
 	document.cookie = "lang=" + languages[0].id;
 
 	parse_lang(languages[0].obj);
+}
+
+for(var language of languages) {
+	var option = document.createElement("option");
+
+	option.innerHTML = language.name;
+
+	((id) => {
+		option.onclick = () => {
+			console.log("Clicked " + id);
+
+			document.cookie = "lang=" + id;
+
+			var paramflag = false;
+
+			for(const param of params) {
+				if(param[0] && param[0] == "lang" && param[1]) {
+					paramflag = true;
+					break;
+				}
+			}
+			
+			if(paramflag) {
+				window.location = window.location.pathname + window.location.hash;
+			} else {
+				window.location.reload();
+			}
+		};
+	})(language.id);
+
+	get_win_el_tag(WINDOWID_LANGUAGE_SELECTOR, "select").appendChild(option);
 }
