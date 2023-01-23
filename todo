@@ -2,6 +2,7 @@
 - make the chart display more than 1 sensor
 - enable "finish" trigger (use one of the sensors for stopping the capture)
 - make the dummy device driver do something when capturing
+- make the cache system work properly (had issues with Windows 11 & Chrome)
 
 Future stuff:
 - ability to manually attach sensors
