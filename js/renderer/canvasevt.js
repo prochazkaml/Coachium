@@ -18,7 +18,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-var mouseX = 0, mouseY = 0, oldmouseX = -1, oldmouseY = -1, lock = false, mouse_over_canvas = false;
+var mouseX = 0, mouseY = 0, oldmouseX = -1, oldmouseY = -1, lock = false, mouse_over_canvas = false, has_moved = false;
 
 var mousepositions = [[-1, -1], [-1, -1]];
 
@@ -53,6 +53,8 @@ function canvasmousemovehandler(e) {
 		oldmouseY = mouseY;
 
 		if(zoom_move_request) {
+			has_moved = true;
+
 			var pw = canvas.width - graph_margin_left - graph_margin_right,
 				ph = canvas.height - graph_margin_top - graph_margin_bottom,
 				vw = zoomx2 - zoomx1,
@@ -117,13 +119,14 @@ function canvasmousechangehandler(status) {
 	if(lock) return;
 	lock = true;
 
-	if(note_placement_progress) {
+	if(note_placement_progress && !status && !has_moved) {
 		var mx = (mouseX - graph_margin_left) / (canvas.width - graph_margin_left - graph_margin_right),
 			my = (mouseY - graph_margin_top) / (canvas.height - graph_margin_top - graph_margin_bottom);
 		
 		mx = (zoomx1 + mx * (zoomx2 - zoomx1));
 		my = (zoomy2 + my * (zoomy1 - zoomy2));
 
+		zoom_move_request = false; // Just in case the user was dragging
 		note_placement_progress = 0;
 		canvas.style.cursor = "auto";
 
@@ -141,11 +144,12 @@ function canvasmousechangehandler(status) {
 				mousepositions[1][0] = mousepositions[0][0];
 				mousepositions[1][1] = mousepositions[0][1];
 
+				has_moved = false;
 				zoom_move_request = true;
 				canvas.style.cursor = "move";
 			} else {
 				zoom_move_request = false;
-				canvas.style.cursor = "auto";
+				canvas.style.cursor = note_placement_progress ? "crosshair" : "auto";
 			}
 
 			break;
