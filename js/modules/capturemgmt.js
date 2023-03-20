@@ -28,6 +28,8 @@ function change_selected_capture(interval, absolute = undefined) {
 	if(interval < 0 && get_id("viewpreviousbutton").classList.contains("navbuttondisabled")) return;
 	if(interval > 0 && get_id("viewnextbutton").classList.contains("navbuttondisabled")) return;
 
+	var reset_zoom = true;
+
 	if(captures.length > 0) {
 		if(absolute != undefined && absolute != Infinity)
 			selected_capture = absolute;
@@ -42,6 +44,15 @@ function change_selected_capture(interval, absolute = undefined) {
 			selected_capture = captures.length - 1;
 
 		const capture = captures[selected_capture];
+
+		if(capture.zoom) {
+			zoomx1 = capture.zoom.x1;
+			zoomy1 = capture.zoom.y1;
+			zoomx2 = capture.zoom.x2;
+			zoomy2 = capture.zoom.y2;
+			zoomed_in = capture.zoom.enabled;
+			reset_zoom = false;
+		}
 
 		capture_cache.values = [];
 
@@ -78,7 +89,7 @@ function change_selected_capture(interval, absolute = undefined) {
 		selected_capture = 0;
 	}
 
-	main_window_reset(true, false);
+	main_window_reset(reset_zoom, false);
 }
 
 /*

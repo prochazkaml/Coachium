@@ -19,6 +19,22 @@
  */
 
 /*
+ * update_capture_zoom()
+ * 
+ * Updates the zoom values stored in the capture object, so the zoom can be preserved.
+ */
+
+function update_capture_zoom() {
+	if(captures.length > 0)	captures[selected_capture].zoom = {
+		x1: zoomx1,
+		y1: zoomy1,
+		x2: zoomx2,
+		y2: zoomy2,
+		enabled: zoomed_in
+	};
+}
+
+/*
  * request_zoom_in()
  * 
  * Prompts the user to select a region, or aborts the current zoom request.
@@ -99,6 +115,7 @@ function zoom_to_data() {
 		zoomx1 = min_x; zoomy1 = min_y;
 		zoomx2 = max_x; zoomy2 = max_y;
 
+		update_capture_zoom();
 		update_button_validity();
 		main_window_reset(false, false); // Not needed, since we've done it already
 	}
@@ -117,6 +134,7 @@ function zoom_reset() {
 	zoom_request_progress = 0;
 	zoomed_in = false;
 
+	update_capture_zoom();
 	update_button_validity();
 	main_window_reset(false, false); // Not needed, since we've done it already
 }

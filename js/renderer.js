@@ -32,6 +32,7 @@ function main_window_reset(reset_zoom, reset_layout) {
 			zoomed_in = false;
 			zoomx1 = zoomy1 = 0;
 			zoomx2 = zoomy2 = 1;
+			update_capture_zoom();
 		}
 
 		if(reset_layout)

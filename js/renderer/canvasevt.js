@@ -83,6 +83,7 @@ function canvasmousemovehandler(e) {
 			mousepositions[1][0] = mouseX;
 			mousepositions[1][1] = mouseY;
 
+			update_capture_zoom();
 			canvas_reset(CANVAS_EVENT_REDRAW_ENTIRE);
 		} else if(zoom_request_progress || note_placement_progress) {
 			canvas_reset(CANVAS_EVENT_CROSSHAIR_MOVE);
@@ -196,6 +197,7 @@ function canvasmousechangehandler(status) {
 
 				canvas.style.cursor = "auto";
 
+				update_capture_zoom();
 				update_button_validity();
 				get_id("statusmsg").innerHTML = jslang.STATUS_ZOOM_IN_CONFIRM;
 
@@ -289,5 +291,6 @@ function canvasmousewheelhandler(event) {
 		update_button_validity();
 	}
 
+	update_capture_zoom();
 	canvas_reset(CANVAS_EVENT_REDRAW_ENTIRE);
 }
