@@ -203,7 +203,10 @@ function set_window_drag(id, enable) {
 	var win = get_win(id);
 	var title = get_win_el_class(id, "windowtitlemoveable");
 
-	if(title && title.onmousedown !== undefined) title.onmousedown = enable ? _drag_mouse_down : null;
+	if(title && title.onmousedown !== undefined) {
+		title.onmousedown = enable ? _drag_mouse_down : null;
+		win_force_bounds(win);
+	}
 	
 	function _drag_mouse_down(e) {
 		e = e || window.event;
@@ -256,12 +259,11 @@ function set_window_drag(id, enable) {
 
 function win_force_bounds(win, data = null) {
 	var mainrect = main.getBoundingClientRect();
-	var winrect = win.getBoundingClientRect();
 	var x, y;
 
 	if(data === null) {
-		x = winrect.x;
-		y = winrect.y;
+		x = win.offsetLeft;
+		y = win.offsetTop;
 	} else {
 		x = data.x;
 		y = data.y;
@@ -273,11 +275,11 @@ function win_force_bounds(win, data = null) {
 
 	if(y < mainrect.y) y = mainrect.y;
 
-	if(x > (mainrect.width + mainrect.x - winrect.width))
-		x = mainrect.width + mainrect.x - winrect.width;
+	if(x > (mainrect.width + mainrect.x - win.offsetWidth))
+		x = mainrect.width + mainrect.x - win.offsetWidth;
 
-	if(y > (mainrect.height + mainrect.y - winrect.height))
-		y = mainrect.height + mainrect.y - winrect.height;
+	if(y > (mainrect.height + mainrect.y - win.offsetHeight))
+		y = mainrect.height + mainrect.y - win.offsetHeight;
 
 	// Apply the new window's position
 
