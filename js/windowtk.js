@@ -111,7 +111,12 @@ function popup_window(id) {
 		window_stack[open_window] = id;
 
 		get_win_overlay(id).style.zIndex = zindex++;
-		get_win_overlay(id).style.pointerEvents = "auto";
+
+		if(!get_win_overlay(id).classList.contains("windowoverlayclear"))
+			get_win_overlay(id).style.pointerEvents = "auto";
+		else
+			get_win(id).style.pointerEvents = "auto";
+		
 		get_win_overlay(id).style.opacity = 1;
 		get_win(id).style.transform = "scale(1)";
 	}
@@ -145,6 +150,7 @@ function close_window(id = undefined) {
 		get_win_overlay(win).style.pointerEvents = "";
 		get_win_overlay(win).style.opacity = "";
 		get_win(win).style.transform = "";
+		get_win(win).style.pointerEvents = "";
 
 		closetimeoutids[win] = setTimeout(() => {
 			get_win_overlay(win).style.zIndex = "";

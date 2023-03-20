@@ -38,6 +38,10 @@
 	background-color: rgba(0, 0, 0, .5);
 }
 
+.windowoverlayclear {
+	background-color: rgba(0, 0, 0, 0);
+}
+
 .windowcloselayer {
 	position: absolute;
 
@@ -54,6 +58,11 @@
 
 	transform: scale(.9);
 	transition: transform .3s;
+}
+
+.popupwindow .windowtitlemoveable {
+	user-select: none;
+	cursor: move;
 }
 
 .bigwindow {
