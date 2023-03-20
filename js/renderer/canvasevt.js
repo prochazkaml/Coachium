@@ -215,8 +215,6 @@ function canvasmousewheelhandler(event) {
 		mousex = (mousepositions[0][0] - graph_margin_left) / (canvas.width - graph_margin_left - graph_margin_right),
 		mousey = (mousepositions[0][1] - graph_margin_top) / (canvas.height - graph_margin_top - graph_margin_bottom);
 
-//	console.log(scale);
-
 	if(!zoomed_in) {
 		zoomed_in = true;
 		zoomx1 = zoomy1 = 0;
@@ -235,21 +233,29 @@ function canvasmousewheelhandler(event) {
 
 		if(scale > 0.5) scale = 0.5;
 
-		zoomx1 += xl * scale;
-		zoomy1 += yb * scale;
+		if(!event.ctrlKey) {
+			zoomy1 += yb * scale;
+			zoomy2 -= yt * scale;
+		}
 
-		zoomx2 -= xr * scale;
-		zoomy2 -= yt * scale;
+		if(!event.shiftKey) {
+			zoomx1 += xl * scale;
+			zoomx2 -= xr * scale;
+		}
 	} else {
 		// Zoom out
 
 		if(scale < -0.5) scale = -0.5;
 
-		zoomx1 += xl * scale;
-		zoomy1 += yb * scale;
+		if(!event.ctrlKey) {
+			zoomy1 += yb * scale;
+			zoomy2 -= yt * scale;
+		}
 
-		zoomx2 -= xr * scale;
-		zoomy2 -= yt * scale;
+		if(!event.shiftKey) {
+			zoomx1 += xl * scale;
+			zoomx2 -= xr * scale;
+		}
 
 		// Handling for when the zoomed out region is temporarily off-screen
 

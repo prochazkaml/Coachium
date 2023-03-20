@@ -3,7 +3,6 @@
 - enable "finish" trigger (use one of the sensors for stopping the capture)
 - make the dummy device driver do something when capturing
 - make the cache system work properly (had issues with Windows 11 & Chrome)
-- Shift+scroll/Ctrl+scroll for single-axis zooming
 - when selecting zoom region or placing a note, enable panning
 - make the windows moveable
 - by default, place the fit function window to the bottom right and do not darken the background/deactivate the window upon clicking behind the window
@@ -11,6 +10,9 @@
 	- fitted function or axis (with offset) can also be selected as a source
 	- snapping to intersection points
 - implement sine fitting
+- function manager for adding custom functions
+- add mouse hints upon launching the program (over the canvas)
+- dedicated port popup (for enlarging a value of a given sensor)
 
 Future stuff:
 - ability to manually attach sensors
