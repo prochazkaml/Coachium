@@ -110,13 +110,19 @@ function popup_window(id) {
 
 		window_stack[open_window] = id;
 
-		get_win_overlay(id).style.zIndex = zindex++;
-
-		if(!get_win_overlay(id).classList.contains("windowoverlayclear"))
-			get_win_overlay(id).style.pointerEvents = "auto";
-		else
+		if(win_can_pass_events(id)) {
+			// Window without background, allow events to pass through and set up window movement
+			
 			get_win(id).style.pointerEvents = "auto";
+			get_win(id).style.position = "absolute";
+			set_window_drag(id, true);
+		} else {
+			// Static window with dimmed background, block events from passing through
+
+			get_win_overlay(id).style.pointerEvents = "auto";
+		}
 		
+		get_win_overlay(id).style.zIndex = zindex++;
 		get_win_overlay(id).style.opacity = 1;
 		get_win(id).style.transform = "scale(1)";
 	}
@@ -151,6 +157,7 @@ function close_window(id = undefined) {
 		get_win_overlay(win).style.opacity = "";
 		get_win(win).style.transform = "";
 		get_win(win).style.pointerEvents = "";
+		set_window_drag(win, false);
 
 		closetimeoutids[win] = setTimeout(() => {
 			get_win_overlay(win).style.zIndex = "";
@@ -170,6 +177,63 @@ function confirm_window() {
 		const butt = get_win_el_class(window_stack[open_window], "windowbutton")
 
 		if(!butt.classList.contains("windowbuttondisabled")) butt.click();
+	}
+}
+
+/*
+ * win_can_pass_events(id)
+ * 
+ * Returns whether a window can pass events through its
+ * background parent layer (which is also completely
+ * transparent).
+ */
+
+function win_can_pass_events(id) {
+	return get_win_overlay(id).classList.contains("windowoverlayclear");
+}
+
+/*
+ * set_window_drag(id, enable)
+ * 
+ * Enables or disables the option of dragging a window around
+ * by its title.
+ */
+
+function set_window_drag(id, enable) {
+	var win = get_win(id);
+	var title = get_win_el_class(id, "windowtitlemoveable");
+
+	if(title && title.onmousedown !== undefined) title.onmousedown = enable ? _drag_mouse_down : null;
+	
+	function _drag_mouse_down(e) {
+		e = e || window.event;
+		e.preventDefault();
+
+		oldx = e.clientX;
+		oldy = e.clientY;
+
+		document.onmouseup = _close_drag_element;
+		document.onmousemove = _element_drag;
+	}
+
+	function _element_drag(e) {
+		e = e || window.event;
+		e.preventDefault();
+
+		if(e.clientX >= 0 && e.clientX < window.innerWidth &&
+			e.clientY >= 0 && e.clientY < window.innerHeight) {
+
+			win.style.left = (win.offsetLeft - (oldx - e.clientX)) + "px";
+			win.style.top = (win.offsetTop - (oldy - e.clientY)) + "px";
+
+			oldx = e.clientX;
+			oldy = e.clientY;
+		}
+	}
+
+	function _close_drag_element() {
+		document.onmouseup = null;
+		document.onmousemove = null;
 	}
 }
 
