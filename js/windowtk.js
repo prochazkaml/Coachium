@@ -209,26 +209,30 @@ function set_window_drag(id, enable) {
 		e = e || window.event;
 		e.preventDefault();
 
-		oldx = e.clientX;
-		oldy = e.clientY;
-
 		document.onmouseup = _close_drag_element;
 		document.onmousemove = _element_drag;
 	}
 
 	function _element_drag(e) {
+		var winrect = win.getBoundingClientRect();
+
 		e = e || window.event;
 		e.preventDefault();
 
+		// Perform the translation
+
+		var x = winrect.x, y = winrect.y;
+
 		if(e.clientX >= 0 && e.clientX < window.innerWidth &&
-			e.clientY >= 0 && e.clientY < window.innerHeight) {
+		   e.clientY >= 0 && e.clientY < window.innerHeight) {
 
-			win.style.left = (win.offsetLeft - (oldx - e.clientX)) + "px";
-			win.style.top = (win.offsetTop - (oldy - e.clientY)) + "px";
-
-			oldx = e.clientX;
-			oldy = e.clientY;
+			x += e.movementX;
+			y += e.movementY;
 		}
+
+		// Apply the new window's position
+
+		win_force_bounds(win, { x, y });
 	}
 
 	function _close_drag_element() {
@@ -237,3 +241,46 @@ function set_window_drag(id, enable) {
 	}
 }
 
+/*
+ * win_force_bounds(win, data)
+ * 
+ * If the given window is draggable, make sure it stays
+ * within its bounds.
+ * 
+ * data is an optional parameter ({x: ..., y: ...}),
+ * which specifies the target window coordinates.
+ * If this object is passed, this function will
+ * consider these coordinates instead of the current
+ * ones and will move the window there.
+ */
+
+function win_force_bounds(win, data = null) {
+	var mainrect = main.getBoundingClientRect();
+	var winrect = win.getBoundingClientRect();
+	var x, y;
+
+	if(data === null) {
+		x = winrect.x;
+		y = winrect.y;
+	} else {
+		x = data.x;
+		y = data.y;
+	}
+
+	// Make sure the window does not go out of bounds
+
+	if(x < mainrect.x) x = mainrect.x;
+
+	if(y < mainrect.y) y = mainrect.y;
+
+	if(x > (mainrect.width + mainrect.x - winrect.width))
+		x = mainrect.width + mainrect.x - winrect.width;
+
+	if(y > (mainrect.height + mainrect.y - winrect.height))
+		y = mainrect.height + mainrect.y - winrect.height;
+
+	// Apply the new window's position
+
+	win.style.left = x + "px";
+	win.style.top = y + "px";
+}

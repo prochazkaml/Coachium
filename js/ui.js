@@ -93,6 +93,12 @@ function ui_connect(actually_connect) {
 			window.addEventListener('resize', () => {
 				main_window_reset(false, true);
 				close_popup_listener({"force": true});
+
+				for(var i = 0; i <= open_window; i++) {
+					var win = get_win(window_stack[i]);
+
+					if(win_can_pass_events(window_stack[i])) win_force_bounds(win);
+				}
 			}, false);
 
 			window.addEventListener('deviceorientation', () => {

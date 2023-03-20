@@ -3,7 +3,6 @@
 - enable "finish" trigger (use one of the sensors for stopping the capture)
 - make the dummy device driver do something when capturing
 - make the cache system work properly (had issues with Windows 11 & Chrome)
-- make some windows moveable (the fit function dialog, for example)
 - by default, place the fit function window to the bottom right and do not darken the background/deactivate the window upon clicking behind the window
 - calculation of area between 2 functions
 	- fitted function or axis (with offset) can also be selected as a source
