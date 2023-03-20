@@ -40,7 +40,9 @@ document.addEventListener('keydown', (event) => {
 		}
 	} else {
 		close_popup();
+	}
 
+	if(open_window < 0 || win_can_pass_events(window_stack[open_window])) {
 		if(event.ctrlKey) switch(key) {
 			case "o":
 				event.preventDefault();
