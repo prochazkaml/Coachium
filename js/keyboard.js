@@ -39,17 +39,18 @@ document.addEventListener('keydown', (event) => {
 				break;
 		}
 	} else {
-		if(!launched) return;
-
 		close_popup();
 
 		if(event.ctrlKey) switch(key) {
 			case "o":
 				event.preventDefault();
 				load_file_local(false);
+				if(!launched) ui_connect(false);
 				break;
 
 			case "s":
+				if(!launched) break;
+
 				event.preventDefault();
 
 				if(event.shiftKey)
@@ -59,7 +60,7 @@ document.addEventListener('keydown', (event) => {
 
 				break;
 
-		} else switch(key) {
+		} else if(launched) switch(key) {
 			case " ":
 				event.preventDefault();
 

@@ -35,9 +35,10 @@ function ui_hardware_change_trigger() {
 }
 
 /*
- * ui_connect()
+ * ui_connect(actually_connect)
  *
- * Does the fancy initial animation when the interface is selected.
+ * Does the fancy initial animation when an interface is selected
+ * or the application enters guest mode.
  */
 
 var launched = 0;
