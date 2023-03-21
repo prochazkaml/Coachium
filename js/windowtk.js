@@ -253,7 +253,7 @@ function set_window_drag(id, enable) {
  */
 
 function win_force_bounds(win, data = null) {
-	var mainrect = main.getBoundingClientRect();
+	var mainrect = get_class("maindisplay").getBoundingClientRect();
 	var x, y;
 
 	if(data === null) {
