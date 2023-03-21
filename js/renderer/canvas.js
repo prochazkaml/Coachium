@@ -502,8 +502,58 @@ function canvas_reset(event) {
 				ctx.stroke();
 			}
 		} else {
-			ctx.fillText(jslang.MAINWIN_NO_CAPTURES_1, canvas.width / 2, canvas.height / 2 - 16);
-			ctx.fillText(jslang.MAINWIN_NO_CAPTURES_2, canvas.width / 2, canvas.height / 2 + 16);
+			// No captures present, display help
+
+			const hw = 400, hh = 210;
+			const hxm = canvas.width / 2, hxl = (canvas.width - hw) / 2, hxr = (canvas.width + hw) / 2, hy = (canvas.height - hh) / 2;
+
+//			ctx.fillStyle = "gray";
+//			ctx.fillRect((canvas.width - hw) / 2, (canvas.height - hh) / 2, hw, hh)
+
+			ctx.fillStyle = "black";
+
+			ctx.fillText(jslang.MAINWIN_NO_CAPTURES_1, hxm, hy + 8);
+			ctx.fillText(jslang.MAINWIN_NO_CAPTURES_2, hxm, hy + 40);
+
+			ctx.lineCap = "round";
+			ctx.textAlign = "right";
+			ctx.font = "bold 16px CoachiumDefaultFont";
+
+			// Drag
+
+			draw_mouse(hxl + 10, hy + 75, 0);
+			draw_plus(hxl + 60, hy + 100, 20);
+			for(var i = 0; i < 4; i++) draw_arrow(hxl + 100, hy + 100, 20, 7, i);
+
+			ctx.fillText(jslang.MAINWIN_HELP_DRAG, hxl - 10, hy + 100);
+
+			// Scroll
+
+			draw_mouse(hxl + 10, hy + 155, 1);
+			ctx.strokeStyle = "white"; draw_arrow(hxl + 25, hy + 155, 12, 8, 0, 9); draw_arrow(hxl + 25, hy + 182, 12, 8, 2, 9);
+			ctx.strokeStyle = "black"; draw_arrow(hxl + 25, hy + 155, 12, 8, 0, 5); draw_arrow(hxl + 25, hy + 182, 12, 8, 2, 5);
+
+			ctx.fillText(jslang.MAINWIN_HELP_SCROLL, hxl - 10, hy + 180);
+
+			// Ctrl + Scroll
+
+			draw_key(hxr + 10, hy + 80, "Ctrl");
+			draw_plus(hxr + 110, hy + 100, 20);
+			draw_mouse(hxr + 130, hy + 75, 1);
+			ctx.strokeStyle = "white"; draw_arrow(hxr + 145, hy + 75, 12, 8, 0, 9); draw_arrow(hxr + 145, hy + 102, 12, 8, 2, 9);
+			ctx.strokeStyle = "black"; draw_arrow(hxr + 145, hy + 75, 12, 8, 0, 5); draw_arrow(hxr + 145, hy + 102, 12, 8, 2, 5);
+
+			ctx.fillText(jslang.MAINWIN_HELP_CTRL_SCROLL, hxr - 10, hy + 100);
+
+			// Shift + Scroll
+
+			draw_key(hxr + 10, hy + 160, "Shift");
+			draw_plus(hxr + 110, hy + 180, 20);
+			draw_mouse(hxr + 130, hy + 155, 1);
+			ctx.strokeStyle = "white"; draw_arrow(hxr + 145, hy + 155, 12, 8, 0, 9); draw_arrow(hxr + 145, hy + 182, 12, 8, 2, 9);
+			ctx.strokeStyle = "black"; draw_arrow(hxr + 145, hy + 155, 12, 8, 0, 5); draw_arrow(hxr + 145, hy + 182, 12, 8, 2, 5);
+
+			ctx.fillText(jslang.MAINWIN_HELP_SHIFT_SCROLL, hxr - 10, hy + 180);
 		}
 
 		drawcache = null;
