@@ -36,6 +36,8 @@ const fitting_algos = [
  */
 
 function fit_function() {
+	if(get_id("advancedbutton").classList.contains("navbuttondisabled")) return;
+
 	if(get_id("advancedpopup_fitfunction").classList.contains("popupitemdisabled")) return;
 
 	close_popup();

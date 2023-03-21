@@ -25,6 +25,8 @@
  */
 
 function note_manager() {
+	if(get_id("advancedbutton").classList.contains("navbuttondisabled")) return;
+
 	if(get_id("advancedpopup_notemgr").classList.contains("popupitemdisabled")) return;
 
 	close_popup();
