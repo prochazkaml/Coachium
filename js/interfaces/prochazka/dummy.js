@@ -26,14 +26,11 @@ class Prochazka_Dummy_driver {
 			autodetect: true,
 			connected: true,
 			color: get_port_color(0),
-			name: "Thermocouple 110",
-			unit: "°C",
-			value: 29.48483243242,
+			name: "Dummy sensor 1",
+			unit: "W",
+			value: 0,
 			min: -20,
-			max: 110,
-			coeff_a: 29.093,
-			coeff_b: -26.33,
-			mode: 0,
+			max: 20,
 			zero_offset: null,
 			detected: false
 		},
@@ -41,14 +38,11 @@ class Prochazka_Dummy_driver {
 			autodetect: true,
 			connected: true,
 			color: get_port_color(1),
-			name: "Thermocouple 110",
-			unit: "°C",
-			value: 29.48483243242,
+			name: "Dummy sensor 2",
+			unit: "X",
+			value: 0,
 			min: -20,
-			max: 110,
-			coeff_a: 29.093,
-			coeff_b: -26.33,
-			mode: 0,
+			max: 20,
 			zero_offset: null,
 			detected: false
 		},
@@ -56,14 +50,11 @@ class Prochazka_Dummy_driver {
 			autodetect: true,
 			connected: true,
 			color: get_port_color(2),
-			name: "Thermocouple 110",
-			unit: "°C",
-			value: 29.48483243242,
+			name: "Dummy sensor 3",
+			unit: "Y",
+			value: 0,
 			min: -20,
-			max: 110,
-			coeff_a: 29.093,
-			coeff_b: -26.33,
-			mode: 0,
+			max: 20,
 			zero_offset: null,
 			detected: false
 		},
@@ -71,24 +62,76 @@ class Prochazka_Dummy_driver {
 			autodetect: true,
 			connected: true,
 			color: get_port_color(3),
-			name: "Thermocouple 110",
-			unit: "°C",
-			value: 29.48483243242,
+			name: "Dummy sensor 4",
+			unit: "Z",
+			value: 0,
 			min: -20,
-			max: 110,
-			coeff_a: 29.093,
-			coeff_b: -26.33,
-			mode: 0,
+			max: 20,
 			zero_offset: null,
 			detected: false
 		}
 	};
 
 	capture = {
-		running: false
+		running: false,
+		callback: null
 	};
 
-	autodetect(portname, updatecb) {
+	// driver.init is not necessary here
+
+	/*
+	 * async driver.deinit()
+	 * 
+	 * Deinitializes the driver.
+	 */
+	
+	async deinit() {}
+
+	/*
+	 * async driver.getval(portname)
+	 * 
+	 * Gets the current value of a given port.
+	 * Returns undefined if the port is not connected or if an error occurs.
+	 */
+
+	_getval(portname) {
+		const keys = Object.keys(driver.ports);
+
+		if(this.ports[portname].connected)
+			return this.ports[portname].value = Math.sin(window.performance.now() / 500 + 2 * Math.PI / keys.length * keys.indexOf(portname)) * 10 - this.ports[portname].zero_offset;
+		else
+			return undefined;
+	}
+
+	async getval(portname) {
+		if(this.capture.running) {
+			const pindex = this.capture.ports.indexOf(portname)
+
+			if(pindex >= 0 && this.capture.received > 0) {
+				return this.ports[portname].value = this.capture.data[(Math.floor(this.capture.received / this.capture.ports.length) - 1) * this.capture.ports.length + pindex];
+			} else {
+				return undefined;
+			}
+		} else {
+			return this._getval(portname);
+		}
+	}
+
+	/*
+	 * async driver.autodetect(portname, updatecb)
+	 * 
+	 * Performs autodetection on a given port, if it is enabled.
+	 * Returns 0 on success, 1 on error.
+	 * 
+	 * updatecb should be a function with accepts the following object:
+	 * 
+	 * {
+	 *   "type": "change" or "load",
+	 *   "progress": value from 0 to 1 (only present if "type" is "load")
+	 * }
+	 */
+
+	async autodetect(portname, updatecb) {
 		if(!this.ports[portname].detected) {
 			this.ports[portname].detected = true;
 			updatecb({ type: "change" });
@@ -97,25 +140,114 @@ class Prochazka_Dummy_driver {
 		return 0;
 	};
 
-	getval(port) {
-		const keys = Object.keys(driver.ports);
-
-		if(this.ports[port].connected)
-			return this.ports[port].value = Math.sin(window.performance.now() / 500 + 2 * Math.PI / keys.length * keys.indexOf(port)) * 10 - this.ports[port].zero_offset;
-		else
-			return undefined;
-	}
-
-	deinit() {}
+	/*
+	 * driver.verifycapture(setup)
+	 * 
+	 * Verifies the desired capture settings and corrects them, if necessary.
+	 * 
+	 * Input/output object format:
+	 * 
+	 * {
+	 *   "ports": [ "1", ... ]
+	 *   "length": number (milliseconds)
+	 *   "freq": number (Hz)
+	 * }
+	 * 
+	 * The "length" parameter will only be updated if it was limited.
+	 * If an incompatible amount of capture ports is passed, undefined is returned instead of an object.
+	 */
 
 	verifycapture(setup) {
 		if(setup.ports.length < 1 || setup.ports.length > 2) return undefined;
 
-		setup.freq = round(setup.freq);
-		
-		if(setup.length / 1000 * setup.freq > 10000) setup.length = (10000 / setup.freq) * 1000;
-		if(setup.length / 1000 * setup.freq < 2) setup.length = (2 / setup.freq) * 1000;
+		const units = round(1000 / setup.freq);
 
+		setup.freq = units ? (1000 / units) : 1000;
+		
 		return setup;
+	}
+
+	/*
+	 * async driver.startcapture(setup)
+	 * 
+	 * Starts a capture on this device based on the desired settings.
+	 * 
+	 * Returns undefined on invalid settings (selected ports are not connected),
+	 * object on success:
+	 * 
+	 * {
+	 *   ports: {
+	 *     "A1": {
+	 *       name: "Thermocouple",
+	 *       min, max, unit, ...
+	 *     }, ...
+	 *   },
+	 *   interval: number of us
+	 * }
+	 */
+
+	async startcapture(setup) {
+		if(setup.ports.length < 1 || setup.ports.length > 2) return undefined;
+
+		const units = round(1000 / setup.freq);
+
+		setup.freq = units ? (1000 / units) : 1000;
+
+		var ports = [];
+
+		for(var i = 0; i < setup.ports.length; i++) {
+			const port = this.ports[setup.ports[i]];
+
+			if(!port || !port.connected) return undefined;
+
+			ports.push(port);
+		}
+
+		const samples = Math.floor(setup.length / units) + 1;
+
+		// Initialize the capture data
+
+		this.capture.running = true;
+		this.capture.data = new Array(samples * ports.length);
+		this.capture.received = 0;
+		this.capture.ports = setup.ports;
+
+		// Get ready for receiving data
+
+		this.capture.callback = setInterval(async () => {
+			for(var j = 0; j < this.capture.ports.length; j++) {
+				this.capture.data[this.capture.received++] = this._getval(this.capture.ports[j]);
+			}
+
+			// Check if we've finished
+
+			if(this.capture.received >= samples) {
+				this.stopcapture();
+			}
+		}, units);
+
+		console.log(ports);
+
+		return {
+			interval: units * 1000, // us
+			ports: ports
+		};
+	}
+
+	/*
+	 * async driver.stopcapture()
+	 * 
+	 * Stops the current capture.
+	 */
+
+	async stopcapture() {
+		if(this.capture.callback !== null) {
+			clearInterval(this.capture.callback);
+			this.capture.callback = null;
+		}
+
+		if(this.capture.running) {
+			this.capture.running = false;
+		}
 	}
 };
