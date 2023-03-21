@@ -9,7 +9,6 @@
 	- snapping to intersection points
 - implement sine fitting
 - function manager for adding custom functions
-- add mouse hints upon launching the program (over the canvas)
 - dedicated port popup (for enlarging a value of a given sensor)
 
 Future stuff:

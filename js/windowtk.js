@@ -200,6 +200,7 @@ function win_can_pass_events(id) {
  */
 
 function set_window_drag(id, enable) {
+	var oldwinx, oldwiny, oldx, oldy;
 	var win = get_win(id);
 	var title = get_win_el_class(id, "windowtitlemoveable");
 
@@ -212,30 +213,25 @@ function set_window_drag(id, enable) {
 		e = e || window.event;
 		e.preventDefault();
 
+		oldx = e.clientX;
+		oldy = e.clientY;
+		oldwinx = win.offsetLeft;
+		oldwiny = win.offsetTop;
+
 		document.onmouseup = _close_drag_element;
 		document.onmousemove = _element_drag;
 	}
 
 	function _element_drag(e) {
-		var winrect = win.getBoundingClientRect();
-
 		e = e || window.event;
 		e.preventDefault();
 
-		// Perform the translation
+		// Perform the translation and apply the new window's position
 
-		var x = winrect.x, y = winrect.y;
-
-		if(e.clientX >= 0 && e.clientX < window.innerWidth &&
-		   e.clientY >= 0 && e.clientY < window.innerHeight) {
-
-			x += e.movementX;
-			y += e.movementY;
-		}
-
-		// Apply the new window's position
-
-		win_force_bounds(win, { x, y });
+		win_force_bounds(win, {
+			x: oldwinx + e.clientX - oldx,
+			y: oldwiny + e.clientY - oldy
+		});
 	}
 
 	function _close_drag_element() {
