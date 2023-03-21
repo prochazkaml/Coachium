@@ -225,6 +225,7 @@ const en = {
 		"WINDOW23_BUTTON_EDIT": "Save changes",
 		"WINDOW23_BUTTON_MOVE": "Move note...",
 		"WINDOW23_BUTTON_REMOVE": "Remove note",
+		"PLACEHOLDER_WINDOW23_TIP": "Start typing here to create your note. Press the button below to place it onto your capture.",
 
 		"WINDOW24_TITLE": "Google Services error",
 		"WINDOW24_PAR0": "The Google Drive subsystem failed to load.",

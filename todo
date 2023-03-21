@@ -8,6 +8,10 @@
 - implement sine fitting
 - function manager for adding custom functions
 - dedicated port popup (for enlarging a value of a given sensor)
+- make the table exportable into something useful
+- refresh fit function dialog when selecting a different capture
+- close fit function dialog at appropriate times
+- display generated functions in the table (toggleable values)
 
 Future stuff:
 - ability to manually attach sensors

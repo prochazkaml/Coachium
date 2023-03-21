@@ -65,6 +65,8 @@ function parse_lang(lobj) {
 		for(var el of get_class("L18N_" + key, null)) {
 			if(key.startsWith("TITLE_"))
 				el.title = htmllang[key];
+			else if(key.startsWith("PLACEHOLDER_"))
+				el.placeholder = htmllang[key];
 			else if(key.startsWith("CSSATTR_"))
 				el.setAttribute("css-attr", htmllang[key]);
 			else

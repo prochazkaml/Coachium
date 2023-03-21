@@ -218,6 +218,7 @@ const cs = {
 		"WINDOW23_BUTTON_EDIT": "Uložit změny",
 		"WINDOW23_BUTTON_MOVE": "Přesunout poznámku...",
 		"WINDOW23_BUTTON_REMOVE": "Odstranit poznámku",
+		"PLACEHOLDER_WINDOW23_TIP": "Sem můžete napsat svou poznámku. Kliknutím na tlačítko níže ji budete moci umístit do svého záznamu.",
 
 		"WINDOW24_TITLE": "Chyba služeb Google",
 		"WINDOW24_PAR0": "Chyba načítání podsystému řídící služby Google.",
