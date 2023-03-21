@@ -114,7 +114,6 @@ function popup_window(id) {
 			// Window without background, allow events to pass through and set up window movement
 			
 			get_win(id).style.pointerEvents = "auto";
-			get_win(id).style.position = "absolute";
 			set_window_drag(id, true);
 		} else {
 			// Static window with dimmed background, block events from passing through
@@ -281,4 +280,6 @@ function win_force_bounds(win, data = null) {
 
 	win.style.left = x + "px";
 	win.style.top = y + "px";
+	win.style.right = "";
+	win.style.bottom = "";
 }
