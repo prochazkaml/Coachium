@@ -239,7 +239,7 @@ function canvasmousewheelhandler(event) {
 
 		if(scale > 0.5) scale = 0.5;
 
-		if(!event.ctrlKey) {
+		if(!event.altKey) {
 			zoomy1 += yb * scale;
 			zoomy2 -= yt * scale;
 		}
@@ -253,7 +253,7 @@ function canvasmousewheelhandler(event) {
 
 		if(scale < -0.5) scale = -0.5;
 
-		if(!event.ctrlKey) {
+		if(!event.altKey) {
 			zoomy1 += yb * scale;
 			zoomy2 -= yt * scale;
 		}

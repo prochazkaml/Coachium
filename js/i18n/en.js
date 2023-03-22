@@ -271,7 +271,7 @@ const en = {
 
 		"MAINWIN_HELP_DRAG": "Pan around the chart",
 		"MAINWIN_HELP_SCROLL": "Zoom in or out",
-		"MAINWIN_HELP_CTRL_SCROLL": "Zoom in or out along the X axis",
+		"MAINWIN_HELP_ALT_SCROLL": "Zoom in or out along the X axis",
 		"MAINWIN_HELP_SHIFT_SCROLL": "Zoom in or out along the Y axis",
 
 		"CAPTURE_FMT": "Capture {0} out of {1}: {2}",

@@ -264,7 +264,7 @@ const cs = {
 
 		"MAINWIN_HELP_DRAG": "Posun grafu",
 		"MAINWIN_HELP_SCROLL": "Přiblížení a oddálení grafu",
-		"MAINWIN_HELP_CTRL_SCROLL": "Přiblížení a oddálení na ose X",
+		"MAINWIN_HELP_ALT_SCROLL": "Přiblížení a oddálení na ose X",
 		"MAINWIN_HELP_SHIFT_SCROLL": "Přiblížení a oddálení na ose Y",
 
 		"CAPTURE_FMT": "Záznam {0} z {1}: {2}",

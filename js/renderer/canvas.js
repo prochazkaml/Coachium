@@ -535,15 +535,15 @@ function canvas_reset(event) {
 
 			ctx.fillText(jslang.MAINWIN_HELP_SCROLL, hxl - 10, hy + 180);
 
-			// Ctrl + Scroll
+			// Alt + Scroll
 
-			draw_key(hxr + 10, hy + 80, "Ctrl");
+			draw_key(hxr + 10, hy + 80, "Alt");
 			draw_plus(hxr + 110, hy + 100, 20);
 			draw_mouse(hxr + 130, hy + 75, 1);
 			ctx.strokeStyle = "white"; draw_arrow(hxr + 145, hy + 75, 12, 8, 0, 9); draw_arrow(hxr + 145, hy + 102, 12, 8, 2, 9);
 			ctx.strokeStyle = "black"; draw_arrow(hxr + 145, hy + 75, 12, 8, 0, 5); draw_arrow(hxr + 145, hy + 102, 12, 8, 2, 5);
 
-			ctx.fillText(jslang.MAINWIN_HELP_CTRL_SCROLL, hxr - 10, hy + 100);
+			ctx.fillText(jslang.MAINWIN_HELP_ALT_SCROLL, hxr - 10, hy + 100);
 
 			// Shift + Scroll
 
