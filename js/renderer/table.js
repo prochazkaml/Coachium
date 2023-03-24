@@ -37,35 +37,21 @@ function table_reset() {
 		title.innerText = format(jslang.CAPTURE_FMT, selected_capture + 1, captures.length, capture.title);
 		out.appendChild(title);
 
+		const data = table_gen(capture);
+
 		var tbl = document.createElement("table");
-		var tr = document.createElement("tr");
+		var row, cell;
 
-		var th = document.createElement("th");
-		th.innerText = format(jslang.TABLE_INTERVAL, capture_cache.ports[0].unit);
-		tr.appendChild(th);
+		for(var y = 0; y < data.length; y++) {
+			row = document.createElement("tr");
 
-		const keys = Object.keys(capture.ports);
-
-		for(var i = 0; i < keys.length; i++) {
-			th = document.createElement("th");
-			th.innerText = format(jslang.TABLE_SENSOR, keys[i], capture_cache.ports[i + 1].unit);
-			tr.appendChild(th);
-		}
-
-		tbl.appendChild(tr);
-
-		var td;
-
-		for(var i = 0; i < capture_cache.values.length; i++) {
-			tr = document.createElement("tr");
-
-			for(var j = 0; j < capture_cache.ports.length; j++) {
-				td = document.createElement("td");
-				td.innerText = localize_num(capture_cache.values[i][j]);
-				tr.appendChild(td);	
+			for(var x = 0; x < data[y].length; x++) {
+				cell = document.createElement((y == 0) ? "th" : "td");
+				cell.innerText = data[y][x];
+				row.appendChild(cell);
 			}
 
-			tbl.appendChild(tr);
+			tbl.appendChild(row);
 		}
 
 		out.appendChild(tbl);
@@ -76,4 +62,38 @@ function table_reset() {
 
 	table.innerHTML = "";
 	table.appendChild(out);
+}
+
+/*
+ * table_gen(capture)
+ * 
+ * Generates the table data, returns a 2D array containing cell values.
+ */
+
+function table_gen(capture) {
+	var rows = [];
+
+	// Generate header
+
+	var col = [ format(jslang.TABLE_INTERVAL, capture_cache.ports[0].unit) ];
+
+	const keys = Object.keys(capture.ports);
+
+	for(var i = 0; i < keys.length; i++) {
+		col.push(format(jslang.TABLE_SENSOR, keys[i], capture_cache.ports[i + 1].unit))
+	}
+
+	rows.push(col);
+
+	for(var i = 0; i < capture_cache.values.length; i++) {
+		col = [];
+
+		for(var j = 0; j < capture_cache.ports.length; j++) {
+			col.push(localize_num(capture_cache.values[i][j]));
+		}
+
+		rows.push(col);
+	}
+
+	return rows;
 }
