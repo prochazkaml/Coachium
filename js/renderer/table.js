@@ -98,7 +98,7 @@ function table_gen(capture, display_fns) {
 		var unit = "???";
 		var name = jslang["TABLE_FUN_" + fn.fun.toUpperCase()];
 
-		if(fn.sensor_x && fn.sensor_y) unit =
+		if(fn.sensor_x !== undefined && fn.sensor_y !== undefined) unit =
 			capture_cache.ports[fn.sensor_y].unit + "/" +
 			capture_cache.ports[fn.sensor_x].unit;
 
@@ -124,7 +124,7 @@ function table_gen(capture, display_fns) {
 		if(display_fns) for(var j = 0; j < fns.length; j++) {
 			const fn = fns[j];
 
-			if(fn.sensor_x)
+			if(fn.sensor_x !== undefined)
 				col.push(localize_num(fn_calcs[j](capture_cache.values[i][fn.sensor_x])));
 			else
 				col.push("???");
