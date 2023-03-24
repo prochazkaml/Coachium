@@ -72,6 +72,10 @@ header {
 	transition: height .3s, padding .3s, background-color .3s;
 }
 
+input {
+	box-sizing: border-box;
+}
+
 #headercontents {
 	display: flex;
 	flex-direction: column;

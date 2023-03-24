@@ -8,10 +8,10 @@
 - implement sine fitting
 - function manager for adding custom functions
 - dedicated port popup (for enlarging a value of a given sensor)
-- rename capture dialog is a bit broken (input box too large)
 - allow data limiting (remove up to a certain point, etc.) - auto recalculate fit if necessary
 - rendering to .svg
 - allow selecting which sensor to use for fitting functions (in non-XY mode)
+- update screenshot in README
 
 Future stuff:
 - ability to manually attach sensors
