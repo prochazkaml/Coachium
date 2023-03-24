@@ -119,7 +119,7 @@ function change_capture_view() {
 		get_id("viewasgraphbutton").style.display = "none";
 	}
 
-	main_window_reset(true, true);
+	main_window_reset(false, true);
 }
 
 /*
