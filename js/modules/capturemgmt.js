@@ -166,8 +166,6 @@ function remove_capture(are_you_sure) {
 		change_selected_capture(0);
 
 		get_id("statusmsg").innerHTML = format(jslang.STATUS_CAPTURE_REMOVED, oldselected + 1);
-
-		main_window_reset(true, false);
 	}
 }
 
@@ -226,7 +224,6 @@ function capture_management() {
 		input.value = captures[select.selectedIndex].title;
 		get_win_el_class(w, "windowbutton").style.backgroundColor = "rgba(0, 0, 0, .1)";
 		change_selected_capture(0, select.selectedIndex);
-		main_window_reset(true, false);
 	}
 
 	input.oninput = () => {
