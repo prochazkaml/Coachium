@@ -37,7 +37,7 @@ function table_reset() {
 		title.innerText = format(jslang.CAPTURE_FMT, selected_capture + 1, captures.length, capture.title);
 		out.appendChild(title);
 
-		const data = table_gen(capture);
+		const data = table_gen(capture, true);
 
 		var tbl = document.createElement("table");
 		var row, cell;
@@ -65,12 +65,21 @@ function table_reset() {
 }
 
 /*
- * table_gen(capture)
+ * table_gen(capture, display_fns)
  * 
  * Generates the table data, returns a 2D array containing cell values.
+ * Can control whether functions are displayed as well or not.
  */
 
-function table_gen(capture) {
+function table_gen(capture, display_fns) {
+	var fn_calcs = [];
+
+	const fns = capture.functions;
+
+	for(var i = 0; i < fns.length; i++) {
+		fn_calcs[i] = get_fun_calc(fns[i]);
+	}
+
 	var rows = [];
 
 	// Generate header
@@ -83,6 +92,26 @@ function table_gen(capture) {
 		col.push(format(jslang.TABLE_SENSOR, keys[i], capture_cache.ports[i + 1].unit))
 	}
 
+	if(display_fns) for(var i = 0; i < fns.length; i++) {
+		const fn = fns[i];
+
+		var unit = "???";
+		var name = jslang["TABLE_FUN_" + fn.fun.toUpperCase()];
+
+		if(fn.sensor_x && fn.sensor_y) unit =
+			capture_cache.ports[fn.sensor_y].unit + "/" +
+			capture_cache.ports[fn.sensor_x].unit;
+
+		if(name) {
+			if(fn.type == "fit")
+				col.push(format(jslang.TABLE_FUN_FITTED, name, unit));
+			else
+				col.push(format(jslang.TABLE_FUN, name, unit));
+		} else {
+			col.push(format(jslang.TABLE_FUN_UNKNOWN_TYPE, unit));
+		}
+	}
+
 	rows.push(col);
 
 	for(var i = 0; i < capture_cache.values.length; i++) {
@@ -90,6 +119,15 @@ function table_gen(capture) {
 
 		for(var j = 0; j < capture_cache.ports.length; j++) {
 			col.push(localize_num(capture_cache.values[i][j]));
+		}
+
+		if(display_fns) for(var j = 0; j < fns.length; j++) {
+			const fn = fns[j];
+
+			if(fn.sensor_x)
+				col.push(localize_num(fn_calcs[j](capture_cache.values[i][fn.sensor_x])));
+			else
+				col.push("???");
 		}
 
 		rows.push(col);
