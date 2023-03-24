@@ -136,8 +136,8 @@ function fit_function() {
 					fun: algo_output.fun,
 					type: "fit",
 					params: algo_output.output,
-					unit_x: capture_cache.ports[capture_cache.xy_mode ? 1 : 0].unit, // TODO
-					unit_y: capture_cache.ports[capture_cache.xy_mode ? 2 : 1].unit // TODO
+					sensor_x: capture_cache.xy_mode ? 1 : 0, // TODO
+					sensor_y: capture_cache.xy_mode ? 2 : 1 // TODO
 				});
 			} else {
 				for(var i = 0; i < funs.length; i++) {
