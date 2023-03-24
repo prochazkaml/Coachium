@@ -143,395 +143,412 @@ function canvas_reset(event) {
 			overlay.style.height = canvas.style.height = "";
 		}
 
-		ctx.clearRect(0, 0, canvas.width, canvas.height);
-		ovctx.clearRect(0, 0, overlay.width, overlay.height);
-
-//		ovctx.fillStyle = "rgba(255, 0, 0, .5)";
-//		ovctx.fillRect(0, 0, canvas.width, canvas.height);
-
 		if(get_class("canvasstack").style.display == "none") return;
 
-		// Set the default ctx values
+		render_chart(ctx);
+		render_overlay(ovctx);
+	}
+}
 
-		ctx.fillStyle = "black";
-		ctx.textBaseline = "middle";
-		ctx.textAlign = "center";
-		ctx.font = "16px CoachiumDefaultFont";
+/*
+ * render_chart(ctx)
+ * 
+ * Renders the chart (if there is one) onto a selected context.
+ */
 
-		if(captures.length > 0) {
-			const capture = captures[selected_capture];
+function render_chart(ctx) {
+	ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-			ctx.lineWidth = 2;
-			ctx.strokeStyle = "black";
+	// Set the default ctx values
 
-			/*
-			 * a_unit_name = axis' unit name (string – e. g. "s" = seconds, "°C" = degrees Celsius etc.)
-			 * a_total_units = total number of units on an axis (e. g. range -20–110 °C = 130 units)
-			 * a_min = minimal value of an axis (e. g. -20)
-			 * a_max = maximal value of an axis (e. g. 110)
-			 * a_int_min, a_int_max = same as a_min/a_max, but don't have zoom applied to them
-			 * a_unit_in_px = 1 unit converted to screen pixels
-			 * a_units_per_px = number of units per screen pixel
-			 * a_actual_offset = the point where the axis meets with the other axis
-			 * a_offset = same as a_actual_offset, but restricted to the screen dimensions
-			 *   e. g. x_offset = 20 → Y axis will be drawn 20 px from the left
-			 *         y_offset = 50 → X axis will be drawn 50 px from the top
-			 * a_round_level = value calculated by get_optimal_round_level()
-			 * a_optimal_unit_steps = value calculated by get_optimal_unit_steps()
-			 */
+	ctx.fillStyle = "black";
+	ctx.textBaseline = "middle";
+	ctx.textAlign = "center";
+	ctx.font = "16px CoachiumDefaultFont";
 
-			var x_unit_name, x_total_units, x_min, x_max, x_int_min, x_int_max, x_unit_in_px, x_offset, x_actual_offset, x_round_level, x_optimal_unit_steps, x_legend_reverse = false,
-				y_unit_name, y_total_units, y_min, y_max, y_int_min, y_int_max, y_unit_in_px, y_offset, y_actual_offset, y_round_level, y_optimal_unit_steps, y_legend_reverse = false;
+	if(captures.length > 0) {
+		const capture = captures[selected_capture];
 
-			// Calculate the above described values
+		ctx.lineWidth = 2;
+		ctx.strokeStyle = "black";
 
+		/*
+		 * a_unit_name = axis' unit name (string – e. g. "s" = seconds, "°C" = degrees Celsius etc.)
+		 * a_total_units = total number of units on an axis (e. g. range -20–110 °C = 130 units)
+		 * a_min = minimal value of an axis (e. g. -20)
+		 * a_max = maximal value of an axis (e. g. 110)
+		 * a_int_min, a_int_max = same as a_min/a_max, but don't have zoom applied to them
+		 * a_unit_in_px = 1 unit converted to screen pixels
+		 * a_units_per_px = number of units per screen pixel
+		 * a_actual_offset = the point where the axis meets with the other axis
+		 * a_offset = same as a_actual_offset, but restricted to the screen dimensions
+		 *   e. g. x_offset = 20 → Y axis will be drawn 20 px from the left
+		 *         y_offset = 50 → X axis will be drawn 50 px from the top
+		 * a_round_level = value calculated by get_optimal_round_level()
+		 * a_optimal_unit_steps = value calculated by get_optimal_unit_steps()
+		 */
+
+		var x_unit_name, x_total_units, x_min, x_max, x_int_min, x_int_max, x_unit_in_px, x_offset, x_actual_offset, x_round_level, x_optimal_unit_steps, x_legend_reverse = false,
+			y_unit_name, y_total_units, y_min, y_max, y_int_min, y_int_max, y_unit_in_px, y_offset, y_actual_offset, y_round_level, y_optimal_unit_steps, y_legend_reverse = false;
+
+		// Calculate the above described values
+
+		if(capture_cache.xy_mode) {
+			x_unit_name = capture_cache.ports[1].unit;
+			x_int_min = x_min = capture_cache.ports[1].min;
+			x_int_max = x_max = capture_cache.ports[1].max;
+
+			y_unit_name = capture_cache.ports[2].unit;
+			y_int_min = y_min = capture_cache.ports[2].min;
+			y_int_max = y_max = capture_cache.ports[2].max;
+		} else {
+			// TODO
+
+			x_unit_name = capture_cache.ports[0].unit;
+			x_int_min = x_min = capture_cache.ports[0].min;
+			x_int_max = x_max = capture_cache.ports[0].max;
+
+			y_unit_name = capture_cache.ports[1].unit;
+			y_int_min = y_min = capture_cache.ports[1].min;
+			y_int_max = y_max = capture_cache.ports[1].max;
+		}
+
+		// Calculate the rest of the X axis parameters
+
+		if(zoomed_in) {
+			x_total_units = Math.abs(x_max - x_min);
+
+			x_max = x_min + zoomx2 * x_total_units;
+			x_min += zoomx1 * x_total_units;
+		}
+
+		x_total_units = Math.abs(x_max - x_min);
+
+		if(x_min < 0 && x_max < 0) {
+			x_offset = canvas.width - graph_margin_right;
+			x_legend_reverse = true;
+		} else if(x_min < 0 && x_max >= 0) {
+			x_offset = graph_margin_left - (canvas.width - graph_margin_left - graph_margin_right) * x_min / x_total_units;
+		} else if(x_min >= 0 && x_max >= 0) {
+			x_offset = graph_margin_left;
+		}
+
+		x_actual_offset = graph_margin_left - (canvas.width - graph_margin_left - graph_margin_right) * x_min / x_total_units;
+
+		x_unit_in_px = (canvas.width - graph_margin_left - graph_margin_right) / x_total_units;
+		x_units_per_px = 1 / x_unit_in_px;
+		x_round_level = get_optimal_round_level(x_total_units, canvas.width - graph_margin_left - graph_margin_right, 40);
+		x_optimal_unit_steps = get_optimal_unit_steps(x_round_level);
+
+		// Calculate the rest of the Y axis parameters
+
+		if(zoomed_in) {
+			y_total_units = Math.abs(y_max - y_min);
+
+			y_max = y_min + zoomy2 * y_total_units;
+			y_min += zoomy1 * y_total_units;
+		}
+
+		y_total_units = Math.abs(y_max - y_min);
+
+		if(y_min < 0 && y_max < 0) {
+			y_offset = graph_margin_top;
+			y_legend_reverse = true;
+		} else if(y_min < 0 && y_max >= 0) {
+			y_offset = canvas.height - graph_margin_bottom + (canvas.height - graph_margin_bottom - graph_margin_top) * y_min / y_total_units;
+		} else if(y_min >= 0 && y_max >= 0) {
+			y_offset = canvas.height - graph_margin_bottom;
+		}
+
+		y_actual_offset = canvas.height - graph_margin_bottom + (canvas.height - graph_margin_bottom - graph_margin_top) * y_min / y_total_units;
+
+		y_unit_in_px = (canvas.height - graph_margin_bottom - graph_margin_top) / y_total_units;
+		y_units_per_px = 1 / y_unit_in_px;
+		y_round_level = get_optimal_round_level(y_total_units, canvas.height - graph_margin_bottom - graph_margin_top, 24);
+		y_optimal_unit_steps = get_optimal_unit_steps(y_round_level);
+
+		// Draw the grid
+
+		ctx.beginPath();
+		ctx.strokeStyle = "rgba(0, 0, 0, 0.1)";
+
+		for(var i = y_optimal_unit_steps; i <= y_max; i = round_to_level(i + y_optimal_unit_steps, y_round_level)) {
+			if(i >= y_min) {
+				ctx.moveTo(graph_margin_left, y_actual_offset - i * y_unit_in_px);
+				ctx.lineTo(canvas.width - graph_margin_right, y_actual_offset - i * y_unit_in_px);
+			}
+		}
+
+		for(var i = -y_optimal_unit_steps; i >= y_min; i = round_to_level(i - y_optimal_unit_steps, y_round_level)) {
+			if(i <= y_max) {
+				ctx.moveTo(graph_margin_left, y_actual_offset - i * y_unit_in_px);
+				ctx.lineTo(canvas.width - graph_margin_right, y_actual_offset - i * y_unit_in_px);
+			}
+		}
+
+		for(var i = x_optimal_unit_steps; i <= x_max; i = round_to_level(i + x_optimal_unit_steps, x_round_level)) {
+			if(i >= x_min) {
+				ctx.moveTo(x_actual_offset + i * x_unit_in_px, graph_margin_top);
+				ctx.lineTo(x_actual_offset + i * x_unit_in_px, canvas.height - graph_margin_bottom);
+			}
+		}
+
+		for(var i = -x_optimal_unit_steps; i >= x_min; i = round_to_level(i - x_optimal_unit_steps, x_round_level)) {
+			if(i <= x_max) {
+				ctx.moveTo(x_actual_offset + i * x_unit_in_px, graph_margin_top);
+				ctx.lineTo(x_actual_offset + i * x_unit_in_px, canvas.height - graph_margin_bottom);
+			}
+		}
+
+		ctx.stroke();
+
+		// Draw the graph data
+
+		ctx.beginPath();
+		ctx.strokeStyle = "red";
+
+		var x, last_x = null, y, last_y = null;
+
+		for(var i = 0; i < capture_cache.values.length; i++) {
 			if(capture_cache.xy_mode) {
-				x_unit_name = capture_cache.ports[1].unit;
-				x_int_min = x_min = capture_cache.ports[1].min;
-				x_int_max = x_max = capture_cache.ports[1].max;
-
-				y_unit_name = capture_cache.ports[2].unit;
-				y_int_min = y_min = capture_cache.ports[2].min;
-				y_int_max = y_max = capture_cache.ports[2].max;
+				x = x_actual_offset + capture_cache.values[i][1] * x_unit_in_px;
+				y = y_actual_offset - capture_cache.values[i][2] * y_unit_in_px;
 			} else {
 				// TODO
 
-				x_unit_name = capture_cache.ports[0].unit;
-				x_int_min = x_min = capture_cache.ports[0].min;
-				x_int_max = x_max = capture_cache.ports[0].max;
-
-				y_unit_name = capture_cache.ports[1].unit;
-				y_int_min = y_min = capture_cache.ports[1].min;
-				y_int_max = y_max = capture_cache.ports[1].max;
+				x = x_actual_offset + capture_cache.values[i][0] * x_unit_in_px;
+				y = y_actual_offset - capture_cache.values[i][1] * y_unit_in_px;
 			}
 
-			// Calculate the rest of the X axis parameters
+			if(i &&
+				(last_x >= 0 || x >= 0) &&
+				(last_x < canvas.width || x < canvas.width) &&
+				(last_y >= 0 || y >= 0) &&
+				(last_y < canvas.height || y < canvas.height)) {
 
-			if(zoomed_in) {
-				x_total_units = Math.abs(x_max - x_min);
-
-				x_max = x_min + zoomx2 * x_total_units;
-				x_min += zoomx1 * x_total_units;
+				ctx.moveTo(last_x, last_y);
+				ctx.lineTo(x, y);
 			}
 
-			x_total_units = Math.abs(x_max - x_min);
+			last_x = x;
+			last_y = y;
+		}
 
-			if(x_min < 0 && x_max < 0) {
-				x_offset = canvas.width - graph_margin_right;
-				x_legend_reverse = true;
-			} else if(x_min < 0 && x_max >= 0) {
-				x_offset = graph_margin_left - (canvas.width - graph_margin_left - graph_margin_right) * x_min / x_total_units;
-			} else if(x_min >= 0 && x_max >= 0) {
-				x_offset = graph_margin_left;
-			}
+		ctx.stroke();
 
-			x_actual_offset = graph_margin_left - (canvas.width - graph_margin_left - graph_margin_right) * x_min / x_total_units;
+		// Draw any fitted functions that were assigned to the capture
 
-			x_unit_in_px = (canvas.width - graph_margin_left - graph_margin_right) / x_total_units;
-			x_units_per_px = 1 / x_unit_in_px;
-			x_round_level = get_optimal_round_level(x_total_units, canvas.width - graph_margin_left - graph_margin_right, 40);
-			x_optimal_unit_steps = get_optimal_unit_steps(x_round_level);
+		if(Array.isArray(capture.functions)) {
+			ctx.save();
+			ctx.strokeStyle = "rgba(0, 0, 255, 1)";
 
-			// Calculate the rest of the Y axis parameters
+			for(const fundef of capture.functions) {
+				var fun = get_fun_calc(fundef);
 
-			if(zoomed_in) {
-				y_total_units = Math.abs(y_max - y_min);
+				if(fun !== null) {
+					ctx.beginPath();
 
-				y_max = y_min + zoomy2 * y_total_units;
-				y_min += zoomy1 * y_total_units;
-			}
+					ctx.moveTo(graph_margin_left, y_actual_offset - fun(x_min) * y_unit_in_px);
 
-			y_total_units = Math.abs(y_max - y_min);
-
-			if(y_min < 0 && y_max < 0) {
-				y_offset = graph_margin_top;
-				y_legend_reverse = true;
-			} else if(y_min < 0 && y_max >= 0) {
-				y_offset = canvas.height - graph_margin_bottom + (canvas.height - graph_margin_bottom - graph_margin_top) * y_min / y_total_units;
-			} else if(y_min >= 0 && y_max >= 0) {
-				y_offset = canvas.height - graph_margin_bottom;
-			}
-
-			y_actual_offset = canvas.height - graph_margin_bottom + (canvas.height - graph_margin_bottom - graph_margin_top) * y_min / y_total_units;
-
-			y_unit_in_px = (canvas.height - graph_margin_bottom - graph_margin_top) / y_total_units;
-			y_units_per_px = 1 / y_unit_in_px;
-			y_round_level = get_optimal_round_level(y_total_units, canvas.height - graph_margin_bottom - graph_margin_top, 24);
-			y_optimal_unit_steps = get_optimal_unit_steps(y_round_level);
-
-			// Draw the grid
-
-			ctx.beginPath();
-			ctx.strokeStyle = "rgba(0, 0, 0, 0.1)";
-
-			for(var i = y_optimal_unit_steps; i <= y_max; i = round_to_level(i + y_optimal_unit_steps, y_round_level)) {
-				if(i >= y_min) {
-					ctx.moveTo(graph_margin_left, y_actual_offset - i * y_unit_in_px);
-					ctx.lineTo(canvas.width - graph_margin_right, y_actual_offset - i * y_unit_in_px);
-				}
-			}
-
-			for(var i = -y_optimal_unit_steps; i >= y_min; i = round_to_level(i - y_optimal_unit_steps, y_round_level)) {
-				if(i <= y_max) {
-					ctx.moveTo(graph_margin_left, y_actual_offset - i * y_unit_in_px);
-					ctx.lineTo(canvas.width - graph_margin_right, y_actual_offset - i * y_unit_in_px);
-				}
-			}
-
-			for(var i = x_optimal_unit_steps; i <= x_max; i = round_to_level(i + x_optimal_unit_steps, x_round_level)) {
-				if(i >= x_min) {
-					ctx.moveTo(x_actual_offset + i * x_unit_in_px, graph_margin_top);
-					ctx.lineTo(x_actual_offset + i * x_unit_in_px, canvas.height - graph_margin_bottom);
-				}
-			}
-
-			for(var i = -x_optimal_unit_steps; i >= x_min; i = round_to_level(i - x_optimal_unit_steps, x_round_level)) {
-				if(i <= x_max) {
-					ctx.moveTo(x_actual_offset + i * x_unit_in_px, graph_margin_top);
-					ctx.lineTo(x_actual_offset + i * x_unit_in_px, canvas.height - graph_margin_bottom);
-				}
-			}
-
-			ctx.stroke();
-
-			// Draw the graph data
-
-			ctx.beginPath();
-			ctx.strokeStyle = "red";
-
-			var x, last_x = null, y, last_y = null;
-
-			for(var i = 0; i < capture_cache.values.length; i++) {
-				if(capture_cache.xy_mode) {
-					x = x_actual_offset + capture_cache.values[i][1] * x_unit_in_px;
-					y = y_actual_offset - capture_cache.values[i][2] * y_unit_in_px;
-				} else {
-					// TODO
-
-					x = x_actual_offset + capture_cache.values[i][0] * x_unit_in_px;
-					y = y_actual_offset - capture_cache.values[i][1] * y_unit_in_px;
-				}
-
-				if(i &&
-					(last_x >= 0 || x >= 0) &&
-					(last_x < canvas.width || x < canvas.width) &&
-					(last_y >= 0 || y >= 0) &&
-					(last_y < canvas.height || y < canvas.height)) {
-
-					ctx.moveTo(last_x, last_y);
-					ctx.lineTo(x, y);
-				}
-
-				last_x = x;
-				last_y = y;
-			}
-
-			ctx.stroke();
-
-			// Draw any fitted functions that were assigned to the capture
-
-			if(Array.isArray(capture.functions)) {
-				ctx.save();
-				ctx.strokeStyle = "rgba(0, 0, 255, 1)";
-
-				for(const fundef of capture.functions) {
-					var fun = get_fun_calc(fundef);
-
-					if(fun !== null) {
-						ctx.beginPath();
-
-						ctx.moveTo(graph_margin_left, y_actual_offset - fun(x_min) * y_unit_in_px);
-
-						for(var x = 1; x <= canvas.width - graph_margin_right - graph_margin_left; x++) {
-							ctx.lineTo(x + graph_margin_left, y_actual_offset - fun(x_min + x * x_units_per_px) * y_unit_in_px);
-						}
-
-						ctx.stroke();
+					for(var x = 1; x <= canvas.width - graph_margin_right - graph_margin_left; x++) {
+						ctx.lineTo(x + graph_margin_left, y_actual_offset - fun(x_min + x * x_units_per_px) * y_unit_in_px);
 					}
+
+					ctx.stroke();
 				}
-
-				ctx.restore();
 			}
 
-			// Draw any notes, if there are any
+			ctx.restore();
+		}
 
-			ctx.save();
+		// Draw any notes, if there are any
 
-			if(capture.notes) for(var i = 0; i < capture.notes.length; i++) {
-				const note = capture.notes[i];
+		ctx.save();
 
-				draw_note(
-					ctx,
-					graph_margin_left + (note.x - zoomx1) / (zoomx2 - zoomx1) * (canvas.width - graph_margin_left - graph_margin_right),
-					canvas.height - graph_margin_bottom - (note.y - zoomy1) / (zoomy2 - zoomy1) * (canvas.height - graph_margin_top - graph_margin_bottom),
-					i
-				);
+		if(capture.notes) for(var i = 0; i < capture.notes.length; i++) {
+			const note = capture.notes[i];
+
+			draw_note(
+				ctx,
+				graph_margin_left + (note.x - zoomx1) / (zoomx2 - zoomx1) * (canvas.width - graph_margin_left - graph_margin_right),
+				canvas.height - graph_margin_bottom - (note.y - zoomy1) / (zoomy2 - zoomy1) * (canvas.height - graph_margin_top - graph_margin_bottom),
+				i
+			);
+		}
+		
+		ctx.restore();
+
+		// Slightly hide the parts of the graph which are not in the middle
+
+		ctx.save();
+
+		ctx.fillStyle = "rgba(255, 255, 255, 0.75)";
+
+		ctx.fillRect(0, 0, canvas.width, graph_margin_top);
+		ctx.fillRect(0, graph_margin_top, graph_margin_left, canvas.height - graph_margin_top - graph_margin_bottom);
+		ctx.fillRect(canvas.width - graph_margin_right, graph_margin_top, graph_margin_right, canvas.height - graph_margin_top - graph_margin_bottom);
+		ctx.fillRect(0, canvas.height - graph_margin_bottom, canvas.width, graph_margin_bottom);
+
+		ctx.restore();
+
+		// Draw the axes
+
+		ctx.beginPath();
+		ctx.strokeStyle = "rgba(0, 0, 0, 0.3)";
+
+		// Draw the Y axis (based on the X axis offset)
+
+		ctx.moveTo(x_offset, graph_margin_top);
+		ctx.lineTo(x_offset, canvas.height - graph_margin_bottom);
+
+		// Draw the X axis (based on the Y axis offset)
+
+		ctx.moveTo(graph_margin_left, y_offset);
+		ctx.lineTo(canvas.width - graph_margin_right, y_offset);
+
+		// Draw the dashes on the Y axis & add values to them
+
+		ctx.textAlign = x_legend_reverse ? "left" : "right";
+		ctx.textBaseline = "middle";
+
+		for(var i = y_optimal_unit_steps; i <= y_max; i = round_to_level(i + y_optimal_unit_steps, y_round_level)) {
+			if(i >= y_min) {
+				ctx.moveTo(x_offset - 4, y_actual_offset - i * y_unit_in_px);
+				ctx.lineTo(x_offset + 4, y_actual_offset - i * y_unit_in_px);
+				ctx.fillText(localize_num(fixed_to_level(i, y_round_level)), x_offset + (x_legend_reverse ? 8 : (-8)), y_actual_offset - i * y_unit_in_px);
 			}
-			
-			ctx.restore();
+		}
 
-			// Slightly hide the parts of the graph which are not in the middle
+		for(var i = -y_optimal_unit_steps; i >= y_min; i = round_to_level(i - y_optimal_unit_steps, y_round_level)) {
+			if(i <= y_max) {
+				ctx.moveTo(x_offset - 4, y_actual_offset - i * y_unit_in_px);
+				ctx.lineTo(x_offset + 4, y_actual_offset - i * y_unit_in_px);
+				ctx.fillText(localize_num(fixed_to_level(i, y_round_level)), x_offset + (x_legend_reverse ? 8 : (-8)), y_actual_offset - i * y_unit_in_px);
+			}
+		}
 
-			ctx.save();
+		// Draw the dashes on the X axis & add values to them
 
-			ctx.fillStyle = "rgba(255, 255, 255, 0.75)";
+		ctx.textAlign = "center";
+		ctx.textBaseline = y_legend_reverse ? "bottom" : "top";
 
-			ctx.fillRect(0, 0, canvas.width, graph_margin_top);
-			ctx.fillRect(0, graph_margin_top, graph_margin_left, canvas.height - graph_margin_top - graph_margin_bottom);
-			ctx.fillRect(canvas.width - graph_margin_right, graph_margin_top, graph_margin_right, canvas.height - graph_margin_top - graph_margin_bottom);
-			ctx.fillRect(0, canvas.height - graph_margin_bottom, canvas.width, graph_margin_bottom);
+		for(var i = x_optimal_unit_steps; i <= x_max; i = round_to_level(i + x_optimal_unit_steps, x_round_level)) {
+			if(i >= x_min) {
+				ctx.moveTo(x_actual_offset + i * x_unit_in_px, y_offset - 4);
+				ctx.lineTo(x_actual_offset + i * x_unit_in_px, y_offset + 4);
+				ctx.fillText(localize_num(fixed_to_level(i, x_round_level)), x_actual_offset + i * x_unit_in_px, y_offset + (y_legend_reverse ? (-12) : 12));
+			}
+		}
 
-			ctx.restore();
+		for(var i = -x_optimal_unit_steps; i >= x_min; i = round_to_level(i - x_optimal_unit_steps, x_round_level)) {
+			if(i <= x_max) {
+				ctx.moveTo(x_actual_offset + i * x_unit_in_px, y_offset - 4);
+				ctx.lineTo(x_actual_offset + i * x_unit_in_px, y_offset + 4);
+				ctx.fillText(localize_num(fixed_to_level(i, x_round_level)), x_actual_offset + i * x_unit_in_px, y_offset + (y_legend_reverse ? (-12) : 12));
+			}
+		}
 
-			// Draw the axes
+		// Add the axes' units
 
+		ctx.textBaseline = y_legend_reverse ? "top" : "bottom";
+		ctx.textAlign = "center";
+		ctx.fillText(y_unit_name, x_offset, y_legend_reverse ? (canvas.height - graph_margin_bottom + 8) : (graph_margin_top - 8));
+
+		ctx.textBaseline = "middle";
+		ctx.textAlign = x_legend_reverse ? "right" : "left";
+		ctx.fillText(x_unit_name, x_legend_reverse ? (graph_margin_left - 8) : (canvas.width - graph_margin_right + 8), y_offset);
+
+		// Done drawing! Hooray!
+
+		ctx.stroke();
+
+		// Capture name
+
+		ctx.textBaseline = "middle";
+		ctx.textAlign = "left";
+		ctx.font = "bold 16px CoachiumDefaultFont";
+		ctx.fillText(format(jslang.CAPTURE_FMT, selected_capture + 1, captures.length, capture.title), graph_margin_left, graph_margin_top / 2);
+
+		// If the capture is currently running, display a "crosshair"
+
+		if(driver !== null && capture_running && selected_capture == (captures.length - 1) && x != null && y != null) {
 			ctx.beginPath();
-			ctx.strokeStyle = "rgba(0, 0, 0, 0.3)";
+			ctx.strokeStyle = "rgba(0, 0, 255, 0.3)";
 
-			// Draw the Y axis (based on the X axis offset)
+			ctx.moveTo(x, graph_margin_top);
+			ctx.lineTo(x, canvas.height - graph_margin_bottom);
 
-			ctx.moveTo(x_offset, graph_margin_top);
-			ctx.lineTo(x_offset, canvas.height - graph_margin_bottom);
-
-			// Draw the X axis (based on the Y axis offset)
-
-			ctx.moveTo(graph_margin_left, y_offset);
-			ctx.lineTo(canvas.width - graph_margin_right, y_offset);
-
-			// Draw the dashes on the Y axis & add values to them
-
-			ctx.textAlign = x_legend_reverse ? "left" : "right";
-			ctx.textBaseline = "middle";
-
-			for(var i = y_optimal_unit_steps; i <= y_max; i = round_to_level(i + y_optimal_unit_steps, y_round_level)) {
-				if(i >= y_min) {
-					ctx.moveTo(x_offset - 4, y_actual_offset - i * y_unit_in_px);
-					ctx.lineTo(x_offset + 4, y_actual_offset - i * y_unit_in_px);
-					ctx.fillText(localize_num(fixed_to_level(i, y_round_level)), x_offset + (x_legend_reverse ? 8 : (-8)), y_actual_offset - i * y_unit_in_px);
-				}
-			}
-
-			for(var i = -y_optimal_unit_steps; i >= y_min; i = round_to_level(i - y_optimal_unit_steps, y_round_level)) {
-				if(i <= y_max) {
-					ctx.moveTo(x_offset - 4, y_actual_offset - i * y_unit_in_px);
-					ctx.lineTo(x_offset + 4, y_actual_offset - i * y_unit_in_px);
-					ctx.fillText(localize_num(fixed_to_level(i, y_round_level)), x_offset + (x_legend_reverse ? 8 : (-8)), y_actual_offset - i * y_unit_in_px);
-				}
-			}
-
-			// Draw the dashes on the X axis & add values to them
-
-			ctx.textAlign = "center";
-			ctx.textBaseline = y_legend_reverse ? "bottom" : "top";
-
-			for(var i = x_optimal_unit_steps; i <= x_max; i = round_to_level(i + x_optimal_unit_steps, x_round_level)) {
-				if(i >= x_min) {
-					ctx.moveTo(x_actual_offset + i * x_unit_in_px, y_offset - 4);
-					ctx.lineTo(x_actual_offset + i * x_unit_in_px, y_offset + 4);
-					ctx.fillText(localize_num(fixed_to_level(i, x_round_level)), x_actual_offset + i * x_unit_in_px, y_offset + (y_legend_reverse ? (-12) : 12));
-				}
-			}
-
-			for(var i = -x_optimal_unit_steps; i >= x_min; i = round_to_level(i - x_optimal_unit_steps, x_round_level)) {
-				if(i <= x_max) {
-					ctx.moveTo(x_actual_offset + i * x_unit_in_px, y_offset - 4);
-					ctx.lineTo(x_actual_offset + i * x_unit_in_px, y_offset + 4);
-					ctx.fillText(localize_num(fixed_to_level(i, x_round_level)), x_actual_offset + i * x_unit_in_px, y_offset + (y_legend_reverse ? (-12) : 12));
-				}
-			}
-
-			// Add the axes' units
-
-			ctx.textBaseline = y_legend_reverse ? "top" : "bottom";
-			ctx.textAlign = "center";
-			ctx.fillText(y_unit_name, x_offset, y_legend_reverse ? (canvas.height - graph_margin_bottom + 8) : (graph_margin_top - 8));
-
-			ctx.textBaseline = "middle";
-			ctx.textAlign = x_legend_reverse ? "right" : "left";
-			ctx.fillText(x_unit_name, x_legend_reverse ? (graph_margin_left - 8) : (canvas.width - graph_margin_right + 8), y_offset);
-
-			// Done drawing! Hooray!
+			ctx.moveTo(graph_margin_left, y);
+			ctx.lineTo(canvas.width - graph_margin_right, y);
 
 			ctx.stroke();
+		}
+	} else {
+		// No captures present, display help
 
-			// Capture name
-
-			ctx.textBaseline = "middle";
-			ctx.textAlign = "left";
-			ctx.font = "bold 16px CoachiumDefaultFont";
-			ctx.fillText(format(jslang.CAPTURE_FMT, selected_capture + 1, captures.length, capture.title), graph_margin_left, graph_margin_top / 2);
-
-			// If the capture is currently running, display a "crosshair"
-
-			if(driver !== null && capture_running && selected_capture == (captures.length - 1) && x != null && y != null) {
-				ctx.beginPath();
-				ctx.strokeStyle = "rgba(0, 0, 255, 0.3)";
-
-				ctx.moveTo(x, graph_margin_top);
-				ctx.lineTo(x, canvas.height - graph_margin_bottom);
-
-				ctx.moveTo(graph_margin_left, y);
-				ctx.lineTo(canvas.width - graph_margin_right, y);
-
-				ctx.stroke();
-			}
-		} else {
-			// No captures present, display help
-
-			const hw = 400, hh = 210;
-			const hxm = canvas.width / 2, hxl = (canvas.width - hw) / 2, hxr = (canvas.width + hw) / 2, hy = (canvas.height - hh) / 2;
+		const hw = 400, hh = 210;
+		const hxm = canvas.width / 2, hxl = (canvas.width - hw) / 2, hxr = (canvas.width + hw) / 2, hy = (canvas.height - hh) / 2;
 
 //			ctx.fillStyle = "gray";
 //			ctx.fillRect((canvas.width - hw) / 2, (canvas.height - hh) / 2, hw, hh)
 
-			ctx.fillStyle = "black";
+		ctx.fillStyle = "black";
 
-			ctx.fillText(jslang.MAINWIN_NO_CAPTURES_1, hxm, hy + 8);
-			ctx.fillText(jslang.MAINWIN_NO_CAPTURES_2, hxm, hy + 40);
+		ctx.fillText(jslang.MAINWIN_NO_CAPTURES_1, hxm, hy + 8);
+		ctx.fillText(jslang.MAINWIN_NO_CAPTURES_2, hxm, hy + 40);
 
-			ctx.lineCap = "round";
-			ctx.textAlign = "right";
-			ctx.font = "bold 16px CoachiumDefaultFont";
+		ctx.lineCap = "round";
+		ctx.textAlign = "right";
+		ctx.font = "bold 16px CoachiumDefaultFont";
 
-			// Drag
+		// Drag
 
-			draw_mouse(hxl + 10, hy + 75, 0);
-			draw_plus(hxl + 60, hy + 100, 20);
-			for(var i = 0; i < 4; i++) draw_arrow(hxl + 100, hy + 100, 20, 7, i);
+		draw_mouse(hxl + 10, hy + 75, 0);
+		draw_plus(hxl + 60, hy + 100, 20);
+		for(var i = 0; i < 4; i++) draw_arrow(hxl + 100, hy + 100, 20, 7, i);
 
-			ctx.fillText(jslang.MAINWIN_HELP_DRAG, hxl - 10, hy + 100);
+		ctx.fillText(jslang.MAINWIN_HELP_DRAG, hxl - 10, hy + 100);
 
-			// Scroll
+		// Scroll
 
-			draw_mouse(hxl + 10, hy + 155, 1);
-			ctx.strokeStyle = "white"; draw_arrow(hxl + 25, hy + 155, 12, 8, 0, 9); draw_arrow(hxl + 25, hy + 182, 12, 8, 2, 9);
-			ctx.strokeStyle = "black"; draw_arrow(hxl + 25, hy + 155, 12, 8, 0, 5); draw_arrow(hxl + 25, hy + 182, 12, 8, 2, 5);
+		draw_mouse(hxl + 10, hy + 155, 1);
+		ctx.strokeStyle = "white"; draw_arrow(hxl + 25, hy + 155, 12, 8, 0, 9); draw_arrow(hxl + 25, hy + 182, 12, 8, 2, 9);
+		ctx.strokeStyle = "black"; draw_arrow(hxl + 25, hy + 155, 12, 8, 0, 5); draw_arrow(hxl + 25, hy + 182, 12, 8, 2, 5);
 
-			ctx.fillText(jslang.MAINWIN_HELP_SCROLL, hxl - 10, hy + 180);
+		ctx.fillText(jslang.MAINWIN_HELP_SCROLL, hxl - 10, hy + 180);
 
-			// Alt + Scroll
+		// Alt + Scroll
 
-			draw_key(hxr + 10, hy + 80, "Alt");
-			draw_plus(hxr + 110, hy + 100, 20);
-			draw_mouse(hxr + 130, hy + 75, 1);
-			ctx.strokeStyle = "white"; draw_arrow(hxr + 145, hy + 75, 12, 8, 0, 9); draw_arrow(hxr + 145, hy + 102, 12, 8, 2, 9);
-			ctx.strokeStyle = "black"; draw_arrow(hxr + 145, hy + 75, 12, 8, 0, 5); draw_arrow(hxr + 145, hy + 102, 12, 8, 2, 5);
+		draw_key(hxr + 10, hy + 80, "Alt");
+		draw_plus(hxr + 110, hy + 100, 20);
+		draw_mouse(hxr + 130, hy + 75, 1);
+		ctx.strokeStyle = "white"; draw_arrow(hxr + 145, hy + 75, 12, 8, 0, 9); draw_arrow(hxr + 145, hy + 102, 12, 8, 2, 9);
+		ctx.strokeStyle = "black"; draw_arrow(hxr + 145, hy + 75, 12, 8, 0, 5); draw_arrow(hxr + 145, hy + 102, 12, 8, 2, 5);
 
-			ctx.fillText(jslang.MAINWIN_HELP_ALT_SCROLL, hxr - 10, hy + 100);
+		ctx.fillText(jslang.MAINWIN_HELP_ALT_SCROLL, hxr - 10, hy + 100);
 
-			// Shift + Scroll
+		// Shift + Scroll
 
-			draw_key(hxr + 10, hy + 160, "Shift");
-			draw_plus(hxr + 110, hy + 180, 20);
-			draw_mouse(hxr + 130, hy + 155, 1);
-			ctx.strokeStyle = "white"; draw_arrow(hxr + 145, hy + 155, 12, 8, 0, 9); draw_arrow(hxr + 145, hy + 182, 12, 8, 2, 9);
-			ctx.strokeStyle = "black"; draw_arrow(hxr + 145, hy + 155, 12, 8, 0, 5); draw_arrow(hxr + 145, hy + 182, 12, 8, 2, 5);
+		draw_key(hxr + 10, hy + 160, "Shift");
+		draw_plus(hxr + 110, hy + 180, 20);
+		draw_mouse(hxr + 130, hy + 155, 1);
+		ctx.strokeStyle = "white"; draw_arrow(hxr + 145, hy + 155, 12, 8, 0, 9); draw_arrow(hxr + 145, hy + 182, 12, 8, 2, 9);
+		ctx.strokeStyle = "black"; draw_arrow(hxr + 145, hy + 155, 12, 8, 0, 5); draw_arrow(hxr + 145, hy + 182, 12, 8, 2, 5);
 
-			ctx.fillText(jslang.MAINWIN_HELP_SHIFT_SCROLL, hxr - 10, hy + 180);
-		}
-
-		drawcache = null;
+		ctx.fillText(jslang.MAINWIN_HELP_SHIFT_SCROLL, hxr - 10, hy + 180);
 	}
+
+	drawcache = null;
+}
+
+/*
+ * render_overlay(ovctx)
+ * 
+ * Renders the canvas overlay onto an overlay context.
+ */
+
+function render_overlay(ovctx) {
+	ovctx.clearRect(0, 0, overlay.width, overlay.height);
 
 	if(note_placement_progress || zoom_request_progress) {
 		ovctx.clearRect(0, 0, overlay.width, overlay.height);
@@ -542,14 +559,14 @@ function canvas_reset(event) {
 			ovctx.fillStyle = "rgba(0, 0, 0, 0.5)";
 			ovctx.fillRect(0, 0, overlay.width, overlay.height);
 
-			draw_crosshair(x, y, "#0000FF");
+			draw_crosshair(ovctx, x, y, "#0000FF");
 			draw_note(ovctx, x, y, note_id);
 		} else switch(zoom_request_progress) {
 			case 1:
 				ovctx.fillStyle = "rgba(0, 0, 0, 0.5)";
 				ovctx.fillRect(0, 0, overlay.width, overlay.height);
 
-				draw_crosshair(x, y, "#0000FF");
+				draw_crosshair(ovctx, x, y, "#0000FF");
 				break;
 
 			case 2:
@@ -571,8 +588,8 @@ function canvas_reset(event) {
 					ovctx.fillRect(mousepositions[1][0], 0, overlay.width, overlay.height);
 				}
 
-				draw_crosshair(mousepositions[1][0], mousepositions[1][1], "#0000FF");
-				draw_crosshair(x, y, "#0000FF");
+				draw_crosshair(ovctx, mousepositions[1][0], mousepositions[1][1], "#0000FF");
+				draw_crosshair(ovctx, x, y, "#0000FF");
 				break;
 		}
 	} else if(captures.length > 0) {
@@ -599,7 +616,7 @@ function canvas_reset(event) {
 				unit[1] = capture_cache.ports[1].unit;
 			}
 
-			draw_crosshair(mouseX, mouseY, "rgba(0, 0, 255, .5)");
+			draw_crosshair(ovctx, mouseX, mouseY, "rgba(0, 0, 255, .5)");
 
 			var mx = (mouseX - graph_margin_left) / (canvas.width - graph_margin_left - graph_margin_right),
 				my = (mouseY - graph_margin_top) / (canvas.height - graph_margin_top - graph_margin_bottom),
@@ -629,7 +646,13 @@ function canvas_reset(event) {
 	}
 }
 
-function draw_crosshair(x, y, color) {
+/*
+ * draw_crosshair(ovctx, x, y, color)
+ * 
+ * Draws a crosshair onto an overlay context.
+ */
+
+function draw_crosshair(ovctx, x, y, color) {
 	ovctx.beginPath();
 	ovctx.strokeStyle = color;
 
@@ -641,6 +664,13 @@ function draw_crosshair(x, y, color) {
 
 	ovctx.stroke();
 }
+
+/*
+ * draw_note(ctx, x, y, id)
+ * 
+ * Draws a note with the given ID at the given coordinates
+ * onto the selected context.
+ */
 
 function draw_note(ctx, x, y, id) {
 	const note = captures[selected_capture].notes[id];
