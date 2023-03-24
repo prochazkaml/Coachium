@@ -30,6 +30,46 @@ const fitting_algos = [
 ];
 
 /*
+ * get_fun_calc(fundef)
+ * 
+ * Returns a JS function for quick calculation of a given function.
+ */
+
+function get_fun_calc(fundef) {
+	const output = fundef.params;
+
+	var fun = null;
+
+	switch(fundef.fun) {
+		case "linear":
+			fun = (x) => output.a * x + output.b;
+			break;
+
+		case "quadratic":
+			fun = (x) => output.a * (x ** 2) + output.b * x + output.c;
+			break;
+
+		case "cubic":
+			fun = (x) => output.a * (x ** 3) + output.b * (x ** 2) + output.c * x + output.d;
+			break;
+
+		case "exponential":
+			fun = (x) => output.a * (Math.E ** (output.b * x));
+			break;
+
+		case "logarithmic":
+			fun = (x) => output.a + output.b * Math.log(x);
+			break;
+
+		case "power":
+			fun = (x) => output.a * (x ** output.b);
+			break;
+	}
+
+	return fun;
+}
+
+/*
  * fit_function()
  * 
  * Prepares the fit function dialog with calculated values.
