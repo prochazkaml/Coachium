@@ -99,10 +99,11 @@ function save_file_local(name_chosen) {
 	if(name_chosen) {
 		// Generate a fictional "a" element for saving the file
 
-		var element = document.createElement("a");
-		element.setAttribute("href", window.URL.createObjectURL(new Blob([ LZString.compressToUint8Array(JSON.stringify(captures)) ], { type: "application/octet-stream" })));
-		element.setAttribute("download", inputfield.value + ".coachium");
-		element.click();
+		save_file(
+			LZString.compressToUint8Array(JSON.stringify(captures)),
+			inputfield.value + ".coachium",
+			"application/octet-stream"
+		);
 
 		get_id("statusmsg").innerHTML = jslang.STATUS_FILE_SAVED;
 	} else {
@@ -124,4 +125,17 @@ function save_file_local(name_chosen) {
 
 		popup_window(WINDOWID_LOCAL_SAVE_NAME);
 	}
+}
+
+/*
+ * save_file(data, name)
+ * 
+ * Saves a file, which will contain supplied data.
+ */
+
+function save_file(data, name, type) {
+	var element = document.createElement("a");
+	element.setAttribute("href", window.URL.createObjectURL(new Blob([ data ], { type: type })));
+	element.setAttribute("download", name);
+	element.click();
 }
