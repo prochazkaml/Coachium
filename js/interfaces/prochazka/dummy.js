@@ -32,7 +32,8 @@ class Prochazka_Dummy_driver {
 			min: -20,
 			max: 20,
 			zero_offset: null,
-			detected: false
+			detected: false,
+			_speed: 500
 		},
 		"A2": {
 			autodetect: true,
@@ -44,7 +45,8 @@ class Prochazka_Dummy_driver {
 			min: -20,
 			max: 20,
 			zero_offset: null,
-			detected: false
+			detected: false,
+			_speed: 475
 		},
 		"A3": {
 			autodetect: true,
@@ -56,7 +58,8 @@ class Prochazka_Dummy_driver {
 			min: -20,
 			max: 20,
 			zero_offset: null,
-			detected: false
+			detected: false,
+			_speed: 450
 		},
 		"A4": {
 			autodetect: true,
@@ -68,7 +71,8 @@ class Prochazka_Dummy_driver {
 			min: -20,
 			max: 20,
 			zero_offset: null,
-			detected: false
+			detected: false,
+			_speed: 543
 		}
 	};
 
@@ -98,7 +102,7 @@ class Prochazka_Dummy_driver {
 		const keys = Object.keys(driver.ports);
 
 		if(this.ports[portname].connected)
-			return this.ports[portname].value = Math.sin(window.performance.now() / 500 + 2 * Math.PI / keys.length * keys.indexOf(portname)) * 10 - this.ports[portname].zero_offset;
+			return this.ports[portname].value = Math.sin(window.performance.now() / this.ports[portname]._speed + 2 * Math.PI / keys.length * keys.indexOf(portname)) * 10 - this.ports[portname].zero_offset;
 		else
 			return undefined;
 	}
