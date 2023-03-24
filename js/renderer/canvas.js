@@ -145,18 +145,18 @@ function canvas_reset(event) {
 
 		if(get_class("canvasstack").style.display == "none") return;
 
-		render_chart(ctx);
-		render_overlay(ovctx);
+		render_chart(ctx, canvas);
+		render_overlay(ovctx, overlay);
 	}
 }
 
 /*
- * render_chart(ctx)
+ * render_chart(ctx, canvas)
  * 
  * Renders the chart (if there is one) onto a selected context.
  */
 
-function render_chart(ctx) {
+function render_chart(ctx, canvas) {
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
 
 	// Set the default ctx values
@@ -542,12 +542,12 @@ function render_chart(ctx) {
 }
 
 /*
- * render_overlay(ovctx)
+ * render_overlay(ovctx, overlay)
  * 
  * Renders the canvas overlay onto an overlay context.
  */
 
-function render_overlay(ovctx) {
+function render_overlay(ovctx, overlay) {
 	ovctx.clearRect(0, 0, overlay.width, overlay.height);
 
 	if(note_placement_progress || zoom_request_progress) {
