@@ -164,7 +164,7 @@ function render_chart(ctx, canvas) {
 	ctx.fillStyle = "black";
 	ctx.textBaseline = "middle";
 	ctx.textAlign = "center";
-	ctx.font = "16px CoachiumDefaultFont";
+	ctx.font = ctx.getSvg ? "16px sans-serif" : "16px CoachiumDefaultFont";
 
 	if(captures.length > 0) {
 		const capture = captures[selected_capture];
@@ -493,7 +493,7 @@ function render_chart(ctx, canvas) {
 
 		ctx.textBaseline = "middle";
 		ctx.textAlign = "left";
-		ctx.font = "bold 16px CoachiumDefaultFont";
+		ctx.font = ctx.getSvg ? "bold 16px sans-serif" : "bold 16px CoachiumDefaultFont";
 		ctx.fillText(format(jslang.CAPTURE_FMT, selected_capture + 1, captures.length, capture.title), graph_margin_left, graph_margin_top / 2);
 
 		// If the capture is currently running, display a "crosshair"
@@ -526,7 +526,7 @@ function render_chart(ctx, canvas) {
 
 		ctx.lineCap = "round";
 		ctx.textAlign = "right";
-		ctx.font = "bold 16px CoachiumDefaultFont";
+		ctx.font = ctx.getSvg ? "bold 16px sans-serif" : "bold 16px CoachiumDefaultFont";
 
 		// Drag
 
