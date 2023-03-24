@@ -80,24 +80,27 @@ function fit_function() {
 
 		// Handle the check box
 
-		if(!captures[selected_capture].functions)
-			checkbox.checked = false;
-		else
-			checkbox.checked = algo_output.type in captures[selected_capture].functions;
+		checkbox.checked = false;
+
+		if(!Array.isArray(captures[selected_capture].functions)) captures[selected_capture].functions = [];
+
+		var funs = captures[selected_capture].functions;
+
+		for(var i = 0; i < funs.length; i++) {
+			if(funs[i].fun == algo_output.fun && funs[i].type == "fit") checkbox.checked = true;
+		}
 
 		checkbox.onchange = () => {
-			if(!captures[selected_capture].functions) {
-				if(checkbox.checked) {
-					captures[selected_capture].functions = {
-						[algo_output.type]: algo_output.output
-					};
-				}
+			if(checkbox.checked) {
+				funs.push({
+					fun: algo_output.fun,
+					type: "fit",
+					params: algo_output.output
+				});
 			} else {
-				if(checkbox.checked) {
-					captures[selected_capture].functions[algo_output.type] = algo_output.output;
-				} else {
-					delete captures[selected_capture].functions[algo_output.type];
-				}
+				for(var i = 0; i < funs.length; i++) {
+					if(funs[i].fun == algo_output.fun && funs[i].type == "fit") funs.splice(i, 1);
+				}		
 			}
 
 			main_window_reset(false, false);
@@ -121,7 +124,7 @@ function function_fit_linear(points) {
 	var retval = libregression.methods.linear(points, { precision: 10 });
 
 	return {
-		"type": "linear",
+		"fun": "linear",
 		"output": {
 			"a": retval.equation[0],
 			"b": retval.equation[1]
@@ -133,7 +136,7 @@ function function_fit_quadratic(points) {
 	var retval = libregression.methods.polynomial(points, { precision: 10, order: 2 });
 
 	return {
-		"type": "quadratic",
+		"fun": "quadratic",
 		"output": {
 			"a": retval.equation[0],
 			"b": retval.equation[1],
@@ -146,7 +149,7 @@ function function_fit_cubic(points) {
 	var retval = libregression.methods.polynomial(points, { precision: 10, order: 3 });
 
 	return {
-		"type": "cubic",
+		"fun": "cubic",
 		"output": {
 			"a": retval.equation[0],
 			"b": retval.equation[1],
@@ -160,7 +163,7 @@ function function_fit_exponential(points) {
 	var retval = libregression.methods.exponential(points, { precision: 10 });
 
 	return {
-		"type": "exponential",
+		"fun": "exponential",
 		"output": {
 			"a": retval.equation[0],
 			"b": retval.equation[1]
@@ -172,7 +175,7 @@ function function_fit_logarithmic(points) {
 	var retval = libregression.methods.logarithmic(points, { precision: 10 });
 
 	return {
-		"type": "logarithmic",
+		"fun": "logarithmic",
 		"output": {
 			"a": retval.equation[0],
 			"b": retval.equation[1]
@@ -184,7 +187,7 @@ function function_fit_power(points) {
 	var retval = libregression.methods.power(points, { precision: 10 });
 
 	return {
-		"type": "power",
+		"fun": "power",
 		"output": {
 			"a": retval.equation[0],
 			"b": retval.equation[1]

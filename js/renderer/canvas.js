@@ -330,14 +330,16 @@ function canvas_reset(event) {
 
 			// Draw any fitted functions that were assigned to the capture
 
-			if(capture.functions) {
+			if(Array.isArray(capture.functions)) {
 				ctx.save();
 				ctx.strokeStyle = "rgba(0, 0, 255, 1)";
 
-				for(const [type, output] of Object.entries(capture.functions)) {
+				for(const fundef of capture.functions) {
+					const output = fundef.params;
+
 					var fun = null;
 
-					switch(type) {
+					switch(fundef.fun) {
 						case "linear":
 							fun = (x) => output.a * x + output.b;
 							break;
