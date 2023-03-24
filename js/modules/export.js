@@ -57,3 +57,23 @@ function export_csv(confirm) {
 		popup_window(WINDOWID_EXPORT_TABLE);
 	}
 }
+
+/*
+ * export_svg()
+ * 
+ * Exports the currently selected capture as .svg vector image.
+ */
+
+function export_svg() {
+	if(get_id("advancedbutton").classList.contains("navbuttondisabled")) return;
+
+	if(get_id("advancedpopup_fitfunction").classList.contains("popupitemdisabled")) return;
+
+	close_popup();
+
+	var fakectx = new C2S(canvas.width, canvas.height);
+
+	render_chart(fakectx, canvas);
+
+	save_file(fakectx.getSerializedSvg(), "canvas.svg", "image/svg+xml");
+}

@@ -408,14 +408,10 @@ function render_chart(ctx, canvas) {
 
 		// Draw the dashes on the Y axis & add values to them
 
-		ctx.textAlign = x_legend_reverse ? "left" : "right";
-		ctx.textBaseline = "middle";
-
 		for(var i = y_optimal_unit_steps; i <= y_max; i = round_to_level(i + y_optimal_unit_steps, y_round_level)) {
 			if(i >= y_min) {
 				ctx.moveTo(x_offset - 4, y_actual_offset - i * y_unit_in_px);
 				ctx.lineTo(x_offset + 4, y_actual_offset - i * y_unit_in_px);
-				ctx.fillText(localize_num(fixed_to_level(i, y_round_level)), x_offset + (x_legend_reverse ? 8 : (-8)), y_actual_offset - i * y_unit_in_px);
 			}
 		}
 
@@ -423,7 +419,6 @@ function render_chart(ctx, canvas) {
 			if(i <= y_max) {
 				ctx.moveTo(x_offset - 4, y_actual_offset - i * y_unit_in_px);
 				ctx.lineTo(x_offset + 4, y_actual_offset - i * y_unit_in_px);
-				ctx.fillText(localize_num(fixed_to_level(i, y_round_level)), x_offset + (x_legend_reverse ? 8 : (-8)), y_actual_offset - i * y_unit_in_px);
 			}
 		}
 
@@ -436,7 +431,6 @@ function render_chart(ctx, canvas) {
 			if(i >= x_min) {
 				ctx.moveTo(x_actual_offset + i * x_unit_in_px, y_offset - 4);
 				ctx.lineTo(x_actual_offset + i * x_unit_in_px, y_offset + 4);
-				ctx.fillText(localize_num(fixed_to_level(i, x_round_level)), x_actual_offset + i * x_unit_in_px, y_offset + (y_legend_reverse ? (-12) : 12));
 			}
 		}
 
@@ -444,6 +438,43 @@ function render_chart(ctx, canvas) {
 			if(i <= x_max) {
 				ctx.moveTo(x_actual_offset + i * x_unit_in_px, y_offset - 4);
 				ctx.lineTo(x_actual_offset + i * x_unit_in_px, y_offset + 4);
+			}
+		}
+
+		// Done drawing! Hooray!
+
+		ctx.stroke();
+
+		// Add values to the dashes on the Y axis
+
+		ctx.textAlign = x_legend_reverse ? "left" : "right";
+		ctx.textBaseline = "middle";
+
+		for(var i = y_optimal_unit_steps; i <= y_max; i = round_to_level(i + y_optimal_unit_steps, y_round_level)) {
+			if(i >= y_min) {
+				ctx.fillText(localize_num(fixed_to_level(i, y_round_level)), x_offset + (x_legend_reverse ? 8 : (-8)), y_actual_offset - i * y_unit_in_px);
+			}
+		}
+
+		for(var i = -y_optimal_unit_steps; i >= y_min; i = round_to_level(i - y_optimal_unit_steps, y_round_level)) {
+			if(i <= y_max) {
+				ctx.fillText(localize_num(fixed_to_level(i, y_round_level)), x_offset + (x_legend_reverse ? 8 : (-8)), y_actual_offset - i * y_unit_in_px);
+			}
+		}
+
+		// Add values to the dashes on the X axis
+
+		ctx.textAlign = "center";
+		ctx.textBaseline = y_legend_reverse ? "bottom" : "top";
+
+		for(var i = x_optimal_unit_steps; i <= x_max; i = round_to_level(i + x_optimal_unit_steps, x_round_level)) {
+			if(i >= x_min) {
+				ctx.fillText(localize_num(fixed_to_level(i, x_round_level)), x_actual_offset + i * x_unit_in_px, y_offset + (y_legend_reverse ? (-12) : 12));
+			}
+		}
+
+		for(var i = -x_optimal_unit_steps; i >= x_min; i = round_to_level(i - x_optimal_unit_steps, x_round_level)) {
+			if(i <= x_max) {
 				ctx.fillText(localize_num(fixed_to_level(i, x_round_level)), x_actual_offset + i * x_unit_in_px, y_offset + (y_legend_reverse ? (-12) : 12));
 			}
 		}
@@ -457,10 +488,6 @@ function render_chart(ctx, canvas) {
 		ctx.textBaseline = "middle";
 		ctx.textAlign = x_legend_reverse ? "right" : "left";
 		ctx.fillText(x_unit_name, x_legend_reverse ? (graph_margin_left - 8) : (canvas.width - graph_margin_right + 8), y_offset);
-
-		// Done drawing! Hooray!
-
-		ctx.stroke();
 
 		// Capture name
 

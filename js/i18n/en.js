@@ -90,6 +90,7 @@ const en = {
 		"WINDOW0_PAR_LIST":
 			"<li><a href=\"https://github.com/bevacqua/dragula\">Dragula - Drag and drop so simple it hurts</a></li>" +
 			"<li><a href=\"https://github.com/pieroxy/lz-string\">lz-string - LZ-based compression algorithm for JavaScript</a></li>" +
+			"<li><a href=\"https://github.com/gliffy/canvas2svg\">canvas2svg - Translates HTML5 Canvas draw commands to SVG</a></li>" +
 			"<li><a href=\"https://github.com/Tom-Alexander/regression-js\">regression-js - Curve Fitting in JavaScript</a></li>",
 	
 		"WINDOW1_TITLE": "Internal error",
