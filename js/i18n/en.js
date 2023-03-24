@@ -282,6 +282,15 @@ const en = {
 
 		"TABLE_INTERVAL": "Interval ({0})",
 		"TABLE_SENSOR": "Sensor {0} ({1})",
+		"TABLE_FUN_UNKNOWN_TYPE": "Function ({0})",
+		"TABLE_FUN_FITTED": "{0} function, fitted ({1})",
+		"TABLE_FUN": "{0} function ({1})",
+		"TABLE_FUN_LINEAR": "Linear",
+		"TABLE_FUN_QUADRATIC": "Quadratic",
+		"TABLE_FUN_CUBIC": "Cubic",
+		"TABLE_FUN_EXPONENTIAL": "Exponential",
+		"TABLE_FUN_LOGARITHMIC": "Logarithmic",
+		"TABLE_FUN_POWER": "Power",
 
 		"DEFAULT_FILENAME": "{0} – Laboratory work – {1}",
 		"DEFAULT_USERNAME": "John Doe",

@@ -275,6 +275,15 @@ const cs = {
 
 		"TABLE_INTERVAL": "Interval ({0})",
 		"TABLE_SENSOR": "Čidlo {0} ({1})",
+		"TABLE_FUN_UNKNOWN_TYPE": "Funkce ({0})",
+		"TABLE_FUN_FITTED": "{0} funkce, proložená ({1})",
+		"TABLE_FUN": "{0} funkce ({1})",
+		"TABLE_FUN_LINEAR": "Lineární",
+		"TABLE_FUN_QUADRATIC": "Kvadratická",
+		"TABLE_FUN_CUBIC": "Kubická",
+		"TABLE_FUN_EXPONENTIAL": "Exponenciální",
+		"TABLE_FUN_LOGARITHMIC": "Logaritmická",
+		"TABLE_FUN_POWER": "Mocninná",
 
 		"DEFAULT_FILENAME": "{0} – Laboratorní práce – {1}",
 		"DEFAULT_USERNAME": "Jan Novák",
