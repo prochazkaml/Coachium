@@ -35,7 +35,7 @@ function export_csv(confirm) {
 		const old_decimal_separator = decimal_separator;
 		decimal_separator = get_win_el_tag(WINDOWID_EXPORT_TABLE, "input").value;
 
-		const data = table_gen(captures[selected_capture]);
+		const data = table_gen(captures[selected_capture], get_win_el_tag(WINDOWID_EXPORT_TABLE, "input", 1).checked);
 		var output = "";
 
 		for(var y = 0; y < data.length; y++) {
