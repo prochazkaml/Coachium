@@ -135,7 +135,9 @@ function fit_function() {
 				funs.push({
 					fun: algo_output.fun,
 					type: "fit",
-					params: algo_output.output
+					params: algo_output.output,
+					unit_x: capture_cache.ports[capture_cache.xy_mode ? 1 : 0].unit, // TODO
+					unit_y: capture_cache.ports[capture_cache.xy_mode ? 2 : 1].unit // TODO
 				});
 			} else {
 				for(var i = 0; i < funs.length; i++) {
