@@ -70,6 +70,8 @@ const cs = {
 
 		"ADVANCED_FIT_FUNCTION": "Proložit funkci [F]",
 		"ADVANCED_NOTE_MANAGER": "Správce poznámek [N]",
+		"ADVANCED_EXPORT_TABLE": "Exportovat tabulku (.csv)",
+		"ADVANCED_EXPORT_IMAGE": "Exportovat graf (.svg)",
 
 		// Window contents
 
@@ -233,6 +235,10 @@ const cs = {
 
 		"WINDOW26_TITLE": "Jak se bude tento záznam jmenovat?",
 
+		"WINDOW27_TITLE": "Export tabulky",
+		"WINDOW27_DECIMAL_SEPARATOR": "Desetinná značka",
+		"WINDOW27_FUN_CHECKBOX": "Exportovat proložené funkce",
+
 		// "About" window text
 
 		"ABOUT_TITLE": "Co je to Coachium?",
@@ -257,8 +263,6 @@ const cs = {
 			"</b>",
 	},
 	js: {
-		// mainwindow.js
-
 		"MAINWIN_NO_CAPTURES_1": "Zatím nebyl vytvořen žádný záznam.",
 		"MAINWIN_NO_CAPTURES_2": "Buď můžete spustit nový záznam, nebo otevřít jiný sešit záznamu.",
 
@@ -272,21 +276,15 @@ const cs = {
 		"TABLE_INTERVAL": "Interval ({0})",
 		"TABLE_SENSOR": "Čidlo {0} ({1})",
 
-		// gdrive_interface.js
-
 		"DEFAULT_FILENAME": "{0} – Laboratorní práce – {1}",
-
-		// file.js
-
 		"DEFAULT_USERNAME": "Jan Novák",
+
 		"STATUS_FILE_LOADED": "Soubor načten.",
 		"STATUS_FILE_SAVED": "Soubor připraven k uložení.",
 		"STATUS_CAPTURE_REMOVED": "Měření {0} odstraněno.",
 		"STATUS_ALL_REMOVED": "Všechna měření odstraněna.",
 
 		"UNTITLED_CAPTURE": "Záznam bez názvu",
-
-		// ui.js
 
 		"HOMEPAGE_COMMIT_OK": "👍 Nejnovější verze ({0})",
 		"HOMEPAGE_COMMIT_OLD": "👎 Zastaralá verze, prosím aktualizujte! ({0} nainstalovaná, {1} dostupná)",
@@ -340,6 +338,8 @@ const cs = {
 		"INFO_WINDOW_SENSOR":
 			"<p><b>Čidlo {0} – {1}</b></p>" +
 			"<p>Rozsah: <b>{2} – {3} {4}</b></p>",
+
+		"EXPORT_CSV_NAME": "Export dat záznamu {0}.csv",
 	},
 	ds: ","
 };

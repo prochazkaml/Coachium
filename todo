@@ -10,6 +10,9 @@
 - dedicated port popup (for enlarging a value of a given sensor)
 - make the table exportable into something useful
 - display generated functions in the table (toggleable values)
+- rename capture dialog is a bit broken (input box too large)
+- allow data limiting (remove up to a certain point, etc.) - auto recalculate fit if necessary
+- rendering to .svg
 
 Future stuff:
 - ability to manually attach sensors

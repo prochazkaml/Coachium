@@ -56,6 +56,7 @@
 		<script src="js/modules/gdrive.js"></script>
 		<script src="js/modules/notemgr.js"></script>
 		<script src="js/modules/zoom.js"></script>
+		<script src="js/modules/export.js"></script>
 		<script src="js/interfaces/lowlevel/webhid.js"></script>
 		<script src="js/interfaces/cma/sensors.js"></script>
 		<script src="js/interfaces/cma/elab.js"></script>
@@ -118,6 +119,10 @@
 			<div class="popupitem" id="advancedpopup_fitfunction" onclick="fit_function();">
 				<img src="assets/icons/function.svg">
 				<span class="L18N_ADVANCED_FIT_FUNCTION"></span>
+			</div>
+			<div class="popupitem" id="advancedpopup_exportcsv" onclick="export_csv(false);">
+				<img src="assets/icons/export_table.svg">
+				<span class="L18N_ADVANCED_EXPORT_TABLE"></span>
 			</div>
 		</div>
 		<div class="popupwitharrow popupwithrightarrow" id="portpopup">
@@ -672,6 +677,31 @@
 				
 				<div class="windowbuttonlist">
 					<div class="windowbutton L18N_BUTTON_RENAME" onclick="close_window();rename_capture(true);"></div>
+					<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();"></div>
+				</div>
+			</div>
+		</div>
+
+		<div id="window27overlay" class="windowoverlay">
+			<div class="windowcloselayer" onclick="close_window();"></div>
+			<div class="popupwindow">
+				<h1 class="L18N_WINDOW27_TITLE"></h1>
+
+				<div style="width: 300px; display: flex; flex-direction: column; text-align: center;">
+					<div id="csv_decimal_separtor" class="capturesetupmodebodyparam">
+						<div class="L18N_WINDOW27_DECIMAL_SEPARATOR"></div>
+						<input type="text" value="" style="margin-right: 0;">
+					</div>
+<!--					<div class="capturesetupmodebodyparam">
+						<div style="width: 100%; text-align: center">
+							<input style="margin-left: 0" type="checkbox" id="csvallowfnscheckbox">
+							<label for="csvallowfnscheckbox" class="L18N_WINDOW27_FUN_CHECKBOX" style="user-select: none;"></label>		
+						</div>
+					</div>-->
+				</div>
+
+				<div class="windowbuttonlist">
+					<div class="windowbutton L18N_BUTTON_SAVE" onclick="close_window();export_csv(true);"></div>
 					<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();"></div>
 				</div>
 			</div>

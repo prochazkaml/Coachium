@@ -70,6 +70,8 @@ const en = {
 
 		"ADVANCED_FIT_FUNCTION": "Fit function [F]",
 		"ADVANCED_NOTE_MANAGER": "Note manager [N]",
+		"ADVANCED_EXPORT_TABLE": "Sheet export (.csv)",
+		"ADVANCED_EXPORT_IMAGE": "Chart export (.svg)",
 
 		// Window contents
 
@@ -240,6 +242,10 @@ const en = {
 
 		"WINDOW26_TITLE": "How will this capture be called?",
 
+		"WINDOW27_TITLE": "Sheet export",
+		"WINDOW27_DECIMAL_SEPARATOR": "Decimal separator",
+		"WINDOW27_FUN_CHECKBOX": "Export fitted functions",
+
 		// "About" window text
 
 		"ABOUT_TITLE": "What is Coachium?",
@@ -264,8 +270,6 @@ const en = {
 			"</b>",
 	},
 	js: {
-		// mainwindow.js
-
 		"MAINWIN_NO_CAPTURES_1": "No captures have been created yet.",
 		"MAINWIN_NO_CAPTURES_2": "You can either create a new capture, or load another workbook file.",
 
@@ -279,21 +283,15 @@ const en = {
 		"TABLE_INTERVAL": "Interval ({0})",
 		"TABLE_SENSOR": "Sensor {0} ({1})",
 
-		// gdrive_interface.js
-
 		"DEFAULT_FILENAME": "{0} – Laboratory work – {1}",
-
-		// file.js
-
 		"DEFAULT_USERNAME": "John Doe",
+
 		"STATUS_FILE_LOADED": "File loaded.",
 		"STATUS_FILE_SAVED": "File is ready to save.",
 		"STATUS_CAPTURE_REMOVED": "Capture {0} removed.",
 		"STATUS_ALL_REMOVED": "All captures removed.",
 
 		"UNTITLED_CAPTURE": "Untitled capture",
-
-		// ui.js
 
 		"HOMEPAGE_COMMIT_OK": "👍 Latest version ({0})",
 		"HOMEPAGE_COMMIT_OLD": "👎 Outdated version, please update! ({0} installed, {1} available)",
@@ -347,6 +345,8 @@ const en = {
 		"INFO_WINDOW_SENSOR":
 			"<p><b>Sensor {0} – {1}</b></p>" +
 			"<p>Range: <b>{2} – {3} {4}</b></p>",
+		
+		"EXPORT_CSV_NAME": "Data export from capture {0}.csv",
 	},
 	ds: "."
 };
