@@ -89,6 +89,8 @@ function change_selected_capture(interval, absolute = undefined) {
 		selected_capture = 0;
 	}
 
+	if(window_stack.includes(WINDOWID_FIT_FUNCTION)) fit_function();
+
 	main_window_reset(reset_zoom, false);
 }
 

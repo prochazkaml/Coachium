@@ -318,6 +318,7 @@ async function main_thread() {
 
 								// Start rendering the incoming data
 
+								close_window(WINDOWID_FIT_FUNCTION);
 								change_selected_capture(0, Infinity);
 								capture_display_thread(parsed.freq, 0);
 							} else {
