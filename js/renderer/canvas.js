@@ -524,11 +524,28 @@ function render_chart(ctx, width, height, draw_functions, draw_notes) {
 		ctx.fillText(jslang.MAINWIN_NO_CAPTURES_1, hxm, hy + 8);
 		ctx.fillText(jslang.MAINWIN_NO_CAPTURES_2, hxm, hy + 40);
 
-		// Draw mouse controls
+		// Draw hint pointing at the start button
 
 		ctx.lineCap = "round";
-		ctx.textAlign = "right";
+		ctx.textAlign = "left";
 		ctx.font = ctx.getSvg ? "bold 16px sans-serif" : "bold 16px CoachiumDefaultFont";
+
+		if(driver) {
+			const irect = get_class("L18N_TITLE_NEW_CAPTURE").getBoundingClientRect();
+			const x = irect.x + irect.width / 2;
+
+			draw_arrow(ctx, x, 30, 20, 7, 0);
+			ctx.beginPath();
+			ctx.moveTo(x, 30);
+			ctx.lineTo(x + 10, 30);
+			ctx.stroke();
+
+			ctx.fillText(jslang.MAINWIN_HELP_START, x + 20, 30);
+		}
+
+		// Draw mouse controls
+
+		ctx.textAlign = "right";
 
 		// Drag
 

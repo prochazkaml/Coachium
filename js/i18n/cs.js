@@ -272,7 +272,7 @@ const cs = {
 	js: {
 		"MAINWIN_NO_CAPTURES_1": "Zatím nebyl vytvořen žádný záznam.",
 		"MAINWIN_NO_CAPTURES_2": "Buď můžete spustit nový záznam, nebo otevřít jiný sešit záznamu.",
-
+		"MAINWIN_HELP_START": "Kliknutím na toto tlačítko spustíte nový záznam.",
 		"MAINWIN_HELP_DRAG": "Posun grafu",
 		"MAINWIN_HELP_SCROLL": "Přiblížení a oddálení grafu",
 		"MAINWIN_HELP_ALT_SCROLL": "Přiblížení a oddálení na ose X",

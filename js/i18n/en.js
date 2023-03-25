@@ -279,7 +279,7 @@ const en = {
 	js: {
 		"MAINWIN_NO_CAPTURES_1": "No captures have been created yet.",
 		"MAINWIN_NO_CAPTURES_2": "You can either create a new capture, or load another workbook file.",
-
+		"MAINWIN_HELP_START": "To create a new capture, press this button.",
 		"MAINWIN_HELP_DRAG": "Pan around the chart",
 		"MAINWIN_HELP_SCROLL": "Zoom in or out",
 		"MAINWIN_HELP_ALT_SCROLL": "Zoom in or out along the X axis",

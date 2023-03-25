@@ -32,6 +32,7 @@ function ui_hardware_change_trigger() {
 	update_port_popup();
 	capture_setup_check();
 	update_button_validity();
+	main_window_reset(false, false);
 }
 
 /*
