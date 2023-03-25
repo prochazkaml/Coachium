@@ -524,43 +524,45 @@ function render_chart(ctx, width, height, draw_functions, draw_notes) {
 		ctx.fillText(jslang.MAINWIN_NO_CAPTURES_1, hxm, hy + 8);
 		ctx.fillText(jslang.MAINWIN_NO_CAPTURES_2, hxm, hy + 40);
 
+		// Draw mouse controls
+
 		ctx.lineCap = "round";
 		ctx.textAlign = "right";
 		ctx.font = ctx.getSvg ? "bold 16px sans-serif" : "bold 16px CoachiumDefaultFont";
 
 		// Drag
 
-		draw_mouse(hxl + 10, hy + 75, 0);
-		draw_plus(hxl + 60, hy + 100, 20);
-		for(var i = 0; i < 4; i++) draw_arrow(hxl + 100, hy + 100, 20, 7, i);
+		draw_mouse(ctx, hxl + 10, hy + 75, 0);
+		draw_plus(ctx, hxl + 60, hy + 100, 20);
+		for(var i = 0; i < 4; i++) draw_arrow(ctx, hxl + 100, hy + 100, 20, 7, i);
 
 		ctx.fillText(jslang.MAINWIN_HELP_DRAG, hxl - 10, hy + 100);
 
 		// Scroll
 
-		draw_mouse(hxl + 10, hy + 155, 1);
-		ctx.strokeStyle = "white"; draw_arrow(hxl + 25, hy + 155, 12, 8, 0, 9); draw_arrow(hxl + 25, hy + 182, 12, 8, 2, 9);
-		ctx.strokeStyle = "black"; draw_arrow(hxl + 25, hy + 155, 12, 8, 0, 5); draw_arrow(hxl + 25, hy + 182, 12, 8, 2, 5);
+		draw_mouse(ctx, hxl + 10, hy + 155, 1);
+		ctx.strokeStyle = "white"; draw_arrow(ctx, hxl + 25, hy + 155, 12, 8, 0, 9); draw_arrow(ctx, hxl + 25, hy + 182, 12, 8, 2, 9);
+		ctx.strokeStyle = "black"; draw_arrow(ctx, hxl + 25, hy + 155, 12, 8, 0, 5); draw_arrow(ctx, hxl + 25, hy + 182, 12, 8, 2, 5);
 
 		ctx.fillText(jslang.MAINWIN_HELP_SCROLL, hxl - 10, hy + 180);
 
 		// Alt + Scroll
 
-		draw_key(hxr + 10, hy + 80, "Alt");
-		draw_plus(hxr + 110, hy + 100, 20);
-		draw_mouse(hxr + 130, hy + 75, 1);
-		ctx.strokeStyle = "white"; draw_arrow(hxr + 145, hy + 75, 12, 8, 0, 9); draw_arrow(hxr + 145, hy + 102, 12, 8, 2, 9);
-		ctx.strokeStyle = "black"; draw_arrow(hxr + 145, hy + 75, 12, 8, 0, 5); draw_arrow(hxr + 145, hy + 102, 12, 8, 2, 5);
+		draw_key(ctx, hxr + 10, hy + 80, "Alt");
+		draw_plus(ctx, hxr + 110, hy + 100, 20);
+		draw_mouse(ctx, hxr + 130, hy + 75, 1);
+		ctx.strokeStyle = "white"; draw_arrow(ctx, hxr + 145, hy + 75, 12, 8, 0, 9); draw_arrow(ctx, hxr + 145, hy + 102, 12, 8, 2, 9);
+		ctx.strokeStyle = "black"; draw_arrow(ctx, hxr + 145, hy + 75, 12, 8, 0, 5); draw_arrow(ctx, hxr + 145, hy + 102, 12, 8, 2, 5);
 
 		ctx.fillText(jslang.MAINWIN_HELP_ALT_SCROLL, hxr - 10, hy + 100);
 
 		// Shift + Scroll
 
-		draw_key(hxr + 10, hy + 160, "Shift");
-		draw_plus(hxr + 110, hy + 180, 20);
-		draw_mouse(hxr + 130, hy + 155, 1);
-		ctx.strokeStyle = "white"; draw_arrow(hxr + 145, hy + 155, 12, 8, 0, 9); draw_arrow(hxr + 145, hy + 182, 12, 8, 2, 9);
-		ctx.strokeStyle = "black"; draw_arrow(hxr + 145, hy + 155, 12, 8, 0, 5); draw_arrow(hxr + 145, hy + 182, 12, 8, 2, 5);
+		draw_key(ctx, hxr + 10, hy + 160, "Shift");
+		draw_plus(ctx, hxr + 110, hy + 180, 20);
+		draw_mouse(ctx, hxr + 130, hy + 155, 1);
+		ctx.strokeStyle = "white"; draw_arrow(ctx, hxr + 145, hy + 155, 12, 8, 0, 9); draw_arrow(ctx, hxr + 145, hy + 182, 12, 8, 2, 9);
+		ctx.strokeStyle = "black"; draw_arrow(ctx, hxr + 145, hy + 155, 12, 8, 0, 5); draw_arrow(ctx, hxr + 145, hy + 182, 12, 8, 2, 5);
 
 		ctx.fillText(jslang.MAINWIN_HELP_SHIFT_SCROLL, hxr - 10, hy + 180);
 	}

@@ -33,12 +33,12 @@ function draw_rounded_rect(ctx, x, y, w, h, r) {
 }
 
 /*
- * draw_key(x, y, text)
+ * draw_key(ctx, x, y, text)
  * 
  * Draws a computer keyboard key with the given text.
  */
 
-function draw_key(x, y, text) {
+function draw_key(ctx, x, y, text) {
 	ctx.save();
 	ctx.lineWidth = 5;
 	ctx.fillStyle = "lightgray";
@@ -57,7 +57,7 @@ function draw_key(x, y, text) {
 }
 
 /*
- * draw_mouse(x, y, type)
+ * draw_mouse(ctx, x, y, type)
  * 
  * Draws a computer mouse of a given type:
  * 
@@ -65,7 +65,7 @@ function draw_key(x, y, text) {
  * 1 = scroll wheel highlighted
  */
 
-function draw_mouse(x, y, type) {
+function draw_mouse(ctx, x, y, type) {
 	ctx.save();
 	ctx.lineWidth = 5;
 	ctx.fillStyle = "lightgray";
@@ -112,7 +112,7 @@ function draw_mouse(x, y, type) {
 }
 
 /*
- * draw_arrow(x, y, l, lh, dir)
+ * draw_arrow(ctx, x, y, l, lh, dir)
  * 
  * Draws an arrow according to the given direction:
  * 
@@ -122,7 +122,7 @@ function draw_mouse(x, y, type) {
  * 3 = left
  */
 
-function draw_arrow(x, y, l, lh, dir, lw = 5) {
+function draw_arrow(ctx, x, y, l, lh, dir, lw = 5) {
 	ctx.lineWidth = lw;
 	ctx.beginPath();
 	ctx.moveTo(x, y);
@@ -138,12 +138,12 @@ function draw_arrow(x, y, l, lh, dir, lw = 5) {
 }
 
 /*
- * draw_plus(x, y, l)
+ * draw_plus(ctx, x, y, l)
  * 
  * Draws a plus sign. (What a surprise.)
  */
 
-function draw_plus(x, y, l, lw = 5) {
+function draw_plus(ctx, x, y, l, lw = 5) {
 	l /= 2;
 
 	ctx.lineWidth = lw;
