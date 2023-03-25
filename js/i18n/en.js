@@ -247,6 +247,12 @@ const en = {
 		"WINDOW27_DECIMAL_SEPARATOR": "Decimal separator",
 		"WINDOW27_FUN_CHECKBOX": "Export fitted functions",
 
+		"WINDOW28_TITLE": "Chart export",
+		"WINDOW28_RESOLUTION": "Output resolution",
+		"WINDOW28_RESOLUTION_SEPARATOR": "x",
+		"WINDOW28_FUN_CHECKBOX": "Export fitted functions",
+		"WINDOW28_NOTE_CHECKBOX": "Export notes",
+
 		// "About" window text
 
 		"ABOUT_TITLE": "What is Coachium?",
@@ -357,6 +363,7 @@ const en = {
 			"<p>Range: <b>{2} – {3} {4}</b></p>",
 		
 		"EXPORT_CSV_NAME": "Data export from capture {0}.csv",
+		"EXPORT_SVG_NAME": "Chart export from capture {0}.svg",
 	},
 	ds: "."
 };

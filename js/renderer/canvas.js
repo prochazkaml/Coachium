@@ -145,19 +145,19 @@ function canvas_reset(event) {
 
 		if(get_class("canvasstack").style.display == "none") return;
 
-		render_chart(ctx, canvas);
-		render_overlay(ovctx, overlay);
+		render_chart(ctx, canvas.width, canvas.height, true, true);
+		render_overlay(ovctx, overlay.width, overlay.height);
 	}
 }
 
 /*
- * render_chart(ctx, canvas)
+ * render_chart(ctx, width, height, draw_functions, draw_notes)
  * 
  * Renders the chart (if there is one) onto a selected context.
  */
 
-function render_chart(ctx, canvas) {
-	ctx.clearRect(0, 0, canvas.width, canvas.height);
+function render_chart(ctx, width, height, draw_functions, draw_notes) {
+	ctx.clearRect(0, 0, width, height);
 
 	// Set the default ctx values
 
@@ -225,19 +225,19 @@ function render_chart(ctx, canvas) {
 		x_total_units = Math.abs(x_max - x_min);
 
 		if(x_min < 0 && x_max < 0) {
-			x_offset = canvas.width - graph_margin_right;
+			x_offset = width - graph_margin_right;
 			x_legend_reverse = true;
 		} else if(x_min < 0 && x_max >= 0) {
-			x_offset = graph_margin_left - (canvas.width - graph_margin_left - graph_margin_right) * x_min / x_total_units;
+			x_offset = graph_margin_left - (width - graph_margin_left - graph_margin_right) * x_min / x_total_units;
 		} else if(x_min >= 0 && x_max >= 0) {
 			x_offset = graph_margin_left;
 		}
 
-		x_actual_offset = graph_margin_left - (canvas.width - graph_margin_left - graph_margin_right) * x_min / x_total_units;
+		x_actual_offset = graph_margin_left - (width - graph_margin_left - graph_margin_right) * x_min / x_total_units;
 
-		x_unit_in_px = (canvas.width - graph_margin_left - graph_margin_right) / x_total_units;
+		x_unit_in_px = (width - graph_margin_left - graph_margin_right) / x_total_units;
 		x_units_per_px = 1 / x_unit_in_px;
-		x_round_level = get_optimal_round_level(x_total_units, canvas.width - graph_margin_left - graph_margin_right, 40);
+		x_round_level = get_optimal_round_level(x_total_units, width - graph_margin_left - graph_margin_right, 40);
 		x_optimal_unit_steps = get_optimal_unit_steps(x_round_level);
 
 		// Calculate the rest of the Y axis parameters
@@ -255,16 +255,16 @@ function render_chart(ctx, canvas) {
 			y_offset = graph_margin_top;
 			y_legend_reverse = true;
 		} else if(y_min < 0 && y_max >= 0) {
-			y_offset = canvas.height - graph_margin_bottom + (canvas.height - graph_margin_bottom - graph_margin_top) * y_min / y_total_units;
+			y_offset = height - graph_margin_bottom + (height - graph_margin_bottom - graph_margin_top) * y_min / y_total_units;
 		} else if(y_min >= 0 && y_max >= 0) {
-			y_offset = canvas.height - graph_margin_bottom;
+			y_offset = height - graph_margin_bottom;
 		}
 
-		y_actual_offset = canvas.height - graph_margin_bottom + (canvas.height - graph_margin_bottom - graph_margin_top) * y_min / y_total_units;
+		y_actual_offset = height - graph_margin_bottom + (height - graph_margin_bottom - graph_margin_top) * y_min / y_total_units;
 
-		y_unit_in_px = (canvas.height - graph_margin_bottom - graph_margin_top) / y_total_units;
+		y_unit_in_px = (height - graph_margin_bottom - graph_margin_top) / y_total_units;
 		y_units_per_px = 1 / y_unit_in_px;
-		y_round_level = get_optimal_round_level(y_total_units, canvas.height - graph_margin_bottom - graph_margin_top, 24);
+		y_round_level = get_optimal_round_level(y_total_units, height - graph_margin_bottom - graph_margin_top, 24);
 		y_optimal_unit_steps = get_optimal_unit_steps(y_round_level);
 
 		// Draw the grid
@@ -275,28 +275,28 @@ function render_chart(ctx, canvas) {
 		for(var i = y_optimal_unit_steps; i <= y_max; i = round_to_level(i + y_optimal_unit_steps, y_round_level)) {
 			if(i >= y_min) {
 				ctx.moveTo(graph_margin_left, y_actual_offset - i * y_unit_in_px);
-				ctx.lineTo(canvas.width - graph_margin_right, y_actual_offset - i * y_unit_in_px);
+				ctx.lineTo(width - graph_margin_right, y_actual_offset - i * y_unit_in_px);
 			}
 		}
 
 		for(var i = -y_optimal_unit_steps; i >= y_min; i = round_to_level(i - y_optimal_unit_steps, y_round_level)) {
 			if(i <= y_max) {
 				ctx.moveTo(graph_margin_left, y_actual_offset - i * y_unit_in_px);
-				ctx.lineTo(canvas.width - graph_margin_right, y_actual_offset - i * y_unit_in_px);
+				ctx.lineTo(width - graph_margin_right, y_actual_offset - i * y_unit_in_px);
 			}
 		}
 
 		for(var i = x_optimal_unit_steps; i <= x_max; i = round_to_level(i + x_optimal_unit_steps, x_round_level)) {
 			if(i >= x_min) {
 				ctx.moveTo(x_actual_offset + i * x_unit_in_px, graph_margin_top);
-				ctx.lineTo(x_actual_offset + i * x_unit_in_px, canvas.height - graph_margin_bottom);
+				ctx.lineTo(x_actual_offset + i * x_unit_in_px, height - graph_margin_bottom);
 			}
 		}
 
 		for(var i = -x_optimal_unit_steps; i >= x_min; i = round_to_level(i - x_optimal_unit_steps, x_round_level)) {
 			if(i <= x_max) {
 				ctx.moveTo(x_actual_offset + i * x_unit_in_px, graph_margin_top);
-				ctx.lineTo(x_actual_offset + i * x_unit_in_px, canvas.height - graph_margin_bottom);
+				ctx.lineTo(x_actual_offset + i * x_unit_in_px, height - graph_margin_bottom);
 			}
 		}
 
@@ -322,9 +322,9 @@ function render_chart(ctx, canvas) {
 
 			if(i &&
 				(last_x >= 0 || x >= 0) &&
-				(last_x < canvas.width || x < canvas.width) &&
+				(last_x < width || x < width) &&
 				(last_y >= 0 || y >= 0) &&
-				(last_y < canvas.height || y < canvas.height)) {
+				(last_y < height || y < height)) {
 
 				ctx.moveTo(last_x, last_y);
 				ctx.lineTo(x, y);
@@ -338,7 +338,7 @@ function render_chart(ctx, canvas) {
 
 		// Draw any fitted functions that were assigned to the capture
 
-		if(Array.isArray(capture.functions)) {
+		if(draw_functions && Array.isArray(capture.functions)) {
 			ctx.save();
 			ctx.strokeStyle = "rgba(0, 0, 255, 1)";
 
@@ -350,7 +350,7 @@ function render_chart(ctx, canvas) {
 
 					ctx.moveTo(graph_margin_left, y_actual_offset - fun(x_min) * y_unit_in_px);
 
-					for(var x = 1; x <= canvas.width - graph_margin_right - graph_margin_left; x++) {
+					for(var x = 1; x <= width - graph_margin_right - graph_margin_left; x++) {
 						ctx.lineTo(x + graph_margin_left, y_actual_offset - fun(x_min + x * x_units_per_px) * y_unit_in_px);
 					}
 
@@ -365,13 +365,13 @@ function render_chart(ctx, canvas) {
 
 		ctx.save();
 
-		if(capture.notes) for(var i = 0; i < capture.notes.length; i++) {
+		if(draw_notes && capture.notes) for(var i = 0; i < capture.notes.length; i++) {
 			const note = capture.notes[i];
 
 			draw_note(
 				ctx,
-				graph_margin_left + (note.x - zoomx1) / (zoomx2 - zoomx1) * (canvas.width - graph_margin_left - graph_margin_right),
-				canvas.height - graph_margin_bottom - (note.y - zoomy1) / (zoomy2 - zoomy1) * (canvas.height - graph_margin_top - graph_margin_bottom),
+				graph_margin_left + (note.x - zoomx1) / (zoomx2 - zoomx1) * (width - graph_margin_left - graph_margin_right),
+				height - graph_margin_bottom - (note.y - zoomy1) / (zoomy2 - zoomy1) * (height - graph_margin_top - graph_margin_bottom),
 				i
 			);
 		}
@@ -384,10 +384,10 @@ function render_chart(ctx, canvas) {
 
 		ctx.fillStyle = "rgba(255, 255, 255, 0.75)";
 
-		ctx.fillRect(0, 0, canvas.width, graph_margin_top);
-		ctx.fillRect(0, graph_margin_top, graph_margin_left, canvas.height - graph_margin_top - graph_margin_bottom);
-		ctx.fillRect(canvas.width - graph_margin_right, graph_margin_top, graph_margin_right, canvas.height - graph_margin_top - graph_margin_bottom);
-		ctx.fillRect(0, canvas.height - graph_margin_bottom, canvas.width, graph_margin_bottom);
+		ctx.fillRect(0, 0, width, graph_margin_top);
+		ctx.fillRect(0, graph_margin_top, graph_margin_left, height - graph_margin_top - graph_margin_bottom);
+		ctx.fillRect(width - graph_margin_right, graph_margin_top, graph_margin_right, height - graph_margin_top - graph_margin_bottom);
+		ctx.fillRect(0, height - graph_margin_bottom, width, graph_margin_bottom);
 
 		ctx.restore();
 
@@ -399,12 +399,12 @@ function render_chart(ctx, canvas) {
 		// Draw the Y axis (based on the X axis offset)
 
 		ctx.moveTo(x_offset, graph_margin_top);
-		ctx.lineTo(x_offset, canvas.height - graph_margin_bottom);
+		ctx.lineTo(x_offset, height - graph_margin_bottom);
 
 		// Draw the X axis (based on the Y axis offset)
 
 		ctx.moveTo(graph_margin_left, y_offset);
-		ctx.lineTo(canvas.width - graph_margin_right, y_offset);
+		ctx.lineTo(width - graph_margin_right, y_offset);
 
 		// Draw the dashes on the Y axis & add values to them
 
@@ -483,11 +483,11 @@ function render_chart(ctx, canvas) {
 
 		ctx.textBaseline = y_legend_reverse ? "top" : "bottom";
 		ctx.textAlign = "center";
-		ctx.fillText(y_unit_name, x_offset, y_legend_reverse ? (canvas.height - graph_margin_bottom + 8) : (graph_margin_top - 8));
+		ctx.fillText(y_unit_name, x_offset, y_legend_reverse ? (height - graph_margin_bottom + 8) : (graph_margin_top - 8));
 
 		ctx.textBaseline = "middle";
 		ctx.textAlign = x_legend_reverse ? "right" : "left";
-		ctx.fillText(x_unit_name, x_legend_reverse ? (graph_margin_left - 8) : (canvas.width - graph_margin_right + 8), y_offset);
+		ctx.fillText(x_unit_name, x_legend_reverse ? (graph_margin_left - 8) : (width - graph_margin_right + 8), y_offset);
 
 		// Capture name
 
@@ -503,10 +503,10 @@ function render_chart(ctx, canvas) {
 			ctx.strokeStyle = "rgba(0, 0, 255, 0.3)";
 
 			ctx.moveTo(x, graph_margin_top);
-			ctx.lineTo(x, canvas.height - graph_margin_bottom);
+			ctx.lineTo(x, height - graph_margin_bottom);
 
 			ctx.moveTo(graph_margin_left, y);
-			ctx.lineTo(canvas.width - graph_margin_right, y);
+			ctx.lineTo(width - graph_margin_right, y);
 
 			ctx.stroke();
 		}
@@ -514,10 +514,10 @@ function render_chart(ctx, canvas) {
 		// No captures present, display help
 
 		const hw = 400, hh = 210;
-		const hxm = canvas.width / 2, hxl = (canvas.width - hw) / 2, hxr = (canvas.width + hw) / 2, hy = (canvas.height - hh) / 2;
+		const hxm = width / 2, hxl = (width - hw) / 2, hxr = (width + hw) / 2, hy = (height - hh) / 2;
 
 //			ctx.fillStyle = "gray";
-//			ctx.fillRect((canvas.width - hw) / 2, (canvas.height - hh) / 2, hw, hh)
+//			ctx.fillRect((width - hw) / 2, (height - hh) / 2, hw, hh)
 
 		ctx.fillStyle = "black";
 
@@ -574,53 +574,53 @@ function render_chart(ctx, canvas) {
  * Renders the canvas overlay onto an overlay context.
  */
 
-function render_overlay(ovctx, overlay) {
-	ovctx.clearRect(0, 0, overlay.width, overlay.height);
+function render_overlay(ovctx, width, height) {
+	ovctx.clearRect(0, 0, width, height);
 
 	if(note_placement_progress || zoom_request_progress) {
-		ovctx.clearRect(0, 0, overlay.width, overlay.height);
+		ovctx.clearRect(0, 0, width, height);
 
 		var x = mouseX, y = mouseY;
 
 		if(note_placement_progress) {
 			ovctx.fillStyle = "rgba(0, 0, 0, 0.5)";
-			ovctx.fillRect(0, 0, overlay.width, overlay.height);
+			ovctx.fillRect(0, 0, width, height);
 
-			draw_crosshair(ovctx, x, y, "#0000FF");
+			draw_crosshair(ovctx, x, y, width, height, "#0000FF");
 			draw_note(ovctx, x, y, note_id);
 		} else switch(zoom_request_progress) {
 			case 1:
 				ovctx.fillStyle = "rgba(0, 0, 0, 0.5)";
-				ovctx.fillRect(0, 0, overlay.width, overlay.height);
+				ovctx.fillRect(0, 0, width, height);
 
-				draw_crosshair(ovctx, x, y, "#0000FF");
+				draw_crosshair(ovctx, x, y, width, height, "#0000FF");
 				break;
 
 			case 2:
 				ovctx.fillStyle = "rgba(0, 0, 0, 0.29289)"; // (1 - x) * (1 - x) = 0,5
 
 				if(mousepositions[1][1] < y) {
-					ovctx.fillRect(0, 0, overlay.width, mousepositions[1][1]);
-					ovctx.fillRect(0, y, overlay.width, overlay.height);
+					ovctx.fillRect(0, 0, width, mousepositions[1][1]);
+					ovctx.fillRect(0, y, width, height);
 				} else {
-					ovctx.fillRect(0, 0, overlay.width, y);
-					ovctx.fillRect(0, mousepositions[1][1], overlay.width, overlay.height);
+					ovctx.fillRect(0, 0, width, y);
+					ovctx.fillRect(0, mousepositions[1][1], width, height);
 				}
 
 				if(mousepositions[1][0] < x) {
-					ovctx.fillRect(0, 0, mousepositions[1][0], overlay.height);
-					ovctx.fillRect(x, 0, overlay.width, overlay.height);
+					ovctx.fillRect(0, 0, mousepositions[1][0], height);
+					ovctx.fillRect(x, 0, width, height);
 				} else {
-					ovctx.fillRect(0, 0, x, overlay.height);
-					ovctx.fillRect(mousepositions[1][0], 0, overlay.width, overlay.height);
+					ovctx.fillRect(0, 0, x, height);
+					ovctx.fillRect(mousepositions[1][0], 0, width, height);
 				}
 
-				draw_crosshair(ovctx, mousepositions[1][0], mousepositions[1][1], "#0000FF");
-				draw_crosshair(ovctx, x, y, "#0000FF");
+				draw_crosshair(ovctx, mousepositions[1][0], mousepositions[1][1], width, height, "#0000FF");
+				draw_crosshair(ovctx, x, y, width, height, "#0000FF");
 				break;
 		}
 	} else if(captures.length > 0) {
-		ovctx.clearRect(0, 0, overlay.width, overlay.height);
+		ovctx.clearRect(0, 0, width, height);
 
 		if(mouse_over_canvas) {
 			var max = [], min = [], unit = [];
@@ -643,10 +643,10 @@ function render_overlay(ovctx, overlay) {
 				unit[1] = capture_cache.ports[1].unit;
 			}
 
-			draw_crosshair(ovctx, mouseX, mouseY, "rgba(0, 0, 255, .5)");
+			draw_crosshair(ovctx, mouseX, mouseY, width, height, "rgba(0, 0, 255, .5)");
 
-			var mx = (mouseX - graph_margin_left) / (canvas.width - graph_margin_left - graph_margin_right),
-				my = (mouseY - graph_margin_top) / (canvas.height - graph_margin_top - graph_margin_bottom),
+			var mx = (mouseX - graph_margin_left) / (width - graph_margin_left - graph_margin_right),
+				my = (mouseY - graph_margin_top) / (width - graph_margin_top - graph_margin_bottom),
 				uw = Math.abs(max[0] - min[0]),
 				uh = Math.abs(max[1] - min[1]);
 
@@ -660,13 +660,13 @@ function render_overlay(ovctx, overlay) {
 
 			ovctx.fillText(
 				"X = " + localize_num(ideal_round_fixed(uw, max[0])) + " " + unit[0],
-				overlay.width - graph_margin_right - 150,
+				width - graph_margin_right - 150,
 				graph_margin_top / 2
 			);
 
 			ovctx.fillText(
 				"Y = " + localize_num(ideal_round_fixed(uh, max[1])) + " " + unit[1],
-				overlay.width - graph_margin_right,
+				width - graph_margin_right,
 				graph_margin_top / 2
 			);
 		}
@@ -679,15 +679,15 @@ function render_overlay(ovctx, overlay) {
  * Draws a crosshair onto an overlay context.
  */
 
-function draw_crosshair(ovctx, x, y, color) {
+function draw_crosshair(ovctx, x, y, w, h, color) {
 	ovctx.beginPath();
 	ovctx.strokeStyle = color;
 
 	ovctx.moveTo(x, graph_margin_top);
-	ovctx.lineTo(x, canvas.height - graph_margin_bottom);
+	ovctx.lineTo(x, h - graph_margin_bottom);
 
 	ovctx.moveTo(graph_margin_left, y);
-	ovctx.lineTo(canvas.width - graph_margin_right, y);
+	ovctx.lineTo(w - graph_margin_right, y);
 
 	ovctx.stroke();
 }

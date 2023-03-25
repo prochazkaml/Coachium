@@ -125,7 +125,7 @@
 				<img src="assets/icons/export_table.svg">
 				<span class="L18N_ADVANCED_EXPORT_TABLE"></span>
 			</div>
-			<div class="popupitem" id="advancedpopup_exportsvg" onclick="export_svg();">
+			<div class="popupitem" id="advancedpopup_exportsvg" onclick="export_svg(false);">
 				<img src="assets/icons/export_image.svg">
 				<span class="L18N_ADVANCED_EXPORT_IMAGE"></span>
 			</div>
@@ -693,13 +693,13 @@
 				<h1 class="L18N_WINDOW27_TITLE"></h1>
 
 				<div style="width: 300px; display: flex; flex-direction: column; text-align: center;">
-					<div id="csv_decimal_separtor" class="capturesetupmodebodyparam">
+					<div class="capturesetupmodebodyparam">
 						<div class="L18N_WINDOW27_DECIMAL_SEPARATOR"></div>
 						<input type="text" value="" style="margin-right: 0;">
 					</div>
 					<div class="capturesetupmodebodyparam">
 						<div style="width: 100%; text-align: center">
-							<input style="margin-left: 0" type="checkbox" id="csvallowfnscheckbox">
+							<input style="margin-left: 0" type="checkbox" id="csvallowfnscheckbox" checked>
 							<label for="csvallowfnscheckbox" class="L18N_WINDOW27_FUN_CHECKBOX" style="user-select: none;"></label>		
 						</div>
 					</div>
@@ -707,6 +707,41 @@
 
 				<div class="windowbuttonlist">
 					<div class="windowbutton L18N_BUTTON_SAVE" onclick="close_window();export_csv(true);"></div>
+					<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();"></div>
+				</div>
+			</div>
+		</div>
+
+		<div id="window28overlay" class="windowoverlay">
+			<div class="windowcloselayer" onclick="close_window();"></div>
+			<div class="popupwindow">
+				<h1 class="L18N_WINDOW28_TITLE"></h1>
+
+				<div style="width: 300px; display: flex; flex-direction: column; text-align: center;">
+					<div class="capturesetupmodebodyparam" style="justify-content: center;">
+						<div class="L18N_WINDOW28_RESOLUTION"></div>
+					</div>
+					<div class="capturesetupmodebodyparam">
+						<input type="number" value="" style="margin-left: 0;">
+						<div class="L18N_WINDOW28_RESOLUTION_SEPARATOR"></div>
+						<input type="number" value="" style="margin-right: 0;">
+					</div>
+					<div class="capturesetupmodebodyparam">
+						<div style="width: 100%; text-align: center">
+							<input style="margin-left: 0" type="checkbox" id="svgallowfnscheckbox" checked>
+							<label for="svgallowfnscheckbox" class="L18N_WINDOW28_FUN_CHECKBOX" style="user-select: none;"></label>
+						</div>
+					</div>
+					<div class="capturesetupmodebodyparam">
+						<div style="width: 100%; text-align: center">
+							<input style="margin-left: 0" type="checkbox" id="svgallownotescheckbox" checked>
+							<label for="svgallownotescheckbox" class="L18N_WINDOW28_NOTE_CHECKBOX" style="user-select: none;"></label>
+						</div>
+					</div>
+				</div>
+
+				<div class="windowbuttonlist">
+					<div class="windowbutton L18N_BUTTON_SAVE" onclick="close_window();export_svg(true);"></div>
 					<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();"></div>
 				</div>
 			</div>

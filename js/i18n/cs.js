@@ -240,6 +240,12 @@ const cs = {
 		"WINDOW27_DECIMAL_SEPARATOR": "Desetinná značka",
 		"WINDOW27_FUN_CHECKBOX": "Exportovat proložené funkce",
 
+		"WINDOW28_TITLE": "Export grafu",
+		"WINDOW28_RESOLUTION": "Výsledné rozlišení",
+		"WINDOW28_RESOLUTION_SEPARATOR": "x",
+		"WINDOW28_FUN_CHECKBOX": "Exportovat proložené funkce",
+		"WINDOW28_NOTE_CHECKBOX": "Exportovat poznámky",
+
 		// "About" window text
 
 		"ABOUT_TITLE": "Co je to Coachium?",
@@ -350,6 +356,7 @@ const cs = {
 			"<p>Rozsah: <b>{2} – {3} {4}</b></p>",
 
 		"EXPORT_CSV_NAME": "Export dat záznamu {0}.csv",
+		"EXPORT_SVG_NAME": "Export grafu záznamu {0}.svg",
 	},
 	ds: ","
 };

@@ -35,7 +35,7 @@ function export_csv(confirm) {
 		const old_decimal_separator = decimal_separator;
 		decimal_separator = get_win_el_tag(WINDOWID_EXPORT_TABLE, "input").value;
 
-		const data = table_gen(captures[selected_capture], get_win_el_tag(WINDOWID_EXPORT_TABLE, "input", 1).checked);
+		const data = table_gen(captures[selected_capture], get_id("csvallowfnscheckbox").checked);
 		var output = "";
 
 		for(var y = 0; y < data.length; y++) {
@@ -59,21 +59,46 @@ function export_csv(confirm) {
 }
 
 /*
- * export_svg()
+ * export_svg(confirm)
  * 
  * Exports the currently selected capture as .svg vector image.
  */
 
-function export_svg() {
+var export_svg_resolution_changed = false;
+
+function export_svg(confirm) {
 	if(get_id("advancedbutton").classList.contains("navbuttondisabled")) return;
 
 	if(get_id("advancedpopup_fitfunction").classList.contains("popupitemdisabled")) return;
 
 	close_popup();
 
-	var fakectx = new C2S(canvas.width, canvas.height);
+	if(confirm) {
+		const w = get_win_el_tag(WINDOWID_EXPORT_CHART, "input", 0).value;
+		const h = get_win_el_tag(WINDOWID_EXPORT_CHART, "input", 1).value;
 
-	render_chart(fakectx, canvas);
+		var fakectx = new C2S(w, h);
 
-	save_file(fakectx.getSerializedSvg(), "canvas.svg", "image/svg+xml");
+		render_chart(
+			fakectx, w, h,
+			get_id("svgallowfnscheckbox").checked,
+			get_id("svgallownotescheckbox").checked,
+		);
+
+		save_file(fakectx.getSerializedSvg(), format(jslang.EXPORT_SVG_NAME, captures[selected_capture].title), "image/svg+xml");
+	} else {
+		// Pre-fill resolution if it was not already changed
+
+		if(!export_svg_resolution_changed) {
+			get_win_el_tag(WINDOWID_EXPORT_CHART, "input", 0).value = canvas.width;
+			get_win_el_tag(WINDOWID_EXPORT_CHART, "input", 1).value = canvas.height;
+		}
+
+		get_win_el_tag(WINDOWID_EXPORT_CHART, "input", 0).oninput =
+		get_win_el_tag(WINDOWID_EXPORT_CHART, "input", 1).oninput = () => {
+			export_svg_resolution_changed = true;
+		};
+
+		popup_window(WINDOWID_EXPORT_CHART);	
+	}
 }
