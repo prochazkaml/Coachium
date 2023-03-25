@@ -225,7 +225,7 @@ class Prochazka_Dummy_driver {
 
 			// Check if we've finished
 
-			if(this.capture.received >= samples) {
+			if(this.capture.received >= samples * ports.length) {
 				this.stopcapture();
 			}
 		}, units);
