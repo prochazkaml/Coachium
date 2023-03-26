@@ -672,7 +672,7 @@ function render_overlay(ovctx, width, height) {
 			draw_crosshair(ovctx, mouseX, mouseY, width, height, "rgba(0, 0, 255, .5)");
 
 			var mx = (mouseX - graph_margin_left) / (width - graph_margin_left - graph_margin_right),
-				my = (mouseY - graph_margin_top) / (width - graph_margin_top - graph_margin_bottom),
+				my = (mouseY - graph_margin_top) / (height - graph_margin_top - graph_margin_bottom),
 				uw = Math.abs(max[0] - min[0]),
 				uh = Math.abs(max[1] - min[1]);
 
