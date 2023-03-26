@@ -76,7 +76,7 @@ function table_gen(capture, display_fns) {
 
 	const fns = capture.functions;
 
-	for(var i = 0; i < fns.length; i++) {
+	if(fns) for(var i = 0; i < fns.length; i++) {
 		fn_calcs[i] = get_fun_calc(fns[i]);
 	}
 
@@ -92,7 +92,7 @@ function table_gen(capture, display_fns) {
 		col.push(format(jslang.TABLE_SENSOR, keys[i], capture_cache.ports[i + 1].unit))
 	}
 
-	if(display_fns) for(var i = 0; i < fns.length; i++) {
+	if(display_fns && fns) for(var i = 0; i < fns.length; i++) {
 		const fn = fns[i];
 
 		var unit = "???";
@@ -121,7 +121,7 @@ function table_gen(capture, display_fns) {
 			col.push(localize_num(capture_cache.values[i][j]));
 		}
 
-		if(display_fns) for(var j = 0; j < fns.length; j++) {
+		if(display_fns && fns) for(var j = 0; j < fns.length; j++) {
 			const fn = fns[j];
 
 			if(fn.sensor_x !== undefined)
