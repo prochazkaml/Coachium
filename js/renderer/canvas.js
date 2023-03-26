@@ -113,41 +113,42 @@ const graph_margin_bottom = 40;
 const graph_margin_left   = 64;
 const graph_margin_right  = 64;
 
-var drawcache = null;
-
 function canvas_reset(event) {
-//	console.log(event);
+	// Recalculate styles, if requested
 
-	// Redraw again, if necessary
+	if(event == CANVAS_EVENT_RECALCULATE_STYLES) {
+		// Reset canvas parameters
 
-	if((event != CANVAS_EVENT_CROSSHAIR_MOVE && event != CANVAS_EVENT_CURSOR_MOVE) || drawcache == null) {
-		if(event == CANVAS_EVENT_RECALCULATE_STYLES) {
-			// Reset canvas parameters
+		overlay.width = canvas.width = 0;
+		overlay.height = canvas.height = 0;
+		overlay.style.width = canvas.style.width = "100%";
+		overlay.style.height = canvas.style.height = "100%";
 
-			overlay.width = canvas.width = 0;
-			overlay.height = canvas.height = 0;
-			overlay.style.width = canvas.style.width = "100%";
-			overlay.style.height = canvas.style.height = "100%";
+		// Change the drawing size
 
-			// Change the drawing size
+		canvas.width = canvas.offsetWidth;
+		canvas.height = canvas.offsetHeight;
 
-			canvas.width = canvas.offsetWidth;
-			canvas.height = canvas.offsetHeight;
+		overlay.width = overlay.offsetWidth;
+		overlay.height = overlay.offsetHeight;
 
-			overlay.width = overlay.offsetWidth;
-			overlay.height = overlay.offsetHeight;
+		// Reset the CSS
 
-			// Reset the CSS
-
-			overlay.style.width = canvas.style.width = "";
-			overlay.style.height = canvas.style.height = "";
-		}
-
-		if(get_class("canvasstack").style.display == "none") return;
-
-		render_chart(ctx, canvas.width, canvas.height, true, true);
-		render_overlay(ovctx, overlay.width, overlay.height);
+		overlay.style.width = canvas.style.width = "";
+		overlay.style.height = canvas.style.height = "";
 	}
+
+	// If the canvas is not visible, do not bother with rendering
+
+	if(get_class("canvasstack").style.display == "none") return;
+
+	// Redraw the background if necessary
+
+	if(event != CANVAS_EVENT_CROSSHAIR_MOVE && event != CANVAS_EVENT_CURSOR_MOVE) {
+		render_chart(ctx, canvas.width, canvas.height, true, true);
+	}
+
+	render_overlay(ovctx, overlay.width, overlay.height);
 }
 
 /*
@@ -591,8 +592,6 @@ function render_chart(ctx, width, height, draw_functions, draw_notes) {
 
 		ctx.fillText(jslang.MAINWIN_HELP_SHIFT_SCROLL, hxr - 10, hy + 180);
 	}
-
-	drawcache = null;
 }
 
 /*
