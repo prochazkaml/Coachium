@@ -305,7 +305,15 @@ function render_chart(ctx, width, height, draw_functions, draw_notes) {
 		// Draw the graph data
 
 		ctx.beginPath();
-		ctx.strokeStyle = "red";
+
+		const ports = capture.ports;
+		const color = ports[Object.keys(ports)[0]].drawcolor; // TODO
+
+		if(capture_cache.xy_mode || !color) {
+			ctx.strokeStyle = "red";
+		} else {
+			ctx.strokeStyle = color;
+		}
 
 		var x, last_x = null, y, last_y = null;
 
