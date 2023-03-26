@@ -127,6 +127,15 @@ async function driver_start() {
 
 			driver = response;
 
+			// Set the colors of the driver's ports
+
+			const keys = Object.keys(driver.ports);
+			const colors = [ "#44FF44", "#FFFF44", "#FF5566", "#9999FF", "#FF8833" ];
+
+			for(var i = 0; i < keys.length; i++) {
+				driver.ports[keys[i]].color = colors[i % colors.length];
+			}
+
 			// Update the UI to reflect the fact that we are connected
 
 			ui_connect(true);

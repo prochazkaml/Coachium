@@ -25,7 +25,6 @@ class Prochazka_Dummy_driver {
 		"A1": {
 			autodetect: true,
 			connected: true,
-			color: get_port_color(0),
 			name: "Dummy sensor 1",
 			unit: "W",
 			value: 0,
@@ -38,7 +37,6 @@ class Prochazka_Dummy_driver {
 		"A2": {
 			autodetect: true,
 			connected: true,
-			color: get_port_color(1),
 			name: "Dummy sensor 2",
 			unit: "X",
 			value: 0,
@@ -51,7 +49,6 @@ class Prochazka_Dummy_driver {
 		"A3": {
 			autodetect: true,
 			connected: true,
-			color: get_port_color(2),
 			name: "Dummy sensor 3",
 			unit: "Y",
 			value: 0,
@@ -64,7 +61,6 @@ class Prochazka_Dummy_driver {
 		"A4": {
 			autodetect: true,
 			connected: true,
-			color: get_port_color(3),
 			name: "Dummy sensor 4",
 			unit: "Z",
 			value: 0,

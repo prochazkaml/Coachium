@@ -31,18 +31,6 @@ var capture_cache = {
 };
 
 /*
- * get_port_color(port_id)
- * 
- * Gets the color value for a given port. Should be used in the drivers' ports fields directly.
- */
-
-function get_port_color(port_id) {
-	const colors = [ "#4F4", "#FF4", "#F56", "#99F", "#F83" ];
-
-	return colors[port_id % colors.length];
-}
-
-/*
  * get_id(id, srcel = document)
  * 
  * Alias for document.getElementById (or any other element), because I really don't
