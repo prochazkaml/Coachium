@@ -24,7 +24,7 @@ const lldrivers = {
 }
 
 const driverindex = {
-	"CMA": {
+	"CMA Amsterdam": {
 		"€Lab": {
 			method: "hid",
 			driver: CMA_ELab_driver
