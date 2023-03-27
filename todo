@@ -14,6 +14,7 @@
 - update z-index on click on draggable windows
 - floating calculator
 - chart export/capture setup - Tab doesn't work!
+- get multiple popups to work
 
 Future stuff:
 - utility for analyzing data (optionally select a region, min/max/avg)
