@@ -728,7 +728,7 @@ function draw_crosshair(ovctx, x, y, w, h, color) {
 function draw_note(ctx, x, y, id) {
 	const note = captures[selected_capture].notes[id];
 
-	ctx.font = "16px CoachiumDefaultFont";
+	ctx.font = ctx.getSvg ? "16px sans-serif" : "16px CoachiumDefaultFont";
 	ctx.strokeStyle = "black";
 	ctx.lineWidth = 2;
 
