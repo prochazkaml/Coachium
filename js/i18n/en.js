@@ -60,6 +60,10 @@ const en = {
 		"TITLE_CAPTURE_MGMT": "Manage captures [M]",
 		"TITLE_CAPTURE_INFO": "Display this capture's details [I]",
 		"TITLE_ADVANCED_FEATURES": "Advanced features",
+		"TITLE_TOOLBOX": "Other tools",
+
+		"TOOLBOX_CALCULATOR": "Calculator",
+		"TOOLBOX_ABOUT": "About Coachium...",
 
 		// Popup window buttons
 

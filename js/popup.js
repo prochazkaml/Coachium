@@ -231,7 +231,7 @@ function reset_sensor_zero_point() {
  */
 
 /*
- * initialize_note_placement()
+ * show_advanced_stuff()
  * 
  * Pops up the popup containing extra advanced features.
  */
@@ -250,6 +250,28 @@ function show_advanced_stuff() {
 	}
 
 	init_popup("advancedpopup", buttonrect.x + buttonrect.width / 2, buttonrect.y + buttonrect.height, 1);
+
+	allowed_region = buttonrect;
+}
+
+/*
+ * =============================================================================
+ * TOOLBOX POPUP EXCLUSIVE FUNCTIONS FOLLOW
+ * =============================================================================
+ */
+
+/*
+ * show_toolbox()
+ * 
+ * Pops up the popup containing other tools.
+ */
+
+function show_toolbox() {
+	if(get_id("toolboxbutton").classList.contains("navbuttondisabled")) return;
+
+	const buttonrect = get_id("toolboxbutton").getBoundingClientRect();
+
+	init_popup("toolboxpopup", buttonrect.x + buttonrect.width / 2, buttonrect.y + buttonrect.height, 1);
 
 	allowed_region = buttonrect;
 }

@@ -60,6 +60,7 @@ const cs = {
 		"TITLE_CAPTURE_MGMT": "Spravovat záznamy [M]",
 		"TITLE_CAPTURE_INFO": "Zobrazit podrobnosti tohoto záznamu [I]",
 		"TITLE_ADVANCED_FEATURES": "Pokročilé možnosti",
+		"TITLE_TOOLBOX": "Ostatní nástroje",
 
 		// Popup window buttons
 
@@ -72,6 +73,9 @@ const cs = {
 		"ADVANCED_NOTE_MANAGER": "Správce poznámek [N]",
 		"ADVANCED_EXPORT_TABLE": "Exportovat tabulku (.csv)",
 		"ADVANCED_EXPORT_IMAGE": "Exportovat graf (.svg)",
+
+		"TOOLBOX_CALCULATOR": "Kalkulačka",
+		"TOOLBOX_ABOUT": "O programu Coachium...",
 
 		// Window contents
 
