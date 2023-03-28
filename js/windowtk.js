@@ -41,6 +41,11 @@ const WINDOWID_RENAME_CAPTURE = 26;
 const WINDOWID_EXPORT_TABLE = 27;
 const WINDOWID_EXPORT_CHART = 28;
 
+// Toolbox tool windows
+
+const WINDOWID_TOOLBOX_CALCULATOR = 29;
+const WINDOWID_TOOLBOX_CONVERTER = 30;
+
 // Google Drive windows
 
 const WINDOWID_GDRIVE_SAVE_OK = 3;

@@ -20,4 +20,6 @@
 
 function toolbox_calculator() {
 	close_popup();
+
+	popup_window(WINDOWID_TOOLBOX_CALCULATOR);
 }
