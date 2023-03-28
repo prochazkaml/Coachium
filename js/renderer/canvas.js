@@ -159,6 +159,7 @@ function canvas_reset(event) {
 
 function render_chart(ctx, width, height, draw_functions, draw_notes) {
 	ctx.clearRect(0, 0, width, height);
+	ctx.save();
 
 	// Set the default ctx values
 
@@ -587,6 +588,8 @@ function render_chart(ctx, width, height, draw_functions, draw_notes) {
 
 		ctx.fillText(jslang.MAINWIN_HELP_SHIFT_SCROLL, hxr - 10, hy + 180);
 	}
+
+	ctx.restore();
 }
 
 /*
@@ -596,6 +599,8 @@ function render_chart(ctx, width, height, draw_functions, draw_notes) {
  */
 
 function render_overlay(ovctx, width, height) {
+	ovctx.save();
+
 	ovctx.clearRect(0, 0, width, height);
 
 	if(note_placement_progress || zoom_request_progress) {
@@ -692,6 +697,8 @@ function render_overlay(ovctx, width, height) {
 			);
 		}
 	}
+
+	ovctx.restore();
 }
 
 /*
