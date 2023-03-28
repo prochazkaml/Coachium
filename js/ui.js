@@ -187,8 +187,55 @@ function ui_disconnect(forceful) {
  * Checks each (influenceble) button on the top bar if it is currently valid or not.
  */
 
+var laststatus = -1;
+
 function update_button_validity() {
+	/*
+	 * Status bitfield
+	 * 
+	 * 1 = driver is not initialized or has no ports
+	 * 2 = a capture is currently running
+	 * 4 = the current workbook is empty
+	 * 8 = the chart is displayed (instead of the table)
+	 * 16 = a note is currently being placed
+	 * 32 = the chart is zoomed in
+	 * 64 = the first capture is selected
+	 * 128 = the last capture is selected
+	 */
+
+	var status = 0;
+
 	if(driver === null || Object.keys(driver.ports).length == 0) {
+		status |= 1;
+	}
+
+	if(capture_running) {
+		status |= 2;
+	} else {
+		if(captures.length == 0) {
+			status |= 4;
+		} else {
+			if(get_class("canvasstack").style.display != "none") {
+				status |= 8;
+
+				if(note_placement_progress) status |= 16;
+
+				if(zoomed_in) status |= 32;
+			}
+
+			if(selected_capture == 0) status |= 64;
+
+			if(selected_capture >= (captures.length - 1)) status |= 128;
+		}
+	}
+
+	if(status == laststatus) return;
+
+	console.log(status, laststatus);
+
+	console.log("updating");
+
+	if(status & 1) {
 		get_id("capturestartbutton").classList.add("navbuttondisabled");
 		get_id("capturestopbutton").classList.add("navbuttondisabled");
 	} else {
@@ -196,7 +243,7 @@ function update_button_validity() {
 		get_id("capturestopbutton").classList.remove("navbuttondisabled");
 	}
 
-	if(capture_running) {
+	if(status & 2) {
 		get_id("removeeverythingbutton").classList.add("navbuttondisabled");
 		get_id("openbutton").classList.add("navbuttondisabled");
 		get_id("savebutton").classList.add("navbuttondisabled");
@@ -224,7 +271,7 @@ function update_button_validity() {
 
 		get_id("openbutton").classList.remove("navbuttondisabled");
 
-		if(captures.length == 0) {
+		if(status & 4) {
 			get_id("removeeverythingbutton").classList.add("navbuttondisabled");
 			get_id("savebutton").classList.add("navbuttondisabled");
 			get_id("savegdrivebutton").classList.add("navbuttondisabled");
@@ -254,15 +301,15 @@ function update_button_validity() {
 
 			get_id("captureinfobutton").classList.remove("navbuttondisabled");
 
-			if(get_class("canvasstack").style.display != "none") {
-				if(note_placement_progress)
+			if(status & 8) {
+				if(status & 16)
 					get_id("zoominbutton").classList.add("navbuttondisabled");
 				else
 					get_id("zoominbutton").classList.remove("navbuttondisabled");
 
 				get_id("zoomdatabutton").classList.remove("navbuttondisabled");
 
-				if(zoomed_in)
+				if(status & 32)
 					get_id("zoomresetbutton").classList.remove("navbuttondisabled");
 				else
 					get_id("zoomresetbutton").classList.add("navbuttondisabled");
@@ -273,15 +320,17 @@ function update_button_validity() {
 				get_id("zoomresetbutton").classList.add("navbuttondisabled");
 			}
 
-			if(selected_capture == 0)
+			if(status & 64)
 				get_id("viewpreviousbutton").classList.add("navbuttondisabled");
 			else
 				get_id("viewpreviousbutton").classList.remove("navbuttondisabled");
 
-			if(selected_capture >= (captures.length - 1))
+			if(status & 128)
 				get_id("viewnextbutton").classList.add("navbuttondisabled");
 			else
 				get_id("viewnextbutton").classList.remove("navbuttondisabled");
 		}
 	}
+
+	laststatus = status;
 }

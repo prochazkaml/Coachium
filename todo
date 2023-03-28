@@ -19,6 +19,7 @@
 Before submitting:
 - make all SVG icons the same width (looks fucky in popups)
 - make sure all comments correspond to the correct functions!
+- run it through a HTML/CSS validator (both cached/uncached)!!!
 
 Future stuff:
 - utility for analyzing data (optionally select a region, min/max/avg)
