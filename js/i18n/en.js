@@ -63,6 +63,7 @@ const en = {
 		"TITLE_TOOLBOX": "Other tools",
 
 		"TOOLBOX_CALCULATOR": "Calculator",
+		"TOOLBOX_CONVERTER": "Unit converter",
 		"TOOLBOX_ABOUT": "About Coachium...",
 
 		// Popup window buttons

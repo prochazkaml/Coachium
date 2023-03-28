@@ -75,6 +75,7 @@ const cs = {
 		"ADVANCED_EXPORT_IMAGE": "Exportovat graf (.svg)",
 
 		"TOOLBOX_CALCULATOR": "Kalkulačka",
+		"TOOLBOX_CONVERTER": "Převodník jednotek",
 		"TOOLBOX_ABOUT": "O programu Coachium...",
 
 		// Window contents
