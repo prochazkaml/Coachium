@@ -352,12 +352,19 @@ function render_chart(ctx, width, height, draw_functions, draw_notes) {
 				var fun = get_fun_calc(fundef);
 
 				if(fun !== null) {
-					ctx.beginPath();
+					for(var x = 0; x <= width - graph_margin_right - graph_margin_left; x++) {
+						if((x % 20) < 10) {
+							const cx = x + graph_margin_left, cy = y_actual_offset - fun(x_min + x * x_units_per_px) * y_unit_in_px;
 
-					ctx.moveTo(graph_margin_left, y_actual_offset - fun(x_min) * y_unit_in_px);
+							if(!(x % 20)) {
+								ctx.beginPath();
+								ctx.moveTo(cx, cy);
+							} else {
+								ctx.lineTo(cx, cy);
+							}
 
-					for(var x = 1; x <= width - graph_margin_right - graph_margin_left; x++) {
-						ctx.lineTo(x + graph_margin_left, y_actual_offset - fun(x_min + x * x_units_per_px) * y_unit_in_px);
+							if((x % 20) == 9) ctx.stroke();
+						}
 					}
 
 					ctx.stroke();
