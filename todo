@@ -11,7 +11,6 @@
 - fitted functions - use similar color to the captured data
 - update z-index on click on draggable windows
 - floating calculator
-- chart export/capture setup - Tab doesn't work!
 
 Before submitting:
 - make all SVG icons the same width (looks fucky in popups)

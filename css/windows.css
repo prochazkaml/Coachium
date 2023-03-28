@@ -58,6 +58,8 @@
 
 	transform: scale(.9);
 	transition: transform .3s;
+
+	visibility: hidden;
 }
 
 .popupwindow .windowtitlemoveable {

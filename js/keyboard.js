@@ -25,8 +25,6 @@
 document.addEventListener('keydown', (event) => {
 	const key = event.key.toLowerCase();
 
-	if(key == "tab") event.preventDefault(); // No.
-
 	if(open_window >= 0) {
 		switch(key) {
 			case "escape":

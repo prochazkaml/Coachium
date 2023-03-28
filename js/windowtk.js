@@ -125,6 +125,7 @@ function popup_window(id) {
 		
 		get_win_overlay(id).style.zIndex = zindex++;
 		get_win_overlay(id).style.opacity = 1;
+		get_win(id).style.visibility = "visible";
 		get_win(id).style.transform = "scale(1)";
 	}
 }
@@ -161,6 +162,7 @@ function close_window(id = undefined) {
 		set_window_drag(win, false);
 
 		closetimeoutids[win] = setTimeout(() => {
+			get_win(win).style.visibility = "";
 			get_win_overlay(win).style.zIndex = "";
 		}, 500);
 	}
