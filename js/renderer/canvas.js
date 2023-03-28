@@ -346,6 +346,7 @@ function render_chart(ctx, width, height, draw_functions, draw_notes) {
 
 		if(draw_functions && Array.isArray(capture.functions)) {
 			ctx.save();
+			ctx.setLineDash([10]);
 			ctx.strokeStyle = "rgba(0, 0, 255, 1)";
 
 			for(const fundef of capture.functions) {
