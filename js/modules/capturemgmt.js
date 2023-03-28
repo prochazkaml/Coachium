@@ -90,9 +90,9 @@ function change_selected_capture(interval, absolute = undefined) {
 		capture = null;
 	}
 
-	if(window_stack.includes(WINDOWID_FIT_FUNCTION)) fit_function();
-
 	main_window_reset(reset_zoom, false);
+
+	if(window_stack.includes(WINDOWID_FIT_FUNCTION)) fit_function();
 }
 
 /*
