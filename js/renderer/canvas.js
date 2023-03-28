@@ -166,6 +166,7 @@ function render_chart(ctx, width, height, draw_functions, draw_notes) {
 	ctx.textBaseline = "middle";
 	ctx.textAlign = "center";
 	ctx.font = ctx.getSvg ? "16px sans-serif" : "16px CoachiumDefaultFont";
+	ctx.lineCap = "round";
 
 	if(captures.length > 0) {
 		const capture = captures[selected_capture];
@@ -531,7 +532,6 @@ function render_chart(ctx, width, height, draw_functions, draw_notes) {
 
 		// Draw hint pointing at the start button
 
-		ctx.lineCap = "round";
 		ctx.textAlign = "left";
 		ctx.font = ctx.getSvg ? "bold 16px sans-serif" : "bold 16px CoachiumDefaultFont";
 
