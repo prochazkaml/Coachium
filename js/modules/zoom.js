@@ -25,7 +25,7 @@
  */
 
 function update_capture_zoom() {
-	if(captures.length > 0)	captures[selected_capture].zoom = {
+	if(capture)	capture.zoom = {
 		x1: zoomx1,
 		y1: zoomy1,
 		x2: zoomx2,

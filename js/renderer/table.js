@@ -26,7 +26,6 @@
 
 function table_reset() {
 	var out = document.createElement("div");
-	const capture = captures[selected_capture];
 
 	if(captures.length > 0) {
 		out.style.marginLeft = graph_margin_left + "px";

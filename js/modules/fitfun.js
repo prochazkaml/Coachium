@@ -122,9 +122,9 @@ function fit_function() {
 
 		checkbox.checked = false;
 
-		if(!Array.isArray(captures[selected_capture].functions)) captures[selected_capture].functions = [];
+		if(!Array.isArray(capture.functions)) capture.functions = [];
 
-		var funs = captures[selected_capture].functions;
+		var funs = capture.functions;
 
 		for(var i = 0; i < funs.length; i++) {
 			if(funs[i].fun == algo_output.fun && funs[i].type == "fit") checkbox.checked = true;

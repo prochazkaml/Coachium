@@ -43,7 +43,7 @@ function change_selected_capture(interval, absolute = undefined) {
 		else if(selected_capture >= captures.length)
 			selected_capture = captures.length - 1;
 
-		const capture = captures[selected_capture];
+		capture = captures[selected_capture];
 
 		if(capture.zoom) {
 			zoomx1 = capture.zoom.x1;
@@ -86,6 +86,8 @@ function change_selected_capture(interval, absolute = undefined) {
 		capture_cache.values = [];
 
 		selected_capture = 0;
+
+		capture = null;
 	}
 
 	if(window_stack.includes(WINDOWID_FIT_FUNCTION)) fit_function();
@@ -178,7 +180,7 @@ function rename_capture(name_decided) {
 	if(get_id("renamecapturebutton").classList.contains("navbuttondisabled")) return;
 
 	if(!name_decided) {
-		get_win_el_tag(WINDOWID_RENAME_CAPTURE, "input").value = captures[selected_capture].title;
+		get_win_el_tag(WINDOWID_RENAME_CAPTURE, "input").value = capture.title;
 
 		popup_window(WINDOWID_RENAME_CAPTURE);
 
@@ -189,9 +191,9 @@ function rename_capture(name_decided) {
 		const newtitle = get_win_el_tag(WINDOWID_RENAME_CAPTURE, "input").value
 
 		if(newtitle != "")
-			captures[selected_capture].title = newtitle;
+			capture.title = newtitle;
 		else
-			captures[selected_capture].title = jslang.UNTITLED_CAPTURE;
+			capture.title = jslang.UNTITLED_CAPTURE;
 
 		main_window_reset();
 	}
@@ -227,11 +229,11 @@ function capture_management() {
 
 	input.oninput = () => {
 		get_win_el_class(w, "windowbutton").style.backgroundColor =
-			(input.value == captures[selected_capture].title) ? "rgba(0, 0, 0, .1)" : "";
+			(input.value == capture.title) ? "rgba(0, 0, 0, .1)" : "";
 	}
 
 	get_win_el_class(w, "windowbutton", 0).onclick = () => {
-		captures[selected_capture].title = input.value;
+		capture.title = input.value;
 		capture_management();
 	}
 

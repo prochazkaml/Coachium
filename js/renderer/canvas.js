@@ -169,8 +169,6 @@ function render_chart(ctx, width, height, draw_functions, draw_notes) {
 	ctx.lineCap = "round";
 
 	if(captures.length > 0) {
-		const capture = captures[selected_capture];
-
 		ctx.lineWidth = 2;
 		ctx.strokeStyle = "black";
 
@@ -723,7 +721,7 @@ function draw_crosshair(ovctx, x, y, w, h, color) {
  */
 
 function draw_note(ctx, x, y, id) {
-	const note = captures[selected_capture].notes[id];
+	const note = capture.notes[id];
 
 	ctx.font = ctx.getSvg ? "16px sans-serif" : "16px CoachiumDefaultFont";
 	ctx.strokeStyle = "black";

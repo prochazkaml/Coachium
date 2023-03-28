@@ -49,7 +49,6 @@ function info_generate_sensor(name, sensor) {
 function show_capture_info() {
 	if(get_id("captureinfobutton").classList.contains("navbuttondisabled")) return;
 
-	const capture = captures[selected_capture];
 	const keys = Object.keys(capture.ports);
 
 	var str = format(jslang.INFO_WINDOW_CONTENTS,

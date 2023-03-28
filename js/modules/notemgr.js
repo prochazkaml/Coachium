@@ -34,7 +34,6 @@ function note_manager() {
 	const w = WINDOWID_NOTE_MANAGER;
 	const select = get_win_el_tag(w, "select");
 	const textarea = get_win_el_tag(w, "textarea");
-	const capture = captures[selected_capture];
 
 	const addbutton = get_win_el_class(w, "windowbutton", 1);
 	const editbutton = get_win_el_class(w, "windowbutton", 2);
@@ -141,7 +140,6 @@ function note_manager() {
 
 function add_note() {
 	const textarea = get_win_el_tag(WINDOWID_NOTE_MANAGER, "textarea");
-	const capture = captures[selected_capture];
 
 	capture.notes.push({
 		text: textarea.value,

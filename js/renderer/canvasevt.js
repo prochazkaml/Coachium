@@ -131,7 +131,7 @@ function canvasmousechangehandler(status) {
 		note_placement_progress = 0;
 		canvas.style.cursor = "auto";
 
-		const note = captures[selected_capture].notes[note_id];
+		const note = capture.notes[note_id];
 
 		note.x = mx; note.y = my;
 

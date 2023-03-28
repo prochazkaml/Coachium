@@ -35,7 +35,7 @@ function export_csv(confirm) {
 		const old_decimal_separator = decimal_separator;
 		decimal_separator = get_win_el_tag(WINDOWID_EXPORT_TABLE, "input").value;
 
-		const data = table_gen(captures[selected_capture], get_id("csvallowfnscheckbox").checked);
+		const data = table_gen(capture, get_id("csvallowfnscheckbox").checked);
 		var output = "";
 
 		for(var y = 0; y < data.length; y++) {
@@ -50,7 +50,7 @@ function export_csv(confirm) {
 
 		decimal_separator = old_decimal_separator;
 
-		save_file(output, format(jslang.EXPORT_CSV_NAME, captures[selected_capture].title));
+		save_file(output, format(jslang.EXPORT_CSV_NAME, capture.title));
 	} else {
 		get_win_el_tag(WINDOWID_EXPORT_TABLE, "input").value = decimal_separator;
 
@@ -85,7 +85,7 @@ function export_svg(confirm) {
 			get_id("svgallownotescheckbox").checked,
 		);
 
-		save_file(fakectx.getSerializedSvg(), format(jslang.EXPORT_SVG_NAME, captures[selected_capture].title), "image/svg+xml");
+		save_file(fakectx.getSerializedSvg(), format(jslang.EXPORT_SVG_NAME, capture.title), "image/svg+xml");
 	} else {
 		// Pre-fill resolution if it was not already changed
 
