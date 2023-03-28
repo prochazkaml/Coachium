@@ -29,7 +29,7 @@ var zoomx1 = 0, zoomy1 = 0, zoomx2 = 1, zoomy2 = 1;
 
 // Zoom control variables
 
-var zoom_request_progress = 0, zoom_move_request = false, zoomed_in = false;
+var zoom_request_progress = 0, zoom_move_request = false;
 
 // Note placement variables
 
@@ -216,12 +216,10 @@ function render_chart(ctx, width, height, draw_functions, draw_notes) {
 
 		// Calculate the rest of the X axis parameters
 
-		if(zoomed_in) {
-			x_total_units = Math.abs(x_max - x_min);
+		x_total_units = Math.abs(x_max - x_min);
 
-			x_max = x_min + zoomx2 * x_total_units;
-			x_min += zoomx1 * x_total_units;
-		}
+		x_max = x_min + zoomx2 * x_total_units;
+		x_min += zoomx1 * x_total_units;
 
 		x_total_units = Math.abs(x_max - x_min);
 
@@ -243,12 +241,10 @@ function render_chart(ctx, width, height, draw_functions, draw_notes) {
 
 		// Calculate the rest of the Y axis parameters
 
-		if(zoomed_in) {
-			y_total_units = Math.abs(y_max - y_min);
+		y_total_units = Math.abs(y_max - y_min);
 
-			y_max = y_min + zoomy2 * y_total_units;
-			y_min += zoomy1 * y_total_units;
-		}
+		y_max = y_min + zoomy2 * y_total_units;
+		y_min += zoomy1 * y_total_units;
 
 		y_total_units = Math.abs(y_max - y_min);
 

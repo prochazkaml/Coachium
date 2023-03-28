@@ -141,7 +141,7 @@ function canvasmousechangehandler(status) {
 		canvas_reset(CANVAS_EVENT_REDRAW_ENTIRE);
 	} else switch(zoom_request_progress) {
 		case 0:
-			if(zoomed_in && status) {
+			if(zoomed_in() && status) {
 				mousepositions[1][0] = mousepositions[0][0];
 				mousepositions[1][1] = mousepositions[0][1];
 
@@ -178,13 +178,6 @@ function canvasmousechangehandler(status) {
 				var _x2 = (((x1 < x2) ? x2 : x1) - graph_margin_left) / (canvas.width - graph_margin_left - graph_margin_right);
 				var _y2 = 1 - (((y1 < y2) ? y1 : y2) - graph_margin_top) / (canvas.height - graph_margin_top - graph_margin_bottom);
 
-				if(!zoomed_in) {
-					zoomx1 = 0;
-					zoomy1 = 0;
-					zoomx2 = 1;
-					zoomy2 = 1;
-				}
-
 				var x = zoomx2 - zoomx1, y = zoomy2 - zoomy1;
 
 				zoomx2 = zoomx1 + _x2 * x;
@@ -193,7 +186,6 @@ function canvasmousechangehandler(status) {
 				zoomy1 += _y1 * y;
 
 				zoom_request_progress = 0;
-				zoomed_in = true;
 
 				canvas.style.cursor = "auto";
 
@@ -220,14 +212,6 @@ function canvasmousewheelhandler(event) {
 	var scale = event.deltaY * -0.001,
 		mousex = (mousepositions[0][0] - graph_margin_left) / (canvas.width - graph_margin_left - graph_margin_right),
 		mousey = (mousepositions[0][1] - graph_margin_top) / (canvas.height - graph_margin_top - graph_margin_bottom);
-
-	if(!zoomed_in) {
-		zoomed_in = true;
-		zoomx1 = zoomy1 = 0;
-		zoomx2 = zoomy2 = 1;
-
-		update_button_validity();
-	}
 
 	// Figure out the selected point in the zoomed in region
 
@@ -286,11 +270,7 @@ function canvasmousewheelhandler(event) {
 		}
 	}
 
-	if(zoomx1 == 0 && zoomy1 == 0 && zoomx2 == 1 && zoomy2 == 1) {
-		zoomed_in = false;
-		update_button_validity();
-	}
-
+	update_button_validity();
 	update_capture_zoom();
 	canvas_reset(CANVAS_EVENT_REDRAW_ENTIRE);
 }

@@ -28,8 +28,7 @@ function main_window_reset(reset_zoom, reset_layout) {
 	if(get_class("canvasstack").style.display != "none") {
 		zoom_request_progress = 0;
 
-		if(reset_zoom || zoomed_in == false) {
-			zoomed_in = false;
+		if(reset_zoom) {
 			zoomx1 = zoomy1 = 0;
 			zoomx2 = zoomy2 = 1;
 			update_capture_zoom();

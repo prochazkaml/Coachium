@@ -29,8 +29,7 @@ function update_capture_zoom() {
 		x1: zoomx1,
 		y1: zoomy1,
 		x2: zoomx2,
-		y2: zoomy2,
-		enabled: zoomed_in
+		y2: zoomy2
 	};
 }
 
@@ -110,7 +109,6 @@ function zoom_to_data() {
 
 		get_id("statusmsg").innerHTML = jslang.STATUS_ZOOM_DATA;
 		zoom_request_progress = 0;
-		zoomed_in = true;
 
 		zoomx1 = min_x; zoomy1 = min_y;
 		zoomx2 = max_x; zoomy2 = max_y;
@@ -132,9 +130,20 @@ function zoom_reset() {
 
 	get_id("statusmsg").innerHTML = jslang.STATUS_ZOOM_RESET;
 	zoom_request_progress = 0;
-	zoomed_in = false;
+	zoomx1 = zoomy1 = 0;
+	zoomx2 = zoomy2 = 1;
 
 	update_capture_zoom();
 	update_button_validity();
 	main_window_reset(false, false); // Not needed, since we've done it already
+}
+
+/*
+ * zoomed_in()
+ * 
+ * Checks whether zoom is applied on the graph.
+ */
+
+function zoomed_in() {
+	return !(zoomx1 == 0 && zoomy1 == 0 && zoomx2 == 1 && zoomy2 == 1);
 }

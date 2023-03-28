@@ -220,7 +220,7 @@ function update_button_validity() {
 
 				if(note_placement_progress) status |= 16;
 
-				if(zoomed_in) status |= 32;
+				if(zoomed_in()) status |= 32;
 			}
 
 			if(selected_capture == 0) status |= 64;

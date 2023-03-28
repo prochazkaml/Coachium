@@ -50,7 +50,6 @@ function change_selected_capture(interval, absolute = undefined) {
 			zoomy1 = capture.zoom.y1;
 			zoomx2 = capture.zoom.x2;
 			zoomy2 = capture.zoom.y2;
-			zoomed_in = capture.zoom.enabled;
 			reset_zoom = false;
 		}
 
