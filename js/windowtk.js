@@ -226,6 +226,8 @@ function set_window_drag(id, enable) {
 		oldwinx = win.offsetLeft;
 		oldwiny = win.offsetTop;
 
+		get_win_overlay(id).style.zIndex = zindex++;
+
 		document.onmouseup = _close_drag_element;
 		document.onmousemove = _element_drag;
 	}

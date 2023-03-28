@@ -9,7 +9,6 @@
 - turn zoom?? into zoom.??
 - if multiple sensors (in non-XY mode) - zoom.y1 and zoom.y2 = arrays
 - fitted functions - use similar color to the captured data
-- update z-index on click on draggable windows
 - floating calculator
 - unit converter
 - file format with an actual header! (version number, etc.)
