@@ -167,7 +167,7 @@
 		</main>
 
 		<div id="window0overlay" class="windowoverlay">
-			<div class="windowcloselayer" onclick="close_window();"></div>
+			<div class="windowcloselayer" onclick="close_window(0);"></div>
 			<div class="popupwindow">
 				<h1 class="L18N_WINDOW0_TITLE"></h1>
 				<p class="L18N_WINDOW0_PAR0"></p>
@@ -195,13 +195,13 @@
 				</a>
 
 				<div class="windowbuttonlist">
-					<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();"></div>
+					<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window(0);"></div>
 				</div>
 			</div>
 		</div>
 
 		<div id="window1overlay" class="windowoverlay">
-			<div class="windowcloselayer" onclick="close_window();"></div>
+			<div class="windowcloselayer" onclick="close_window(1);"></div>
 			<div class="popupwindow">
 				<h1 class="L18N_WINDOW1_TITLE"></h1>
 
@@ -212,13 +212,13 @@
 				<p class="L18N_WINDOW1_PAR1"></p>
 
 				<div class="windowbuttonlist">
-					<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();"></div>
+					<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window(1);"></div>
 				</div>
 			</div>
 		</div>
 
 		<div id="window2overlay" class="windowoverlay">
-			<div class="windowcloselayer" onclick="close_window();"></div>
+			<div class="windowcloselayer" onclick="close_window(2);"></div>
 			<div class="popupwindow">
 				<h1 class="L18N_WINDOW2_TITLE"></h1>
 
@@ -304,26 +304,26 @@
 
 				<div class="windowbuttonlist">
 					<div class="windowbutton L18N_BUTTON_START"></div> <!-- onclick is set automatically in ui.js -->
-					<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();"></div>
+					<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window(2);"></div>
 				</div>
 			</div>
 		</div>
 
 		<div id="window3overlay" class="windowoverlay">
-			<div class="windowcloselayer" onclick="close_window();"></div>
+			<div class="windowcloselayer" onclick="close_window(3);"></div>
 			<div class="popupwindow">
 				<h1 class="L18N_WINDOW3_TITLE"></h1>
 
 				<p><a class="L18N_WINDOW3_LINK" target="_blank" href=""></a></p>
 
 				<div class="windowbuttonlist">
-					<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();"></div>
+					<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window(3);"></div>
 				</div>
 			</div>
 		</div>
 
 		<div id="window4overlay" class="windowoverlay">
-			<div class="windowcloselayer" onclick="close_window();"></div>
+			<div class="windowcloselayer" onclick="close_window(4);"></div>
 			<div class="popupwindow">
 				<h1 class="L18N_WINDOW4_TITLE"></h1>
 
@@ -332,14 +332,14 @@
 				<textarea style="width: 400px; height: 128px;" readonly></textarea>
 
 				<div class="windowbuttonlist">
-					<div class="windowbutton L18N_BUTTON_TRYAGAIN" onclick="close_window();setTimeout(()=>{gdrive_save();},400);"></div>
-					<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();"></div>
+					<div class="windowbutton L18N_BUTTON_TRYAGAIN" onclick="close_window(4);setTimeout(()=>{gdrive_save();},400);"></div>
+					<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window(4);"></div>
 				</div>
 			</div>
 		</div>
 
 		<div id="window5overlay" class="windowoverlay">
-			<div class="windowcloselayer" onclick="close_window();"></div>
+			<div class="windowcloselayer" onclick="close_window(5);"></div>
 			<div class="popupwindow">
 				<h1 class="L18N_WINDOW5_TITLE"></h1>
 
@@ -352,27 +352,27 @@
 				<p class="L18N_WINDOW5_PAR2"></p>
 
 				<div class="windowbuttonlist">
-					<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();"></div>
+					<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window(5);"></div>
 				</div>
 			</div>
 		</div>
 
 		<div id="window6overlay" class="windowoverlay">
-			<div class="windowcloselayer" onclick="close_window();"></div>
+			<div class="windowcloselayer" onclick="close_window(6);"></div>
 			<div class="popupwindow">
 				<h1 class="L18N_WINDOW6_TITLE"></h1>
 
 				<br><input style="width: 100%" type="text" value="񂁩MISSING"><br>
 
 				<div class="windowbuttonlist">
-					<div class="windowbutton L18N_BUTTON_SAVE" onclick="close_window();setTimeout(()=>{gdrive_save();},400);"></div>
-					<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();"></div>
+					<div class="windowbutton L18N_BUTTON_SAVE" onclick="close_window(6);setTimeout(()=>{gdrive_save();},400);"></div>
+					<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window(6);"></div>
 				</div>
 			</div>
 		</div>
 
 		<div id="window7overlay" class="windowoverlay">
-			<div class="windowcloselayer" onclick="close_window();"></div>
+			<div class="windowcloselayer" onclick="close_window(7);"></div>
 			<div class="popupwindow">
 				<h1 class="L18N_WINDOW7_TITLE"></h1>
 
@@ -381,13 +381,13 @@
 				<p class="L18N_WINDOW7_PAR1"></p>
 
 				<div class="windowbuttonlist">
-					<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();"></div>
+					<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window(7);"></div>
 				</div>
 			</div>
 		</div>
 
 		<div id="window8overlay" class="windowoverlay">
-			<div class="windowcloselayer" onclick="close_window();"></div>
+			<div class="windowcloselayer" onclick="close_window(8);"></div>
 			<div class="popupwindow">
 				<h1 class="L18N_WINDOW8_TITLE"></h1>
 
@@ -401,13 +401,13 @@
 
 				<div class="windowbuttonlist">
 					<div class="windowbutton L18N_BUTTON_RESTART" onclick="location.reload();"></div>
-					<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();"></div>
+					<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window(8);"></div>
 				</div>
 			</div>
 		</div>
 
 		<div id="window9overlay" class="windowoverlay">
-			<div class="windowcloselayer" onclick="close_window();"></div>
+			<div class="windowcloselayer" onclick="close_window(9);"></div>
 			<div class="popupwindow">
 				<h1 class="L18N_WINDOW9_TITLE"></h1>
 
@@ -416,13 +416,13 @@
 				<p class="L18N_WINDOW9_PAR1"></p>
 
 				<div class="windowbuttonlist">
-					<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();"></div>
+					<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window(9);"></div>
 				</div>
 			</div>
 		</div>
 
 		<div id="window10overlay" class="windowoverlay">
-			<div class="windowcloselayer" onclick="close_window();"></div>
+			<div class="windowcloselayer" onclick="close_window(10);"></div>
 			<div class="popupwindow">
 				<h1 class="L18N_WINDOW10_TITLE"></h1>
 
@@ -433,14 +433,14 @@
 				<p class="L18N_WINDOW10_PAR2"></p>
 
 				<div class="windowbuttonlist">
-					<div class="windowbutton L18N_BUTTON_GOAHEAD" onclick="close_window();load_file_local(true);"></div>
-					<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();"></div>
+					<div class="windowbutton L18N_BUTTON_GOAHEAD" onclick="close_window(10);load_file_local(true);"></div>
+					<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window(10);"></div>
 				</div>
 			</div>
 		</div>
 
 		<div id="window11overlay" class="windowoverlay">
-			<div class="windowcloselayer" onclick="close_window();"></div>
+			<div class="windowcloselayer" onclick="close_window(11);"></div>
 			<div class="popupwindow">
 				<h1 class="L18N_WINDOW11_TITLE"></h1>
 
@@ -451,14 +451,14 @@
 				<p class="L18N_WINDOW11_PAR2"></p>
 
 				<div class="windowbuttonlist">
-					<div class="windowbutton L18N_BUTTON_GOAHEAD" onclick="close_window();remove_capture(true);"></div>
-					<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();"></div>
+					<div class="windowbutton L18N_BUTTON_GOAHEAD" onclick="close_window(11);remove_capture(true);"></div>
+					<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window(11);"></div>
 				</div>
 			</div>
 		</div>
 
 		<div id="window12overlay" class="windowoverlay">
-			<div class="windowcloselayer" onclick="close_window();"></div>
+			<div class="windowcloselayer" onclick="close_window(12);"></div>
 			<div class="popupwindow">
 				<h1 class="L18N_WINDOW12_TITLE"></h1>
 
@@ -469,14 +469,14 @@
 				<p class="L18N_WINDOW12_PAR2"></p>
 
 				<div class="windowbuttonlist">
-					<div class="windowbutton L18N_BUTTON_GOAHEAD" onclick="close_window();new_file(true);"></div>
-					<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();"></div>
+					<div class="windowbutton L18N_BUTTON_GOAHEAD" onclick="close_window(12);new_file(true);"></div>
+					<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window(12);"></div>
 				</div>
 			</div>
 		</div>
 
 		<div id="window13overlay" class="windowoverlay">
-			<div class="windowcloselayer" onclick="close_window();"></div>
+			<div class="windowcloselayer" onclick="close_window(13);"></div>
 			<div class="popupwindow">
 				<h1 class="L18N_WINDOW13_TITLE"></h1><br>
 
@@ -490,13 +490,13 @@
 				</div>
 
 				<div class="windowbuttonlist">
-					<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();"></div>
+					<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window(13);"></div>
 				</div>
 			</div>
 		</div>
 
 		<div id="window14overlay" class="windowoverlay">
-			<div class="windowcloselayer" onclick="close_window();"></div>
+			<div class="windowcloselayer" onclick="close_window(14);"></div>
 			<div class="popupwindow">
 				<h1 style="transition: opacity 1s;"></h1><br>
 
@@ -505,7 +505,7 @@
 		</div>
 
 		<div id="window15overlay" class="windowoverlay">
-			<div class="windowcloselayer" onclick="close_window();"></div>
+			<div class="windowcloselayer" onclick="close_window(15);"></div>
 			<div class="popupwindow">
 				<h1 class="L18N_WINDOW15_TITLE"></h1>
 
@@ -514,40 +514,40 @@
 				<p class="L18N_WINDOW15_PAR1"></p>
 
 				<div class="windowbuttonlist">
-					<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();"></div>
+					<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window(15);"></div>
 				</div>
 			</div>
 		</div>
 
 		<div id="window16overlay" class="windowoverlay">
-			<div class="windowcloselayer" onclick="close_window();"></div>
+			<div class="windowcloselayer" onclick="close_window(16);"></div>
 			<div class="popupwindow">
 				<h1 class="L18N_WINDOW6_TITLE"></h1> <!-- the 6 is on purpose here -->
 
 				<br><input style="width: 100%" type="text" value="񂁩MISSING"><br>
 
 				<div class="windowbuttonlist">
-					<div class="windowbutton L18N_BUTTON_SAVE" onclick="close_window();save_file_local(true);"></div>
-					<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();"></div>
+					<div class="windowbutton L18N_BUTTON_SAVE" onclick="close_window(16);save_file_local(true);"></div>
+					<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window(16);"></div>
 				</div>
 			</div>
 		</div>
 
 		<div id="window17overlay" class="windowoverlay">
-			<div class="windowcloselayer" onclick="close_window();"></div>
+			<div class="windowcloselayer" onclick="close_window(17);"></div>
 			<div class="popupwindow">
 				<h1 class="L18N_WINDOW17_TITLE"></h1>
 
 				<div></div>
 
 				<div class="windowbuttonlist">
-					<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();"></div>
+					<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window(17);"></div>
 				</div>
 			</div>
 		</div>
 
 		<div id="window18overlay" class="windowoverlay">
-			<div class="windowcloselayer" onclick="close_window();"></div>
+			<div class="windowcloselayer" onclick="close_window(18);"></div>
 			<div class="popupwindow">
 				<h1 class="L18N_WINDOW18_TITLE"></h1><br>
 
@@ -559,8 +559,8 @@
 				</table>
 
 				<div class="windowbuttonlist">
-					<div class="windowbutton" onclick="close_window();driver_start();"></div>
-					<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();"></div>
+					<div class="windowbutton" onclick="close_window(18);driver_start();"></div>
+					<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window(18);"></div>
 				</div>
 			</div>
 		</div>
@@ -589,26 +589,26 @@
 				</p>
 
 				<div class="windowbuttonlist">
-					<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();"></div>
+					<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window(19);"></div>
 				</div>
 			</div>
 		</div>
 
 		<div id="window20overlay" class="windowoverlay">
-			<div class="windowcloselayer" onclick="close_window();"></div>
+			<div class="windowcloselayer" onclick="close_window(20);"></div>
 			<div class="popupwindow">
 				<h1 class="L18N_WINDOW20_TITLE"></h1>
 
 				<p class="L18N_WINDOW20_PAR0"></p>
 
 				<div class="windowbuttonlist">
-					<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();"></div>
+					<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window(20);"></div>
 				</div>
 			</div>
 		</div>
 
 		<div id="window21overlay" class="windowoverlay">
-			<div class="windowcloselayer" onclick="close_window();"></div>
+			<div class="windowcloselayer" onclick="close_window(21);"></div>
 			<div class="popupwindow">
 				<h1 class="L18N_WINDOW21_TITLE"></h1>
 
@@ -618,26 +618,26 @@
 
 				<div class="windowbuttonlist">
 					<div class="windowbutton L18N_BUTTON_RESTART" onclick="watchdog_restart();"></div>
-					<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();"></div>
+					<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window(21);"></div>
 				</div>
 			</div>
 		</div>
 
 		<div id="window22overlay" class="windowoverlay">
-			<div class="windowcloselayer" onclick="close_window();"></div>
+			<div class="windowcloselayer" onclick="close_window(22);"></div>
 			<div class="popupwindow">
 				<h1 class="L18N_WINDOW22_TITLE"></h1>
 
 				<p class="L18N_WINDOW22_PAR0"></p>
 
 				<div class="windowbuttonlist">
-					<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();"></div>
+					<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window(22);"></div>
 				</div>
 			</div>
 		</div>
 
 		<div id="window23overlay" class="windowoverlay">
-			<div class="windowcloselayer" onclick="close_window();"></div>
+			<div class="windowcloselayer" onclick="close_window(23);"></div>
 			<div class="popupwindow">
 				<h1 class="L18N_WINDOW23_TITLE"></h1>
 
@@ -658,13 +658,13 @@
 				<hr style="margin-top: 24px;">
 
 				<div class="windowbuttonlist">
-					<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();"></div>
+					<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window(23);"></div>
 				</div>
 			</div>
 		</div>
 		
 		<div id="window24overlay" class="windowoverlay">
-			<div class="windowcloselayer" onclick="close_window();"></div>
+			<div class="windowcloselayer" onclick="close_window(24);"></div>
 			<div class="popupwindow">
 				<h1 class="L18N_WINDOW24_TITLE"></h1>
 
@@ -676,7 +676,7 @@
 
 				<div class="windowbuttonlist">
 					<div class="windowbutton L18N_BUTTON_GOAHEAD" onclick="gdrive_load_cb = popup_gdrive_window; gdrive_reload(); close_window();"></div>
-					<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();"></div>
+					<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window(24);"></div>
 				</div>
 			</div>
 		</div>
@@ -692,21 +692,21 @@
 		</div>
 		
 		<div id="window26overlay" class="windowoverlay">
-			<div class="windowcloselayer" onclick="close_window();"></div>
+			<div class="windowcloselayer" onclick="close_window(26);"></div>
 			<div class="popupwindow">
 				<h1 class="L18N_WINDOW26_TITLE"></h1>
 
 				<br><input style="width: 100%" type="text" value=""><br>
 				
 				<div class="windowbuttonlist">
-					<div class="windowbutton L18N_BUTTON_RENAME" onclick="close_window();rename_capture(true);"></div>
-					<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();"></div>
+					<div class="windowbutton L18N_BUTTON_RENAME" onclick="close_window(26);rename_capture(true);"></div>
+					<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window(26);"></div>
 				</div>
 			</div>
 		</div>
 
 		<div id="window27overlay" class="windowoverlay">
-			<div class="windowcloselayer" onclick="close_window();"></div>
+			<div class="windowcloselayer" onclick="close_window(27);"></div>
 			<div class="popupwindow">
 				<h1 class="L18N_WINDOW27_TITLE"></h1>
 
@@ -724,14 +724,14 @@
 				</div>
 
 				<div class="windowbuttonlist">
-					<div class="windowbutton L18N_BUTTON_SAVE" onclick="close_window();export_csv(true);"></div>
-					<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();"></div>
+					<div class="windowbutton L18N_BUTTON_SAVE" onclick="close_window(27);export_csv(true);"></div>
+					<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window(27);"></div>
 				</div>
 			</div>
 		</div>
 
 		<div id="window28overlay" class="windowoverlay">
-			<div class="windowcloselayer" onclick="close_window();"></div>
+			<div class="windowcloselayer" onclick="close_window(28);"></div>
 			<div class="popupwindow">
 				<h1 class="L18N_WINDOW28_TITLE"></h1>
 
@@ -759,8 +759,8 @@
 				</div>
 
 				<div class="windowbuttonlist">
-					<div class="windowbutton L18N_BUTTON_SAVE" onclick="close_window();export_svg(true);"></div>
-					<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window();"></div>
+					<div class="windowbutton L18N_BUTTON_SAVE" onclick="close_window(28);export_svg(true);"></div>
+					<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window(28);"></div>
 				</div>
 			</div>
 		</div>
