@@ -55,6 +55,7 @@ function init_popup(id, tx, ty, mode) {
 			break;	
 	}
 
+	win.style.zIndex = zindex++;
 	win.style.opacity = 1;
 	win.style.pointerEvents = "auto";
 

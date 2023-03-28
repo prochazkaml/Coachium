@@ -20,7 +20,6 @@
 
 .popupwitharrow {
 	position: absolute;
-	z-index: 2;
 	display: none;
 
 	padding: calc(18.4px - 4px);
