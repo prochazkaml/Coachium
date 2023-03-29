@@ -362,6 +362,118 @@ const cs = {
 
 		"EXPORT_CSV_NAME": "Export dat záznamu {0}.csv",
 		"EXPORT_SVG_NAME": "Export grafu záznamu {0}.svg",
+
+		"TOOLBOX_CONVERTER_UNITS": {
+			"LENGTH": {
+				"NAME": "Délka",
+				"TYPES": {
+					"NM": [ "nm", "nanometr" ],
+					"UM": [ "µm", "mikrometr" ],
+					"MM": [ "mm", "milimetr" ],
+					"CM": [ "cm", "centimetr" ],
+					"DM": [ "dm", "decimetr" ],
+					"M": [ "m", "metr" ],
+					"KM": [ "km", "kilometr" ],
+					"IN": [ "in", "palec" ],
+					"FT": [ "ft", "stopa" ],
+					"YD": [ "yd", "yard" ],
+					"MI": [ "mi", "míle" ],
+					"NMI": [ "nmi", "námořní míle" ],
+				}
+			},
+			"AREA": {
+				"NAME": "Plocha",
+				"TYPES": {
+					"NM": [ "nm²", "nanometr čtvereční" ],
+					"UM": [ "µm²", "mikrometr čtvereční" ],
+					"MM": [ "mm²", "milimetr čtvereční" ],
+					"CM": [ "cm²", "centimetr čtvereční" ],
+					"DM": [ "dm²", "decimetr čtvereční" ],
+					"M": [ "m²", "metr čtvereční" ],
+					"KM": [ "km²", "kilometr čtvereční" ],
+					"AR": [ "ar", "ar" ],
+					"HA": [ "ha", "hektar" ],
+					"IN": [ "in²", "palec čtvereční" ],
+					"FT": [ "ft²", "stopa čtvereční" ],
+					"YD": [ "yd²", "yard čtvereční" ],
+					"AC": [ "ac", "akr" ],
+					"MI": [ "mi²", "míle čtvereční" ],
+				}
+			},
+			"VOLUME": {
+				"NAME": "Objem",
+				"TYPES": {
+					"NM": [ "nm³", "nanometr krychlový" ],
+					"UM": [ "µm³", "mikrometr krychlový" ],
+					"MM": [ "mm³", "milimetr krychlový" ],
+					"CM": [ "cm³", "centimetr krychlový" ],
+					"DM": [ "dm³", "decimetr krychlový" ],
+					"M": [ "m³", "metr krychlový" ],
+					"KM": [ "km³", "kilometr krychlový" ],
+					"ML": [ "ml", "mililitr" ],
+					"CL": [ "cl", "centilitr" ],
+					"DL": [ "dl", "decilitr" ],
+					"L": [ "l", "litr" ],
+					"HL": [ "hl", "hektolitr" ],
+					"IN": [ "in³", "palec krychlový" ],
+					"FT": [ "ft³", "stopa krychlová" ],
+					"YD": [ "yd³", "yard krychlový" ],
+					"MI": [ "mi³", "míle krychlová" ],
+				}
+			},
+			"MASS": {
+				"NAME": "Hmotnost",
+				"TYPES": {
+					"UG": [ "µg", "mikrogram" ],
+					"MG": [ "mg", "miligram" ],
+					"G": [ "g", "gram" ],
+					"DKG": [ "dkg", "dekagram" ],
+					"KG": [ "kg", "kilogram" ],
+					"T": [ "t", "tuna" ],
+					"OZ": [ "oz", "unce" ],
+					"LB": [ "lb", "libra" ],
+					"ST": [ "st", "kámen" ],
+				}
+			},
+			"SPEED": {
+				"NAME": "Rychlost",
+				"TYPES": {
+					"KMPH": [ "km/h", "kilometr za hodinu" ],
+					"MPS": [ "m/s", "metr za sekundu" ],
+					"MIPH": [ "mi/h", "míle za hodinu" ],
+					"FTPS": [ "ft/s", "stopa za sekundu" ],
+					"KN": [ "kn", "uzel" ],
+				}
+			},
+			"TEMPERATURE": {
+				"NAME": "Teplota",
+				"TYPES": {
+					"C": [ "°C", "stupeň Celsia" ],
+					"F": [ "°F", "stupeň Fahrenheita" ],
+					"K": [ "K", "kelvin" ],
+				}
+			},
+			"TIME": {
+				"NAME": "Čas",
+				"TYPES": {
+					"NS": [ "ns", "nanosekunda" ],
+					"US": [ "µs", "nanosekunda" ],
+					"MS": [ "ms", "milisekunda" ],
+					"S": [ "s", "sekunda" ],
+					"M": [ "min", "minuta" ],
+					"H": [ "h", "hodina" ],
+					"D": [ "d", "den" ],
+				}
+			},
+			"PLANE_ANGLE": {
+				"NAME": "Rovinný úhel",
+				"TYPES": {
+					"DEG": [ "°", "stupeň" ],
+					"RAD": [ "r", "radián" ],
+					"GON": [ "gon", "grad" ],
+				}
+			},
+		},
 	},
 	ds: ","
 };

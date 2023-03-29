@@ -369,6 +369,118 @@ const en = {
 		
 		"EXPORT_CSV_NAME": "Data export from capture {0}.csv",
 		"EXPORT_SVG_NAME": "Chart export from capture {0}.svg",
+
+		"TOOLBOX_CONVERTER_UNITS": {
+			"LENGTH": {
+				"NAME": "Length",
+				"TYPES": {
+					"NM": [ "nm", "nanometre" ],
+					"UM": [ "µm", "mikrometre" ],
+					"MM": [ "mm", "milimetre" ],
+					"CM": [ "cm", "centimetre" ],
+					"DM": [ "dm", "decimetre" ],
+					"M": [ "m", "metre" ],
+					"KM": [ "km", "kilometre" ],
+					"IN": [ "in", "inch" ],
+					"FT": [ "ft", "foot" ],
+					"YD": [ "yd", "yard" ],
+					"MI": [ "mi", "mile" ],
+					"NMI": [ "nmi", "nautical mile" ],
+				}
+			},
+			"AREA": {
+				"NAME": "Area",
+				"TYPES": {
+					"NM": [ "nm²", "square nanometre" ],
+					"UM": [ "µm²", "square mikrometre" ],
+					"MM": [ "mm²", "square milimetre" ],
+					"CM": [ "cm²", "square centimetre" ],
+					"DM": [ "dm²", "square decimetre" ],
+					"M": [ "m²", "square metre" ],
+					"KM": [ "km²", "square kilometre" ],
+					"AR": [ "ar", "are" ],
+					"HA": [ "ha", "hectare" ],
+					"IN": [ "in²", "square inch" ],
+					"FT": [ "ft²", "square foot" ],
+					"YD": [ "yd²", "square yard" ],
+					"AC": [ "ac", "acre" ],
+					"MI": [ "mi²", "square mile" ],
+				}
+			},
+			"VOLUME": {
+				"NAME": "Volume",
+				"TYPES": {
+					"NM": [ "nm³", "cubic nanometre" ],
+					"UM": [ "µm³", "cubic mikrometre" ],
+					"MM": [ "mm³", "cubic milimetre" ],
+					"CM": [ "cm³", "cubic centimetre" ],
+					"DM": [ "dm³", "cubic decimetre" ],
+					"M": [ "m³", "cubic metre" ],
+					"KM": [ "km³", "cubic kilometre" ],
+					"ML": [ "ml", "mililitre" ],
+					"CL": [ "cl", "centilitre" ],
+					"DL": [ "dl", "decilitre" ],
+					"L": [ "l", "litre" ],
+					"HL": [ "hl", "hectolitre" ],
+					"IN": [ "in³", "cubic inch" ],
+					"FT": [ "ft³", "cubic foot" ],
+					"YD": [ "yd³", "cubic yard" ],
+					"MI": [ "mi³", "cubic mile" ],
+				}
+			},
+			"MASS": {
+				"NAME": "Mass",
+				"TYPES": {
+					"UG": [ "µg", "mikrogram" ],
+					"MG": [ "mg", "miligram" ],
+					"G": [ "g", "gram" ],
+					"DKG": [ "dkg", "dekagram" ],
+					"KG": [ "kg", "kilogram" ],
+					"T": [ "t", "tonne" ],
+					"OZ": [ "oz", "ounce" ],
+					"LB": [ "lb", "pound" ],
+					"ST": [ "st", "stone" ],
+				}
+			},
+			"SPEED": {
+				"NAME": "Speed",
+				"TYPES": {
+					"KMPH": [ "km/h", "kilometre per hour" ],
+					"MPS": [ "m/s", "metre per second" ],
+					"MIPH": [ "mi/h", "mile per hour" ],
+					"FTPS": [ "ft/s", "foor per second" ],
+					"KN": [ "kn", "knot" ],
+				}
+			},
+			"TEMPERATURE": {
+				"NAME": "Temperature",
+				"TYPES": {
+					"C": [ "°C", "degree Celsius" ],
+					"F": [ "°F", "degree Fahrenheit" ],
+					"K": [ "K", "kelvin" ],
+				}
+			},
+			"TIME": {
+				"NAME": "Time",
+				"TYPES": {
+					"NS": [ "ns", "nanosecond" ],
+					"US": [ "µs", "nanosecond" ],
+					"MS": [ "ms", "milisecond" ],
+					"S": [ "s", "second" ],
+					"M": [ "min", "minute" ],
+					"H": [ "h", "hour" ],
+					"D": [ "d", "day" ],
+				}
+			},
+			"PLANE_ANGLE": {
+				"NAME": "Plane angle",
+				"TYPES": {
+					"DEG": [ "°", "degree" ],
+					"RAD": [ "r", "radian" ],
+					"GON": [ "gon", "gradian" ],
+				}
+			},
+		},
 	},
 	ds: "."
 };

@@ -778,8 +778,22 @@
 
 		<div id="window30overlay" class="windowoverlay windowoverlayclear">
 			<!-- windowcloselayer intentionally missing here -->
-			<div class="popupwindow" style="width: 350px; position: absolute; top: 30%; left: calc(50% - 150px);">
+			<div class="popupwindow" style="width: 400px; position: absolute; top: 30%; left: calc(50% - 150px);">
 				<h1 class="L18N_TOOLBOX_CONVERTER windowtitlemoveable"></h1>
+
+				<br><select id="conv_unit_type" style="width: 100%; font-size: 18px; font-family: CoachiumDefaultFont;" onchange="toolbox_converter_type_update();"></select><br><br>
+
+				<div style="width: 100%; display: flex; flex-direction: row;">
+					<div style="flex-grow: 1; display: flex; flex-direction: row;">
+						<input id="conv_src_val" type="text" style="font-size: 18px; width: 0; flex-grow: 1;" oninput="toolbox_converter_value_update();">
+						<select id="conv_src_unit" style="font-size: 18px; font-family: CoachiumDefaultFont;" onchange="toolbox_converter_value_update();"></select>
+					</div>
+					<div style="font-size: 18px;">&nbsp;→&nbsp;</div>
+					<div style="flex-grow: 1; display: flex; flex-direction: row;">
+						<input id="conv_dest_val" type="text" style="font-size: 18px; width: 0; flex-grow: 1;" readonly>
+						<select id="conv_dest_unit" style="font-size: 18px; font-family: CoachiumDefaultFont;" onchange="toolbox_converter_value_update();"></select>
+					</div>
+				</div>
 
 				<div class="windowbuttonlist">
 					<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window(30);"></div>

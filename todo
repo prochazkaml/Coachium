@@ -10,7 +10,6 @@
 - if multiple sensors (in non-XY mode) - zoom.y1 and zoom.y2 = arrays
 - fitted functions - use similar color to the captured data
 - floating calculator
-- unit converter
 - file format with an actual header! (version number, etc.)
 
 Before submitting:
