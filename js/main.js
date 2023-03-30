@@ -313,7 +313,8 @@ async function main_thread() {
 								console.log(capstatus);
 
 								for(var i = 0; i < params.ports.length; i++) {
-									ports[params.ports[i]] = JSON.parse(JSON.stringify(capstatus.ports[i])); // Holy shit
+									// I know this might seem disgusting, but https://developer.mozilla.org/en-US/docs/Glossary/Deep_copy
+									ports[params.ports[i]] = JSON.parse(JSON.stringify(capstatus.ports[i]));
 								}
 								
 								var capture = {

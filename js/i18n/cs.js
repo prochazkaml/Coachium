@@ -468,8 +468,8 @@ const cs = {
 			"PLANE_ANGLE": {
 				"NAME": "Rovinný úhel",
 				"TYPES": {
-					"DEG": [ "°", "stupeň" ],
-					"RAD": [ "r", "radián" ],
+					"DEG": [ "deg", "stupeň" ],
+					"RAD": [ "rad", "radián" ],
 					"GON": [ "gon", "grad" ],
 				}
 			},

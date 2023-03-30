@@ -475,8 +475,8 @@ const en = {
 			"PLANE_ANGLE": {
 				"NAME": "Plane angle",
 				"TYPES": {
-					"DEG": [ "°", "degree" ],
-					"RAD": [ "r", "radian" ],
+					"DEG": [ "deg", "degree" ],
+					"RAD": [ "rag", "radian" ],
 					"GON": [ "gon", "gradian" ],
 				}
 			},
