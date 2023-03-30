@@ -68,7 +68,16 @@ function load_file_local(are_you_sure) {
 
 			reader.onload = (x) => {
 				try {
-					captures = JSON.parse(LZString.decompressFromUint8Array(new Uint8Array(x.target.result)));
+					var data = JSON.parse(LZString.decompressFromUint8Array(new Uint8Array(x.target.result)));
+
+					// Detect "version 0" files
+
+					if(Array.isArray(data)) {
+						captures = data;
+					} else {
+						captures = data.captures;
+					}
+
 					change_selected_capture(0, 0);
 
 					get_id("statusmsg").innerHTML = jslang.STATUS_FILE_LOADED;
@@ -86,6 +95,19 @@ function load_file_local(are_you_sure) {
 }
 
 /*
+ * generate_save_data()
+ * 
+ * Returns a Uint8Array containing binary data for saving.
+ */
+
+function generate_save_data() {
+	return LZString.compressToUint8Array(JSON.stringify({
+		coachium_version: 1,
+		captures: captures
+	}));
+}
+
+/*
  * save_file_local(name_chosen)
  * 
  * Exports a JSON file to local storage.
@@ -100,7 +122,7 @@ function save_file_local(name_chosen) {
 		// Generate a fictional "a" element for saving the file
 
 		save_file(
-			LZString.compressToUint8Array(JSON.stringify(captures)),
+			generate_save_data(),
 			inputfield.value + ".coachium",
 			"application/octet-stream"
 		);

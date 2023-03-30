@@ -10,7 +10,6 @@
 - if multiple sensors (in non-XY mode) - zoom.y1 and zoom.y2 = arrays
 - fitted functions - use similar color to the captured data
 - floating calculator
-- file format with an actual header! (version number, etc.)
 - cache - get rid of scripts.dat, unnecessary
 - make the dummy driver a bit more consistent (i.e. don't rely on setInterval timings, always check the absolute time)
 - create an in-program manual (probably append to the "What is Coachium?" screen, pop up in a new window)
