@@ -76,6 +76,7 @@ const cs = {
 
 		"TOOLBOX_CALCULATOR": "Kalkulačka",
 		"TOOLBOX_CONVERTER": "Převodník jednotek",
+		"TOOLBOX_HELP": "Nápověda",
 		"TOOLBOX_ABOUT": "O programu Coachium...",
 
 		// Window contents
