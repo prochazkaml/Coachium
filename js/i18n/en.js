@@ -293,6 +293,8 @@ const en = {
 
 		"CAPTURE_FMT": "Capture {0} out of {1}: {2}",
 
+		"TIME_SENSOR": "Time",
+
 		"TABLE_INTERVAL": "Interval ({0})",
 		"TABLE_SENSOR": "Sensor {0} ({1})",
 		"TABLE_FUN_UNKNOWN_TYPE": "Function ({0})",

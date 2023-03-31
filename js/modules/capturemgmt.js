@@ -58,6 +58,7 @@ function change_selected_capture(interval, absolute = undefined) {
 
 		capture_cache.ports = [
 			{
+				id: jslang.TIME_SENSOR,
 				unit: "s",
 				min: 0,
 				max: capture.length / 1000
@@ -68,6 +69,7 @@ function change_selected_capture(interval, absolute = undefined) {
 
 		for(var i = 0; i < keys.length; i++) {
 			capture_cache.ports[i + 1] = {
+				id: keys[i],
 				unit: capture.ports[keys[i]].unit,
 				min: capture.ports[keys[i]].min,
 				max: capture.ports[keys[i]].max,

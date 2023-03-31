@@ -286,6 +286,8 @@ const cs = {
 
 		"CAPTURE_FMT": "Záznam {0} z {1}: {2}",
 
+		"TIME_SENSOR": "Čas",
+
 		"TABLE_INTERVAL": "Interval ({0})",
 		"TABLE_SENSOR": "Čidlo {0} ({1})",
 		"TABLE_FUN_UNKNOWN_TYPE": "Funkce ({0})",

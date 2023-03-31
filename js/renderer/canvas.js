@@ -299,8 +299,7 @@ function render_chart(ctx, width, height, draw_functions, draw_notes) {
 
 		ctx.beginPath();
 
-		const ports = capture.ports;
-		const color = ports[Object.keys(ports)[0]].drawcolor; // TODO
+		const color = capture.ports[capture_cache.ports[1].id].drawcolor; // TODO
 
 		if(capture_cache.xy_mode || !color) {
 			ctx.strokeStyle = "red";

@@ -85,10 +85,8 @@ function table_gen(capture, display_fns) {
 
 	var col = [ format(jslang.TABLE_INTERVAL, capture_cache.ports[0].unit) ];
 
-	const keys = Object.keys(capture.ports);
-
-	for(var i = 0; i < keys.length; i++) {
-		col.push(format(jslang.TABLE_SENSOR, keys[i], capture_cache.ports[i + 1].unit))
+	for(var i = 1; i < capture_cache.ports.length; i++) {
+		col.push(format(jslang.TABLE_SENSOR, capture_cache.ports[i].id, capture_cache.ports[i].unit))
 	}
 
 	if(display_fns && fns) for(var i = 0; i < fns.length; i++) {
