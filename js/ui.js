@@ -231,10 +231,6 @@ function update_button_validity() {
 
 	if(status == laststatus) return;
 
-	console.log(status, laststatus);
-
-	console.log("updating");
-
 	if(status & 1) {
 		get_id("capturestartbutton").classList.add("navbuttondisabled");
 		get_id("capturestopbutton").classList.add("navbuttondisabled");
