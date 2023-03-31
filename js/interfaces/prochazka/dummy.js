@@ -189,9 +189,10 @@ class Prochazka_Dummy_driver {
 	async startcapture(setup) {
 		if(setup.ports.length < 1 || setup.ports.length > 2) return undefined;
 
-		const units = round(1000 / setup.freq);
+		var units = round(1000 / setup.freq);
+		units = units ? units : 1; // Make sure the unit count > 0
 
-		setup.freq = units ? (1000 / units) : 1000;
+		setup.freq = 1000 / units;
 
 		var ports = [];
 
