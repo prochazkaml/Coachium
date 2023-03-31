@@ -341,7 +341,6 @@ function render_chart(ctx, width, height, draw_functions, draw_notes) {
 
 		if(draw_functions && Array.isArray(capture.functions)) {
 			ctx.save();
-			ctx.setLineDash([10]);
 			ctx.strokeStyle = "rgba(0, 0, 255, 1)";
 
 			for(const fundef of capture.functions) {
@@ -349,17 +348,17 @@ function render_chart(ctx, width, height, draw_functions, draw_notes) {
 
 				if(fun !== null) {
 					for(var x = 0; x <= width - graph_margin_right - graph_margin_left; x++) {
-						if((x % 20) < 10) {
+						if((x % 10) < 5) {
 							const cx = x + graph_margin_left, cy = y_actual_offset - fun(x_min + x * x_units_per_px) * y_unit_in_px;
 
-							if(!(x % 20)) {
+							if(!(x % 10)) {
 								ctx.beginPath();
 								ctx.moveTo(cx, cy);
 							} else {
 								ctx.lineTo(cx, cy);
 							}
 
-							if((x % 20) == 9) ctx.stroke();
+							if((x % 10) == 4) ctx.stroke();
 						}
 					}
 
