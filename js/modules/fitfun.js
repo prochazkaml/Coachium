@@ -26,7 +26,8 @@ const fitting_algos = [
 	function_fit_cubic,
 	function_fit_exponential,
 	function_fit_logarithmic,
-	function_fit_power
+	function_fit_power,
+	function_fit_sine
 ];
 
 /*
@@ -63,6 +64,10 @@ function get_fun_calc(fundef) {
 
 		case "power":
 			fun = (x) => output.a * (x ** output.b);
+			break;
+
+		case "sine":
+			fun = (x) => output.a * Math.sin(x * output.b + output.c) + output.d;
 			break;
 	}
 
@@ -145,7 +150,17 @@ function fit_function() {
 			data[i] = [ sample[sensor_x], sample[sensor_y] ];
 		}
 
-		const algo_output = fitting_algos[select.selectedIndex](data);
+		// Assume algorithm error by default
+
+		var algo_output = { fdjaslfhsdhf: null };
+
+		try {
+			algo_output = fitting_algos[select.selectedIndex](data);
+		} catch(e) {
+			// Stop in case the device gets disconnected
+
+			console.log(e);
+		}
 
 		// Update the info dialog
 
@@ -279,4 +294,91 @@ function function_fit_power(points) {
 			"b": retval.equation[1]
 		}
 	};
+}
+
+function function_fit_sine(points) {
+	// As much as I would have liked to find a sine regression algorithm,
+	// I instead had to cobble together my own.
+
+	var retobj = {
+		"fun": "sine",
+		"output": {
+			"a": null,
+			"b": null,
+			"c": null,
+			"d": null
+		}
+	};
+
+	// Determine min/max value
+
+	var min = Infinity;
+	var max = -Infinity;
+
+	for(var i = 0; i < points.length; i++) {
+		if(points[i][1] > max) max = points[i][1];
+		if(points[i][1] < min) min = points[i][1];
+	}
+
+	if(min == Infinity || max == -Infinity) return retobj;
+
+	// Calculate DC offset
+
+	const dc_off = (min + max) / 2;
+
+	retobj.output.d = round(dc_off, 10);
+
+	// Find cross-over points
+
+	var crosspts = [];
+
+	for(var i = 0; i < points.length - 1; i++) {
+		// Rising edge (phi = 0)
+
+		if(points[i][1] < dc_off && points[i + 1][1] >= dc_off)
+			crosspts.push([
+				0,
+				points[i][0] + (points[i + 1][0] - points[i][0]) * (points[i][1] - dc_off) / (points[i][1] - points[i + 1][1])
+			]);
+
+		// Falling edge (phi = pi)
+
+		if(points[i][1] >= dc_off && points[i + 1][1] < dc_off)
+			crosspts.push([
+				1,
+				points[i][0] + (points[i + 1][0] - points[i][0]) * (dc_off - points[i][1]) / (points[i + 1][1] - points[i][1])
+			]);
+	}
+
+	if(crosspts.length < 2) return retobj;
+
+	// Calculate the angular velocity
+
+	var avg_t = 0;
+
+	for(var i = 0; i < crosspts.length - 1; i++) {
+		avg_t += crosspts[i + 1][1] - crosspts[i][1];
+	}
+
+	avg_t /= (crosspts.length - 1);
+
+	retobj.output.b = round(Math.PI / avg_t, 10);
+
+	// Figure out the phase offset (according to the first crossover point)
+
+	var ph_off = crosspts[0][1] * (Math.PI / avg_t);
+
+	if(crosspts[0][0] == 1) ph_off += Math.PI;
+
+	ph_off = 2 * Math.PI - ph_off;
+
+	while(ph_off < 0) ph_off += 2 * Math.PI;
+
+	retobj.output.c = round(ph_off, 10);
+
+	// Calculate amplitude
+
+	retobj.output.a = round(max - dc_off, 10);
+
+	return retobj;
 }

@@ -205,6 +205,7 @@ const cs = {
 		"WINDOW19_FUN_EXPONENTIAL": "Exponenciální: y = a * e^(bx)",
 		"WINDOW19_FUN_LOGARITHMIC": "Logaritmická: y = a + b * ln(x)",
 		"WINDOW19_FUN_POWER": "Mocninná: y = ax^b",
+		"WINDOW19_FUN_SINE": "Goniometrická: y = a * sin(bx + c) + d",
 		"WINDOW19_CHECKBOX": "Zobrazit tuto funkci na grafu",
 
 		"WINDOW20_TITLE": "Chyba připojování zařízení",

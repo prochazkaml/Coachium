@@ -1,5 +1,4 @@
 - make the chart display more than 1 sensor
-- implement sine fitting (at least some primitive kind which only works properly on sine waves)
 - dedicated port popup (for enlarging a value of a given sensor)
 - allow for assignable proportions between waveforms
 - fitted functions - use similar color to the captured data
@@ -19,6 +18,7 @@ Future stuff:
 	- snapping to intersection points
 - function manager for adding custom functions
 - utility for analyzing data (optionally select a region, min/max/avg)
+- fit sine function - calculate amplitude by area
 - show value on the graph when hovering over a data point
 - enable "finish" trigger (use one of the sensors for stopping the capture)
 - allow data limiting (remove up to a certain point, etc.) - auto recalculate fit if necessary

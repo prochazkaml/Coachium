@@ -212,6 +212,7 @@ const en = {
 		"WINDOW19_FUN_EXPONENTIAL": "Exponential: y = a * e^(bx)",
 		"WINDOW19_FUN_LOGARITHMIC": "Logarithmic: y = a + b * ln(x)",
 		"WINDOW19_FUN_POWER": "Power: y = ax^b",
+		"WINDOW19_FUN_SINE": "Trigonometric: y = a * sin(bx + c) + d",
 		"WINDOW19_CHECKBOX": "Show this function on the graph",
 
 		"WINDOW20_TITLE": "Device open error",
