@@ -144,7 +144,7 @@ function ui_connect(actually_connect) {
 		footer.style.width = "0";
 	}
 
-	if(!first_run) main_window_reset(true, true);
+	if(!first_run) main_window_reset(false, true);
 	
 	// Show that popup dialog when the user tries to leave the size
 
