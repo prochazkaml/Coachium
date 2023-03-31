@@ -35,8 +35,6 @@ function main_window_reset(reset_zoom, reset_layout) {
 				x2: 1,
 				y2: 1
 			}
-
-			update_capture_zoom();
 		}
 
 		if(reset_layout)

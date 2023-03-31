@@ -19,23 +19,6 @@
  */
 
 /*
- * update_capture_zoom()
- * 
- * Updates the zoom values stored in the capture object, so the zoom can be preserved.
- */
-
-function update_capture_zoom() {
-	// TODO - get rid of this, just assign capture.zoom to zoom on load
-
-	if(capture)	capture.zoom = {
-		x1: zoom.x1,
-		y1: zoom.y1,
-		x2: zoom.x2,
-		y2: zoom.y2
-	};
-}
-
-/*
  * request_zoom_in()
  * 
  * Prompts the user to select a region, or aborts the current zoom request.
@@ -115,7 +98,6 @@ function zoom_to_data() {
 		zoom.x1 = min_x; zoom.y1 = min_y;
 		zoom.x2 = max_x; zoom.y2 = max_y;
 
-		update_capture_zoom();
 		update_button_validity();
 		main_window_reset(false, false); // Not needed, since we've done it already
 	}
@@ -135,7 +117,6 @@ function zoom_reset() {
 	zoom.x1 = zoom.y1 = 0;
 	zoom.x2 = zoom.y2 = 1;
 
-	update_capture_zoom();
 	update_button_validity();
 	main_window_reset(false, false); // Not needed, since we've done it already
 }
