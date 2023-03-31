@@ -131,7 +131,6 @@ function change_capture_view() {
 function create_capture() {
 	if(get_id("capturestartbutton").classList.contains("navbuttondisabled")) return;
 
-	zoom_reset();
 	capture_setup_check();
 
 	setTimeout(() => {
