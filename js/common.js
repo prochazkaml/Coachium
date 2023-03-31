@@ -22,7 +22,7 @@
 
 var header, nav, main, footer, canvas, ctx, overlay, ovctx, table;
 
-var captures = [], selected_capture = 0, capture;
+var captures = [], selected_capture = 0, capture, zoom;
 
 var capture_cache = {
 	"ports": [], // first one is always { min: 0, max: set capture length, unit: "s"/"ms"/whatever you want }

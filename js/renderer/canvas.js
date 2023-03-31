@@ -23,10 +23,6 @@ const CANVAS_EVENT_CROSSHAIR_MOVE = 1;
 const CANVAS_EVENT_RECALCULATE_STYLES = 2;
 const CANVAS_EVENT_CURSOR_MOVE = 3;
 
-// These variables control the zoomed in region. All of them range from 0 to 1.
-
-var zoomx1 = 0, zoomy1 = 0, zoomx2 = 1, zoomy2 = 1;
-
 // Zoom control variables
 
 var zoom_request_progress = 0, zoom_move_request = false;
@@ -218,8 +214,8 @@ function render_chart(ctx, width, height, draw_functions, draw_notes) {
 
 		x_total_units = Math.abs(x_max - x_min);
 
-		x_max = x_min + zoomx2 * x_total_units;
-		x_min += zoomx1 * x_total_units;
+		x_max = x_min + zoom.x2 * x_total_units;
+		x_min += zoom.x1 * x_total_units;
 
 		x_total_units = Math.abs(x_max - x_min);
 
@@ -243,8 +239,8 @@ function render_chart(ctx, width, height, draw_functions, draw_notes) {
 
 		y_total_units = Math.abs(y_max - y_min);
 
-		y_max = y_min + zoomy2 * y_total_units;
-		y_min += zoomy1 * y_total_units;
+		y_max = y_min + zoom.y2 * y_total_units;
+		y_min += zoom.y1 * y_total_units;
 
 		y_total_units = Math.abs(y_max - y_min);
 
@@ -383,8 +379,8 @@ function render_chart(ctx, width, height, draw_functions, draw_notes) {
 
 			draw_note(
 				ctx,
-				graph_margin_left + (note.x - zoomx1) / (zoomx2 - zoomx1) * (width - graph_margin_left - graph_margin_right),
-				height - graph_margin_bottom - (note.y - zoomy1) / (zoomy2 - zoomy1) * (height - graph_margin_top - graph_margin_bottom),
+				graph_margin_left + (note.x - zoom.x1) / (zoom.x2 - zoom.x1) * (width - graph_margin_left - graph_margin_right),
+				height - graph_margin_bottom - (note.y - zoom.y1) / (zoom.y2 - zoom.y1) * (height - graph_margin_top - graph_margin_bottom),
 				i
 			);
 		}
@@ -683,8 +679,8 @@ function render_overlay(ovctx, width, height) {
 				uw = Math.abs(max[0] - min[0]),
 				uh = Math.abs(max[1] - min[1]);
 
-			uw = uw * (zoomx1 + mx * (zoomx2 - zoomx1)) + min[0];
-			uh = uh * (zoomy2 + my * (zoomy1 - zoomy2)) + min[1];
+			uw = uw * (zoom.x1 + mx * (zoom.x2 - zoom.x1)) + min[0];
+			uh = uh * (zoom.y2 + my * (zoom.y1 - zoom.y2)) + min[1];
 
 			ovctx.textBaseline = "middle";
 			ovctx.textAlign = "right";

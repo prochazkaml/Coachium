@@ -25,11 +25,13 @@
  */
 
 function update_capture_zoom() {
+	// TODO - get rid of this, just assign capture.zoom to zoom on load
+
 	if(capture)	capture.zoom = {
-		x1: zoomx1,
-		y1: zoomy1,
-		x2: zoomx2,
-		y2: zoomy2
+		x1: zoom.x1,
+		y1: zoom.y1,
+		x2: zoom.x2,
+		y2: zoom.y2
 	};
 }
 
@@ -110,8 +112,8 @@ function zoom_to_data() {
 		get_id("statusmsg").innerHTML = jslang.STATUS_ZOOM_DATA;
 		zoom_request_progress = 0;
 
-		zoomx1 = min_x; zoomy1 = min_y;
-		zoomx2 = max_x; zoomy2 = max_y;
+		zoom.x1 = min_x; zoom.y1 = min_y;
+		zoom.x2 = max_x; zoom.y2 = max_y;
 
 		update_capture_zoom();
 		update_button_validity();
@@ -130,8 +132,8 @@ function zoom_reset() {
 
 	get_id("statusmsg").innerHTML = jslang.STATUS_ZOOM_RESET;
 	zoom_request_progress = 0;
-	zoomx1 = zoomy1 = 0;
-	zoomx2 = zoomy2 = 1;
+	zoom.x1 = zoom.y1 = 0;
+	zoom.x2 = zoom.y2 = 1;
 
 	update_capture_zoom();
 	update_button_validity();
@@ -145,5 +147,5 @@ function zoom_reset() {
  */
 
 function zoomed_in() {
-	return !(zoomx1 == 0 && zoomy1 == 0 && zoomx2 == 1 && zoomy2 == 1);
+	return !(zoom.x1 == 0 && zoom.y1 == 0 && zoom.x2 == 1 && zoom.y2 == 1);
 }

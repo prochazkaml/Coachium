@@ -2,8 +2,7 @@
 - implement sine fitting (at least some primitive kind which only works properly on sine waves)
 - dedicated port popup (for enlarging a value of a given sensor)
 - allow selecting which sensor to use for fitting functions (in non-XY mode)
-- turn zoom?? into zoom.??
-- if multiple sensors (in non-XY mode) - zoom.y1 and zoom.y2 = arrays
+- allow for assignable proportions between waveforms
 - fitted functions - use similar color to the captured data
 - floating calculator
 - cache - get rid of scripts.dat, unnecessary

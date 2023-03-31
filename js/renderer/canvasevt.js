@@ -57,28 +57,28 @@ function canvasmousemovehandler(e) {
 
 			var pw = canvas.width - graph_margin_left - graph_margin_right,
 				ph = canvas.height - graph_margin_top - graph_margin_bottom,
-				vw = zoomx2 - zoomx1,
-				vh = zoomy2 - zoomy1;
+				vw = zoom.x2 - zoom.x1,
+				vh = zoom.y2 - zoom.y1;
 
 			var dx =  (mouseX - mousepositions[1][0]) / pw * vw,
 				dy = -(mouseY - mousepositions[1][1]) / ph * vh;
 
-			if(zoomx1 - dx < 0)
-				dx = zoomx1;
+			if(zoom.x1 - dx < 0)
+				dx = zoom.x1;
 
-			if(zoomy1 - dy < 0)
-				dy = zoomy1;
+			if(zoom.y1 - dy < 0)
+				dy = zoom.y1;
 
-			if(zoomx2 - dx > 1)
-				dx = zoomx2 - 1;
+			if(zoom.x2 - dx > 1)
+				dx = zoom.x2 - 1;
 
-			if(zoomy2 - dy > 1)
-				dy = zoomy2 - 1;
+			if(zoom.y2 - dy > 1)
+				dy = zoom.y2 - 1;
 
-			zoomx1 -= dx;
-			zoomy1 -= dy;
-			zoomx2 -= dx;
-			zoomy2 -= dy;
+			zoom.x1 -= dx;
+			zoom.y1 -= dy;
+			zoom.x2 -= dx;
+			zoom.y2 -= dy;
 
 			mousepositions[1][0] = mouseX;
 			mousepositions[1][1] = mouseY;
@@ -124,8 +124,8 @@ function canvasmousechangehandler(status) {
 		var mx = (mouseX - graph_margin_left) / (canvas.width - graph_margin_left - graph_margin_right),
 			my = (mouseY - graph_margin_top) / (canvas.height - graph_margin_top - graph_margin_bottom);
 		
-		mx = (zoomx1 + mx * (zoomx2 - zoomx1));
-		my = (zoomy2 + my * (zoomy1 - zoomy2));
+		mx = (zoom.x1 + mx * (zoom.x2 - zoom.x1));
+		my = (zoom.y2 + my * (zoom.y1 - zoom.y2));
 
 		zoom_move_request = false; // Just in case the user was dragging
 		note_placement_progress = 0;
@@ -178,12 +178,12 @@ function canvasmousechangehandler(status) {
 				var _x2 = (((x1 < x2) ? x2 : x1) - graph_margin_left) / (canvas.width - graph_margin_left - graph_margin_right);
 				var _y2 = 1 - (((y1 < y2) ? y1 : y2) - graph_margin_top) / (canvas.height - graph_margin_top - graph_margin_bottom);
 
-				var x = zoomx2 - zoomx1, y = zoomy2 - zoomy1;
+				var x = zoom.x2 - zoom.x1, y = zoom.y2 - zoom.y1;
 
-				zoomx2 = zoomx1 + _x2 * x;
-				zoomx1 += _x1 * x;
-				zoomy2 = zoomy1 + _y2 * y;
-				zoomy1 += _y1 * y;
+				zoom.x2 = zoom.x1 + _x2 * x;
+				zoom.x1 += _x1 * x;
+				zoom.y2 = zoom.y1 + _y2 * y;
+				zoom.y1 += _y1 * y;
 
 				zoom_request_progress = 0;
 
@@ -215,8 +215,8 @@ function canvasmousewheelhandler(event) {
 
 	// Figure out the selected point in the zoomed in region
 
-	const xl = (zoomx2 - zoomx1) * mousex, yt = (zoomy2 - zoomy1) * mousey;
-	const xr = (zoomx2 - zoomx1) * (1 - mousex), yb = (zoomy2 - zoomy1) * (1 - mousey);
+	const xl = (zoom.x2 - zoom.x1) * mousex, yt = (zoom.y2 - zoom.y1) * mousey;
+	const xr = (zoom.x2 - zoom.x1) * (1 - mousex), yb = (zoom.y2 - zoom.y1) * (1 - mousey);
 
 	if(scale > 0) {
 		// Zoom in
@@ -224,13 +224,13 @@ function canvasmousewheelhandler(event) {
 		if(scale > 0.5) scale = 0.5;
 
 		if(!event.altKey) {
-			zoomy1 += yb * scale;
-			zoomy2 -= yt * scale;
+			zoom.y1 += yb * scale;
+			zoom.y2 -= yt * scale;
 		}
 
 		if(!event.shiftKey) {
-			zoomx1 += xl * scale;
-			zoomx2 -= xr * scale;
+			zoom.x1 += xl * scale;
+			zoom.x2 -= xr * scale;
 		}
 	} else {
 		// Zoom out
@@ -238,35 +238,35 @@ function canvasmousewheelhandler(event) {
 		if(scale < -0.5) scale = -0.5;
 
 		if(!event.altKey) {
-			zoomy1 += yb * scale;
-			zoomy2 -= yt * scale;
+			zoom.y1 += yb * scale;
+			zoom.y2 -= yt * scale;
 		}
 
 		if(!event.shiftKey) {
-			zoomx1 += xl * scale;
-			zoomx2 -= xr * scale;
+			zoom.x1 += xl * scale;
+			zoom.x2 -= xr * scale;
 		}
 
 		// Handling for when the zoomed out region is temporarily off-screen
 
-		if(zoomx1 < 0) {
-			zoomx2 -= zoomx1; zoomx1 = 0;
-			if(zoomx2 > 1) zoomx2 = 1;
+		if(zoom.x1 < 0) {
+			zoom.x2 -= zoom.x1; zoom.x1 = 0;
+			if(zoom.x2 > 1) zoom.x2 = 1;
 		}
 
-		if(zoomx2 > 1) {
-			zoomx1 -= (zoomx2 - 1); zoomx2 = 1;
-			if(zoomx1 < 0) zoomx1 = 0;
+		if(zoom.x2 > 1) {
+			zoom.x1 -= (zoom.x2 - 1); zoom.x2 = 1;
+			if(zoom.x1 < 0) zoom.x1 = 0;
 		}
 
-		if(zoomy1 < 0) {
-			zoomy2 -= zoomy1; zoomy1 = 0;
-			if(zoomy2 > 1) zoomy2 = 1;
+		if(zoom.y1 < 0) {
+			zoom.y2 -= zoom.y1; zoom.y1 = 0;
+			if(zoom.y2 > 1) zoom.y2 = 1;
 		}
 
-		if(zoomy2 > 1) {
-			zoomy1 -= (zoomy2 - 1); zoomy2 = 1;
-			if(zoomy1 < 0) zoomy1 = 0;
+		if(zoom.y2 > 1) {
+			zoom.y1 -= (zoom.y2 - 1); zoom.y2 = 1;
+			if(zoom.y1 < 0) zoom.y1 = 0;
 		}
 	}
 

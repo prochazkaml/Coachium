@@ -46,10 +46,7 @@ function change_selected_capture(interval, absolute = undefined) {
 		capture = captures[selected_capture];
 
 		if(capture.zoom) {
-			zoomx1 = capture.zoom.x1;
-			zoomy1 = capture.zoom.y1;
-			zoomx2 = capture.zoom.x2;
-			zoomy2 = capture.zoom.y2;
+			zoom = capture.zoom;
 			reset_zoom = false;
 		}
 

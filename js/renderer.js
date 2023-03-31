@@ -29,8 +29,13 @@ function main_window_reset(reset_zoom, reset_layout) {
 		zoom_request_progress = 0;
 
 		if(reset_zoom) {
-			zoomx1 = zoomy1 = 0;
-			zoomx2 = zoomy2 = 1;
+			zoom = {
+				x1: 0,
+				y1: 0,
+				x2: 1,
+				y2: 1
+			}
+
 			update_capture_zoom();
 		}
 
