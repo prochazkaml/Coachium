@@ -109,7 +109,7 @@ const en = {
 		"WINDOW2_MODE_STD": "Standard mode",
 		"WINDOW2_MODE_XY": "X-Y mode",
 		"WINDOW2_MODE_STD_DESC":
-			"In normal mode, you may select any amount of sensors to capture simultaneously " +
+			"In standard mode, you may select any amount of sensors to capture simultaneously " +
 			"(within the restrictions of the hardware). They will be displayed on the Y axis " +
 			"and will be compared to time. You can later hide some sensors, or generate an X-Y graph " +
 			"based on the data of any 2 captured sensors.",
@@ -294,6 +294,9 @@ const en = {
 		"CAPTURE_FMT": "Capture {0} out of {1}: {2}",
 
 		"TIME_SENSOR": "Time",
+
+		"FIT_FUN_XY_MODE": "X-Y mode: {0} ({1}) / {2} ({3})",
+		"FIT_FUN_TIME_MODE": "Standard mode: {0} ({1}) / {2} ({3})",
 
 		"TABLE_INTERVAL": "Interval ({0})",
 		"TABLE_SENSOR": "Sensor {0} ({1})",

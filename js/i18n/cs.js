@@ -288,6 +288,9 @@ const cs = {
 
 		"TIME_SENSOR": "Čas",
 
+		"FIT_FUN_XY_MODE": "Režim X-Y: {0} ({1}) / {2} ({3})",
+		"FIT_FUN_TIME_MODE": "Normální režim: {0} ({1}) / {2} ({3})",
+
 		"TABLE_INTERVAL": "Interval ({0})",
 		"TABLE_SENSOR": "Čidlo {0} ({1})",
 		"TABLE_FUN_UNKNOWN_TYPE": "Funkce ({0})",

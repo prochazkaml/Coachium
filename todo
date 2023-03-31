@@ -1,7 +1,6 @@
 - make the chart display more than 1 sensor
 - implement sine fitting (at least some primitive kind which only works properly on sine waves)
 - dedicated port popup (for enlarging a value of a given sensor)
-- allow selecting which sensor to use for fitting functions (in non-XY mode)
 - allow for assignable proportions between waveforms
 - fitted functions - use similar color to the captured data
 - floating calculator

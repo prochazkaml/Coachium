@@ -85,25 +85,64 @@ function fit_function() {
 
 	close_popup();
 
-	const select = get_win_el_tag(WINDOWID_FIT_FUNCTION, "select");
+	const sensorselect = get_win_el_tag(WINDOWID_FIT_FUNCTION, "select", 0);
+	const select = get_win_el_tag(WINDOWID_FIT_FUNCTION, "select", 1);
 	const checkbox = get_win_el_tag(WINDOWID_FIT_FUNCTION, "input");
 	select.selectedIndex = 0;
 
+	// Populate the sensor selector
+
+	sensorselect.innerHTML = "";
+
+	if(capture_cache.xy_mode) {
+		// X-Y mode - only one possible option
+
+		var option = document.createElement("option");
+		
+		option.innerText = format(
+			jslang.FIT_FUN_XY_MODE,
+			capture_cache.ports[2].id,
+			capture_cache.ports[2].unit,
+			capture_cache.ports[1].id,
+			capture_cache.ports[1].unit
+		);
+		option.value = 0;
+
+		sensorselect.appendChild(option);
+		sensorselect.value = 0;
+	} else {
+		for(var i = 1; i < capture_cache.ports.length; i++) {
+			var option = document.createElement("option");
+
+			option.innerText = format(
+				jslang.FIT_FUN_TIME_MODE,
+				capture_cache.ports[i].id,
+				capture_cache.ports[i].unit,
+				capture_cache.ports[0].id,
+				capture_cache.ports[0].unit
+			);
+			option.value = i;
+
+			sensorselect.appendChild(option);
+		}
+
+		sensorselect.value = 1;
+	}
+
 	// Automatically update the values when the selected function is changed
 
-	select.onchange = () => {
+	select.onchange = sensorselect.onchange = () => {
 		var data = [];
+
+		const sensor_x = capture_cache.xy_mode ? 1 : 0;
+		const sensor_y = capture_cache.xy_mode ? 2 : sensorselect.value;
 
 		for(var i = 0; i < capture_cache.values.length; i++) {
 			const sample = capture_cache.values[i];
 
-			if(capture_cache.xy_mode) {
-				data[i] = [ sample[1], sample[2] ];
-			} else {
-				// TODO
+			if(sample[sensor_x] === undefined || sample[sensor_y] === undefined) break;
 
-				data[i] = [ sample[0], sample[1] ];
-			}
+			data[i] = [ sample[sensor_x], sample[sensor_y] ];
 		}
 
 		const algo_output = fitting_algos[select.selectedIndex](data);
@@ -117,7 +156,7 @@ function fit_function() {
 			string += "<b>" + key + "</b>: " + localize_num(value) + "<br>";
 		}
 
-		get_win_el_tag(WINDOWID_FIT_FUNCTION, "p", 1).innerHTML = invalid_val ? jslang.INVALID_FIT : string;
+		get_win_el_tag(WINDOWID_FIT_FUNCTION, "p", 2).innerHTML = invalid_val ? jslang.INVALID_FIT : string;
 
 		get_id("fitfunctioncheckbox").style.display = invalid_val ? "none" : "";
 
@@ -130,7 +169,8 @@ function fit_function() {
 		var funs = capture.functions;
 
 		for(var i = 0; i < funs.length; i++) {
-			if(funs[i].fun == algo_output.fun && funs[i].type == "fit") checkbox.checked = true;
+			if(funs[i].fun == algo_output.fun && funs[i].type == "fit" &&
+				funs[i].sensor_x == sensor_x && funs[i].sensor_y == sensor_y) checkbox.checked = true;
 		}
 
 		checkbox.onchange = () => {
@@ -139,12 +179,13 @@ function fit_function() {
 					fun: algo_output.fun,
 					type: "fit",
 					params: algo_output.output,
-					sensor_x: capture_cache.xy_mode ? 1 : 0, // TODO
-					sensor_y: capture_cache.xy_mode ? 2 : 1 // TODO
+					sensor_x: sensor_x,
+					sensor_y: sensor_y
 				});
 			} else {
 				for(var i = 0; i < funs.length; i++) {
-					if(funs[i].fun == algo_output.fun && funs[i].type == "fit") funs.splice(i, 1);
+					if(funs[i].fun == algo_output.fun && funs[i].type == "fit" &&
+						funs[i].sensor_x == sensor_x && funs[i].sensor_y == sensor_y) funs.splice(i, 1);
 				}		
 			}
 
