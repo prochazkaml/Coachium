@@ -94,11 +94,13 @@ class Prochazka_Dummy_driver {
 	 * Returns undefined if the port is not connected or if an error occurs.
 	 */
 
-	_getval(portname) {
+	_getval(portname, phase = null) {
+		if(phase === null) phase = window.performance.now();
+
 		const keys = Object.keys(driver.ports);
 
 		if(this.ports[portname].connected)
-			return this.ports[portname].value = Math.sin(window.performance.now() / this.ports[portname]._speed + 2 * Math.PI / keys.length * keys.indexOf(portname)) * 10 - this.ports[portname].zero_offset;
+			return this.ports[portname].value = Math.sin(phase / this.ports[portname]._speed + 2 * Math.PI / keys.length * keys.indexOf(portname)) * 10 - this.ports[portname].zero_offset;
 		else
 			return undefined;
 	}
@@ -215,17 +217,23 @@ class Prochazka_Dummy_driver {
 
 		// Get ready for receiving data
 
+		var phase = window.performance.now();
+
 		this.capture.callback = setInterval(async () => {
-			for(var j = 0; j < this.capture.ports.length; j++) {
-				this.capture.data[this.capture.received++] = this._getval(this.capture.ports[j]);
-			}
+			var destphase = window.performance.now();
 
-			// Check if we've finished
+			for(; phase <= destphase; phase += units) {
+				for(var j = 0; j < this.capture.ports.length; j++) {
+					this.capture.data[this.capture.received++] = this._getval(this.capture.ports[j], phase);
+				}
 
-			if(this.capture.received >= samples * ports.length) {
-				this.stopcapture();
+				// Check if we've finished
+
+				if(this.capture.received >= samples * ports.length) {
+					this.stopcapture();
+				}
 			}
-		}, units);
+		}, 10);
 
 		console.log(ports);
 
