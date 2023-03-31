@@ -231,6 +231,7 @@ class Prochazka_Dummy_driver {
 
 				if(this.capture.received >= samples * ports.length) {
 					this.stopcapture();
+					break;
 				}
 			}
 		}, 10);
