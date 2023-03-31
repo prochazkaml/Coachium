@@ -1,9 +1,5 @@
 - make the chart display more than 1 sensor
-- calculation of area between 2 functions
-	- fitted function or axis (with offset) can also be selected as a source
-	- snapping to intersection points
 - implement sine fitting (at least some primitive kind which only works properly on sine waves)
-- function manager for adding custom functions
 - dedicated port popup (for enlarging a value of a given sensor)
 - allow selecting which sensor to use for fitting functions (in non-XY mode)
 - turn zoom?? into zoom.??
@@ -20,6 +16,10 @@ Before submitting:
 - thoroughly verify that all features work as expected!
 
 Future stuff:
+- calculation of area between 2 functions
+	- fitted function or axis (with offset) can also be selected as a source
+	- snapping to intersection points
+- function manager for adding custom functions
 - utility for analyzing data (optionally select a region, min/max/avg)
 - show value on the graph when hovering over a data point
 - enable "finish" trigger (use one of the sensors for stopping the capture)
