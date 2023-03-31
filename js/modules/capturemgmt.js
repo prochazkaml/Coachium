@@ -81,6 +81,8 @@ function change_selected_capture(interval, absolute = undefined) {
 		// Generate the cache data
 
 		generate_cache(0, Math.floor(capture.data.length / keys.length));
+
+		capture.zoom = zoom;
 	} else {
 		capture_cache.values = [];
 
@@ -88,8 +90,6 @@ function change_selected_capture(interval, absolute = undefined) {
 
 		capture = null;
 	}
-
-	capture.zoom = zoom;
 
 	main_window_reset(reset_zoom, false);
 
