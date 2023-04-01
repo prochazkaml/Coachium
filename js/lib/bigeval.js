@@ -24,7 +24,7 @@ var TokenType = {
 
 var hasOwnProperty = Object.hasOwnProperty;
 
-var DEFAULT_VAR_NAME_CHARS = 'abcdefghijklmnopqrstuvwxyz0123456789_$';
+var DEFAULT_VAR_NAME_CHARS = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_$';
 
 var lineBreakRgx = new RegExp(/\r\n?|\n|\u2028|\u2029/g);
 function getLineInfo(input, offset) {
@@ -77,10 +77,8 @@ var BigEval = function() {
 	// https://en.wikipedia.org/wiki/Order_of_operations#Programming_languages
 
 	this.order = [
-				['E'],
 				['!'],
 				['^'],
-				['C', 'P'],
 				['\\', '/', '*', '%'],
 				['+', '-'],
 				['<', '<=', '>', '>='],
@@ -741,12 +739,6 @@ BigEval.prototype._evaluateToken = function (token) {
 					} else { // Not (i.e. !5)
 						return this.logicalNot(this._evaluateToken(token.right));
 					}
-
-				case 'C': // Combination
-					return this.comb(this._evaluateToken(token.left), this._evaluateToken(token.right));
-
-				case 'P': // Permutation
-					return this.perm(this._evaluateToken(token.left), this._evaluateToken(token.right));
 
 				case '/': // Divide
 					return this.div(this._evaluateToken(token.left), this._evaluateToken(token.right));
