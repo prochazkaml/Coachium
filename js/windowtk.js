@@ -194,10 +194,24 @@ function confirm_window() {
  * Returns whether a window can pass events through its
  * background parent layer (which is also completely
  * transparent).
+ * 
+ * If it can, it also checks whether any input box or
+ * textarea inside such window currently has focus.
  */
 
 function win_can_pass_events(id) {
-	return get_win_overlay(id).classList.contains("windowoverlayclear");
+	// Does the window have a *non*-transparent background layer?
+
+	if(!get_win_overlay(id).classList.contains("windowoverlayclear")) return false;
+
+	// Is an input or textarea currently active?
+
+	if(document.activeElement.tagName == "INPUT" ||
+		document.activeElement.tagName == "TEXTAREA") return false;
+
+	// If not, this window can safely pass events
+
+	return true;
 }
 
 /*
