@@ -254,6 +254,10 @@ const cs = {
 		"WINDOW28_FUN_CHECKBOX": "Exportovat proložené funkce",
 		"WINDOW28_NOTE_CHECKBOX": "Exportovat poznámky",
 
+		"WINDOW29_DEG": "Stupně",
+		"WINDOW29_RAD": "Radiány",
+		"WINDOW29_GON": "Grady",
+
 		// "About" window text
 
 		"ABOUT_TITLE": "Co je to Coachium?",

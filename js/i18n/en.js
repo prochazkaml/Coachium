@@ -261,6 +261,10 @@ const en = {
 		"WINDOW28_FUN_CHECKBOX": "Export fitted functions",
 		"WINDOW28_NOTE_CHECKBOX": "Export notes",
 
+		"WINDOW29_DEG": "Degrees",
+		"WINDOW29_RAD": "Radians",
+		"WINDOW29_GON": "Gradians",
+
 		// "About" window text
 
 		"ABOUT_TITLE": "What is Coachium?",

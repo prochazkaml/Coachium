@@ -657,7 +657,7 @@
 					<div style="display: flex; flex-direction: column;">
 						<textarea style="width: 320px; flex-grow: 1;" class="L18N_PLACEHOLDER_WINDOW23_TIP"></textarea>
 						<div class="windowbuttonlist" style="flex-grow: 0; flex-direction: column;">
-							<div class="windowbutton" style="display: none" onclick=""></div> <!-- prevents confirm_window() from breaking shit -->
+							<div class="windowbutton" style="display: none" onclick=""></div> <!-- prevents confirm_window() from creating a new note on Enter -->
 							<div class="windowbutton L18N_WINDOW23_BUTTON_ADD" onclick="add_note();"></div>
 							<div class="windowbutton L18N_WINDOW23_BUTTON_EDIT"></div> <!-- onclick automatically generated -->
 							<div class="windowbutton L18N_WINDOW23_BUTTON_MOVE"></div> <!-- onclick automatically generated -->
@@ -781,7 +781,21 @@
 			<div class="popupwindow" style="width: 350px; position: absolute; top: 30%; left: calc(50% - 175px - 16px);">
 				<h1 class="L18N_TOOLBOX_CALCULATOR windowtitlemoveable"></h1>
 
+				<select size="6" style="font-size: 18px; font-family: CoachiumDefaultFont; width: 100%; margin: 8px 0; height: 140px;"></select>
+
+				<div style="width: 100%; display: flex; flex-direction: row;">
+					<input type="text" placeholder="10 * ln(e ^ 2)" style="font-size: 18px; font-family: CoachiumDefaultFont; width: 0; flex-grow: 1;">
+					<button type="button" style="font-size: 18px; font-family: CoachiumDefaultFont; margin-left: 8px;" onclick="toolbox_calculator_submit();">=</button>
+				</div>
+
+				<select style="width: 100%; font-size: 18px; font-family: CoachiumDefaultFont; margin-top: 8px" onchange="toolbox_calculator_update_angle_units();">
+					<option class="L18N_WINDOW29_DEG" value="1"></option>
+					<option class="L18N_WINDOW29_RAD" value="0"></option>
+					<option class="L18N_WINDOW29_GON" value="2"></option>
+				</select>
+
 				<div class="windowbuttonlist">
+					<div class="windowbutton" style="display: none" onclick=""></div> <!-- prevents confirm_window() from quitting the app -->
 					<div class="windowbutton L18N_BUTTON_CLOSE" onclick="close_window(29);"></div>
 				</div>
 			</div>
@@ -796,12 +810,12 @@
 
 				<div style="width: 100%; display: flex; flex-direction: row;">
 					<div style="flex-grow: 1; display: flex; flex-direction: row;">
-						<input id="conv_src_val" type="text" style="font-size: 18px; width: 0; flex-grow: 1;" oninput="toolbox_converter_value_update();">
+						<input id="conv_src_val" type="text" style="font-size: 18px; font-family: CoachiumDefaultFont; width: 0; flex-grow: 1;" oninput="toolbox_converter_value_update();">
 						<select id="conv_src_unit" style="font-size: 18px; font-family: CoachiumDefaultFont;" onchange="toolbox_converter_value_update();"></select>
 					</div>
 					<div style="font-size: 18px;">&nbsp;→&nbsp;</div>
 					<div style="flex-grow: 1; display: flex; flex-direction: row;">
-						<input id="conv_dest_val" type="text" style="font-size: 18px; width: 0; flex-grow: 1;" readonly>
+						<input id="conv_dest_val" type="text" style="font-size: 18px; font-family: CoachiumDefaultFont; width: 0; flex-grow: 1;" readonly>
 						<select id="conv_dest_unit" style="font-size: 18px; font-family: CoachiumDefaultFont;" onchange="toolbox_converter_value_update();"></select>
 					</div>
 				</div>
