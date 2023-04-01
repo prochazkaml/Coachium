@@ -303,10 +303,10 @@ function function_fit_sine(points) {
 	var retobj = {
 		"fun": "sine",
 		"output": {
-			"a": null,
-			"b": null,
-			"c": null,
-			"d": null
+			"a": undefined,
+			"b": undefined,
+			"c": undefined,
+			"d": undefined
 		}
 	};
 
