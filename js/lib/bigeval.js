@@ -24,7 +24,7 @@ var TokenType = {
 
 var hasOwnProperty = Object.hasOwnProperty;
 
-var DEFAULT_VAR_NAME_CHARS = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_$';
+var DEFAULT_VAR_NAME_CHARS = 'abcdefghijklmnopqrstuvwxyz0123456789_$';
 
 var lineBreakRgx = new RegExp(/\r\n?|\n|\u2028|\u2029/g);
 function getLineInfo(input, offset) {
@@ -77,8 +77,10 @@ var BigEval = function() {
 	// https://en.wikipedia.org/wiki/Order_of_operations#Programming_languages
 
 	this.order = [
+				['E'],
 				['!'],
 				['^'],
+				['C', 'P'],
 				['\\', '/', '*', '%'],
 				['+', '-'],
 				['<', '<=', '>', '>='],
@@ -106,7 +108,29 @@ var BigEval = function() {
 	}
 
 	this.CONSTANT = {};
-	this.FUNCTION = {};
+	this.FUNCTION = {
+		comb: this.comb,
+		perm: this.perm,
+		log: this.log,
+		ln: this.ln,
+		sin: this.sin,
+		sinh: this.sinh,
+		asin: this.asin,
+		asinh: this.asinh,
+		cos: this.cos,
+		cosh: this.cosh,
+		acos: this.acos,
+		acosh: this.acosh,
+		tan: this.tan,
+		tanh: this.tanh,
+		atan: this.atan,
+		atanh: this.atanh,
+		tg: this.tg,
+		tgh: this.tgh,
+		atg: this.atg,
+		atgh: this.atgh,
+	};
+	this.ANGLEMODE = 0;
 	this.fallbackToGlobalFunctions = false;
 
 	/** @type function(name:string):any */
@@ -118,6 +142,7 @@ BigEval.prototype.DEFAULT_CONSTANTS = {
 	'PI_2': Math.PI / 2, // Math.PI_2;
 	'LOG2E': Math.LOG2E,
 	'DEG': Math.PI / 180,
+	'GON': Math.PI / 200,
 	'E': Math.E
 };
 
@@ -133,6 +158,7 @@ BigEval.prototype.exec = function (expression) {
 	try {
 		return this.execute(expression);
 	} catch (ignored) {
+		console.log(ignored);
 		return 'ERROR';
 	}
 
@@ -716,9 +742,17 @@ BigEval.prototype._evaluateToken = function (token) {
 						return this.logicalNot(this._evaluateToken(token.right));
 					}
 
+				case 'C': // Combination
+					return this.comb(this._evaluateToken(token.left), this._evaluateToken(token.right));
+
+				case 'P': // Permutation
+					return this.perm(this._evaluateToken(token.left), this._evaluateToken(token.right));
+
 				case '/': // Divide
-				case '\\':
 					return this.div(this._evaluateToken(token.left), this._evaluateToken(token.right));
+
+				case '\\': // Integer divide
+					return Math.floor(this.div(this._evaluateToken(token.left), this._evaluateToken(token.right)));
 
 				case '*': // Multiply
 					return this.mul(this._evaluateToken(token.left), this._evaluateToken(token.right));
@@ -774,7 +808,7 @@ BigEval.prototype._evaluateFunction = function (token) {
 	}
 
 	let func = this.FUNCTION[fname];
-	let ctx = null;
+	let ctx = this;
 
 	if (typeof(func) !== 'function')
 		func = this.FUNCTION[fname.toUpperCase()];
@@ -866,6 +900,86 @@ BigEval.prototype.fac = function(n){
 BigEval.prototype.mod = function(a, b){
 	return a % b;
 };
+
+BigEval.prototype.fromRadians = function(a){
+	switch(this.ANGLEMODE) {
+		case 1: return a / this.DEFAULT_CONSTANTS.DEG;
+		case 2: return a / this.DEFAULT_CONSTANTS.GON;
+		default: return a;
+	}
+}
+
+BigEval.prototype.toRadians = function(a){
+	switch(this.ANGLEMODE) {
+		case 1: return a * this.DEFAULT_CONSTANTS.DEG;
+		case 2: return a * this.DEFAULT_CONSTANTS.GON;
+		default: return a;
+	}
+}
+
+BigEval.prototype.comb = function(a, b){
+	return this.div(this.fac(a), this.mul(this.fac(b), this.fac(this.sub(a, b))));
+}
+
+BigEval.prototype.perm = function(a, b){
+	return this.div(this.fac(a), this.fac(this.sub(a, b)));
+}
+
+BigEval.prototype.log = function(a){
+	return Math.log10(a);
+}
+
+BigEval.prototype.ln = function(a){
+	return Math.log(a);
+}
+
+BigEval.prototype.sin = function(a){
+	return Math.sin(this.toRadians(a));
+}
+
+BigEval.prototype.sinh = function(a){
+	return Math.sinh(this.toRadians(a));
+}
+
+BigEval.prototype.asin = function(a){
+	return this.fromRadians(Math.asin(a));
+}
+
+BigEval.prototype.asinh = function(a){
+	return this.fromRadians(Math.asinh(a));
+}
+
+BigEval.prototype.cos = function(a){
+	return Math.cos(this.toRadians(a));
+}
+
+BigEval.prototype.cosh = function(a){
+	return Math.cosh(this.toRadians(a));
+}
+
+BigEval.prototype.acos = function(a){
+	return this.fromRadians(Math.acos(a));
+}
+
+BigEval.prototype.acosh = function(a){
+	return this.fromRadians(Math.acosh(a));
+}
+
+BigEval.prototype.tg = BigEval.prototype.tan = function(a){
+	return Math.tan(this.toRadians(a));
+}
+
+BigEval.prototype.tgh = BigEval.prototype.tanh = function(a){
+	return Math.tanh(this.toRadians(a));
+}
+
+BigEval.prototype.atg = BigEval.prototype.atan = function(a){
+	return this.fromRadians(Math.atan(a));
+}
+
+BigEval.prototype.atgh = BigEval.prototype.atanh = function(a){
+	return this.fromRadians(Math.atanh(a));
+}
 
 /**
  * Node compatibility
