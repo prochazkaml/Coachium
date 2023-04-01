@@ -340,8 +340,18 @@ function render_chart(ctx, width, height, draw_functions, draw_notes) {
 
 		if(draw_functions && Array.isArray(capture.functions)) {
 			ctx.save();
-			ctx.strokeStyle = "rgba(0, 0, 255, 1)";
 
+			ctx.lineWidth = 4;
+			
+			if(capture_cache.xy_mode || !color || !color.match("^#......$")) {
+				ctx.strokeStyle = "blue";
+			} else {
+				const r = (parseInt(color.slice(1, 3), 16) >> 1).toString(16).padStart(2, "0");
+				const g = (parseInt(color.slice(3, 5), 16) >> 1).toString(16).padStart(2, "0");
+				const b = (parseInt(color.slice(5, 7), 16) >> 1).toString(16).padStart(2, "0");
+				ctx.strokeStyle = "#" + r + g + b;
+			}
+	
 			for(const fundef of capture.functions) {
 				var fun = get_fun_calc(fundef);
 

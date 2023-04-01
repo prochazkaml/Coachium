@@ -1,7 +1,6 @@
 - make the chart display more than 1 sensor
 - dedicated port popup (for enlarging a value of a given sensor)
 - allow for assignable proportions between waveforms
-- fitted functions - use similar color to the captured data
 - cache - get rid of scripts.dat, unnecessary
 - create an in-program manual (probably append to the "What is Coachium?" screen, pop up in a new window)
 
