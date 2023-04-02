@@ -40,8 +40,8 @@ class Prochazka_Dummy_driver {
 			name: "Dummy sensor 2",
 			unit: "X",
 			value: 0,
-			min: -20,
-			max: 20,
+			min: -25,
+			max: 25,
 			zero_offset: null,
 			detected: false,
 			_speed: 475
@@ -52,8 +52,8 @@ class Prochazka_Dummy_driver {
 			name: "Dummy sensor 3",
 			unit: "Y",
 			value: 0,
-			min: -20,
-			max: 20,
+			min: -30,
+			max: 30,
 			zero_offset: null,
 			detected: false,
 			_speed: 450
@@ -64,8 +64,8 @@ class Prochazka_Dummy_driver {
 			name: "Dummy sensor 4",
 			unit: "Z",
 			value: 0,
-			min: -20,
-			max: 20,
+			min: -35,
+			max: 35,
 			zero_offset: null,
 			detected: false,
 			_speed: 543
