@@ -73,10 +73,49 @@ function change_selected_capture(interval, absolute = undefined) {
 				unit: capture.ports[keys[i]].unit,
 				min: capture.ports[keys[i]].min,
 				max: capture.ports[keys[i]].max,
+				proportion: 1 // Sane default
 			}
 		}
 
 		capture_cache.xy_mode = capture.xy_mode;
+
+		// If not in X-Y mode, calculate the proportions of each curve (if there are multiple)
+
+		if(!capture.xy_mode) for(var i = 2; i < capture_cache.ports.length; i++) {
+			// If the first sensor only has positive values, ignore the negative part of the rest
+
+			if(capture_cache.ports[1].min >= 0) {
+				capture_cache.ports[i].proportion = capture_cache.ports[1].max / capture_cache.ports[i].max;
+			}
+
+			// If the first sensor only has negative values, ignore the positive part of the rest
+
+			if(capture_cache.ports[1].max <= 0) {
+				capture_cache.ports[i].proportion = capture_cache.ports[1].min / capture_cache.ports[i].min;
+			}
+
+			// If the first sensor has both negative and positive values, calculate whatever will fit
+
+			if(capture_cache.ports[1].max > 0 && capture_cache.ports[1].min < 0) {
+				// Calculate the proportion of the minimums and maximums
+				
+				var min = capture_cache.ports[1].min / capture_cache.ports[i].min;
+				var max = capture_cache.ports[1].max / capture_cache.ports[i].max;
+
+				// If both values are negative, skip, there's nothing we can do
+
+				if(min < 0 && max < 0) continue;
+
+				// If any of them are negative, ignore them
+
+				if(min < 0) min = Infinity;
+				if(max < 0) max = Infinity;
+
+				// Choose whichever is smallest
+
+				capture_cache.ports[i].proportion = (min < max) ? min : max;
+			}
+		}
 
 		// Generate the cache data
 

@@ -104,10 +104,7 @@ function get_optimal_round_level(maxunits, displaysize, limit) {
  * For all possible event, see the top of this file.
  */
 
-const graph_margin_top    = 72;
-const graph_margin_bottom = 40;
-const graph_margin_left   = 64;
-const graph_margin_right  = 64;
+var graph_margin_top, graph_margin_bottom, graph_margin_left, graph_margin_right;
 
 function canvas_reset(event) {
 	// Recalculate styles, if requested
@@ -133,6 +130,13 @@ function canvas_reset(event) {
 		overlay.style.width = canvas.style.width = "";
 		overlay.style.height = canvas.style.height = "";
 	}
+
+	// Determine drawing margins
+
+	graph_margin_top    = 72;
+	graph_margin_bottom = 40;
+	graph_margin_left   = 64 * (capture_cache.xy_mode ? 1 : (capture_cache.ports.length - 1));
+	graph_margin_right  = 64;
 
 	// If the canvas is not visible, do not bother with rendering
 
@@ -199,8 +203,6 @@ function render_chart(ctx, width, height, draw_functions, draw_notes) {
 			y_int_min = y_min = capture_cache.ports[2].min;
 			y_int_max = y_max = capture_cache.ports[2].max;
 		} else {
-			// TODO
-
 			x_unit_name = capture_cache.ports[0].unit;
 			x_int_min = x_min = capture_cache.ports[0].min;
 			x_int_max = x_max = capture_cache.ports[0].max;
@@ -265,12 +267,16 @@ function render_chart(ctx, width, height, draw_functions, draw_notes) {
 		ctx.beginPath();
 		ctx.strokeStyle = "rgba(0, 0, 0, 0.1)";
 
+		// Horizontal lines, Y > 0
+
 		for(var i = y_optimal_unit_steps; i <= y_max; i = round_to_level(i + y_optimal_unit_steps, y_round_level)) {
 			if(i >= y_min) {
 				ctx.moveTo(graph_margin_left, y_actual_offset - i * y_unit_in_px);
 				ctx.lineTo(width - graph_margin_right, y_actual_offset - i * y_unit_in_px);
 			}
 		}
+
+		// Horizontal lines, Y < 0
 
 		for(var i = -y_optimal_unit_steps; i >= y_min; i = round_to_level(i - y_optimal_unit_steps, y_round_level)) {
 			if(i <= y_max) {
@@ -279,12 +285,16 @@ function render_chart(ctx, width, height, draw_functions, draw_notes) {
 			}
 		}
 
+		// Vertical lines, X > 0
+
 		for(var i = x_optimal_unit_steps; i <= x_max; i = round_to_level(i + x_optimal_unit_steps, x_round_level)) {
 			if(i >= x_min) {
 				ctx.moveTo(x_actual_offset + i * x_unit_in_px, graph_margin_top);
 				ctx.lineTo(x_actual_offset + i * x_unit_in_px, height - graph_margin_bottom);
 			}
 		}
+
+		// Vertical lines, X < 0
 
 		for(var i = -x_optimal_unit_steps; i >= x_min; i = round_to_level(i - x_optimal_unit_steps, x_round_level)) {
 			if(i <= x_max) {
@@ -297,85 +307,21 @@ function render_chart(ctx, width, height, draw_functions, draw_notes) {
 
 		// Draw the graph data
 
-		ctx.beginPath();
+		var x = [], y = [];
 
-		const color = capture.ports[capture_cache.ports[1].id].drawcolor; // TODO
+		for(var i = 1; i < capture_cache.ports.length; i++) {
+			// Render this sensor's data
 
-		if(capture_cache.xy_mode || !color) {
-			ctx.strokeStyle = "red";
-		} else {
-			ctx.strokeStyle = color;
-		}
+			var retval = render_graph_data(ctx, i, width, height, x_actual_offset, y_actual_offset, x_unit_in_px, y_unit_in_px, x_min, draw_functions);
 
-		var x, last_x = null, y, last_y = null;
+			// Remember the last position
 
-		for(var i = 0; i < capture_cache.values.length; i++) {
-			if(capture_cache.xy_mode) {
-				x = x_actual_offset + capture_cache.values[i][1] * x_unit_in_px;
-				y = y_actual_offset - capture_cache.values[i][2] * y_unit_in_px;
-			} else {
-				// TODO
+			x.push(retval[0]);
+			y.push(retval[1]);
 
-				x = x_actual_offset + capture_cache.values[i][0] * x_unit_in_px;
-				y = y_actual_offset - capture_cache.values[i][1] * y_unit_in_px;
-			}
+			// If the capture is in X-Y mode, do not draw it again
 
-			if(i &&
-				(last_x >= 0 || x >= 0) &&
-				(last_x < width || x < width) &&
-				(last_y >= 0 || y >= 0) &&
-				(last_y < height || y < height)) {
-
-				ctx.moveTo(last_x, last_y);
-				ctx.lineTo(x, y);
-			}
-
-			last_x = x;
-			last_y = y;
-		}
-
-		ctx.stroke();
-
-		// Draw any fitted functions that were assigned to the capture
-
-		if(draw_functions && Array.isArray(capture.functions)) {
-			ctx.save();
-
-			ctx.lineWidth = 4;
-			
-			if(capture_cache.xy_mode || !color || !color.match("^#......$")) {
-				ctx.strokeStyle = "blue";
-			} else {
-				const r = (parseInt(color.slice(1, 3), 16) >> 1).toString(16).padStart(2, "0");
-				const g = (parseInt(color.slice(3, 5), 16) >> 1).toString(16).padStart(2, "0");
-				const b = (parseInt(color.slice(5, 7), 16) >> 1).toString(16).padStart(2, "0");
-				ctx.strokeStyle = "#" + r + g + b;
-			}
-	
-			for(const fundef of capture.functions) {
-				var fun = get_fun_calc(fundef);
-
-				if(fun !== null) {
-					for(var x = 0; x <= width - graph_margin_right - graph_margin_left; x++) {
-						if((x % 10) < 5) {
-							const cx = x + graph_margin_left, cy = y_actual_offset - fun(x_min + x * x_units_per_px) * y_unit_in_px;
-
-							if(!(x % 10)) {
-								ctx.beginPath();
-								ctx.moveTo(cx, cy);
-							} else {
-								ctx.lineTo(cx, cy);
-							}
-
-							if((x % 10) == 4) ctx.stroke();
-						}
-					}
-
-					ctx.stroke();
-				}
-			}
-
-			ctx.restore();
+			if(capture_cache.xy_mode) break;
 		}
 
 		// Draw any notes, if there are any
@@ -415,8 +361,18 @@ function render_chart(ctx, width, height, draw_functions, draw_notes) {
 
 		// Draw the Y axis (based on the X axis offset)
 
-		ctx.moveTo(x_offset, graph_margin_top);
-		ctx.lineTo(x_offset, height - graph_margin_bottom);
+		var num_of_y_axes = 1;
+
+		if(x_offset == graph_margin_left && !capture_cache.xy_mode) {
+			// Y axis is all the way to the left, so there may be multiple
+
+			num_of_y_axes = capture_cache.ports.length - 1;
+		}
+		
+		for(var i = 0; i < num_of_y_axes; i++) {
+			ctx.moveTo(x_offset - i * 64, graph_margin_top);
+			ctx.lineTo(x_offset - i * 64, height - graph_margin_bottom);
+		}
 
 		// Draw the X axis (based on the Y axis offset)
 
@@ -427,15 +383,20 @@ function render_chart(ctx, width, height, draw_functions, draw_notes) {
 
 		for(var i = y_optimal_unit_steps; i <= y_max; i = round_to_level(i + y_optimal_unit_steps, y_round_level)) {
 			if(i >= y_min) {
-				ctx.moveTo(x_offset - 4, y_actual_offset - i * y_unit_in_px);
-				ctx.lineTo(x_offset + 4, y_actual_offset - i * y_unit_in_px);
+				for(var j = 0; j < num_of_y_axes; j++) {
+					ctx.moveTo(x_offset - 4 - j * 64, y_actual_offset - i * y_unit_in_px);
+					ctx.lineTo(x_offset + 4 - j * 64, y_actual_offset - i * y_unit_in_px);
+				}
 			}
 		}
 
-		for(var i = -y_optimal_unit_steps; i >= y_min; i = round_to_level(i - y_optimal_unit_steps, y_round_level)) {
+		for(var i = 0; i >= y_min; i = round_to_level(i - y_optimal_unit_steps, y_round_level)) {
 			if(i <= y_max) {
-				ctx.moveTo(x_offset - 4, y_actual_offset - i * y_unit_in_px);
-				ctx.lineTo(x_offset + 4, y_actual_offset - i * y_unit_in_px);
+				for(var j = 0; j < num_of_y_axes; j++) {
+					if(i == 0 && j == 0) continue;
+					ctx.moveTo(x_offset - 4 - j * 64, y_actual_offset - i * y_unit_in_px);
+					ctx.lineTo(x_offset + 4 - j * 64, y_actual_offset - i * y_unit_in_px);
+				}
 			}
 		}
 
@@ -469,13 +430,25 @@ function render_chart(ctx, width, height, draw_functions, draw_notes) {
 
 		for(var i = y_optimal_unit_steps; i <= y_max; i = round_to_level(i + y_optimal_unit_steps, y_round_level)) {
 			if(i >= y_min) {
-				ctx.fillText(localize_num(fixed_to_level(i, y_round_level)), x_offset + (x_legend_reverse ? 8 : (-8)), y_actual_offset - i * y_unit_in_px);
+				for(var j = 0; j < num_of_y_axes; j++) {
+					if(j == 0)
+						ctx.fillText(localize_num(fixed_to_level(i, y_round_level)), x_offset + (x_legend_reverse ? 8 : (-8)), y_actual_offset - i * y_unit_in_px);
+					else
+						ctx.fillText(localize_num(round(i / capture_cache.ports[j + 1].proportion, 3)), x_offset + (x_legend_reverse ? 8 : (-8)) - j * 64, y_actual_offset - i * y_unit_in_px);
+				}
 			}
 		}
 
-		for(var i = -y_optimal_unit_steps; i >= y_min; i = round_to_level(i - y_optimal_unit_steps, y_round_level)) {
+		for(var i = 0; i >= y_min; i = round_to_level(i - y_optimal_unit_steps, y_round_level)) {
 			if(i <= y_max) {
-				ctx.fillText(localize_num(fixed_to_level(i, y_round_level)), x_offset + (x_legend_reverse ? 8 : (-8)), y_actual_offset - i * y_unit_in_px);
+				for(var j = 0; j < num_of_y_axes; j++) {
+					if(i == 0 && j == 0) continue;
+
+					if(j == 0)
+						ctx.fillText(localize_num(fixed_to_level(i, y_round_level)), x_offset + (x_legend_reverse ? 8 : (-8)), y_actual_offset - i * y_unit_in_px);
+					else
+						ctx.fillText(localize_num(round(i / capture_cache.ports[j + 1].proportion, 3)), x_offset + (x_legend_reverse ? 8 : (-8)) - j * 64, y_actual_offset - i * y_unit_in_px);
+				}
 			}
 		}
 
@@ -500,7 +473,10 @@ function render_chart(ctx, width, height, draw_functions, draw_notes) {
 
 		ctx.textBaseline = y_legend_reverse ? "top" : "bottom";
 		ctx.textAlign = "center";
-		ctx.fillText(y_unit_name, x_offset, y_legend_reverse ? (height - graph_margin_bottom + 8) : (graph_margin_top - 8));
+
+		for(var i = 0; i < num_of_y_axes; i++) {
+			ctx.fillText(i ? capture_cache.ports[i + 1].unit : y_unit_name, x_offset - i * 64, y_legend_reverse ? (height - graph_margin_bottom + 8) : (graph_margin_top - 8));
+		}
 
 		ctx.textBaseline = "middle";
 		ctx.textAlign = x_legend_reverse ? "right" : "left";
@@ -511,19 +487,25 @@ function render_chart(ctx, width, height, draw_functions, draw_notes) {
 		ctx.textBaseline = "middle";
 		ctx.textAlign = "left";
 		ctx.font = ctx.getSvg ? "bold 16px sans-serif" : "bold 16px CoachiumDefaultFont";
-		ctx.fillText(format(jslang.CAPTURE_FMT, selected_capture + 1, captures.length, capture.title), graph_margin_left, graph_margin_top / 2);
+		ctx.fillText(format(jslang.CAPTURE_FMT, selected_capture + 1, captures.length, capture.title), 64, graph_margin_top / 2);
 
 		// If the capture is currently running, display a "crosshair"
 
-		if(driver !== null && capture_running && selected_capture == (captures.length - 1) && x != null && y != null) {
+		if(driver !== null && capture_running && selected_capture == (captures.length - 1) && x.length && y.length) {
 			ctx.beginPath();
 			ctx.strokeStyle = "rgba(0, 0, 255, 0.3)";
 
-			ctx.moveTo(x, graph_margin_top);
-			ctx.lineTo(x, height - graph_margin_bottom);
+			// Draw the X coord (only one possible)
 
-			ctx.moveTo(graph_margin_left, y);
-			ctx.lineTo(width - graph_margin_right, y);
+			ctx.moveTo(x[0], graph_margin_top);
+			ctx.lineTo(x[0], height - graph_margin_bottom);
+
+			// Draw the Y coords (multiple possible)
+
+			for(const cy of y) {
+				ctx.moveTo(graph_margin_left, cy);
+				ctx.lineTo(width - graph_margin_right, cy);
+			}
 
 			ctx.stroke();
 		}
@@ -603,6 +585,93 @@ function render_chart(ctx, width, height, draw_functions, draw_notes) {
 	ctx.restore();
 }
 
+function render_graph_data(ctx, id, width, height, x_actual_offset, y_actual_offset, x_unit_in_px, y_unit_in_px, x_min, draw_functions) {
+	ctx.beginPath();
+
+	const color = capture.ports[capture_cache.ports[id].id].drawcolor;
+
+	if(capture_cache.xy_mode || !color) {
+		ctx.strokeStyle = "red";
+	} else {
+		ctx.strokeStyle = color;
+	}
+
+	// Draw the chart data
+
+	var x = null, last_x = null, y = null, last_y = null;
+
+	for(var i = 0; i < capture_cache.values.length; i++) {
+		if(capture_cache.xy_mode) {
+			x = x_actual_offset + capture_cache.values[i][1] * x_unit_in_px;
+			y = y_actual_offset - capture_cache.values[i][2] * y_unit_in_px;
+		} else {
+			x = x_actual_offset + capture_cache.values[i][0] * x_unit_in_px;
+			y = y_actual_offset - capture_cache.values[i][id] * y_unit_in_px * capture_cache.ports[id].proportion;
+		}
+
+		if(i &&
+			(last_x >= 0 || x >= 0) &&
+			(last_x < width || x < width) &&
+			(last_y >= 0 || y >= 0) &&
+			(last_y < height || y < height)) {
+
+			ctx.moveTo(last_x, last_y);
+			ctx.lineTo(x, y);
+		}
+
+		last_x = x;
+		last_y = y;
+	}
+
+	ctx.stroke();
+
+	// Draw any fitted functions that were assigned to the capture
+
+	if(draw_functions && Array.isArray(capture.functions)) {
+		ctx.save();
+
+		ctx.lineWidth = 4;
+		
+		if(capture_cache.xy_mode || !color || !color.match("^#......$")) {
+			ctx.strokeStyle = "blue";
+		} else {
+			const r = (parseInt(color.slice(1, 3), 16) >> 1).toString(16).padStart(2, "0");
+			const g = (parseInt(color.slice(3, 5), 16) >> 1).toString(16).padStart(2, "0");
+			const b = (parseInt(color.slice(5, 7), 16) >> 1).toString(16).padStart(2, "0");
+			ctx.strokeStyle = "#" + r + g + b;
+		}
+
+		for(const fundef of capture.functions) {
+			if(!capture_cache.xy_mode && fundef.sensor_y != id) continue;
+
+			var fun = get_fun_calc(fundef);
+
+			if(fun !== null) {
+				for(var x = 0; x <= width - graph_margin_right - graph_margin_left; x++) {
+					if((x % 10) < 5) {
+						const cx = x + graph_margin_left, cy = y_actual_offset - fun(x_min + x * x_units_per_px) * y_unit_in_px * capture_cache.ports[id].proportion;
+
+						if(!(x % 10)) {
+							ctx.beginPath();
+							ctx.moveTo(cx, cy);
+						} else {
+							ctx.lineTo(cx, cy);
+						}
+
+						if((x % 10) == 4) ctx.stroke();
+					}
+				}
+
+				ctx.stroke();
+			}
+		}
+
+		ctx.restore();
+	}
+
+	return [ x, y ];
+}
+
 /*
  * render_overlay(ovctx, overlay)
  * 
@@ -670,8 +739,6 @@ function render_overlay(ovctx, width, height) {
 				unit[0] = capture_cache.ports[1].unit;
 				unit[1] = capture_cache.ports[2].unit;
 			} else {
-				// TODO
-
 				max[0] = capture_cache.ports[0].max;
 				max[1] = capture_cache.ports[1].max;
 				min[0] = capture_cache.ports[0].min;
@@ -695,17 +762,27 @@ function render_overlay(ovctx, width, height) {
 			ovctx.font = "16px CoachiumDefaultFont";
 			ovctx.fillStyle = "black";
 
+			var offset = 128 * (capture_cache.xy_mode ? 1 : (capture_cache.ports.length - 1))
+			
 			ovctx.fillText(
 				"X = " + localize_num(ideal_round_fixed(uw, max[0])) + " " + unit[0],
-				width - graph_margin_right - 150,
+				width - graph_margin_right - offset,
 				graph_margin_top / 2
 			);
 
-			ovctx.fillText(
-				"Y = " + localize_num(ideal_round_fixed(uh, max[1])) + " " + unit[1],
-				width - graph_margin_right,
-				graph_margin_top / 2
-			);
+			var id = 1;
+
+			while(offset > 0) {
+				offset -= 128;
+
+				ovctx.fillText(
+					"Y = " + localize_num(ideal_round_fixed(uh / (capture_cache.xy_mode ? 1 : capture_cache.ports[id].proportion), max[1])) + " " + ((id == 1) ? unit[1] : capture_cache.ports[id].unit),
+					width - graph_margin_right - offset,
+					graph_margin_top / 2
+				);
+
+				id++;
+			}
 		}
 	}
 

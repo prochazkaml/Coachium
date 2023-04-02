@@ -1,8 +1,7 @@
-- make the chart display more than 1 sensor
 - dedicated port popup (for enlarging a value of a given sensor)
 - allow for assignable proportions between waveforms
-- cache - get rid of scripts.dat, unnecessary
 - create an in-program manual (probably append to the "What is Coachium?" screen, pop up in a new window)
+- fit to data function is broken when multiple curves are present (and |min| != |max|)
 
 Before submitting:
 - make all SVG icons the same width (looks fucky in popups)
@@ -11,6 +10,7 @@ Before submitting:
 - thoroughly verify that all features work as expected!
 
 Future stuff:
+- dialog for splitting captured data into separate captures (and XY mode)
 - calculation of area between 2 functions
 	- fitted function or axis (with offset) can also be selected as a source
 	- snapping to intersection points
@@ -20,6 +20,7 @@ Future stuff:
 - show value on the graph when hovering over a data point
 - enable "finish" trigger (use one of the sensors for stopping the capture)
 - allow data limiting (remove up to a certain point, etc.) - auto recalculate fit if necessary
+- option for displaying 2 (or more) curves side by side on separate charts
 - ability to manually attach sensors
 - ServiceWorker is a bit wonky?
 - playing back the captured data as audio (mono/stereo)
