@@ -57,7 +57,11 @@ function toolbox_calculator_submit() {
 	if(str.length && str != "ERROR") {
 		// Perform the calculation
 		
-		var retval = localize_num(calcobj.exec(str.replaceAll(decimal_separator, ".")));
+		var retval = calcobj.exec(str.replaceAll(decimal_separator, "."));
+
+		if(typeof(retval) == "number") {
+			retval = localize_num(round_fixed_digits(retval, 10));
+		}
 
 		// Output the result
 

@@ -124,7 +124,10 @@ const format = function(format) {
  */
 
 function round(num, digits = 0) {
-	return Math.round(Math.pow(10, digits) * num) / Math.pow(10, digits);
+	if(digits >= 0)
+		return Math.round(Math.pow(10, digits) * num) / Math.pow(10, digits);
+	else
+		return Math.round(num / Math.pow(10, -digits)) * Math.pow(10, -digits);
 }
 
 /*
@@ -140,6 +143,22 @@ function ideal_round_fixed(num, max) {
 	if(digits < 0) digits = 0;
 
 	return round(num, digits).toFixed(digits);
+}
+
+/*
+ * round_fixed_digits(num, digits)
+ * 
+ * Rounds the input number to the number of given valid digits.
+ * 
+ * Example: round_fixed_digits(12345, 4) → 12350
+ */
+
+function round_fixed_digits(num, digits) {
+	if(num === 0) return 0;
+
+	var roundlevel = digits - 1 - Math.floor(Math.log10(Math.abs(num)));
+
+	return round(num, roundlevel);
 }
 
 /*

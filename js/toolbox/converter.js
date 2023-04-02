@@ -206,7 +206,7 @@ function toolbox_converter_value_update() {
 			if(isNaN(val)) {
 				destval.value = "";
 			} else {
-				destval.value = localize_num(type.types[destunitselector.value].dec(type.types[srcunitselector.value].enc(val)));
+				destval.value = localize_num(round_fixed_digits(type.types[destunitselector.value].dec(type.types[srcunitselector.value].enc(val)), 10));
 			}
 		}
 	}
