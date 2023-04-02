@@ -57,7 +57,7 @@ function toolbox_calculator_submit() {
 	if(str.length && str != "ERROR") {
 		// Perform the calculation
 		
-		var retval = calcobj.exec(str);
+		var retval = localize_num(calcobj.exec(str.replaceAll(decimal_separator, ".")));
 
 		// Output the result
 
