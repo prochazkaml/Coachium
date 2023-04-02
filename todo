@@ -4,7 +4,6 @@
 - fit to data function is broken when multiple curves are present (and |min| != |max|)
 
 Before submitting:
-- make all SVG icons the same width (looks fucky in popups)
 - make sure all comments correspond to the correct functions!
 - run it through a HTML/CSS validator (both cached/uncached)!!!
 - thoroughly verify that all features work as expected!
