@@ -22,7 +22,7 @@ const cs = {
 	html: {
 		// Homepage text
 
-		"HOMEPAGE_ABOUT_LINK": "Co je to Coachium?",
+		"HOMEPAGE_ABOUT_LINK": "Co je to Coachium? (Index nápovědy)",
 		"HOMEPAGE_PRIVACY_POLICY_LINK": "Zásady ochrany osobních údajů",
 		"HOMEPAGE_COMMIT_CHECKING": "Kontroluji verzi...",
 		"TITLE_HOMEPAGE_ABOUT": "O programu Coachium...",

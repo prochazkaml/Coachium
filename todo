@@ -3,6 +3,8 @@
 - create an in-program manual (probably append to the "What is Coachium?" screen, pop up in a new window)
 - fit to data function is broken when multiple curves are present (and |min| != |max|)
 - utility for analyzing data (optionally select a region, min/max/avg)
+- use drawcolors on the port's Y axis and immediate value (top right)
+- use drawcolors on the BG of table header cells
 
 Before submitting:
 - make sure all comments correspond to the correct functions!

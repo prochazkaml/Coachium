@@ -22,7 +22,7 @@ const en = {
 	html: {
 		// Homepage text
 
-		"HOMEPAGE_ABOUT_LINK": "What is Coachium?",
+		"HOMEPAGE_ABOUT_LINK": "What is Coachium? (Help index)",
 		"HOMEPAGE_PRIVACY_POLICY_LINK": "Privacy policy",
 		"HOMEPAGE_COMMIT_CHECKING": "Checking version...",
 		"TITLE_HOMEPAGE_ABOUT": "About Coachium...",
