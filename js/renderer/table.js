@@ -28,7 +28,7 @@ function table_reset() {
 	var out = document.createElement("div");
 
 	if(captures.length > 0) {
-		out.style.marginLeft = graph_margin_left + "px";
+		out.style.marginLeft = graph_margin_left_default + "px";
 		out.style.marginTop = ((graph_margin_top - 16) / 2 - 2) + "px";
 		out.style.marginBottom = "16px";
 

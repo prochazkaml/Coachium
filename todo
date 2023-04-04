@@ -2,6 +2,7 @@
 - allow for assignable proportions between waveforms
 - create an in-program manual (probably append to the "What is Coachium?" screen, pop up in a new window)
 - fit to data function is broken when multiple curves are present (and |min| != |max|)
+- utility for analyzing data (optionally select a region, min/max/avg)
 
 Before submitting:
 - make sure all comments correspond to the correct functions!
@@ -15,7 +16,6 @@ Future stuff:
 	- fitted function or axis (with offset) can also be selected as a source
 	- snapping to intersection points
 - function manager for adding custom functions
-- utility for analyzing data (optionally select a region, min/max/avg)
 - fit sine function - calculate amplitude by area
 - show value on the graph when hovering over a data point
 - enable "finish" trigger (use one of the sensors for stopping the capture)

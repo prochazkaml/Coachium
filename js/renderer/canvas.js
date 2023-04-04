@@ -104,6 +104,7 @@ function get_optimal_round_level(maxunits, displaysize, limit) {
  * For all possible event, see the top of this file.
  */
 
+const graph_margin_left_default = 64;
 var graph_margin_top, graph_margin_bottom, graph_margin_left, graph_margin_right;
 
 function canvas_reset(event) {
@@ -135,7 +136,7 @@ function canvas_reset(event) {
 
 	graph_margin_top    = 72;
 	graph_margin_bottom = 40;
-	graph_margin_left   = 64 * (capture_cache.xy_mode ? 1 : (capture_cache.ports.length - 1));
+	graph_margin_left   = graph_margin_left_default * (capture_cache.xy_mode ? 1 : (capture_cache.ports.length - 1));
 	graph_margin_right  = 64;
 
 	// If the canvas is not visible, do not bother with rendering
@@ -487,7 +488,7 @@ function render_chart(ctx, width, height, draw_functions, draw_notes) {
 		ctx.textBaseline = "middle";
 		ctx.textAlign = "left";
 		ctx.font = ctx.getSvg ? "bold 16px sans-serif" : "bold 16px CoachiumDefaultFont";
-		ctx.fillText(format(jslang.CAPTURE_FMT, selected_capture + 1, captures.length, capture.title), 64, graph_margin_top / 2);
+		ctx.fillText(format(jslang.CAPTURE_FMT, selected_capture + 1, captures.length, capture.title), graph_margin_left_default, graph_margin_top / 2);
 
 		// If the capture is currently running, display a "crosshair"
 
