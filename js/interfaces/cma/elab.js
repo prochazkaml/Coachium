@@ -294,15 +294,17 @@ class CMA_ELab_driver {
 
 		switch(setup.ports.length) {
 			case 1:
-				// Single-port capture - up to 10 kHz
-				if(units < 1) units = 1;
-				maxsamples = 0x3FFF; // 16k samples
+				// Single-port capture - up to 40 kHz limited, 10 kHz "unlimited"
+
+				if(units < 0) units = 0;
+
+				maxsamples = (units) ? 0xFFFF : 0x3FE8; // 64k/16k samples
 				break;
 
 			case 2:
 				// Dual-port capture - up to 5 kHz
 				if(units < 2) units = 2;
-				maxsamples = 0x1FFF; // 8k stereo samples
+				maxsamples = 0xFFFF; // 8k stereo samples
 				break;
 
 			default:
@@ -370,9 +372,9 @@ class CMA_ELab_driver {
 
 		// Convert the processed values back to being human-readable
 
-		setup.freq = 10000 / p.units;
+		setup.freq = p.units ? (10000 / p.units) : 40000;
 
-		if(p.limited) setup.length = (p.samples - 1) * p.units / 10;
+		if(p.limited) setup.length = (p.samples - 1) / setup.freq * 1000;
 
 		return setup;
 	}
@@ -454,15 +456,23 @@ class CMA_ELab_driver {
 		// Send over the initialization commands
 
 		await WebHID.send(this.device, [ 5, p.spp, 0, 0, 0, 0, 0, 0 ]);
-		await WebHID.send(this.device, [ 0,
-			p.units & 0xFF, (p.units >> 8) & 0xFF, 0,
-			p.samples & 0xFF, (p.samples >> 8) & 0xFF,
-			p.samples & 0xFF, (p.samples >> 8) & 0xFF
-		]);
+
+		if(p.units)
+			await WebHID.send(this.device, [ 0,
+				p.units & 0xFF, (p.units >> 8) & 0xFF, 0,
+				p.samples & 0xFF, (p.samples >> 8) & 0xFF,
+				p.samples & 0xFF, (p.samples >> 8) & 0xFF
+			]);
+		else
+			await WebHID.send(this.device, [ 0, 0, 0, 0,
+				(p.samples + 2) & 0xFF, ((p.samples + 2) >> 8) & 0xFF,
+				p.samples & 0xFF, (p.samples >> 8) & 0xFF
+			]);
+
 		await WebHID.send(this.device, startpacket);
 
 		return {
-			interval: p.units * 100, // us
+			interval: p.units ? (p.units * 100) : 25, // us
 			ports: ports
 		};
 	}
