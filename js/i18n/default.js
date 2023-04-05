@@ -62,7 +62,7 @@ function parse_lang(lobj) {
 	decimal_separator = lobj.ds;
 
 	for(var key of Object.keys(htmllang)) {
-		for(var el of get_class("L18N_" + key, null)) {
+		for(var el of get_class("L10N_" + key, null)) {
 			if(key.startsWith("TITLE_"))
 				el.title = htmllang[key];
 			else if(key.startsWith("PLACEHOLDER_"))

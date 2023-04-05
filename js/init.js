@@ -105,7 +105,7 @@ function window_onload() {
 					var sha1 = JSON.parse(github_request.responseText)["sha"];
 
 					if(sha1 == undefined) {
-						get_class("L18N_HOMEPAGE_COMMIT_CHECKING").innerHTML = jslang.HOMEPAGE_COMMIT_ERR;
+						get_class("L10N_HOMEPAGE_COMMIT_CHECKING").innerHTML = jslang.HOMEPAGE_COMMIT_ERR;
 					} else {
 						var local_request = new XMLHttpRequest();
 
@@ -115,14 +115,14 @@ function window_onload() {
 									var sha2 = local_request.responseText;
 
 									if(sha1.substring(0, 7) == sha2.substring(0, 7)) {
-										get_class("L18N_HOMEPAGE_COMMIT_CHECKING").innerHTML =
+										get_class("L10N_HOMEPAGE_COMMIT_CHECKING").innerHTML =
 											format(jslang.HOMEPAGE_COMMIT_OK, sha1.substring(0, 7));
 									} else {
-										get_class("L18N_HOMEPAGE_COMMIT_CHECKING").innerHTML =
+										get_class("L10N_HOMEPAGE_COMMIT_CHECKING").innerHTML =
 											format(jslang.HOMEPAGE_COMMIT_OLD, sha2.substring(0, 7), sha1.substring(0, 7));
 									}
 								} else {
-									get_class("L18N_HOMEPAGE_COMMIT_CHECKING").innerHTML = jslang.HOMEPAGE_COMMIT_ERR;
+									get_class("L10N_HOMEPAGE_COMMIT_CHECKING").innerHTML = jslang.HOMEPAGE_COMMIT_ERR;
 								}
 							}
 						}
@@ -131,7 +131,7 @@ function window_onload() {
 						local_request.send(null);
 					}
 				} else {
-					get_class("L18N_HOMEPAGE_COMMIT_CHECKING").innerHTML = jslang.HOMEPAGE_COMMIT_ERR;
+					get_class("L10N_HOMEPAGE_COMMIT_CHECKING").innerHTML = jslang.HOMEPAGE_COMMIT_ERR;
 				}
 			}
 		}
@@ -146,7 +146,7 @@ function window_onload() {
 	
 		github_request.send(null);
 	} else {
-		get_class("L18N_HOMEPAGE_COMMIT_CHECKING").innerHTML = jslang.HOMEPAGE_COMMIT_LOCALHOST;
+		get_class("L10N_HOMEPAGE_COMMIT_CHECKING").innerHTML = jslang.HOMEPAGE_COMMIT_LOCALHOST;
 	}
 
 	// Load the Google Drive subsystem

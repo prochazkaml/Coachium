@@ -530,7 +530,7 @@ function render_chart(ctx, width, height, draw_functions, draw_notes) {
 		ctx.font = ctx.getSvg ? "bold 16px sans-serif" : "bold 16px CoachiumDefaultFont";
 
 		if(driver) {
-			const irect = get_class("L18N_TITLE_NEW_CAPTURE").getBoundingClientRect();
+			const irect = get_class("L10N_TITLE_NEW_CAPTURE").getBoundingClientRect();
 			const x = irect.x + irect.width / 2;
 
 			draw_arrow(ctx, x, 30, 20, 7, 0);
