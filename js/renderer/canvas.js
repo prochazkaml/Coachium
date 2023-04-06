@@ -639,7 +639,7 @@ function render_graph_data(ctx, id, width, height, x_actual_offset, y_actual_off
 			const r = (parseInt(color.slice(1, 3), 16) >> 1).toString(16).padStart(2, "0");
 			const g = (parseInt(color.slice(3, 5), 16) >> 1).toString(16).padStart(2, "0");
 			const b = (parseInt(color.slice(5, 7), 16) >> 1).toString(16).padStart(2, "0");
-			ctx.strokeStyle = "#" + r + g + b;
+			ctx.strokeStyle = "#" + r + g + b + "80";
 		}
 
 		for(const fundef of capture.functions) {
