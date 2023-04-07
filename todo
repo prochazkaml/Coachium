@@ -34,5 +34,5 @@ Future stuff:
 - support more devices I could get access to (CoachLab, €Lab with motion (or whatever it's called), etc.)
 - support more devices I would have to beg for (non-CMA stuff)
 - translate to more languages than just English or Czech
-- importing legacy CMR files from Coach
 - the canvas is a blurry mess when the display scaling is not exactly 100 %
+- draw using WebGL (faster) - probably need to write a shader program?

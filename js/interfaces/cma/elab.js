@@ -304,7 +304,7 @@ class CMA_ELab_driver {
 			case 2:
 				// Dual-port capture - up to 5 kHz
 				if(units < 2) units = 2;
-				maxsamples = 0xFFFF; // 8k stereo samples
+				maxsamples = 0xFFFF; // 64k stereo samples
 				break;
 
 			default:
