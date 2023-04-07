@@ -33,12 +33,12 @@ const cs = {
 		"BUTTON_START_GUEST": "Spustit v režimu hosta",
 		"BUTTON_CLOSE": "Zavřít",
 		"BUTTON_START": "Spustit",
-		"BUTTON_START_CONDITIONAL": "Podmíněný záznam...",
 		"BUTTON_TRYAGAIN": "Zkusit znovu",
 		"BUTTON_SAVE": "Uložit",
 		"BUTTON_RESTART": "Restartovat",
 		"BUTTON_GOAHEAD": "Pokračovat",
 		"BUTTON_RENAME": "Přejmenovat",
+		"BUTTON_DELETE": "Odstranit",
 
 		// Button titles on the top bar
 

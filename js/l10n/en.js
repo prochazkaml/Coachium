@@ -33,12 +33,12 @@ const en = {
 		"BUTTON_START_GUEST": "Start in guest mode",
 		"BUTTON_CLOSE": "Close",
 		"BUTTON_START": "Start",
-		"BUTTON_START_CONDITIONAL": "Conditional capture...",
 		"BUTTON_TRYAGAIN": "Try again",
 		"BUTTON_SAVE": "Save",
 		"BUTTON_RESTART": "Restart",
 		"BUTTON_GOAHEAD": "Go ahead",
 		"BUTTON_RENAME": "Rename",
+		"BUTTON_DELETE": "Delete",
 
 		// Button titles on the top bar
 
@@ -371,7 +371,7 @@ const en = {
 		"EXPORT_CSV_NAME": "Data export from capture {0}.csv",
 		"EXPORT_SVG_NAME": "Chart export from capture {0}.svg",
 
-		"HELP_LOAD_ERROR": "<h1>Error loading help text.</h1>",
+		"HELP_LOAD_ERROR": "<h1>Error loading help.</h1>",
 
 		"TOOLBOX_CONVERTER_UNITS": {
 			"LENGTH": {
