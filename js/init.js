@@ -168,7 +168,7 @@ window.onhashchange = () => {
 	close_window("about");
 	close_window("pp");
 
-	if(hash == "#about") popup_window("about");
+	if(hash == "#about") help_start();
 	if(hash == "#privacy-policy") popup_window("pp");
 }
 

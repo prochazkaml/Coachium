@@ -258,17 +258,6 @@ const cs = {
 		"WINDOW29_RAD": "Radiány",
 		"WINDOW29_GON": "Grady",
 
-		// "About" window text
-
-		"ABOUT_TITLE": "Co je to Coachium?",
-		"ABOUT_BODY":
-			"<p>Coachium slouží jako webová alternativa k softwaru Coach vyvíjený firmou CMA Amsterdam, který je určen ke komunikaci s rozhraními a čidly od téže firmy (momentálně je Coachiem podporovaný pouze €Lab a inteligentní čidla), se kterými lze provést měření různých fyzikálních veličin a zaznamenat jejich výsledky do grafu.</p>" +
-			"<p>Coachium se rovněž snaží relativně komplexní software CMA Coach zjednodušit, aby mohl být jednoduše přístupný každému. CMA Coach je totiž velmi obsáhlý software, což ale znamená, že i ty nejjednodušší operace vyžadují po uživateli některé základní znalosti o používání tohoto softwaru (např. pokud si přejete provést měření do grafu, musíte nejprve vědět, že musíte nejdříve vytvořit panel grafu, nastavit ho, pak nakonfigurovat měření a teprve poté ho spustit), bez kterých se neobejdete.</p>" +
-			"<p>Díky jednoduchému uživatelskému rozhraní v Coachiu vše dává smysl, veškeré operace, které byste si přáli provést, jsou dostupné na panelu s ikonkami, jejichž funkce jsou vždy srozumitelně popsané; nic není nikde zbytečně skryté.</p>" +
-			"<p>Proto se Coachium od starého CMA Coache musí trochu lišit. Coachium funguje na principu „sešitu“, tj. když uživatel otevře Coachium, může vytvořit libovolný počet měření a grafů, která poté uloží jako jeden „sešit“ (např. pokud provádíte volt-ampérovou charakteristiku několika komponent, nemusíte každou komponentu ukládat jako samostatný soubor). Samozřejmě máte možnost (a je silně doporučeno) si každé měření pojmenovat, aby se v odevzdaném sešitu vyučující vyznal.</p>" +
-			"<p>A navíc, jelikož je Coachium vyvíjen ve 21. století, obsahuje i některé moderní „vychytávky“, např. máte možnost si uložit svůj sešit měření přímo na Váš Google Disk s jediným kliknutím, odkud ho můžete ihned odevzdat vyučujícímu přímo na Google Učebnu.</p>" +
-			"<p>Nyní pevně doufáme, že jsme Vás seznámili o tom, co to Coachium vlastně je, a zároveň doufáme, že si práci s ním užijete!</p>",
-
 		// "Privacy policy" window text
 
 		"PP_TITLE": "Zásady ochrany osobních údajů",
@@ -375,6 +364,8 @@ const cs = {
 		"EXPORT_CSV_NAME": "Export dat záznamu {0}.csv",
 		"EXPORT_SVG_NAME": "Export grafu záznamu {0}.svg",
 
+		"HELP_LOAD_ERROR": "<h1>Chyba načítání nápovědy.</h1>",
+		
 		"TOOLBOX_CONVERTER_UNITS": {
 			"LENGTH": {
 				"NAME": "Délka",
