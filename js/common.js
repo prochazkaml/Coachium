@@ -273,3 +273,13 @@ function generate_cache(start, end) {
 async function delay_ms(ms) {
 	await new Promise((r) => setTimeout(r, ms));
 }
+
+/*
+ * is_running_cached()
+ * 
+ * Returns whether Coachium is running in cached mode or not.
+ */
+
+function is_running_cached() {
+	return typeof DEFAULT_LANGUAGE_OVERRIDE != "undefined";
+}

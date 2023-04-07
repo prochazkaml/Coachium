@@ -136,7 +136,7 @@ function window_onload() {
 			}
 		}
 
-		if(typeof DEFAULT_LANGUAGE_OVERRIDE != "undefined") {
+		if(is_running_cached()) {
 			get_id("repolink").href = "https://github.com/prochazkaml/CoachiumCached";
 			github_request.open("GET", "https://api.github.com/repos/prochazkaml/CoachiumCached/commits/master", true);
 		} else {
