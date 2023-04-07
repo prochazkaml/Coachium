@@ -21,7 +21,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { readFileSync, writeFileSync } from 'fs';
+import { readFileSync, writeFileSync, readdirSync, statSync } from 'fs';
+import path from 'path';
 
 if(!process.argv[2]) {
 	console.log("Usage: node node/compress.node.js <dest_dir>");
@@ -46,6 +47,24 @@ function extract(string, start, end) {
 		start: _start,
 		end: _end
 	};
+}
+
+// List all files in a directory (https://coderrocketfuel.com/article/recursively-list-all-the-files-in-a-directory-using-node-js)
+
+function getAllFiles(dirPath, arrayOfFiles) {
+	var files = readdirSync(dirPath);
+
+	var arrayOfFiles = arrayOfFiles || [];
+
+	files.forEach((file) => {
+		if(statSync(dirPath + "/" + file).isDirectory()) {
+			arrayOfFiles = getAllFiles(dirPath + "/" + file, arrayOfFiles);
+		} else {
+			arrayOfFiles.push(path.join(dirPath, "/", file));
+		}
+	});
+  
+	return arrayOfFiles;
 }
 
 // Separate the body & head
@@ -181,7 +200,7 @@ function run(lines) {
 
 	if(scripts.length > 0) {
 		return {
-			js: JSON.stringify(scripts),
+			js: scripts,
 			html: output
 		};
 	} else {
@@ -191,24 +210,42 @@ function run(lines) {
 	}
 }
 
-for(const entry in split) {
-	const output = run(split[entry]);
+// Store the head
 
-	if(entry == "head") {
-		console.log("Not compressing the head, as it makes no sense (it contains already-compressed binary files, extra compression would be useless + slower to depack).");
-		writeFileSync(process.argv[2] + "/" + entry + ".dat", output.html);
-		console.log("Head output is " + output.html.length + " bytes long.");
-	} else {
-		console.log("Compressing " + entry + " output (" + output.html.length + " bytes)...");
-		const compressed = LZString.compressToUint8Array(output.html);
-		writeFileSync(process.argv[2] + "/" + entry + ".dat", compressed);
-		console.log("Done. Compressed " + entry + " output is " + compressed.length + " bytes long.");
+const headoutput = run(split["head"]);
 
-		console.log("Compressing scripts output (" + output.js.length + " bytes)...");
-		const compressedjs = LZString.compressToUint8Array(output.js);
-		writeFileSync(process.argv[2] + "/scripts.dat", compressedjs);
-		console.log("Done. Compressed scripts output is " + compressedjs.length + " bytes long.");
-	}
+console.log("Not compressing the head, as it makes no sense (it contains already-compressed binary files, extra compression would be useless + slower to depack).");
+writeFileSync(process.argv[2] + "/head.dat", headoutput.html);
+console.log("Head output is " + headoutput.html.length + " bytes long.");
+
+// Compress and store the body
+
+var bodyoutput = run(split["body"]);
+
+console.log("Compressing body output (" + bodyoutput.html.length + " bytes)...");
+const compressed = LZString.compressToUint8Array(bodyoutput.html);
+writeFileSync(process.argv[2] + "/body.dat", compressed);
+console.log("Done. Compressed body output is " + compressed.length + " bytes long.");
+
+// Add the manual contents to the scripts
+
+const manfiles = getAllFiles("manual");
+
+var man = "const helpdata = {\n";
+
+for(const file of manfiles) {
+	man += "\"" + file + "\": " + JSON.stringify(readFileSync(file).toString()) + ",\n";
 }
+
+bodyoutput.js.push(man + "\n};\n");
+
+// Compress and store the scripts
+
+const stringjs = JSON.stringify(bodyoutput.js);
+
+console.log("Compressing scripts output (" + stringjs.length + " bytes)...");
+const compressedjs = LZString.compressToUint8Array(stringjs);
+writeFileSync(process.argv[2] + "/scripts.dat", compressedjs);
+console.log("Done. Compressed scripts output is " + compressedjs.length + " bytes long.");
 
 console.log("All done.");

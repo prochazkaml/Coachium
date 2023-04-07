@@ -30,14 +30,22 @@ async function help_start() {
 	var index = get_id("helpindex");
 	
 	if(index.innerHTML == "" || index.innerHTML == jslang.HELP_LOAD_ERROR) {
+		const path = "manual/" + lang + "/index.html";
+
 		if(is_running_cached()) {
-			// TODO
+			if(helpdata[path] !== undefined)
+				index.innerHTML = helpdata[path];
+			else
+				index.innerHTML = jslang.HELP_LOAD_ERROR;
 		} else {
 			// TODO - show loading dialog
 
-			var net = await fetch("./manual/" + lang + "/index.html");
+			var net = await fetch(path);
 
-			index.innerHTML = (net.status == 200) ? (await net.text()) : jslang.HELP_LOAD_ERROR;
+			if(net.status == 200)
+				index.innerHTML = await net.text();
+			else
+				index.innerHTML = jslang.HELP_LOAD_ERROR;
 		}
 
 		await help_switch_page("about");
@@ -57,12 +65,17 @@ async function help_start() {
 async function help_switch_page(pagename) {
 	var page = get_id("helppage");
 
+	const path = "manual/" + lang + "/" + pagename + "/index.html";
+
 	if(is_running_cached()) {
-		// TODO
+		if(helpdata[path] !== undefined)
+			page.innerHTML = helpdata[path];
+		else
+			page.innerHTML = jslang.HELP_LOAD_ERROR;
 	} else {
 		// TODO - some sort of loading screen
 
-		var net = await fetch("./manual/" + lang + "/" + pagename + "/index.html");
+		var net = await fetch(path);
 
 		page.innerHTML = (net.status == 200) ? (await net.text()) : jslang.HELP_LOAD_ERROR;
 	}
