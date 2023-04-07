@@ -65,6 +65,8 @@ async function help_start() {
 async function help_switch_page(pagename) {
 	var page = get_id("helppage");
 
+	// Load the page
+
 	const path = "manual/" + lang + "/" + pagename + "/index.html";
 
 	if(is_running_cached()) {
@@ -78,5 +80,11 @@ async function help_switch_page(pagename) {
 		var net = await fetch(path);
 
 		page.innerHTML = (net.status == 200) ? (await net.text()) : jslang.HELP_LOAD_ERROR;
+	}
+
+	// Process each element which contains a script attributes
+
+	for(var thisel of document.getElementsByClassName("HELP_RUN_SCRIPT")) {
+		eval(thisel.getAttribute("script"));
 	}
 }
