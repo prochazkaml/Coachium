@@ -1,5 +1,5 @@
 /*
- * Coachium - js/i18n/en.js
+ * Coachium - js/l10n/en.js
  * - English internationalization data
  * 
  * Copyright (C) 2021-2023 Michal Procházka

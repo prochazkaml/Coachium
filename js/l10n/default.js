@@ -1,5 +1,5 @@
 /*
- * Coachium - js/i18n/default.js
+ * Coachium - js/l10n/default.js
  * - applies translation data on startup
  * 
  * Copyright (C) 2021-2023 Michal Procházka
