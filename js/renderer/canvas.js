@@ -634,7 +634,7 @@ function render_graph_data(ctx, id, width, height, x_actual_offset, y_actual_off
 		ctx.lineWidth = 4;
 		
 		if(capture_cache.xy_mode || !color || !color.match("^#......$")) {
-			ctx.strokeStyle = "blue";
+			ctx.strokeStyle = "#0000FF80";
 		} else {
 			const r = (parseInt(color.slice(1, 3), 16) >> 1).toString(16).padStart(2, "0");
 			const g = (parseInt(color.slice(3, 5), 16) >> 1).toString(16).padStart(2, "0");
