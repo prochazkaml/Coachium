@@ -22,6 +22,8 @@ Future stuff:
 - allow data limiting (remove up to a certain point, etc.) - auto recalculate fit if necessary
 - option for displaying 2 (or more) curves side by side on separate charts
 - ability to manually attach sensors
+- translate the manual to English
+- add some visual content to the manual
 - ServiceWorker is a bit wonky?
 - playing back the captured data as audio (mono/stereo)
 - computer's audio input as a sensor

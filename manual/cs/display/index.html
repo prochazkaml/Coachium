@@ -1,0 +1,59 @@
+<h1>Práce s grafem a tabulkou</h1>
+
+<p>
+	Pokud již máte vytvořené nějaké záznamy a máte je zorganizované tak,
+	jak byste si přáli, nyní si můžete data prohlédnout.
+	To můžete buď v grafu, nebo v tabulce – mezi nimi můžete přepínat tlačítkem
+	„Zobrazit záznam jako tabulku“ a „Zobrazit záznam jako graf“
+	(<img style="height: 16px; margin: 0 4px;" class="HELP_RUN_SCRIPT" script="thisel.src = get_id('viewastablebutton').children[0].src;"> a
+	<img style="height: 16px; margin: 0 4px;" class="HELP_RUN_SCRIPT" script="thisel.src = get_id('viewasgraphbutton').children[0].src;">).
+</p>
+
+<h2>Zobrazení na grafu</h2>
+
+<p>
+	Nejlepší možnost pro jednoduchou vizualizaci dat. Pokud máte kurzor myši umístěný na grafu, jeho ovládání je velmi jednoduché:
+</p>
+
+<ul>
+	<li>Tahem myší s přidrženým levým tlačítkem přesunete právě přiblíženou oblast.</li>
+	<li>Posunem kolečka myši přiblížíte či oddálíte pohled na graf.</li>
+	<li>Posunem kolečka s přidrženou klávesou Alt přiblížíte či oddálíte pohled na graf pouze podél osy X.</li>
+	<li>Posunem kolečka s přidrženou klávesou Shift přiblížíte či oddálíte pohled na graf pouze podél osy Y.</li>
+</ul>
+
+<h3>Přiblížení na oblast</h3>
+
+<p>
+	Pokud si chcete přiblížit specifickou oblast (a přesnost kolečka myši Vám nestačí),
+	můžete využít funkce „Přiblížit pohled na graf“
+	(<img style="height: 16px; margin: 0 4px;" class="HELP_RUN_SCRIPT" script="thisel.src = get_id('zoominbutton').children[0].src;">).
+	Kliknutím na toto tlačítko se aktivuje režim výběru oblasti.
+	Kurzor myši přesuňte na graf, klikněte na bod, který se stane levým horním rohem oblasti,
+	a poté klikněte na druhý bod, který se stane pravým dolním rohem oblasti.
+	Program poté dokonale přiblíží na Vámi vybranou oblast.
+</p>
+
+<h3>Automatické přiblížení na data</h3>
+
+<p>
+	Pro rychlé a efektivní přiblížení, stiskněte tlačítko „Přiblížit na data“
+	(<img style="height: 16px; margin: 0 4px;" class="HELP_RUN_SCRIPT" script="thisel.src = get_id('zoomdatabutton').children[0].src;">).
+	Tato funkce automaticky přiblíží co nejoptimálněji na zaznamenaná data,
+	ale aby stále byla všechna vidět.
+</p>
+
+<h3>Oddálení dat</h3>
+
+<p>
+	Pro zrušení současného přiblížení klikněte na tlačítko „Obnovit pohled na graf“
+	(<img style="height: 16px; margin: 0 4px;" class="HELP_RUN_SCRIPT" script="thisel.src = get_id('zoomresetbutton').children[0].src;">).
+	Tímto se obnoví původní pohled na graf.
+</p>
+
+<h2>Zobrazení v tabulce</h2>
+
+<p>
+	Nejlepší možnost pro přesnost. Všechny naměřené hodnoty se zapíšou do sloupců,
+	kde každé čidlo má přiřazený samostatný sloupec.
+</p>
