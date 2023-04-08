@@ -121,7 +121,7 @@ async function check_version() {
 
 		try {
 			if(is_running_cached()) {
-				get_id("repolink").href = "https://github.com/prochazaml/CoachiumCached";
+				get_id("repolink").href = "https://github.com/prochazkaml/CoachiumCached";
 
 				var net1 = await fetch("https://raw.githubusercontent.com/prochazkaml/CoachiumCached/master/timestamp?t=" + new Date().getTime());
 				var net2 = await fetch("./timestamp?t=" + new Date().getTime());
