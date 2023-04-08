@@ -106,6 +106,8 @@ class Prochazka_Dummy_driver {
 	}
 
 	async getval(portname) {
+		await delay_ms(1);
+
 		if(this.capture.running) {
 			const pindex = this.capture.ports.indexOf(portname)
 
