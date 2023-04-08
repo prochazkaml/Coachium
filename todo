@@ -3,7 +3,6 @@
 - utility for analyzing data (optionally select a region, min/max/avg)
 - use drawcolors on the port's Y axis and immediate value (top right)
 - use drawcolors on the BG of table header cells
-- the input boxes sometimes don't use the program's default font (could be done through CSS)
 - dialog for splitting captured data into separate captures (and XY mode)
 
 Before submitting:

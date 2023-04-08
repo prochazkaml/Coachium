@@ -74,6 +74,18 @@ header {
 
 input {
 	box-sizing: border-box;
+	font-family: CoachiumDefaultFont;
+	font-size: 18px;
+}
+
+select {
+	font-family: CoachiumDefaultFont;
+	font-size: 18px;
+}
+
+textarea {
+	font-family: CoachiumDefaultFont;
+	font-size: 18px;
 }
 
 #headercontents {
