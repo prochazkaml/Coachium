@@ -1,67 +1,67 @@
-<h1>Creating a record</h1>
+<h1>Creating a capture</h1>
 
 <p>
 	Coachium is primarily designed to capture data and work with it.
 </p>
 
 <p>
-	If you want to create a record,
+	If you want to create a capture,
 	you need to have at least one sensor plugged into your device
 	(you can tell if at least one of the otherwise grey blocks on the side panel lights up with a different color).
-	If you meet this condition, you can click on the "Add a new record to the workbook" button.
+	If you meet this condition, you can click on the "Add a new capture to your workbook" button
 	(<img style="height: 16px; margin: 0 4px;" class="HELP_RUN_SCRIPT" script="thisel.src = get_id('capturestartbutton').children[0].src;">).
 </p>
 
 <p>
-	The "Record Settings" window will appear,
-	where you can select which sensors to use for the record.
-	You can also set the name of this record,
-	at what frequency the device will record and for how long.
-	First, however, you must select a recording mode -
+	The "Capture setup" window will appear,
+	where you can select which sensors you want to capture from.
+	You can also set the name of this capture,
+	at what frequency the device will capture and for how long.
+	First, however, you must select a capturing mode -
 	either standard mode or X-Y mode.
 </p>
 
 <h2>Standard mode</h2>
 
 <p>
-	In normal mode, any number of sensors can be selected
+	In standard mode, any number of sensors can be selected
 	(within the capabilities of the hardware)
-	to be recorded simultaneously and displayed on the Y-axis as a function of time.
+	to be captured simultaneously and displayed along the Y axis as a function of time.
 </p>
 
 <p>
 	However, it is also possible to view only some of the sensors later,
-	or to generate an X-Y plot with the two selected sensors that were used during the recording.
+	or to generate a capture in X-Y mode with the two selected sensors that were used during the capture.
 </p>
 
 <h2>X-Y mode</h2>
 
 <p>
-	In X-Y mode you can select just 2 sensors, one for each axis (X, Y).
+	In X-Y mode you must select exactly 2 sensors, one for each axis (X, Y).
 	Useful for comparing different quantities where there is no need to display time
-	(e.g. volt-ampere characteristic of a component).
+	(e.g. current-voltage characteristics of a component).
 </p>
 
-<h2>Conditional recording</h2>
+<h2>Triggering</h2>
 
 <p>
-	An optional option is the so-called conditional recording,
-	which waits for a condition to be met before starting the recording.
+	An optional option is the so-called triggering,
+	which will wait for a condition to be met before the capture starts.
 	To define this condition, simply drag one of the connected sensors to the lower right area of the window.
-	After dragging it, options will appear below it where you can set the condition to trigger the recording.
+	If you do that, options will appear below it where you can set the condition to trigger the start of the capture.
 </p>
 
-<h2>Start and stop recording</h2>
+<h2>Start and stop the capture</h2>
 
 <p>
 	If no error message appears at the bottom of the window,
-	it means that your settings are valid and you can click the "Start" button to start the recording.
+	it means that your settings are valid and you can click the "Start" button to start the capture.
 </p>
 
 <p>
-	The recording will run for exactly the specified time.
-	However, if you need to end the recording prematurely,
-	you can click the "Stop recording" button
+	The capture will run for exactly the specified time.
+	However, if you need to end the capture prematurely,
+	you can click the "Stop the current capture" button
 	(<img style="height: 16px; margin: 0 4px;" class="HELP_RUN_SCRIPT" script="thisel.src = get_id('capturestopbutton').children[0].src;">).
 </p>
 
