@@ -114,7 +114,7 @@ window.onload = window_onload;
  */
 
 async function check_version() {
-	if(location.hostname != "localhkost") {
+	if(location.hostname != "localhost") {
 		// Check the current git commit version or timestamp against GitHub
 
 		var str1, str2, succ; // 1 = error, 2 = old, 3 = good
@@ -135,7 +135,7 @@ async function check_version() {
 					succ = 1;
 				}
 			} else {
-				get_id("repolink").href = "https://github.com/prochazaml/Coachium";
+				get_id("repolink").href = "https://github.com/prochazkaml/Coachium";
 
 				var net1 = await fetch("https://api.github.com/repos/prochazkaml/Coachium/commits/master?t=" + new Date().getTime());
 				var net2 = await fetch("./.git/refs/heads/master?t=" + new Date().getTime());
