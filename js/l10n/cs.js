@@ -81,7 +81,7 @@ const cs = {
 
 		// Window contents
 
-		"WINDOW0_TITLE": "Coachium beta",
+		"WINDOW0_TITLE": "Coachium",
 		"WINDOW0_PAR0": "Copyright © Michal Procházka, 2021–2023.",
 		"WINDOW0_PAR1":
 			"Založeno na mé práci reverzního inženýrství komunikace<br>" +

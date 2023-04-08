@@ -10,7 +10,6 @@ Before submitting:
 - make sure all comments correspond to the correct functions!
 - run it through a HTML/CSS validator (both cached/uncached)!!!
 - thoroughly verify that all features work as expected!
-- we're not beta anymore!
 
 Future stuff:
 - dedicated port popup (for enlarging a value of a given sensor)

@@ -1,7 +1,5 @@
 # Coachium
 
-# _CURRENTLY IN THE BETA STAGE, NOT MEANT FOR REGULAR USE AT THIS TIME!_
-
 Web-based software for interfacing with CMA educational interfaces and sensors.
 
 ![image](https://user-images.githubusercontent.com/41787099/227735843-7a2540a2-00dd-4970-889a-15e7069146c1.png)
@@ -37,16 +35,6 @@ We strongly hope that we have introduced to you what Coachium actually is, and w
 ## Project roadmap
 
 Please [click here](https://github.com/prochazkaml/Coachium/blob/master/todo) to view the current status of the Coachium to-do list.
-
-**Coachium is currently in the beta stage.** This means that most (not all!) of the features which I have originally planned have been implemented, and all encontered bugs during development have been resolved.
-
-### Beta stage
-
-The teachers at our school (and possibly other schools?) will be requested to actually use Coachium instead of CMA Coach with students for most required classes. All of the reported bugs/suggested features by the students as well as the teachers will be fixed/implemented.
-
-### Full release
-
-Coachium will reach full release when the software is stress-tested for an entire school year. New features will be added (from the "Future stuff" category in the to-do list – will very likely be renamed at some point), bugs will be fixed and Coachium will receive a simple version numbering system for the users and server maintainers to easily keep track of the changes.
 
 ## How can I try it out?
 
