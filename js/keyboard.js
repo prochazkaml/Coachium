@@ -65,7 +65,7 @@ document.addEventListener('keydown', (event) => {
 				event.preventDefault();
 
 				if(driver !== null) {
-					if(!driver.capture.running)
+					if(get_id("capturestartbutton").style.display != "none")
 						create_capture();
 					else
 						request_capture = 1;
