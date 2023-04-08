@@ -114,7 +114,7 @@ window.onload = window_onload;
  */
 
 async function check_version() {
-	if(location.hostname != "localkhost") {
+	if(location.hostname != "localhost") {
 		// Check the current git commit version or timestamp against GitHub
 
 		var str1, str2, succ; // 1 = error, 2 = old, 3 = good
