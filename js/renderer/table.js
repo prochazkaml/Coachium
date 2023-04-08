@@ -94,7 +94,9 @@ function table_gen(capture, display_fns, enabled_colors = false) {
 		col.push(format(jslang.TABLE_SENSOR, capture_cache.ports[i].id, capture_cache.ports[i].unit))
 
 		if(enabled_colors) {
-			colors.push(capture.ports[capture_cache.ports[i].id].color);
+			const port = capture.ports[capture_cache.ports[i].id];
+
+			colors.push((port.color && port.drawcolor) ? port.color : null);
 		}
 	}
 
@@ -109,7 +111,11 @@ function table_gen(capture, display_fns, enabled_colors = false) {
 				capture_cache.ports[fn.sensor_y].unit + "/" +
 				capture_cache.ports[fn.sensor_x].unit;
 
-			if(enabled_colors) colors.push(capture.ports[capture_cache.ports[fn.sensor_y].id].color);
+			if(enabled_colors) {
+				const port = capture.ports[capture_cache.ports[fn.sensor_y].id];
+
+				colors.push((port.color && port.drawcolor) ? port.color : null);
+			}
 		} else if(enabled_colors) {
 			colors.push(null);
 		}

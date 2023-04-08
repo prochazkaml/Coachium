@@ -1,6 +1,5 @@
 - allow for assignable proportions between waveforms
 - use drawcolors on the port's Y axis and immediate value (top right)
-- use drawcolors on the BG of table header cells
 - dialog for splitting captured data into separate captures (and XY mode)
 
 Before submitting:
