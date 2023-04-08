@@ -155,11 +155,11 @@ async function check_version() {
 				break;
 
 			case 2:
-				get_class("L10N_HOMEPAGE_COMMIT_CHECKING").innerHTML = format(jslang.HOMEPAGE_COMMIT_OLD, str2, str1);
+				get_class("L10N_HOMEPAGE_COMMIT_CHECKING").innerHTML = format(jslang.HOMEPAGE_COMMIT_OLD, str2.trim(), str1.trim());
 				break;
 
 			case 3:
-				get_class("L10N_HOMEPAGE_COMMIT_CHECKING").innerHTML = format(jslang.HOMEPAGE_COMMIT_OK, str1);
+				get_class("L10N_HOMEPAGE_COMMIT_CHECKING").innerHTML = format(jslang.HOMEPAGE_COMMIT_OK, str1.trim());
 				break;
 		}
 	} else {
