@@ -94,60 +94,9 @@ function window_onload() {
 	canvas.onmouseleave = canvasmouseleavehandler;
 	canvas.onwheel = canvasmousewheelhandler;
 
-	if(location.hostname != "localhost") {
-		// Check the current git commit version against GitHub
+	// Check the version
 
-		var github_request = new XMLHttpRequest();
-
-		github_request.onreadystatechange = () => {
-			if(github_request.readyState == 4) {
-				if(github_request.status == 200) {
-					var sha1 = JSON.parse(github_request.responseText)["sha"];
-
-					if(sha1 == undefined) {
-						get_class("L10N_HOMEPAGE_COMMIT_CHECKING").innerHTML = jslang.HOMEPAGE_COMMIT_ERR;
-					} else {
-						var local_request = new XMLHttpRequest();
-
-						local_request.onreadystatechange = () => {
-							if(local_request.readyState == 4) {
-								if(local_request.status == 200) {
-									var sha2 = local_request.responseText;
-
-									if(sha1.substring(0, 7) == sha2.substring(0, 7)) {
-										get_class("L10N_HOMEPAGE_COMMIT_CHECKING").innerHTML =
-											format(jslang.HOMEPAGE_COMMIT_OK, sha1.substring(0, 7));
-									} else {
-										get_class("L10N_HOMEPAGE_COMMIT_CHECKING").innerHTML =
-											format(jslang.HOMEPAGE_COMMIT_OLD, sha2.substring(0, 7), sha1.substring(0, 7));
-									}
-								} else {
-									get_class("L10N_HOMEPAGE_COMMIT_CHECKING").innerHTML = jslang.HOMEPAGE_COMMIT_ERR;
-								}
-							}
-						}
-
-						local_request.open("GET", "./.git/refs/heads/master?t=" + new Date().getTime(), true); // true for asynchronous
-						local_request.send(null);
-					}
-				} else {
-					get_class("L10N_HOMEPAGE_COMMIT_CHECKING").innerHTML = jslang.HOMEPAGE_COMMIT_ERR;
-				}
-			}
-		}
-
-		if(is_running_cached()) {
-			get_id("repolink").href = "https://github.com/prochazkaml/CoachiumCached";
-			github_request.open("GET", "https://api.github.com/repos/prochazkaml/CoachiumCached/commits/master", true);
-		} else {
-			get_id("repolink").href = "https://github.com/prochazkaml/Coachium";
-			github_request.open("GET", "https://api.github.com/repos/prochazkaml/Coachium/commits/master", true);
-		}
-	
-		github_request.send(null);
-	} else {
-		get_class("L10N_HOMEPAGE_COMMIT_CHECKING").innerHTML = jslang.HOMEPAGE_COMMIT_LOCALHOST;
-	}
+	check_version();
 
 	// Load the Google Drive subsystem
 
@@ -157,6 +106,66 @@ function window_onload() {
 }
 
 window.onload = window_onload;
+
+/*
+ * check_version()
+ * 
+ * Check the installed version against the one available on GitHub.
+ */
+
+async function check_version() {
+	if(location.hostname != "localkhost") {
+		// Check the current git commit version or timestamp against GitHub
+
+		var str1, str2, succ; // 1 = error, 2 = old, 3 = good
+
+		try {
+			if(is_running_cached()) {
+				var net1 = await fetch("https://raw.githubusercontent.com/prochazkaml/CoachiumCached/master/timestamp");
+				var net2 = await fetch("./timestamp?t=" + new Date().getTime());
+
+				if(net1.status == 200 && net2.status == 200) {
+					str1 = await net1.text();
+					str2 = await net2.text();
+
+					succ = (str1 == str2) ? 3 : 2;
+				} else {
+					succ = 1;
+				}
+			} else {
+				var net1 = await fetch("https://api.github.com/repos/prochazkaml/Coachium/commits/master");
+				var net2 = await fetch("./.git/refs/heads/master?t=" + new Date().getTime());
+
+				if(net1.status == 200 && net2.status == 200) {
+					str1 = JSON.parse(await net1.text())["sha"].substring(0, 7);
+					str2 = (await net2.text()).substring(0, 7);
+
+					succ = (str1 == str2) ? 3 : 2;
+				} else {
+					succ = 1;
+				}
+			}
+		} catch(e) {
+			succ = 1;
+		}
+
+		switch(succ) {
+			case 1:
+				get_class("L10N_HOMEPAGE_COMMIT_CHECKING").innerHTML = jslang.HOMEPAGE_COMMIT_ERR;
+				break;
+
+			case 2:
+				get_class("L10N_HOMEPAGE_COMMIT_CHECKING").innerHTML = format(jslang.HOMEPAGE_COMMIT_OLD, str2, str1);
+				break;
+
+			case 3:
+				get_class("L10N_HOMEPAGE_COMMIT_CHECKING").innerHTML = format(jslang.HOMEPAGE_COMMIT_OK, str1);
+				break;
+		}
+	} else {
+		get_class("L10N_HOMEPAGE_COMMIT_CHECKING").innerHTML = jslang.HOMEPAGE_COMMIT_LOCALHOST;
+	}
+}
 
 /*
  * Callback when the URL hash changes

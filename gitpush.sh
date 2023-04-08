@@ -14,7 +14,7 @@ echo ">>> Generating cache..."
 node node/compress.node.js cache
 cp gdrive.html favicon.ico cache/
 cp -r about privacy-policy cache/
-date -u > cache/timestamp
+date "+%y%m%d%H%M%S" > cache/timestamp
 
 gitver=`cat .git/refs/heads/master | cut -c1-7`
 
