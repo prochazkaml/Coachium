@@ -36,17 +36,21 @@ function table_reset() {
 		title.innerText = format(jslang.CAPTURE_FMT, selected_capture + 1, captures.length, capture.title);
 		out.appendChild(title);
 
-		const data = table_gen(capture, true);
+		const data = table_gen(capture, true, true);
 
 		var tbl = document.createElement("table");
 		var row, cell;
 
-		for(var y = 0; y < data.length; y++) {
+		for(var y = 0; y < data.data.length; y++) {
 			row = document.createElement("tr");
 
-			for(var x = 0; x < data[y].length; x++) {
+			for(var x = 0; x < data.data[y].length; x++) {
 				cell = document.createElement((y == 0) ? "th" : "td");
-				cell.innerText = data[y][x];
+				cell.innerText = data.data[y][x];
+				
+				if(data.colors[x - 1])
+					cell.style.backgroundColor = data.colors[x - 1] + ((y == 0) ? "" : "20");
+
 				row.appendChild(cell);
 			}
 
@@ -64,14 +68,15 @@ function table_reset() {
 }
 
 /*
- * table_gen(capture, display_fns)
+ * table_gen(capture, display_fns, enabled_colors)
  * 
  * Generates the table data, returns a 2D array containing cell values.
- * Can control whether functions are displayed as well or not.
+ * Can control whether functions are displayed as well or not,
+ * or whether to return color data alongside the data.
  */
 
-function table_gen(capture, display_fns) {
-	var fn_calcs = [];
+function table_gen(capture, display_fns, enabled_colors = false) {
+	var fn_calcs = [], colors = [];
 
 	const fns = capture.functions;
 
@@ -87,6 +92,10 @@ function table_gen(capture, display_fns) {
 
 	for(var i = 1; i < capture_cache.ports.length; i++) {
 		col.push(format(jslang.TABLE_SENSOR, capture_cache.ports[i].id, capture_cache.ports[i].unit))
+
+		if(enabled_colors) {
+			colors.push(capture.ports[capture_cache.ports[i].id].color);
+		}
 	}
 
 	if(display_fns && fns) for(var i = 0; i < fns.length; i++) {
@@ -95,9 +104,15 @@ function table_gen(capture, display_fns) {
 		var unit = "???";
 		var name = jslang["TABLE_FUN_" + fn.fun.toUpperCase()];
 
-		if(fn.sensor_x !== undefined && fn.sensor_y !== undefined) unit =
-			capture_cache.ports[fn.sensor_y].unit + "/" +
-			capture_cache.ports[fn.sensor_x].unit;
+		if(fn.sensor_x !== undefined && fn.sensor_y !== undefined) {
+			unit =
+				capture_cache.ports[fn.sensor_y].unit + "/" +
+				capture_cache.ports[fn.sensor_x].unit;
+
+			if(enabled_colors) colors.push(capture.ports[capture_cache.ports[fn.sensor_y].id].color);
+		} else if(enabled_colors) {
+			colors.push(null);
+		}
 
 		if(name) {
 			if(fn.type == "fit")
@@ -130,5 +145,8 @@ function table_gen(capture, display_fns) {
 		rows.push(col);
 	}
 
-	return rows;
+	return (!enabled_colors) ? rows : {
+		data: rows,
+		colors: colors
+	};
 }
