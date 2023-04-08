@@ -4,6 +4,7 @@
 - use drawcolors on the port's Y axis and immediate value (top right)
 - use drawcolors on the BG of table header cells
 - the input boxes sometimes don't use the program's default font (could be done through CSS)
+- dialog for splitting captured data into separate captures (and XY mode)
 
 Before submitting:
 - make sure all comments correspond to the correct functions!
@@ -14,7 +15,6 @@ Before submitting:
 Future stuff:
 - dedicated port popup (for enlarging a value of a given sensor)
 - cache system - one archive for raw binary data and one for scripts, HTML, CSS, SVG etc.?
-- dialog for splitting captured data into separate captures (and XY mode)
 - calculation of area between 2 functions
 	- fitted function or axis (with offset) can also be selected as a source
 	- snapping to intersection points
@@ -24,7 +24,6 @@ Future stuff:
 - allow data limiting (remove up to a certain point, etc.) - auto recalculate fit if necessary
 - option for displaying 2 (or more) curves side by side on separate charts
 - ability to manually attach sensors
-- translate the manual to English
 - add some visual content to the manual
 - ServiceWorker is a bit wonky?
 - playing back the captured data as audio (mono/stereo)
