@@ -70,7 +70,7 @@ function zoom_to_data() {
 			x = (capture_cache.values[i][0] - capture_cache.ports[0].min) / (capture_cache.ports[0].max - capture_cache.ports[0].min);
 
 			for(var j = 1; j < capture_cache.ports.length; j++) {
-				y = (capture_cache.values[i][j] - capture_cache.ports[j].min) / (capture_cache.ports[j].max - capture_cache.ports[j].min)
+				y = (capture_cache.values[i][j] * capture_cache.ports[j].proportion - capture_cache.ports[1].min) / (capture_cache.ports[1].max - capture_cache.ports[1].min);
 
 				if(y > max_y) max_y = y;
 				if(y < min_y) min_y = y;
@@ -81,7 +81,9 @@ function zoom_to_data() {
 		if(x < min_x) min_x = x;
 	}
 
-	if(min_x < max_x && min_y < max_y) {
+	console.log(min_x, min_y, max_x, max_y);
+
+	if(min_x >= 0 && min_y >= 0 && max_x <= 1 && max_y <= 1 && min_x < max_x && min_y < max_y) {
 		const w = max_x - min_x, h = max_y - min_y;
 
 		min_x -= w * .1; min_y -= h * .1;
