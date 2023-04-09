@@ -112,7 +112,7 @@ function draw_mouse(ctx, x, y, type) {
 }
 
 /*
- * draw_arrow(ctx, x, y, l, lh, dir)
+ * draw_arrow(ctx, x, y, l, lh, dir, lw)
  * 
  * Draws an arrow according to the given direction:
  * 
@@ -138,7 +138,7 @@ function draw_arrow(ctx, x, y, l, lh, dir, lw = 5) {
 }
 
 /*
- * draw_plus(ctx, x, y, l)
+ * draw_plus(ctx, x, y, l, lw)
  * 
  * Draws a plus sign. (What a surprise.)
  */

@@ -19,7 +19,7 @@
  */
 
 /*
- * capture_setup_change_mode()
+ * capture_setup_change_mode(mode)
  *
  * Changes the capture mode that is displayed in the capture setup window.
  */

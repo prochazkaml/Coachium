@@ -95,7 +95,7 @@ function canvasmousemovehandler(e) {
 }
 
 /*
- * canvasmousemovehandler(e)
+ * canvasmouseleavehandler()
  * 
  * Callback, when the mouse leaves the canvas.
  */
@@ -201,7 +201,7 @@ function canvasmousechangehandler(status) {
 }
 
 /*
- * canvasmousewheelhandler(e)
+ * canvasmousewheelhandler(event)
  * 
  * Callback, when the scroll wheel position changes over the canvas.
  */

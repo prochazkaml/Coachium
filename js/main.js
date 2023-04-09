@@ -152,7 +152,7 @@ async function driver_start() {
 }
 
 /*
- * main_thread()
+ * async main_thread()
  * 
  * Runs the main operating thread of the application until
  * a fatal error occurs or the device gets disconnected.
@@ -390,7 +390,7 @@ async function main_thread() {
 }
 
 /*
- * capture_display_thread(freq)
+ * capture_display_thread(freq, processed)
  * 
  * Displays info about the currently running capture. Automatically calls itself repeatedly, until the capture is stopped.
  */

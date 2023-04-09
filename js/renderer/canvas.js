@@ -714,7 +714,7 @@ function render_graph_data(ctx, id, width, height, x_actual_offset, y_actual_off
 }
 
 /*
- * render_overlay(ovctx, overlay)
+ * render_overlay(ovctx, width, height)
  * 
  * Renders the canvas overlay onto an overlay context.
  */
@@ -851,7 +851,7 @@ function render_overlay(ovctx, width, height) {
 }
 
 /*
- * draw_crosshair(ovctx, x, y, color)
+ * draw_crosshair(ovctx, x, y, w, h, color)
  * 
  * Draws a crosshair onto an overlay context.
  */

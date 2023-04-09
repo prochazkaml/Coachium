@@ -31,7 +31,7 @@ var capture_cache = {
 };
 
 /*
- * get_id(id, srcel = document)
+ * get_id(id, srcel)
  * 
  * Alias for document.getElementById (or any other element), because I really don't
  * want to type that function out all the time.
@@ -49,7 +49,7 @@ function get_id(id, srcel = document) {
 }
 
 /*
- * get_class(classname, index = 0, srcel = document)
+ * get_class(classname, index, srcel)
  * 
  * Same as get_id(), but for searching by class name.
  * 
@@ -73,7 +73,7 @@ function get_class(classname, index = 0, srcel = document) {
 }
 
 /*
- * get_tag(tagname, index = 0, srcel = document)
+ * get_tag(tagname, index, srcel)
  * 
  * Same as get_id(), but for searching by tag name.
  * 
@@ -175,41 +175,6 @@ function localize_num(num) {
 }
 
 /*
- * convert_12bit_to_real(val, a, b, hv)
- * 
- * Converts a raw 12-bit value to an human-readable number of said unit.
- * You wouldn't believe how much pain it was to get the constants below
- * (1.013 and 1.0114), it took me like half a day to find them.
- * 
- * They are set so that the result value more or less corresponds to what
- * Coach would output (the deviation is about 1/100, which I'm fine with,
- * you also have to keep in mind that Coach is not perfect either. 🤷)
- */
-
-function convert_12bit_to_real(val, a, b, hv) {
-	var val;
-
-	if(hv)
-		val = a * (val / 4095 * 20 - 10) * 1.013 + b;
-	else
-		val = a * (val / 4095 * 5) * 1.0114 + b;
-
-	return val;
-}
-
-/*
- * tags_encode(s)
- * 
- * Generates tag escape characters for a given string.
- */
-
-function tags_encode(s) {
-	var el = document.createElement("div");
-	el.innerText = el.textContent = s;
-	return el.innerHTML;
-}
-
-/*
  * read_cookie(key)
  * 
  * Reads the cookie and finds the correct key value.
@@ -236,7 +201,7 @@ function read_cookie(key) {
 }
 
 /*
- * generate_cache(start)
+ * generate_cache(start, end)
  * 
  * Generates the cache data required for rendering the main window
  * from the currently selected capture. The start parameter is used

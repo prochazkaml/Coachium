@@ -150,7 +150,7 @@ function save_file_local(name_chosen) {
 }
 
 /*
- * save_file(data, name)
+ * save_file(data, name, type)
  * 
  * Saves a file, which will contain supplied data.
  */

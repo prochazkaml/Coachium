@@ -108,7 +108,7 @@ function window_onload() {
 window.onload = window_onload;
 
 /*
- * check_version()
+ * async check_version()
  * 
  * Check the installed version against the one available on GitHub.
  */
