@@ -138,6 +138,8 @@ function capture_setup_get_params() {
  * Check the validity of all input parameters for initializing the capture.
  */
 
+var capture_setup_check_old_trig_status = false;
+
 function capture_setup_check() {
 	var startbutt = get_win_el_class(WINDOWID_CAPTURE_SETUP, "windowbutton");
 
@@ -190,8 +192,10 @@ function capture_setup_check() {
 
 	const ts = get_id("cs_trigger_setup");
 
-	if(params.trigger !== undefined) {		
+	if(params.trigger !== undefined) {
 		ts.style.display = "";
+
+		// Check whether tolerances are needed
 
 		if(params.trigger.cond == "eq" || params.trigger.cond == "ne") {
 			get_id("cs_trigger_tol_sign").style.display = "";
@@ -201,7 +205,15 @@ function capture_setup_check() {
 			ts.get_tag("input", 1).style.display = "none";
 		}
 
+		// Set up a default tolerance if the port was just assigned - +/- 10 %
+
 		const trigport = driver.ports[params.trigger.port];
+
+		if(!capture_setup_check_old_trig_status) {
+			ts.get_tag("input", 1).value = (trigport.max - trigport.min) / 20;
+		}
+
+		// Check whether the condition is in a valid range
 
 		if(params.trigger.target < trigport.min) {
 			err.innerHTML = format(jslang.SETUP_TRIG_TOO_LOW, trigport.min);
@@ -214,8 +226,12 @@ function capture_setup_check() {
 		}
 
 		get_id("cs_trigger_unit").innerText = trigport.unit;
+
+		capture_setup_check_old_trig_status = true;
 	} else {
 		ts.style.display = "none";
+
+		capture_setup_check_old_trig_status = false;
 	}
 	
 	// Check the capture mode and the assigned sensors
