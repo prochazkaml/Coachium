@@ -174,7 +174,7 @@ const cs = {
 		"WINDOW10_TITLE": "Jste si jisti?",
 		"WINDOW10_PAR0": "<b>Snažíte se otevřít jiný soubor sešitu záznamů.</b>",
 		"WINDOW10_PAR1":
-			"Máte rozpracovaná měření, a otevřením jiného sešitu<br>" +
+			"Máte rozpracované záznamy, a otevřením jiného sešitu<br>" +
 			"ztratíte všechny změny, pokud je již nemáte uloženy!",
 		"WINDOW10_PAR2": "Jste si skutečně jisti, že si přejete pokračovat?",
 
@@ -305,8 +305,8 @@ const cs = {
 
 		"STATUS_FILE_LOADED": "Soubor načten.",
 		"STATUS_FILE_SAVED": "Soubor připraven k uložení.",
-		"STATUS_CAPTURE_REMOVED": "Měření {0} odstraněno.",
-		"STATUS_ALL_REMOVED": "Všechna měření odstraněna.",
+		"STATUS_CAPTURE_REMOVED": "Záznam {0} odstraněn.",
+		"STATUS_ALL_REMOVED": "Všechny záznamy odstraněny.",
 
 		"UNTITLED_CAPTURE": "Záznam bez názvu",
 
