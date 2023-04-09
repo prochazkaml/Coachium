@@ -95,16 +95,16 @@ function get_optimal_round_level(maxunits, displaysize, limit) {
 }
 
 /*
- * color_darken(color)
+ * color_darken(color, opacity)
  * 
  * Darkens a given color by 50 %.
  */
 
-function color_darken(color) {
-	const r = (parseInt(color.slice(1, 3), 16) >> 1).toString(16).padStart(2, "0");
-	const g = (parseInt(color.slice(3, 5), 16) >> 1).toString(16).padStart(2, "0");
-	const b = (parseInt(color.slice(5, 7), 16) >> 1).toString(16).padStart(2, "0");
-	return "#" + r + g + b;
+function color_darken(color, opacity = 1) {
+	const r = (parseInt(color.slice(1, 3), 16) >> 1);
+	const g = (parseInt(color.slice(3, 5), 16) >> 1);
+	const b = (parseInt(color.slice(5, 7), 16) >> 1);
+	return "rgba(" + r + ", " + g + ", " + b + ", " + opacity + ")";
 }
 
 /*
@@ -385,7 +385,9 @@ function render_chart(ctx, width, height, draw_functions, draw_notes) {
 				const port = capture.ports[capture_cache.ports[i + 1].id];
 				
 				if(port.color && port.drawcolor) {
-					ctx.strokeStyle = color_darken(port.drawcolor) + "80";
+					ctx.strokeStyle = color_darken(port.drawcolor, .5);
+				} else {
+					ctx.strokeStyle = "rgba(0, 0, 0, 0.3)";
 				}
 
 				ctx.beginPath();
@@ -677,7 +679,7 @@ function render_graph_data(ctx, id, width, height, x_actual_offset, y_actual_off
 		if(capture_cache.xy_mode || !color || !color.match("^#......$")) {
 			ctx.strokeStyle = "#0000FF80";
 		} else {
-			ctx.strokeStyle = color_darken(color) + "80";
+			ctx.strokeStyle = color_darken(color, .5);
 		}
 
 		for(const fundef of capture.functions) {
