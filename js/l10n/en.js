@@ -278,6 +278,8 @@ const en = {
 			"</b>",
 	},
 	js: {
+		"DRIVER_DUMMY_DEVICE": "Dummy device",
+
 		"MAINWIN_NO_CAPTURES_1": "No captures have been created yet.",
 		"MAINWIN_NO_CAPTURES_2": "You can either create a new capture, or load another workbook file.",
 		"MAINWIN_HELP_START": "To create a new capture, press this button.",

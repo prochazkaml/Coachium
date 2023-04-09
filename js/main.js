@@ -38,6 +38,8 @@ function device_select() {
 
 	vendorlist.innerHTML = "";
 
+	const devname = (device) => (device.startsWith("L10N") ? jslang[device.substring(5)] : device);
+
 	for(const vendor in driverindex) {
 		var option = document.createElement("option");
 		option.innerText = vendor;
@@ -50,7 +52,8 @@ function device_select() {
 
 		for(const device in driverindex[vendorlist.value]) {
 			var option = document.createElement("option");
-			option.innerText = device;
+			option.innerText = devname(device);
+			option.value = device;
 
 			devicelist.appendChild(option);
 		}
@@ -60,7 +63,7 @@ function device_select() {
 	}
 
 	devicelist.onchange = () => {
-		connectbutton.innerText = format(jslang.CONNECT_BUTTON_TEXT, devicelist.value);
+		connectbutton.innerText = format(jslang.CONNECT_BUTTON_TEXT, devname(devicelist.value));
 	}
 
 	devicelist.ondblclick = () => {

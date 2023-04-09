@@ -31,7 +31,7 @@ const driverindex = {
 		},
 	},
 	"Prochazka Inc.": {
-		"Dummy Device": {
+		"L10N_DRIVER_DUMMY_DEVICE": {
 			method: "dummy",
 			driver: Prochazka_Dummy_driver
 		}
