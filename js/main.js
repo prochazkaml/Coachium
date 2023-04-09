@@ -254,6 +254,8 @@ async function main_thread() {
 
 							const pobj = driver.ports[trig.port];
 
+							var oldval = null;
+
 							trigger_wait_loop: while(1) {
 								if(request_capture) {
 									capture_running = false;
@@ -288,7 +290,21 @@ async function main_thread() {
 									case "gt":
 										if(val > trig.target) break trigger_wait_loop;
 										break;
+
+									case "re":
+										if(oldval !== null && oldval < trig.target && val >= trig.target) 
+											break trigger_wait_loop;
+
+										break;
+
+									case "fe":
+										if(oldval !== null && oldval > trig.target && val <= trig.target) 
+											break trigger_wait_loop;
+
+										break;
 								}
+
+								oldval = val;
 							}
 						}
 
