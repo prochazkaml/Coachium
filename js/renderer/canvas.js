@@ -95,6 +95,19 @@ function get_optimal_round_level(maxunits, displaysize, limit) {
 }
 
 /*
+ * color_darken(color)
+ * 
+ * Darkens a given color by 50 %.
+ */
+
+function color_darken(color) {
+	const r = (parseInt(color.slice(1, 3), 16) >> 1).toString(16).padStart(2, "0");
+	const g = (parseInt(color.slice(3, 5), 16) >> 1).toString(16).padStart(2, "0");
+	const b = (parseInt(color.slice(5, 7), 16) >> 1).toString(16).padStart(2, "0");
+	return "#" + r + g + b;
+}
+
+/*
  * canvas_reset(event)
  * 
  * Sets the dimensions of the canvas so that it would fit the rest of the UI.
@@ -357,7 +370,6 @@ function render_chart(ctx, width, height, draw_functions, draw_notes) {
 
 		// Draw the axes
 
-		ctx.beginPath();
 		ctx.strokeStyle = "rgba(0, 0, 0, 0.3)";
 
 		// Draw the Y axis (based on the X axis offset)
@@ -368,14 +380,30 @@ function render_chart(ctx, width, height, draw_functions, draw_notes) {
 			// Y axis is all the way to the left, so there may be multiple
 
 			num_of_y_axes = capture_cache.ports.length - 1;
-		}
-		
-		for(var i = 0; i < num_of_y_axes; i++) {
-			ctx.moveTo(x_offset - i * 64, graph_margin_top);
-			ctx.lineTo(x_offset - i * 64, height - graph_margin_bottom);
+
+			for(var i = 0; i < num_of_y_axes; i++) {
+				const port = capture.ports[capture_cache.ports[i + 1].id];
+				
+				if(port.color && port.drawcolor) {
+					ctx.strokeStyle = port.drawcolor + "A0";
+				}
+
+				ctx.beginPath();
+				ctx.moveTo(x_offset - i * 64, graph_margin_top);
+				ctx.lineTo(x_offset - i * 64, height - graph_margin_bottom);
+				ctx.stroke();
+			}	
+		} else {
+			ctx.beginPath();
+			ctx.moveTo(x_offset, graph_margin_top);
+			ctx.lineTo(x_offset, height - graph_margin_bottom);
+			ctx.stroke();
 		}
 
 		// Draw the X axis (based on the Y axis offset)
+
+		ctx.beginPath();
+		ctx.strokeStyle = "rgba(0, 0, 0, 0.3)";
 
 		ctx.moveTo(graph_margin_left, y_offset);
 		ctx.lineTo(width - graph_margin_right, y_offset);
@@ -593,6 +621,12 @@ function render_chart(ctx, width, height, draw_functions, draw_notes) {
 	ctx.restore();
 }
 
+/*
+ * render_graph_data(ctx, id, width, height, x_actual_offset, y_actual_offset, x_unit_in_px, y_unit_in_px, x_min, draw_functions)
+ * 
+ * Renders a curve on the graph with the given parameters and bounderies.
+ */
+
 function render_graph_data(ctx, id, width, height, x_actual_offset, y_actual_offset, x_unit_in_px, y_unit_in_px, x_min, draw_functions) {
 	ctx.beginPath();
 
@@ -643,10 +677,7 @@ function render_graph_data(ctx, id, width, height, x_actual_offset, y_actual_off
 		if(capture_cache.xy_mode || !color || !color.match("^#......$")) {
 			ctx.strokeStyle = "#0000FF80";
 		} else {
-			const r = (parseInt(color.slice(1, 3), 16) >> 1).toString(16).padStart(2, "0");
-			const g = (parseInt(color.slice(3, 5), 16) >> 1).toString(16).padStart(2, "0");
-			const b = (parseInt(color.slice(5, 7), 16) >> 1).toString(16).padStart(2, "0");
-			ctx.strokeStyle = "#" + r + g + b + "80";
+			ctx.strokeStyle = color_darken(color) + "80";
 		}
 
 		for(const fundef of capture.functions) {
@@ -783,11 +814,31 @@ function render_overlay(ovctx, width, height) {
 			while(offset > 0) {
 				offset -= 128;
 
-				ovctx.fillText(
-					"Y = " + localize_num(ideal_round_fixed(uh / (capture_cache.xy_mode ? 1 : capture_cache.ports[id].proportion), max[1])) + " " + ((id == 1) ? unit[1] : capture_cache.ports[id].unit),
-					width - graph_margin_right - offset,
-					graph_margin_top / 2
-				);
+				const text = "Y = " + localize_num(
+					ideal_round_fixed(
+						uh / (capture_cache.xy_mode ? 1 : capture_cache.ports[id].proportion),
+						max[1]
+					)
+				) + " " + ((id == 1) ? unit[1] : capture_cache.ports[id].unit);
+
+				const x = width - graph_margin_right - offset, y = graph_margin_top / 2;
+
+				const w = ovctx.measureText(text).width;
+
+				const port = capture.ports[capture_cache.ports[id].id];
+
+				if(capture_cache.xy_mode || !port.color || !port.drawcolor) {
+					ovctx.fillStyle = "white";
+				} else {
+					ovctx.fillStyle = port.drawcolor + "80";
+				}
+
+				ovctx.beginPath();
+				draw_rounded_rect(ovctx, x - w - 5, y - 14, w + 10, 26, 5);
+				ovctx.fill();			
+
+				ovctx.fillStyle = "black";
+				ovctx.fillText(text, x, y);
 
 				id++;
 			}
