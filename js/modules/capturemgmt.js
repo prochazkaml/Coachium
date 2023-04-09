@@ -28,8 +28,6 @@ function change_selected_capture(interval, absolute = undefined) {
 	if(interval < 0 && get_id("viewpreviousbutton").classList.contains("navbuttondisabled")) return;
 	if(interval > 0 && get_id("viewnextbutton").classList.contains("navbuttondisabled")) return;
 
-	var reset_zoom = true;
-
 	if(captures.length > 0) {
 		if(absolute != undefined && absolute != Infinity)
 			selected_capture = absolute;
@@ -45,10 +43,16 @@ function change_selected_capture(interval, absolute = undefined) {
 
 		capture = captures[selected_capture];
 
-		if(capture.zoom) {
-			zoom = capture.zoom;
-			reset_zoom = false;
+		if(!capture.zoom) {
+			capture.zoom = {
+				x1: 0,
+				y1: 0,
+				x2: 1,
+				y2: 1
+			};
 		}
+
+		zoom = capture.zoom;
 
 		capture_cache.values = [];
 
@@ -120,8 +124,6 @@ function change_selected_capture(interval, absolute = undefined) {
 		// Generate the cache data
 
 		generate_cache(0, Math.floor(capture.data.length / keys.length));
-
-		capture.zoom = zoom;
 	} else {
 		capture_cache.values = [];
 
@@ -130,7 +132,7 @@ function change_selected_capture(interval, absolute = undefined) {
 		capture = null;
 	}
 
-	main_window_reset(reset_zoom, false);
+	main_window_reset(false, false);
 
 	if(window_stack.includes(WINDOWID_FIT_FUNCTION)) fit_function();
 }
