@@ -112,8 +112,7 @@ const en = {
 		"WINDOW2_MODE_STD_DESC":
 			"In standard mode, you may select any amount of sensors to capture simultaneously " +
 			"(within the restrictions of the hardware). They will be displayed on the Y axis " +
-			"and will be compared to time. You can later hide some sensors, or generate an X-Y graph " +
-			"based on the data of any 2 captured sensors.",
+			"and will be compared to time.",
 		"WINDOW2_MODE_XY_DESC":
 			"In X-Y mode, you can select precisely 2 sensors, one for each axis (X, Y). " +
 			"Useful for comparing different quantities, where there is no need to display the time " +

@@ -111,8 +111,7 @@ const cs = {
 		"WINDOW2_MODE_XY": "Režim X-Y",
 		"WINDOW2_MODE_STD_DESC":
 			"V normálním režimu lze vybrat libovolné množství čidel (v rámci schopností hardwaru), " +
-			"které budou zaznamenávány zároveň a budou zobrazeny na ose Y v závislosti na čase. Je však i možné " +
-			"si později zobrazit jen některá čidla, nebo si vygenerovat X-Y graf se dvěma vybranými čidly.",
+			"které budou zaznamenávány zároveň a budou zobrazeny na ose Y v závislosti na čase.",
 		"WINDOW2_MODE_XY_DESC":
 			"V režimu X-Y si můžete vybrat právě 2 čidla, jedno pro každou osu (X, Y). " +
 			"Užitečné pro porovnávání různých veličin, kde není potřeba zobrazovat čas " +

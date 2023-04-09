@@ -1,5 +1,4 @@
 - allow for assignable proportions between waveforms
-- dialog for splitting captured data into separate captures (and XY mode)
 
 Before submitting:
 - make sure all comments correspond to the correct functions!
@@ -7,6 +6,7 @@ Before submitting:
 - thoroughly verify that all features work as expected!
 
 Future stuff:
+- dialog for splitting captured data into separate captures (and XY mode)
 - utility for analyzing data (optionally select a region, min/max/avg)
 - dedicated port popup (for enlarging a value of a given sensor)
 - calculation of area between 2 functions
