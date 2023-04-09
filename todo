@@ -1,7 +1,6 @@
 - allow for assignable proportions between waveforms
 - use drawcolors on the port's Y axis and immediate value (top right)
 - dialog for splitting captured data into separate captures (and XY mode)
-- PHP script for updating
 
 Before submitting:
 - make sure all comments correspond to the correct functions!
@@ -32,5 +31,6 @@ Future stuff:
 - support more devices I would have to beg for (non-CMA stuff)
 - translate to more languages than just English or Czech
 - the canvas is a blurry mess when the display scaling is not exactly 100 %
+- Google Drive file opening with Google Picker API
 - draw using WebGL (faster) - probably need to write a shader program?
 - dark mode?

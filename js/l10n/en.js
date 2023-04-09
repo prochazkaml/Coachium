@@ -61,10 +61,10 @@ const en = {
 		"TITLE_CAPTURE_INFO": "Display this capture's details [I]",
 		"TITLE_ADVANCED_FEATURES": "Advanced features",
 		"TITLE_TOOLBOX": "Other tools",
+		"TITLE_HELP": "Help",
 
 		"TOOLBOX_CALCULATOR": "Calculator",
 		"TOOLBOX_CONVERTER": "Unit converter",
-		"TOOLBOX_HELP": "Help",
 		"TOOLBOX_ABOUT": "About Coachium...",
 
 		// Popup window buttons

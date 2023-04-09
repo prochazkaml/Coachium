@@ -61,6 +61,7 @@ const cs = {
 		"TITLE_CAPTURE_INFO": "Zobrazit podrobnosti tohoto záznamu [I]",
 		"TITLE_ADVANCED_FEATURES": "Pokročilé možnosti",
 		"TITLE_TOOLBOX": "Ostatní nástroje",
+		"TITLE_HELP": "Nápověda",
 
 		// Popup window buttons
 
@@ -76,7 +77,6 @@ const cs = {
 
 		"TOOLBOX_CALCULATOR": "Kalkulačka",
 		"TOOLBOX_CONVERTER": "Převodník jednotek",
-		"TOOLBOX_HELP": "Nápověda",
 		"TOOLBOX_ABOUT": "O programu Coachium...",
 
 		// Window contents

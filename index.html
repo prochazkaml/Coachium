@@ -115,6 +115,12 @@
 				<div class="navbutton" id="captureinfobutton"><img src="assets/icons/info.svg" class="L10N_TITLE_CAPTURE_INFO" onclick="show_capture_info();"></div>
 				<div class="navspacer"></div>
 				<div class="navbutton" id="toolboxbutton"><img src="assets/icons/toolbox.svg" class="L10N_TITLE_TOOLBOX" onclick="show_toolbox();"></div>
+				<div class="navspacer"></div>
+				<div class="navbutton" id="helpbutton">
+					<a href="#about" target="_blank" style="text-decoration: none;">
+						<img src="assets/icons/help.svg" class="L10N_TITLE_HELP" onclick="close_popup();">
+					</a>
+				</div>
 			</div>
 		</nav>
 
@@ -145,10 +151,6 @@
 				<img src="assets/icons/converter.svg">
 				<span class="L10N_TOOLBOX_CONVERTER"></span>
 			</div>
-			<a href="#about" target="_blank" style="text-decoration: none;"><div class="popupitem" id="toolboxpopup_help" onclick="close_popup();">
-				<img src="assets/icons/help.svg">
-				<span class="L10N_TOOLBOX_HELP"></span>
-			</div></a>
 			<div class="popupitem" id="toolboxpopup_about" onclick="close_popup(); popup_window(WINDOWID_ABOUT);">
 				<img src="assets/icons/info.svg">
 				<span class="L10N_TOOLBOX_ABOUT"></span>
