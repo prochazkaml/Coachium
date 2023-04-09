@@ -1,7 +1,5 @@
 Before submitting:
 - make sure all comments correspond to the correct functions!
-- run it through a HTML/CSS validator (both cached/uncached)!!!
-- thoroughly verify that all features work as expected!
 
 Future stuff:
 - allow for assignable proportions between waveforms
