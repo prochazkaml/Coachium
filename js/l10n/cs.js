@@ -298,6 +298,7 @@ const cs = {
 		"TABLE_FUN_EXPONENTIAL": "Exponenciální",
 		"TABLE_FUN_LOGARITHMIC": "Logaritmická",
 		"TABLE_FUN_POWER": "Mocninná",
+		"TABLE_FUN_SINE": "Goniometrická",
 
 		"DEFAULT_FILENAME": "{0} – Laboratorní práce – {1}",
 		"DEFAULT_USERNAME": "Jan Novák",

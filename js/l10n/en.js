@@ -305,6 +305,7 @@ const en = {
 		"TABLE_FUN_EXPONENTIAL": "Exponential",
 		"TABLE_FUN_LOGARITHMIC": "Logarithmic",
 		"TABLE_FUN_POWER": "Power",
+		"TABLE_FUN_SINE": "Trigonometric",
 
 		"DEFAULT_FILENAME": "{0} – Laboratory work – {1}",
 		"DEFAULT_USERNAME": "John Doe",
