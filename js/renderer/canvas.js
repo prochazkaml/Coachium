@@ -385,7 +385,7 @@ function render_chart(ctx, width, height, draw_functions, draw_notes) {
 				const port = capture.ports[capture_cache.ports[i + 1].id];
 				
 				if(port.color && port.drawcolor) {
-					ctx.strokeStyle = port.drawcolor + "A0";
+					ctx.strokeStyle = color_darken(port.drawcolor) + "80";
 				}
 
 				ctx.beginPath();
