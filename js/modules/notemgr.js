@@ -55,7 +55,7 @@ function note_manager() {
 
 	for(var i = 0; i < capture.notes.length; i++) {
 		option = document.createElement("option");
-		option.innerHTML = (i + 1) + ") " + capture.notes[i].text;
+		option.innerText = (i + 1) + ") " + capture.notes[i].text;
 
 		select.appendChild(option);
 	}

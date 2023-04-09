@@ -257,7 +257,7 @@ function capture_management() {
 
 	for(var i = 0; i < captures.length; i++) {
 		var option = document.createElement("option");
-		option.innerHTML = (i + 1) + ") " + captures[i].title;
+		option.innerText = (i + 1) + ") " + captures[i].title;
 
 		select.appendChild(option);
 	}
