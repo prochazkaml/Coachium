@@ -44,7 +44,7 @@ function new_file(are_you_sure) {
 /*
  * load_file_local(are_you_sure)
  * 
- * Loads a JSON file from local storage and processes it.
+ * Loads a .coachium file from local storage and processes it.
  * 
  * For extra safety, it throws a warning, since loading another file
  * will erase all current work.
@@ -53,11 +53,7 @@ function new_file(are_you_sure) {
 function load_file_local(are_you_sure) {
 	if(get_id("openbutton").classList.contains("navbuttondisabled")) return;
 
-	if(captures.length > 0 && !are_you_sure) {
-		// Let's not risk if we have some captures in memory
-
-		popup_window(WINDOWID_IMPORT_OVERWRITE_WARN);
-	} else {
+	if(can_safely_load(load_file_local, are_you_sure)) {
 		var element = document.createElement("input");
 
 		element.type = "file";
@@ -67,30 +63,66 @@ function load_file_local(are_you_sure) {
 			reader = new FileReader();
 
 			reader.onload = (x) => {
-				try {
-					var data = JSON.parse(LZString.decompressFromUint8Array(new Uint8Array(x.target.result)));
-
-					// Detect "version 0" files
-
-					if(Array.isArray(data)) {
-						captures = data;
-					} else {
-						captures = data.captures;
-					}
-
-					change_selected_capture(0, 0);
-
-					get_id("statusmsg").innerHTML = jslang.STATUS_FILE_LOADED;
-				} catch(e) {
-					console.log(e);
-					popup_window(WINDOWID_FILE_IMPORT_ERR);
-				}
+				parse_loaded_data(x.target.result);
 			};
 
 			reader.readAsArrayBuffer(element.files[0]);
 		};
 
 		element.click();
+	}
+}
+
+/*
+ * can_safely_load(succ_cb, are_you_sure)
+ * 
+ * Checks whether a file can be safely loaded.
+ * If not, pops up a warning dialog and if it is confirmed,
+ * it calls the callback with "true" (succ_cb(true)).
+ */
+
+var can_safely_load_cb;
+
+function can_safely_load(succ_cb, are_you_sure) {
+	if(are_you_sure) return true;
+
+	can_safely_load_cb = succ_cb;
+
+	if(captures.length > 0) {
+		// Let's not risk if we have some captures in memory
+
+		popup_window(WINDOWID_IMPORT_OVERWRITE_WARN);
+
+		return false;
+	} else {
+		return true;
+	}
+}
+
+/*
+ * parse_loaded_data(data)
+ * 
+ * Parses a loaded .coachium file (ArrayBuffer).
+ */
+
+function parse_loaded_data(data) {
+	try {
+		var data = JSON.parse(LZString.decompressFromUint8Array(new Uint8Array(data)));
+
+		// Detect "version 0" files
+
+		if(Array.isArray(data)) {
+			captures = data;
+		} else {
+			captures = data.captures;
+		}
+
+		change_selected_capture(0, 0);
+
+		get_id("statusmsg").innerHTML = jslang.STATUS_FILE_LOADED;
+	} catch(e) {
+		console.log(e);
+		popup_window(WINDOWID_FILE_IMPORT_ERR);
 	}
 }
 
@@ -129,6 +161,8 @@ function save_file_local(name_chosen) {
 
 		get_id("statusmsg").innerHTML = jslang.STATUS_FILE_SAVED;
 	} else {
+		// TODO - consolidate this into a file save single dialog
+
 		if(inputfield.value == "񂁩MISSING") {
 			var d = new Date();
 			var str = d.getDate() + ". " + (d.getMonth() + 1) + ". " + d.getFullYear();

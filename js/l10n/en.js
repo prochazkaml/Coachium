@@ -44,6 +44,7 @@ const en = {
 
 		"TITLE_NEW_FILE": "Remove all captures and create a new workbook",
 		"TITLE_OPEN_FILE": "Open a workbook file from your computer [Ctrl+O]",
+		"TITLE_OPEN_GDRIVE": "Open a workbook file from your Google Drive [Ctrl+Shift+O]",
 		"TITLE_SAVE_FILE": "Save this workbook to your computer [Ctrl+S]",
 		"TITLE_SAVE_GDRIVE": "Save this workbook to your Google Drive [Ctrl+Shift+S]",
 		"TITLE_NEW_CAPTURE": "Add a new capture to your workbook [Space]",
@@ -133,15 +134,7 @@ const en = {
 		"WINDOW3_TITLE": "Workbook saved!",
 		"WINDOW3_LINK": "Here is the link to your saved workbook on your Google Drive.",
 
-		"WINDOW4_TITLE": "Something went wrong.",
-		"WINDOW4_PAR0": "Error saving the workbook to Google Drive:",
-
-		"WINDOW5_TITLE": "Something went wrong.",
-		"WINDOW5_PAR0": "Error connecting to Google services:",
-		"WINDOW5_PAR1":
-			"The ability to save to Google Drive will<br>" +
-			"thus be highly unlikely to function.",
-		"WINDOW5_PAR2": "We apologize for the inconvenience.",
+		"WINDOW4_MSG": "Please wait, contacting Google Services...",
 
 		"WINDOW6_TITLE": "How will be the workbook called?",
 

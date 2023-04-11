@@ -44,6 +44,7 @@ const cs = {
 
 		"TITLE_NEW_FILE": "Zahodit všechny záznamy a vytvořit nový sešit záznamů",
 		"TITLE_OPEN_FILE": "Otevřít sešit záznamů z počítače [Ctrl+O]",
+		"TITLE_OPEN_GDRIVE": "Otevřít sešit záznamů z Google Disku [Ctrl+Shift+O]",
 		"TITLE_SAVE_FILE": "Uložit sešit záznamů do počítače [Ctrl+S]",
 		"TITLE_SAVE_GDRIVE": "Uložit sešit záznamů na Google Disk [Ctrl+Shift+S]",
 		"TITLE_NEW_CAPTURE": "Přidat nový záznam do sešitu [Mezerník]",
@@ -132,15 +133,7 @@ const cs = {
 		"WINDOW3_TITLE": "Sešit uložen!",
 		"WINDOW3_LINK": "Zde je odkaz na uložený soubor sešitu záznamů na Vašem Google Disku.",
 
-		"WINDOW4_TITLE": "Něco se pokazilo.",
-		"WINDOW4_PAR0": "Chyba ukládání sešitu záznamu na Google Disk:",
-
-		"WINDOW5_TITLE": "Něco se pokazilo.",
-		"WINDOW5_PAR0": "Chyba připojování ke službám Google:",
-		"WINDOW5_PAR1":
-			"Funkce uložení sešitu záznamu na Google Disk proto<br>" +
-			"s největší pravděpodobností fungovat nebude.",
-		"WINDOW5_PAR2": "Omlouváme se za způsobené nepříjemnosti.",
+		"WINDOW4_MSG": "Prosím vyčkejte, komunikuji se službami Google...",
 
 		"WINDOW6_TITLE": "Jak se bude uložený sešit jmenovat?",
 

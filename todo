@@ -6,6 +6,9 @@ Future stuff:
 - calculation of area between 2 functions
 	- fitted function or axis (with offset) can also be selected as a source
 	- snapping to intersection points
+- remember file name when loading file for saving later
+- make the Google Drive icons in their own submenus
+- consolidate Google Drive and local save file name dialogs
 - function manager for adding custom functions
 - show value on the graph when hovering over a data point
 - enable "finish" trigger (use one of the sensors for stopping the capture)

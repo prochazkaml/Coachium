@@ -44,17 +44,23 @@ document.addEventListener('keydown', (event) => {
 		if(event.ctrlKey) switch(key) {
 			case "o":
 				event.preventDefault();
-				load_file_local(false);
+
 				if(!launched) ui_connect(false);
+
+				if(event.shiftKey)
+					gdrive_load_file(false);
+				else
+					load_file_local(false);
+
 				break;
 
 			case "s":
-				if(!launched) break;
-
 				event.preventDefault();
 
+				if(!launched) break;
+
 				if(event.shiftKey)
-					popup_gdrive_window();
+					gdrive_save_file(false);
 				else
 					save_file_local(false);
 
