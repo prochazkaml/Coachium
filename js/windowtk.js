@@ -20,7 +20,7 @@
 
 var open_window = -1, window_stack = [], zindex = 10, closetimeoutids = [];
 
-// FREE IDs: 5
+// FREE IDs: 5, 6
 
 // General windows
 
@@ -52,7 +52,6 @@ const WINDOWID_TOOLBOX_CONVERTER = 30;
 
 const WINDOWID_GDRIVE_SAVE_OK = 3;
 const WINDOWID_GDRIVE_WORKING = 4;
-const WINDOWID_GDRIVE_NAME = 6;
 const WINDOWID_GDRIVE_SUBSYS_ERR = 24;
 
 // Driver/hardware windows

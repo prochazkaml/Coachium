@@ -345,20 +345,6 @@
 			</div>
 		</div>
 
-		<div id="window6overlay" class="windowoverlay">
-			<div class="windowcloselayer" onclick="close_window(6);"></div>
-			<div class="popupwindow">
-				<h1 class="L10N_WINDOW6_TITLE"></h1>
-
-				<br><input style="width: 100%" type="text" value="񂁩MISSING"><br>
-
-				<div class="windowbuttonlist">
-					<div class="windowbutton L10N_BUTTON_SAVE" onclick="close_window(6);setTimeout(()=>{gdrive_save_file(true);},400);"></div>
-					<div class="windowbutton L10N_BUTTON_CLOSE" onclick="close_window(6);"></div>
-				</div>
-			</div>
-		</div>
-
 		<div id="window7overlay" class="windowoverlay">
 			<div class="windowcloselayer" onclick="close_window(7);"></div>
 			<div class="popupwindow">
@@ -515,7 +501,7 @@
 				<br><input style="width: 100%" type="text" value="񂁩MISSING"><br>
 
 				<div class="windowbuttonlist">
-					<div class="windowbutton L10N_BUTTON_SAVE" onclick="close_window(16);save_file_local(true);"></div>
+					<div class="windowbutton L10N_BUTTON_SAVE" onclick="close_window(16); file_name_popup_cb(true);"></div>
 					<div class="windowbutton L10N_BUTTON_CLOSE" onclick="close_window(16);"></div>
 				</div>
 			</div>

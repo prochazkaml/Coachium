@@ -153,61 +153,37 @@ function gdrive_is_loaded(succ_cb) {
 function gdrive_save_file(name_chosen) {
 	if(get_id("savegdrivebutton").classList.contains("navbuttondisabled")) return;
 
-	if(gdrive_is_loaded(gdrive_save_file) && gdrive_get_token(gdrive_save_file)) {
+	if(!name_chosen) {
+		file_name_popup(gdrive_save_file);
+	} else if(gdrive_is_loaded(gdrive_save_file) && gdrive_get_token(gdrive_save_file)) {
 		// Thank you, kind stranger: https://stackoverflow.com/a/35182924
 
-		if(!name_chosen) {
-			// TODO - consolidate this into a file save single dialog
+		popup_window(WINDOWID_GDRIVE_WORKING);
+		
+		var metadata = {
+			'name': get_selected_file_name() + ".coachium",
+			'mimeType': 'application/octet-stream'
+		};
 
-			inputfield = get_win_el_tag(WINDOWID_GDRIVE_NAME, "input");
+		var payload = new FormData();
+		payload.append('metadata', new Blob([JSON.stringify(metadata)], {type: 'application/json'}));
+		payload.append('file', new Blob([new Uint8Array(Array.from(generate_save_data()))]));
 
-			if(inputfield.value == "񂁩MISSING") {
-				var d = new Date();
-				var str = d.getDate() + ". " + (d.getMonth() + 1) + ". " + d.getFullYear();
-				inputfield.value = format(jslang.DEFAULT_FILENAME, jslang.DEFAULT_USERNAME, str);
+		xhr = new XMLHttpRequest();
+		xhr.responseType = 'json';
+		xhr.open('post', 'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart');
+		xhr.setRequestHeader('Authorization', 'Bearer ' + access_token);
+		xhr.onloadend = () => {
+			close_window(WINDOWID_GDRIVE_WORKING);
 
-				setTimeout(() => {
-					inputfield.select();
-					inputfield.selectionStart = 0;
-					inputfield.selectionEnd = jslang.DEFAULT_USERNAME.length;
-				}, 100);
+			if(!xhr.response.id) {
+				throw new GoogleServicesError(xhr.response);
 			} else {
-				setTimeout(() => {
-					inputfield.select();
-				}, 100);
+				get_win_el_tag(WINDOWID_GDRIVE_SAVE_OK, "a").href = "https://drive.google.com/file/d/" + xhr.response.id;
+				popup_window(WINDOWID_GDRIVE_SAVE_OK);				
 			}
-
-			popup_window(WINDOWID_GDRIVE_NAME);
-		} else {
-			popup_window(WINDOWID_GDRIVE_WORKING);
-			
-			var name = get_win_el_tag(WINDOWID_GDRIVE_NAME, "input").value;
-
-			var metadata = {
-				'name': name + ".coachium",
-				'mimeType': 'application/octet-stream'
-			};
-
-			var payload = new FormData();
-			payload.append('metadata', new Blob([JSON.stringify(metadata)], {type: 'application/json'}));
-			payload.append('file', new Blob([new Uint8Array(Array.from(generate_save_data()))]));
-
-			xhr = new XMLHttpRequest();
-			xhr.responseType = 'json';
-			xhr.open('post', 'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart');
-			xhr.setRequestHeader('Authorization', 'Bearer ' + access_token);
-			xhr.onloadend = () => {
-				close_window(WINDOWID_GDRIVE_WORKING);
-
-				if(!xhr.response.id) {
-					throw new GoogleServicesError(xhr.response);
-				} else {
-					get_win_el_tag(WINDOWID_GDRIVE_SAVE_OK, "a").href = "https://drive.google.com/file/d/" + xhr.response.id;
-					popup_window(WINDOWID_GDRIVE_SAVE_OK);				
-				}
-			};
-			xhr.send(payload);
-		}
+		};
+		xhr.send(payload);
 	}
 }
 

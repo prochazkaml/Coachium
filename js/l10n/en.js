@@ -136,8 +136,6 @@ const en = {
 
 		"WINDOW4_MSG": "Please wait, contacting Google Services...",
 
-		"WINDOW6_TITLE": "How will be the workbook called?",
-
 		"WINDOW7_TITLE": "<span id='w7titleapi'></span> error",
 		"WINDOW7_PAR0":
 			"It seems that your web browser does not support<br>" +

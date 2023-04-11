@@ -8,7 +8,6 @@ Future stuff:
 	- snapping to intersection points
 - remember file name when loading file for saving later
 - make the Google Drive icons in their own submenus
-- consolidate Google Drive and local save file name dialogs
 - function manager for adding custom functions
 - show value on the graph when hovering over a data point
 - enable "finish" trigger (use one of the sensors for stopping the capture)
@@ -27,6 +26,5 @@ Future stuff:
 - support more devices I would have to beg for (non-CMA stuff)
 - translate to more languages than just English or Czech
 - the canvas is a blurry mess when the display scaling is not exactly 100 %
-- Google Drive file opening with Google Picker API
 - draw using WebGL (faster) - probably need to write a shader program?
 - dark mode?

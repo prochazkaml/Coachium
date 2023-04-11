@@ -135,8 +135,6 @@ const cs = {
 
 		"WINDOW4_MSG": "Prosím vyčkejte, komunikuji se službami Google...",
 
-		"WINDOW6_TITLE": "Jak se bude uložený sešit jmenovat?",
-
 		"WINDOW7_TITLE": "Chyba <span id='w7titleapi'></span>",
 		"WINDOW7_PAR0":
 			"Zdá se, že Váš prohlížeč nedpodporuje <span id='w7parapi'></span>,<br>" +

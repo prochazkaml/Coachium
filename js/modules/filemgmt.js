@@ -127,6 +127,55 @@ function parse_loaded_data(data) {
 }
 
 /*
+ * file_name_popup(succ_cb)
+ * 
+ * Pops up a dialog for naming an output file.
+ * If the selection is confirmed, the callback is called
+ * with the parameter "true".
+ */
+
+var file_name_popup_cb;
+
+function file_name_popup(succ_cb) {
+	file_name_popup_cb = succ_cb;
+
+	var inputfield = get_win_el_tag(WINDOWID_LOCAL_SAVE_NAME, "input");
+
+	if(inputfield.value == "񂁩MISSING") {
+		var d = new Date();
+		var str = d.getDate() + ". " + (d.getMonth() + 1) + ". " + d.getFullYear();
+		inputfield.value = format(jslang.DEFAULT_FILENAME, jslang.DEFAULT_USERNAME, str);
+
+		setTimeout(() => {
+			inputfield.select();
+			inputfield.selectionStart = 0;
+			inputfield.selectionEnd = jslang.DEFAULT_USERNAME.length;
+		}, 100);
+	} else {
+		setTimeout(() => {
+			inputfield.select();
+		}, 100);
+	}
+
+	popup_window(WINDOWID_LOCAL_SAVE_NAME);
+}
+
+/*
+ * get_selected_file_name()
+ * 
+ * The callback of file_name_popup(...) should call
+ * this function to get the desired file name.
+ * 
+ * It was made as a separate function, as the file name
+ * could get lost in callback hell if it was passed as
+ * a parameter to the callback.
+ */
+
+function get_selected_file_name() {
+	return get_win_el_tag(WINDOWID_LOCAL_SAVE_NAME, "input").value;
+}
+
+/*
  * generate_save_data()
  * 
  * Returns a Uint8Array containing binary data for saving.
@@ -148,38 +197,18 @@ function generate_save_data() {
 function save_file_local(name_chosen) {
 	if(get_id("savebutton").classList.contains("navbuttondisabled")) return;
 
-	var inputfield = get_win_el_tag(WINDOWID_LOCAL_SAVE_NAME, "input");
-
 	if(name_chosen) {
 		// Generate a fictional "a" element for saving the file
 
 		save_file(
 			generate_save_data(),
-			inputfield.value + ".coachium",
+			get_selected_file_name() + ".coachium",
 			"application/octet-stream"
 		);
 
 		get_id("statusmsg").innerHTML = jslang.STATUS_FILE_SAVED;
 	} else {
-		// TODO - consolidate this into a file save single dialog
-
-		if(inputfield.value == "񂁩MISSING") {
-			var d = new Date();
-			var str = d.getDate() + ". " + (d.getMonth() + 1) + ". " + d.getFullYear();
-			inputfield.value = format(jslang.DEFAULT_FILENAME, jslang.DEFAULT_USERNAME, str);
-
-			setTimeout(() => {
-				inputfield.select();
-				inputfield.selectionStart = 0;
-				inputfield.selectionEnd = jslang.DEFAULT_USERNAME.length;
-			}, 100);
-		} else {
-			setTimeout(() => {
-				inputfield.select();
-			}, 100);
-		}
-
-		popup_window(WINDOWID_LOCAL_SAVE_NAME);
+		file_name_popup(save_file_local);
 	}
 }
 
