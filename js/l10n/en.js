@@ -30,7 +30,7 @@ const en = {
 		// Button descriptions
 
 		"BUTTON_CONNECT": "Connect to device",
-		"BUTTON_START_GUEST": "Start in guest mode",
+		"BUTTON_START_GUEST": "Open a workbook file",
 		"BUTTON_CLOSE": "Close",
 		"BUTTON_START": "Start",
 		"BUTTON_TRYAGAIN": "Try again",

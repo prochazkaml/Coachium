@@ -30,7 +30,7 @@ const cs = {
 		// Button descriptions
 
 		"BUTTON_CONNECT": "Připojit se k zařízení",
-		"BUTTON_START_GUEST": "Spustit v režimu hosta",
+		"BUTTON_START_GUEST": "Otevřít sešit záznamů",
 		"BUTTON_CLOSE": "Zavřít",
 		"BUTTON_START": "Spustit",
 		"BUTTON_TRYAGAIN": "Zkusit znovu",
@@ -43,7 +43,7 @@ const cs = {
 		// Button titles on the top bar
 
 		"TITLE_NEW_FILE": "Zahodit všechny záznamy a vytvořit nový sešit záznamů",
-		"TITLE_OPEN_FILE": "Nahrát sešit záznamů z počítače [Ctrl+O]",
+		"TITLE_OPEN_FILE": "Otevřít sešit záznamů z počítače [Ctrl+O]",
 		"TITLE_SAVE_FILE": "Uložit sešit záznamů do počítače [Ctrl+S]",
 		"TITLE_SAVE_GDRIVE": "Uložit sešit záznamů na Google Disk [Ctrl+Shift+S]",
 		"TITLE_NEW_CAPTURE": "Přidat nový záznam do sešitu [Mezerník]",
