@@ -136,6 +136,9 @@ const en = {
 
 		"WINDOW4_MSG": "Please wait, contacting Google Services...",
 
+		"WINDOW5_TITLE": "Window too small",
+		"WINDOW5_PAR0": "Your screen does not meet the<br>minimum required screen size.",
+
 		"WINDOW7_TITLE": "<span id='w7titleapi'></span> error",
 		"WINDOW7_PAR0":
 			"It seems that your web browser does not support<br>" +

@@ -20,12 +20,15 @@
 
 var open_window = -1, window_stack = [], zindex = 10, closetimeoutids = [];
 
-// FREE IDs: 5, 6
+// FREE IDs: 6
+
+const WINDOWID_LAST_WINDOW = 30;
 
 // General windows
 
 const WINDOWID_ABOUT = 0;
 const WINDOWID_JS_ERR = 1;
+const WINDOWID_SIZE_WARNING = 5;
 
 // Capture/file management windows
 
@@ -86,11 +89,13 @@ const WINDOWID_LANGUAGE_ERROR = 15;
  */
 
 function get_win_overlay(win_id) {
-	return get_id("window" + win_id + "overlay");
+	return win_id <= WINDOWID_LAST_WINDOW ? get_id("window" + win_id + "overlay") : null;
 }
 
 function get_win(win_id) {
-	return get_win_overlay(win_id).get_class("popupwindow");
+	var overlay = get_win_overlay(win_id)
+
+	return overlay ? overlay.get_class("popupwindow") : null;
 }
 
 function get_win_el_class(win_id, el_class, index = 0) {

@@ -135,6 +135,9 @@ const cs = {
 
 		"WINDOW4_MSG": "Prosím vyčkejte, komunikuji se službami Google...",
 
+		"WINDOW5_TITLE": "Okno příliš malé",
+		"WINDOW5_PAR0": "Vaše obrazovka nesplňuje minimální<br>požadavky na rozměry obrazovky.",
+
 		"WINDOW7_TITLE": "Chyba <span id='w7titleapi'></span>",
 		"WINDOW7_PAR0":
 			"Zdá se, že Váš prohlížeč nedpodporuje <span id='w7parapi'></span>,<br>" +

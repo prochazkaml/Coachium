@@ -94,6 +94,37 @@ function window_onload() {
 	canvas.onmouseleave = canvasmouseleavehandler;
 	canvas.onwheel = canvasmousewheelhandler;
 
+	// Check the largest width/height of any window
+
+	var max_w = 0, max_h = 0;
+
+	for(var i = 0; i <= WINDOWID_LAST_WINDOW; i++) {
+		var win = get_win(i);
+
+		if(win) {
+			var box = win.getBoundingClientRect();
+
+			console.log(box);
+
+			if(box.width > max_w) max_w = box.width;
+			if(box.height > max_h) max_h = box.height;
+		}
+	}
+
+	max_w *= 10 / 9;
+	max_h *= 10 / 9;
+
+	// Set up the callback for window change
+
+	window.onresize = () => {
+		if(window.innerWidth < max_w || window.innerHeight < max_h)
+			popup_window(WINDOWID_SIZE_WARNING);
+		else
+			close_window(WINDOWID_SIZE_WARNING);
+	};
+
+	window.onresize();
+
 	// Check the version
 
 	check_version();
