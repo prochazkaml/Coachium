@@ -192,6 +192,8 @@ const en = {
 			"English will be now used as a fallback.",
 		"WINDOW15_PAR1": "We apologize for the inconvenience.",
 
+		"WINDOW16_TITLE": "How will be the workbook called?",
+
 		"WINDOW17_TITLE": "Capture properties",
 
 		"WINDOW18_TITLE": "Device selection",

@@ -185,6 +185,8 @@ const cs = {
 
 		"WINDOW13_TITLE": "Správce záznamů",
 
+		"WINDOW16_TITLE": "Jak se bude uložený sešit jmenovat?",
+
 		"WINDOW17_TITLE": "Podrobnosti záznamu",
 
 		"WINDOW18_TITLE": "Výběr zařízení",
