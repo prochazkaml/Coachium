@@ -1,3 +1,6 @@
+Caching system:
+- do not download timestamp if there is no connection
+
 Hardware/Capture:
 - sensor calibration
 - dedicated port popup (for enlarging a value of a given sensor)
