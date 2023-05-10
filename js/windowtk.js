@@ -89,7 +89,7 @@ const WINDOWID_LANGUAGE_ERROR = 15;
  */
 
 function get_win_overlay(win_id) {
-	return win_id <= WINDOWID_LAST_WINDOW ? get_id("window" + win_id + "overlay") : null;
+	return get_id("window" + win_id + "overlay");
 }
 
 function get_win(win_id) {
