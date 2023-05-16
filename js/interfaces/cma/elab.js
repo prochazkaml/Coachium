@@ -319,7 +319,7 @@ class CMA_ELab_driver {
 
 		// Check the capture length against the interface's available memory
 
-		var len = Math.floor(setup.length * 10 / units) + 1; // 1 initial sample is enforced
+		var len = Math.floor(setup.length * 10 / (units ? units : .25)) + 1; // 1 initial sample is enforced
 
 		if(len < 2) {
 			// Minimum of 2 samples, to at least produce a line
