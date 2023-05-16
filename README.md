@@ -30,6 +30,7 @@ We strongly hope that we have introduced to you what Coachium actually is, and w
 - Multiple language support (currently only English and Czech are implemented)
 - Capturing data in real time into charts or tables (interchangable)
 - Save a near infinite number of captures to a single workbook file (as opposed to Coach, which can only save a single capture per file), which can be then saved locally or to Google Drive (for submitting directly to Google Classroom, for example)
+- Loading workbook files from local storage or Google Drive
 - Can be loaded offline (thanks to the caching system) after first launch, as it installs itself into the browser's cache (only available in the [cached version](https://github.com/prochazkaml/CoachiumCached))
 
 ## Project roadmap
@@ -74,11 +75,7 @@ git pull
 
 ## How does Google Drive functionality work?
 
-By default, on your own instance, all Google Drive-related functionality will not be accessible, because your origin is not on the list of the [allowed domains](https://github.com/prochazkaml/Coachium/blob/master/gdrive.html#L8).
-
-Simply modifying your gdrive.html file will not work, since the app does not fetch this particular file from your instance, but from the [central instance](https://coachium.prochazkaml.eu/), because the Google client ID used in gdrive.html is tied to that particular domain.
-
-Restricting access from unknown origins was done to prevent API abuse by applications other than Coachium and to pass the Google verification process.
+By default, on your own instance, all Google Drive-related functionality will not be accessible, because your origin is not on the list of the allowed domains. Restricting access from unknown origins was done to prevent API abuse by applications other than Coachium and to pass the Google verification process.
 
 Instructions for applying for a request to enable your domain name in the central instance will be published at a later date.
 
